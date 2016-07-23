@@ -88,7 +88,11 @@ Task("Build")
     .IsDependentOn("NuGetRestore")
     .Does(() =>
     {
-	BuildSolution(SOLUTION_FILE, configuration);
+        DotNetBuild(SOLUTION_FILE, settings => settings
+            .WithTarget("Build")
+            .SetConfiguration(configuration)
+            .SetVerbosity(Verbosity.Minimal)
+        );
     });
 
 //////////////////////////////////////////////////////////////////////
@@ -133,31 +137,6 @@ Task("Package")
             OutputDirectory = PACKAGE_DIR
         });
     });
-
-//////////////////////////////////////////////////////////////////////
-// HELPER METHODS
-//////////////////////////////////////////////////////////////////////
-
-void BuildSolution(string solutionPath, string configuration)
-{
-    if (IsRunningOnWindows())
-    {
-        MSBuild(solutionPath, new MSBuildSettings()
-            .SetConfiguration(configuration)
-            .SetMSBuildPlatform(MSBuildPlatform.x86)
-            .SetVerbosity(Verbosity.Minimal)
-            .SetNodeReuse(false)
-        );
-    }
-    else
-    {
-        XBuild(solutionPath, new XBuildSettings()
-            .WithTarget("Build")
-            .WithProperty("Configuration", configuration)
-            .SetVerbosity(Verbosity.Minimal)
-        );
-    }
-}
 
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
