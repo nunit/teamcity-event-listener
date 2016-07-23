@@ -7,8 +7,8 @@
     <ProjectGuid>{709AFF60-B15E-43D5-830A-F22E4701D8B8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>tests</RootNamespace>
-    <AssemblyName>tests</AssemblyName>
+    <RootNamespace>NUnit.Engine.Listeners</RootNamespace>
+    <AssemblyName>teamcity-event-listener.tests</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

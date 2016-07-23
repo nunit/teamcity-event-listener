@@ -47,18 +47,13 @@ var packageName = "NUnit3TestAdapter-" + packageVersion;
 // Directories
 var PROJECT_DIR = Context.Environment.WorkingDirectory.FullPath + "/";
 var PACKAGE_DIR = PROJECT_DIR + "package/";
-var PACKAGE_IMAGE_DIR = PACKAGE_DIR + packageName + "/";
 var TOOLS_DIR = PROJECT_DIR + "tools/";
 var BIN_DIR = PROJECT_DIR + "bin/" + configuration + "/";
 
-// Solutions
+// Files
 var SOLUTION_FILE = PROJECT_DIR + "teamcity-event-listener.sln";
-
-// Test Runner
 var NUNIT3_CONSOLE = TOOLS_DIR + "NUnit.ConsoleRunner/tools/nunit3-console.exe";
-
-// Test Assemblies
-var TEST_ASSEMBLY = BIN_DIR + "NUnit.VisualStudio.TestAdapter.Tests.dll";
+var TEST_ASSEMBLY = BIN_DIR + "teamcity-event-listener.tests.dll";
 
 //////////////////////////////////////////////////////////////////////
 // CLEAN
@@ -121,37 +116,12 @@ Task("Test")
 // PACKAGE
 //////////////////////////////////////////////////////////////////////
 
-Task("CreatePackageDir")
-	.Does(() =>
-	{
-		CreateDirectory(PACKAGE_DIR);
-	});
-
-Task("CreateWorkingImage")
-	.IsDependentOn("Build")
-	.IsDependentOn("CreatePackageDir")
-	.Does(() =>
-	{
-		CreateDirectory(PACKAGE_IMAGE_DIR);
-		CleanDirectory(PACKAGE_IMAGE_DIR);
-
-		CopyFileToDirectory("LICENSE.txt", PACKAGE_IMAGE_DIR);
-
-		var binFiles = new FilePath[]
-		{
-			BIN_DIR + "teamcity-event-listener.dll",
-			BIN_DIR + "nunit.engine.api.dll"
-		};
-
-		var binDir = PACKAGE_IMAGE_DIR + "bin/";
-		CreateDirectory(binDir);
-		CopyFiles(binFiles, binDir);
-	});
-
 Task("Package")
-	.IsDependentOn("CreateWorkingImage")
+	.IsDependentOn("Build")
 	.Does(() => 
 	{
+		CreateDirectory(PACKAGE_DIR);
+
         NuGetPack("teamcity-event-listener.nuspec", new NuGetPackSettings()
         {
             Version = packageVersion,
