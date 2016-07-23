@@ -70,9 +70,15 @@ Task("Clean")
 
 Task("NuGetRestore")
     .Does(() =>
-{
-    NuGetRestore(SOLUTION_FILE);
-});
+    {
+        NuGetRestore(
+            SOLUTION_FILE,
+            new NuGetRestoreSettings()
+            {
+                WorkingDirectory = PROJECT_DIR,
+                ConfigFile = "NuGet.config"
+            });
+    });
 
 //////////////////////////////////////////////////////////////////////
 // BUILD
@@ -82,7 +88,7 @@ Task("Build")
     .IsDependentOn("NuGetRestore")
     .Does(() =>
     {
-		BuildSolution(SOLUTION_FILE, configuration);
+	BuildSolution(SOLUTION_FILE, configuration);
     });
 
 //////////////////////////////////////////////////////////////////////
