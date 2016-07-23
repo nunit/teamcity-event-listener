@@ -121,10 +121,10 @@ Task("Test")
 //////////////////////////////////////////////////////////////////////
 
 Task("Package")
-	.IsDependentOn("Build")
-	.Does(() => 
-	{
-		CreateDirectory(PACKAGE_DIR);
+    .IsDependentOn("Build")
+    .Does(() => 
+    {
+        CreateDirectory(PACKAGE_DIR);
 
         NuGetPack("teamcity-event-listener.nuspec", new NuGetPackSettings()
         {
@@ -132,7 +132,7 @@ Task("Package")
             BasePath = BIN_DIR,
             OutputDirectory = PACKAGE_DIR
         });
-	});
+    });
 
 //////////////////////////////////////////////////////////////////////
 // HELPER METHODS
@@ -140,12 +140,23 @@ Task("Package")
 
 void BuildSolution(string solutionPath, string configuration)
 {
-	MSBuild(solutionPath, new MSBuildSettings()
-		.SetConfiguration(configuration)
-        .SetMSBuildPlatform(MSBuildPlatform.x86)
-		.SetVerbosity(Verbosity.Minimal)
-		.SetNodeReuse(false)
-	);
+    if (IsRunningOnWindows())
+    {
+        MSBuild(solutionPath, new MSBuildSettings()
+            .SetConfiguration(configuration)
+            .SetMSBuildPlatform(MSBuildPlatform.x86)
+            .SetVerbosity(Verbosity.Minimal)
+            .SetNodeReuse(false)
+        );
+    }
+    else
+    {
+        XBuild(solutionPath, new XBuildSettings()
+            .WithTarget("Build")
+            .WithProperty("Configuration", configuration)
+            .SetVerbosity(Verbosity.Minimal)
+        );
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
