@@ -24,14 +24,14 @@
 namespace NUnit.Engine.Listeners
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
-    internal struct ServiceMessageAttribute
+    [SuppressMessage("ReSharper", "UseNameofExpression")]
+    internal struct ServiceMessageAttr
     {
-        public ServiceMessageAttribute(string name, string value)
+        public ServiceMessageAttr(string name, string value)
         {
-            // ReSharper disable once UseNameofExpression
             if (name == null) throw new ArgumentNullException("name");
-            // ReSharper disable once UseNameofExpression
             if (value == null) throw new ArgumentNullException("value");
 
             Name = name;

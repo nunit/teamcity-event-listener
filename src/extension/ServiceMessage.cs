@@ -29,7 +29,7 @@ namespace NUnit.Engine.Listeners
 
     internal struct ServiceMessage
     {
-        public ServiceMessage(string name, params ServiceMessageAttribute[] attributes)
+        public ServiceMessage(string name, params ServiceMessageAttr[] attributes)
         {
             // ReSharper disable once UseNameofExpression
             if (name == null) throw new ArgumentNullException("name");
@@ -37,12 +37,12 @@ namespace NUnit.Engine.Listeners
             if (attributes == null) throw new ArgumentNullException("attributes");
 
             Name = name;
-            Attributes = new ReadOnlyCollection<ServiceMessageAttribute>(attributes);
+            Attributes = new ReadOnlyCollection<ServiceMessageAttr>(attributes);
         }
 
         public string Name { get; private set; }
 
-        public IEnumerable<ServiceMessageAttribute> Attributes { get; private set; }
+        public IEnumerable<ServiceMessageAttr> Attributes { get; private set; }
 
         public static class Names
         {

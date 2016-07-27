@@ -275,10 +275,10 @@ namespace NUnit.Engine.Listeners
             }
 
             Write(new ServiceMessage(ServiceMessage.Names.TestStdOut, 
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Name, fullName),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Out, outputStr),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.FlowId, flowId),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.TcTags, "tc:parseServiceMessagesInside")));            
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Name, fullName),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Out, outputStr),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, "tc:parseServiceMessagesInside")));            
         }        
 
         private void OnRootSuiteStart(string flowId, string assemblyName)
@@ -286,8 +286,8 @@ namespace NUnit.Engine.Listeners
             assemblyName = Path.GetFileName(assemblyName);
             
             Write(new ServiceMessage(ServiceMessage.Names.TestSuiteStarted,
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Name, assemblyName),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.FlowId, flowId)));
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Name, assemblyName),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId)));
         }
 
         private void OnRootSuiteFinish(string flowId, string assemblyName)
@@ -295,29 +295,29 @@ namespace NUnit.Engine.Listeners
             assemblyName = Path.GetFileName(assemblyName);
             
             Write(new ServiceMessage(ServiceMessage.Names.TestSuiteFinished,
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Name, assemblyName),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.FlowId, flowId)));
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Name, assemblyName),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId)));
         }
 
         private void OnFlowStarted(string flowId, string parentFlowId)
         {
             Write(new ServiceMessage(ServiceMessage.Names.FlowStarted,
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.FlowId, flowId),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Parent, parentFlowId)));
+                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Parent, parentFlowId)));
         }
 
         private void OnFlowFinished(string flowId)
         {
             Write(new ServiceMessage(ServiceMessage.Names.FlowFinished,
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.FlowId, flowId)));
+                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId)));
         }
 
         private void OnTestStart(string flowId, string fullName)
         {
             Write(new ServiceMessage(ServiceMessage.Names.TestStarted,
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Name, fullName),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.CaptureStandardOutput, "false"),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.FlowId, flowId)));
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Name, fullName),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.CaptureStandardOutput, "false"),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId)));
         }
 
         private void OnTestFinished(string flowId, XmlNode message, string fullName)
@@ -327,7 +327,7 @@ namespace NUnit.Engine.Listeners
                 throw new ArgumentNullException("message");
             }
 
-            var durationStr = message.GetAttribute(ServiceMessageAttribute.Names.Duration);
+            var durationStr = message.GetAttribute(ServiceMessageAttr.Names.Duration);
             double durationDecimal;
             int durationMilliseconds = 0;
             if (durationStr != null && double.TryParse(durationStr, NumberStyles.Any, CultureInfo.InvariantCulture, out durationDecimal))
@@ -338,9 +338,9 @@ namespace NUnit.Engine.Listeners
             TrySendOutput(flowId, message, fullName);
 
             Write(new ServiceMessage(ServiceMessage.Names.TestFinished,
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Name, fullName),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Duration, durationMilliseconds.ToString()),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.FlowId, flowId)));
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Name, fullName),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Duration, durationMilliseconds.ToString()),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId)));
         }
 
         private void OnTestFailed(string flowId, XmlNode message, string fullName)
@@ -354,10 +354,10 @@ namespace NUnit.Engine.Listeners
             var stackTrace = message.SelectSingleNode("failure/stack-trace");
 
             Write(new ServiceMessage(ServiceMessage.Names.TestFailed,
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Name, fullName),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Message, errorMessage == null ? string.Empty : errorMessage.InnerText),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Details, stackTrace == null ? string.Empty : stackTrace.InnerText),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.FlowId, flowId)));
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Name, fullName),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Message, errorMessage == null ? string.Empty : errorMessage.InnerText),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Details, stackTrace == null ? string.Empty : stackTrace.InnerText),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId)));
 
             OnTestFinished(flowId, message, fullName);
         }
@@ -373,9 +373,9 @@ namespace NUnit.Engine.Listeners
             var reason = message.SelectSingleNode("reason/message");
 
             Write(new ServiceMessage(ServiceMessage.Names.TestIgnored,
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Name, fullName),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Message, reason == null ? string.Empty : reason.InnerText),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.FlowId, flowId)));
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Name, fullName),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Message, reason == null ? string.Empty : reason.InnerText),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId)));
         }
 
         private void OnTestInconclusive(string flowId, XmlNode message, string fullName)
@@ -388,9 +388,9 @@ namespace NUnit.Engine.Listeners
             TrySendOutput(flowId, message, fullName);
 
             Write(new ServiceMessage(ServiceMessage.Names.TestIgnored,
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Name, fullName),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.Message, "Inconclusive"),
-                new ServiceMessageAttribute(ServiceMessageAttribute.Names.FlowId, flowId)));            
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Name, fullName),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Message, "Inconclusive"),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId)));            
         }
 
         private void Write(ServiceMessage serviceMessage)
