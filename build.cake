@@ -53,6 +53,13 @@ var SOLUTION_FILE = PROJECT_DIR + "teamcity-event-listener.sln";
 var NUNIT3_CONSOLE = TOOLS_DIR + "NUnit.ConsoleRunner/tools/nunit3-console.exe";
 var TEST_ASSEMBLY = BIN_DIR + "teamcity-event-listener.tests.dll";
 
+// Package sources for nuget restore
+var PACKAGE_SOURCE = new string[]
+	{
+		"https://www.nuget.org/api/v2",
+		"https://www.myget.org/F/nunit/api/v2"
+	};
+
 //////////////////////////////////////////////////////////////////////
 // CLEAN
 //////////////////////////////////////////////////////////////////////
@@ -71,13 +78,10 @@ Task("Clean")
 Task("NuGetRestore")
     .Does(() =>
     {
-        NuGetRestore(
-            SOLUTION_FILE,
-            new NuGetRestoreSettings()
-            {
-                WorkingDirectory = PROJECT_DIR,
-                ConfigFile = "NuGet.config"
-            });
+        NuGetRestore(SOLUTION_FILE, new NuGetRestoreSettings()
+        {
+            Source = PACKAGE_SOURCE
+        });
     });
 
 //////////////////////////////////////////////////////////////////////
