@@ -9,6 +9,9 @@ SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 TOOLS_DIR=$SCRIPT_DIR/tools
 NUGET_EXE=$TOOLS_DIR/nuget.exe
 CAKE_EXE=$TOOLS_DIR/Cake/Cake.exe
+NUNIT_CONSOLE_EXE=$TOOLS_DIR/NUnit.ConsoleRunner/tools/nunit3-console.exe
+NUNIT_AGENT_EXE=$TOOLS_DIR/NUnit.ConsoleRunner/tools/nunit-agent.exe
+NUNIT_AGENT_X86_EXE=$TOOLS_DIR/NUnit.ConsoleRunner/tools/nunit-agent-x86.exe
 
 # Define default arguments.
 SCRIPT="build.cake"
@@ -31,10 +34,15 @@ for i in "$@"; do
     shift
 done
 
+chmod +x $NUNIT_CONSOLE_EXE
+chmod +x $NUNIT_AGENT_EXE
+chmod +x $NUNIT_AGENT_X86_EXE
+
 # Download NuGet if it does not exist.
 if [ ! -f $NUGET_EXE ]; then
     echo "Downloading NuGet..."
     curl -Lsfo $NUGET_EXE https://www.nuget.org/nuget.exe
+	chmod +x $NUGET_EXE
     if [ $? -ne 0 ]; then
         echo "An error occured while downloading nuget.exe."
         exit 1
