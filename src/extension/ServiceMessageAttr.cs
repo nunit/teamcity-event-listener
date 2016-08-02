@@ -30,6 +30,7 @@ namespace NUnit.Engine.Listeners
     internal struct ServiceMessageAttr
     {
         public ServiceMessageAttr(string name, string value)
+            : this()
         {
             if (name == null) throw new ArgumentNullException("name");
             if (value == null) throw new ArgumentNullException("value");

@@ -30,6 +30,7 @@ namespace NUnit.Engine.Listeners
     internal struct ServiceMessage
     {
         public ServiceMessage(string name, params ServiceMessageAttr[] attributes)
+            : this()
         {
             // ReSharper disable once UseNameofExpression
             if (name == null) throw new ArgumentNullException("name");
