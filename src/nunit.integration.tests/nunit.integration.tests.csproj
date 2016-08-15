@@ -254,6 +254,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SupportPlatforms.feature</DependentUpon>
     </Compile>
+    <Compile Include="RunTests.feature.cs">
+      <DependentUpon>RunTests.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="TeamCity.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -293,6 +298,10 @@
     <None Include="SupportPlatforms.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SupportPlatforms.feature.cs</LastGenOutput>
+    </None>
+    <None Include="RunTests.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>RunTests.feature.cs</LastGenOutput>
     </None>
     <None Include="TeamCity.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

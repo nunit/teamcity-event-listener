@@ -16,6 +16,8 @@
 
         Explore,
 
-        TestList
+        TestList,
+
+        Domain
     }
 }
