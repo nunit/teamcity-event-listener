@@ -45,6 +45,9 @@
                         case DataType.TestList:
                             return $"--testlist={_value}";
 
+                        case DataType.Domain:
+                            return $"--domain={_value}";
+
                         default:
                             throw new NotSupportedException(_argType.ToString());
                     }

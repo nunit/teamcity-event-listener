@@ -143,7 +143,8 @@ Task("Test")
 Task("NuGetRestoreForIntegrationTests")
     .Does(() =>
     {
-        NuGetRestore(TEST_SOLUTION_FILE, new NuGetRestoreSettings()
+		CleanDirectory(TEST_NUNIT_DIR);
+		NuGetRestore(TEST_SOLUTION_FILE, new NuGetRestoreSettings()
         {
             Source = PACKAGE_SOURCE
         });
@@ -193,7 +194,7 @@ Task("InitializeForIntegrationTests")
 			NoCache = true
         });		
 
-		CleanDirectories(TEST_NUNIT_DIR + "NUnit.Extension.TeamCityEventListener*/**/*.*");
+		CleanDirectories(TEST_NUNIT_DIR + "NUnit.Extension.TeamCityEventListener*");
 		EnsureDirectoryExists(TEST_TEAMCITY_EXT_DIR);				
 		CopyFileToDirectory(BIN_DIR + "teamcity-event-listener.dll", TEST_TEAMCITY_EXT_DIR);
     });
