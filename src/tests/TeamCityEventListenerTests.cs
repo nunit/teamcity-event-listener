@@ -21,7 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Engine.Tests
+namespace NUnit.Engine.Listeners
 {
     using System;
     using System.IO;
@@ -32,10 +32,7 @@ namespace NUnit.Engine.Tests
 
     using Framework;
 
-    using Listeners;
-
     [TestFixture]
-    
     public class TeamCityEventListenerTests
     {
         private StringBuilder _output;
@@ -45,7 +42,7 @@ namespace NUnit.Engine.Tests
         public void SetUp()
         {
             _output = new StringBuilder();
-            _outputWriter = new StringWriter(_output);            
+            _outputWriter = new StringWriter(_output);
         }
 
         [TearDown]
@@ -271,25 +268,89 @@ namespace NUnit.Engine.Tests
             publisher.RegisterMessage(CreateTestRun());
 
             // Then
-            Assert.AreEqual(                
-                "##teamcity[testSuiteStarted name='Assembly1' flowId='1-1']" + Environment.NewLine
+            Assert.AreEqual(
+                "##teamcity[testSuiteStarted name='Assembly1' flowId='1']" + Environment.NewLine
 
-                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-1']" + Environment.NewLine
-                + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='1-1' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
-                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1-1']" + Environment.NewLine
+                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1']" + Environment.NewLine
+                + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='1' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
+                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1']" + Environment.NewLine
 
-                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test2' captureStandardOutput='false' flowId='1-1']" + Environment.NewLine
-                + "##teamcity[testFailed name='Assembly1.Namespace1.1.Test2' message='Error output' details='Stack trace' flowId='1-1']" + Environment.NewLine
-                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test2' duration='200' flowId='1-1']" + Environment.NewLine
+                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test2' captureStandardOutput='false' flowId='1']" + Environment.NewLine
+                + "##teamcity[testFailed name='Assembly1.Namespace1.1.Test2' message='Error output' details='Stack trace' flowId='1']" + Environment.NewLine
+                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test2' duration='200' flowId='1']" + Environment.NewLine
 
-                + "##teamcity[testSuiteFinished name='Assembly1' flowId='1-1']" + Environment.NewLine
+                + "##teamcity[testSuiteFinished name='Assembly1' flowId='1']" + Environment.NewLine
                 
-                + "##teamcity[testSuiteStarted name='Assembly2' flowId='1-6']" + Environment.NewLine
-                + "##teamcity[testStarted name='Assembly2.Namespace2.1.Test1' captureStandardOutput='false' flowId='1-6']" + Environment.NewLine
-                + "##teamcity[testStdOut name='Assembly2.Namespace2.1.Test1' out='Text output' flowId='1-6' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
-                + "##teamcity[testFinished name='Assembly2.Namespace2.1.Test1' duration='300' flowId='1-6']" + Environment.NewLine
+                + "##teamcity[testSuiteStarted name='Assembly2' flowId='1']" + Environment.NewLine
+                + "##teamcity[testStarted name='Assembly2.Namespace2.1.Test1' captureStandardOutput='false' flowId='1']" + Environment.NewLine
+                + "##teamcity[testStdOut name='Assembly2.Namespace2.1.Test1' out='Text output' flowId='1' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
+                + "##teamcity[testFinished name='Assembly2.Namespace2.1.Test1' duration='300' flowId='1']" + Environment.NewLine
 
-                + "##teamcity[testSuiteFinished name='Assembly2' flowId='1-6']" + Environment.NewLine,
+                + "##teamcity[testSuiteFinished name='Assembly2' flowId='1']" + Environment.NewLine,
+                _output.ToString());
+        }
+
+        [Test]
+        public void ShouldSendMessagesWithValidFlowIdWhenTestsFromNUnit2AndSeveralAssembliesSimultaneously()
+        {
+            // Given
+            var publisher = CreateInstance();
+
+            // When
+            publisher.RegisterMessage(CreateStartRun(1));
+
+            // Assembly 1
+            publisher.RegisterMessage(CreateStartSuite("1-1", null, "aaa" + Path.DirectorySeparatorChar + "Assembly1"));
+
+            // Assembly 2
+            publisher.RegisterMessage(CreateStartSuite("2-6", null, "ddd" + Path.DirectorySeparatorChar + "Assembly2"));
+
+            publisher.RegisterMessage(CreateStartSuite("1-2", null, "Assembly1.Namespace1"));
+            publisher.RegisterMessage(CreateStartSuite("1-3", null, "Assembly1.Namespace1.1"));
+
+            // Test Assembly1.Namespace1.1.Test1
+            publisher.RegisterMessage(CreateStartTest("1-4", null, "Assembly1.Namespace1.1.Test1"));
+            publisher.RegisterMessage(CreateTestCaseSuccessful("1-4", null, "Assembly1.Namespace1.1.Test1", "0.1", "Text output"));
+
+            // Test Assembly1.Namespace1.1.Test2
+            publisher.RegisterMessage(CreateStartTest("1-5", null, "Assembly1.Namespace1.1.Test2"));
+            publisher.RegisterMessage(CreateTestCaseFailed("1-5", null, "Assembly1.Namespace1.1.Test2", "0.2", "Error output", "Stack trace"));
+
+            publisher.RegisterMessage(CreateFinishSuite("1-3", null, "Assembly1.Namespace1.1"));
+            publisher.RegisterMessage(CreateFinishSuite("1-2", null, "Assembly1.Namespace1"));
+
+            publisher.RegisterMessage(CreateStartSuite("2-7", null, "Assembly2.Namespace2"));
+
+            // Test Assembly2.Namespace2.1.Test1
+            publisher.RegisterMessage(CreateStartTest("2-8", null, "Assembly2.Namespace2.1.Test1"));
+            publisher.RegisterMessage(CreateTestCaseSuccessful("2-8", null, "Assembly2.Namespace2.1.Test1", "0.3", "Text output"));
+
+            publisher.RegisterMessage(CreateFinishSuite("2-7", null, "Assembly2.Namespace2"));
+            publisher.RegisterMessage(CreateFinishSuite("2-6", null, "Assembly2"));
+            publisher.RegisterMessage(CreateFinishSuite("1-1", null, "Assembly1"));
+
+            publisher.RegisterMessage(CreateTestRun());
+
+            // Then
+            Assert.AreEqual(
+                "##teamcity[testSuiteStarted name='Assembly1' flowId='1']" + Environment.NewLine
+                + "##teamcity[testSuiteStarted name='Assembly2' flowId='2']" + Environment.NewLine
+
+                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1']" + Environment.NewLine
+                + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='1' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
+                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1']" + Environment.NewLine
+
+                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test2' captureStandardOutput='false' flowId='1']" + Environment.NewLine
+                + "##teamcity[testFailed name='Assembly1.Namespace1.1.Test2' message='Error output' details='Stack trace' flowId='1']" + Environment.NewLine
+                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test2' duration='200' flowId='1']" + Environment.NewLine
+
+                + "##teamcity[testStarted name='Assembly2.Namespace2.1.Test1' captureStandardOutput='false' flowId='2']" + Environment.NewLine
+                + "##teamcity[testStdOut name='Assembly2.Namespace2.1.Test1' out='Text output' flowId='2' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
+                + "##teamcity[testFinished name='Assembly2.Namespace2.1.Test1' duration='300' flowId='2']" + Environment.NewLine
+
+                + "##teamcity[testSuiteFinished name='Assembly2' flowId='2']" + Environment.NewLine
+                +"##teamcity[testSuiteFinished name='Assembly1' flowId='1']" + Environment.NewLine,
+
                 _output.ToString());
         }
 
@@ -314,14 +375,14 @@ namespace NUnit.Engine.Tests
             publisher.RegisterMessage(CreateTestRun());
 
             // Then
-            Assert.AreEqual(                
-                "##teamcity[testSuiteStarted name='Assembly1' flowId='1-1']" + Environment.NewLine
+            Assert.AreEqual(
+                "##teamcity[testSuiteStarted name='Assembly1' flowId='1']" + Environment.NewLine
 
-                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-1']" + Environment.NewLine
-                + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='1-1' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
-                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='1300' flowId='1-1']" + Environment.NewLine
+                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1']" + Environment.NewLine
+                + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='1' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
+                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='1300' flowId='1']" + Environment.NewLine
                 
-                + "##teamcity[testSuiteFinished name='Assembly1' flowId='1-1']" + Environment.NewLine,
+                + "##teamcity[testSuiteFinished name='Assembly1' flowId='1']" + Environment.NewLine,
                 _output.ToString());
         }
 
@@ -341,10 +402,10 @@ namespace NUnit.Engine.Tests
             publisher.RegisterMessage(CreateTestRun());
 
             // Then
-            Assert.AreEqual(                
-                "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-1']" + Environment.NewLine
-                + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='1-1' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
-                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1-1']" + Environment.NewLine,
+            Assert.AreEqual(
+                "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1']" + Environment.NewLine
+                + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='1' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
+                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1']" + Environment.NewLine,
                 _output.ToString());
         }
 
@@ -402,13 +463,13 @@ namespace NUnit.Engine.Tests
 
             // Then
             Assert.AreEqual(
-                "##teamcity[testSuiteStarted name='Assembly1' flowId='1-1']" + Environment.NewLine
+                "##teamcity[testSuiteStarted name='Assembly1' flowId='1']" + Environment.NewLine
 
-                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-1']" + Environment.NewLine
-                + "##teamcity[testFailed name='Assembly1.Namespace1.1.Test1' message='Error output' details='Stack trace' flowId='1-1']" + Environment.NewLine
-                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1-1']" + Environment.NewLine
+                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1']" + Environment.NewLine
+                + "##teamcity[testFailed name='Assembly1.Namespace1.1.Test1' message='Error output' details='Stack trace' flowId='1']" + Environment.NewLine
+                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1']" + Environment.NewLine
                 
-                + "##teamcity[testSuiteFinished name='Assembly1' flowId='1-1']" + Environment.NewLine,
+                + "##teamcity[testSuiteFinished name='Assembly1' flowId='1']" + Environment.NewLine,
                 _output.ToString());
         }
 

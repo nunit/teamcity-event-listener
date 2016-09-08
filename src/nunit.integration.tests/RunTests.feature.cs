@@ -72,6 +72,193 @@ namespace nunit.integration.tests
         }
         
         [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("User runs tests for several assemblies")]
+        [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Single", "10", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Single", "10", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "10", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "10", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "10", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "10", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Multiple", "10", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Multiple", "10", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "10", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "10", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Single", "10", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Single", "2", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "2", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "2", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "2", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "2", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Multiple", "2", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Multiple", "2", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "2", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "2", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Single", "1", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Single", "1", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "1", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "1", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "1", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "1", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Multiple", "1", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Multiple", "1", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "1", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "1", "AnyCpu", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "10", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "10", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "10", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "10", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "10", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "10", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "1", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "1", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "1", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "1", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "1", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "1", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Single", "2", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "2", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "2", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "2", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "2", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Multiple", "2", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Multiple", "2", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "2", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "2", "X86", "ProjectFile", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Single", "10", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Single", "10", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "10", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "10", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "10", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "10", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Multiple", "10", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Multiple", "10", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "10", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "10", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Single", "10", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Single", "2", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "2", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "2", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "2", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "2", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Multiple", "2", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Multiple", "2", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "2", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "2", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Single", "1", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Single", "1", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "1", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "1", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "1", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "1", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Multiple", "1", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Multiple", "1", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "1", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "1", "AnyCpu", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "10", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "10", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "10", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "10", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "10", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "10", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "1", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "1", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "1", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "1", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "1", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "1", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Single", "2", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "2", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "2", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "2", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "2", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Multiple", "2", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Multiple", "2", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "2", "X86", "CmdArguments", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "2", "X86", "CmdArguments", new string[0])]
+        public virtual void UserRunsTestsForSeveralAssemblies(string frameworkVersion, string process, string domain, string agents, string platform, string configurationType, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User runs tests for several assemblies", exampleTags);
+#line 6
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 7
+ testRunner.Given(string.Format("Framework version is {0}", frameworkVersion), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 8
+ testRunner.And("I have created the folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 9
+ testRunner.And("I have copied NUnit framework references to folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 10
+ testRunner.And("I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests" +
+                    "1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 11
+ testRunner.And("I have added NUnit framework references to foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 13
+ testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo1.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 14
+ testRunner.And("I have added the assembly mocks\\foo1.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 16
+ testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo2.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 17
+ testRunner.And("I have added the assembly mocks\\foo2.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 19
+ testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo3.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 20
+ testRunner.And("I have added the assembly mocks\\foo3.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 22
+ testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo4.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 23
+ testRunner.And("I have added the assembly mocks\\foo4.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 25
+ testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo5.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 26
+ testRunner.And("I have added the assembly mocks\\foo5.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 28
+ testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo6.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 29
+ testRunner.And("I have added the assembly mocks\\foo6.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 31
+ testRunner.And(string.Format("I want to use {0} configuration type", configurationType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 32
+ testRunner.And("I have added the arg workers=10 to NUnit console command line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 33
+ testRunner.And(string.Format("I have added the arg agents={0} to NUnit console command line", agents), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 34
+ testRunner.And(string.Format("I have added the arg process={0} to NUnit console command line", process), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 35
+ testRunner.And(string.Format("I have added the arg domain={0} to NUnit console command line", domain), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 37
+ testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 38
+ testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 39
+ testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "field",
+                        "value"});
+            table1.AddRow(new string[] {
+                        "Test Count",
+                        "6"});
+            table1.AddRow(new string[] {
+                        "Passed",
+                        "6"});
+            table1.AddRow(new string[] {
+                        "Failed",
+                        "0"});
+            table1.AddRow(new string[] {
+                        "Inconclusive",
+                        "0"});
+            table1.AddRow(new string[] {
+                        "Skipped",
+                        "0"});
+#line 40
+ testRunner.And("the Test Run Summary should has following:", ((string)(null)), table1, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("User runs parallelizable tests")]
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Single", "10", "AnyCpu", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Single", "10", "AnyCpu", new string[0])]
@@ -108,99 +295,99 @@ namespace nunit.integration.tests
         public virtual void UserRunsParallelizableTests(string frameworkVersion, string process, string domain, string agents, string platform, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User runs parallelizable tests", exampleTags);
-#line 6
+#line 153
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 7
+#line 154
  testRunner.Given(string.Format("Framework version is {0}", frameworkVersion), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 8
+#line 155
  testRunner.And("I have added SuccessfulParallelizable method as SuccessfulParallelizable1 to the " +
                     "class Foo.Tests.UnitTests1 for foo1.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 9
+#line 156
  testRunner.And("I have added SuccessfulParallelizable method as SuccessfulParallelizable2 to the " +
                     "class Foo.Tests.UnitTests1 for foo1.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 10
+#line 157
  testRunner.And("I have added SuccessfulParallelizable method as SuccessfulParallelizable3 to the " +
                     "class Foo.Tests.UnitTests1 for foo1.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 11
+#line 158
  testRunner.And("I have added attribute [assembly: NUnit.Framework.Parallelizable] to the assembly" +
                     " foo1.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 12
+#line 159
  testRunner.And("I have added attribute [NUnit.Framework.Parallelizable] to the class Foo.Tests.Un" +
                     "itTests1 for foo1.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
+#line 160
  testRunner.And("I have added NUnit framework references to foo1.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 14
+#line 161
  testRunner.And("I have added SuccessfulParallelizable method as SuccessfulParallelizable4 to the " +
                     "class Foo.Tests.UnitTests1 for foo2.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 15
+#line 162
  testRunner.And("I have added SuccessfulParallelizable method as SuccessfulParallelizable5 to the " +
                     "class Foo.Tests.UnitTests1 for foo2.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 16
+#line 163
  testRunner.And("I have added SuccessfulParallelizable method as SuccessfulParallelizable6 to the " +
                     "class Foo.Tests.UnitTests1 for foo2.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 17
+#line 164
  testRunner.And("I have added attribute [assembly: NUnit.Framework.Parallelizable] to the assembly" +
                     " foo2.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 18
+#line 165
  testRunner.And("I have added attribute [NUnit.Framework.Parallelizable] to the class Foo.Tests.Un" +
                     "itTests1 for foo2.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 19
+#line 166
  testRunner.And("I have added NUnit framework references to foo2.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 20
+#line 167
  testRunner.And("I have created the folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 21
+#line 168
  testRunner.And("I have copied NUnit framework references to folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 22
+#line 169
  testRunner.And(string.Format("I have specified {0} platform for assembly foo1.tests", platform), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 23
+#line 170
  testRunner.And("I have compiled the assembly foo1.tests to file mocks\\foo1.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 24
+#line 171
  testRunner.And(string.Format("I have specified {0} platform for assembly foo2.tests", platform), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 25
+#line 172
  testRunner.And("I have compiled the assembly foo2.tests to file mocks\\foo2.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 26
+#line 173
  testRunner.And("I have added the assembly mocks\\foo1.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 27
+#line 174
  testRunner.And("I have added the assembly mocks\\foo2.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 28
+#line 175
  testRunner.And("I want to use CmdArguments type of TeamCity integration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 29
+#line 176
  testRunner.And("I have added the arg workers=10 to NUnit console command line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 30
+#line 177
  testRunner.And(string.Format("I have added the arg agents={0} to NUnit console command line", agents), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 31
+#line 178
  testRunner.And(string.Format("I have added the arg process={0} to NUnit console command line", process), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 32
+#line 179
  testRunner.And(string.Format("I have added the arg domain={0} to NUnit console command line", domain), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 33
+#line 180
  testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 34
+#line 181
  testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 35
+#line 182
  testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "field",
                         "value"});
-            table1.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "Test Count",
                         "6"});
-            table1.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "Passed",
                         "6"});
-            table1.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "Failed",
                         "0"});
-            table1.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "Inconclusive",
                         "0"});
-            table1.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "Skipped",
                         "0"});
-#line 36
- testRunner.And("the Test Run Summary should has following:", ((string)(null)), table1, "And ");
+#line 183
+ testRunner.And("the Test Run Summary should has following:", ((string)(null)), table2, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -242,69 +429,69 @@ this.FeatureBackground();
         public virtual void UserRunsParallelizableTestsForNUnit2Framework(string frameworkVersion, string process, string domain, string agents, string platform, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User runs parallelizable tests for NUnit 2 framework", exampleTags);
-#line 87
+#line 234
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 88
+#line 235
  testRunner.And("I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests" +
                     "1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 89
+#line 236
  testRunner.And("I have added successfulCatA method as SuccessfulTestCatA to the class Foo.Tests.U" +
                     "nitTests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 90
+#line 237
  testRunner.And("I have created the folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 91
+#line 238
  testRunner.And("I have added the reference ..\\..\\packages\\NUnit.2.6.4\\lib\\nunit.framework.dll to " +
                     "foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 92
+#line 239
  testRunner.And("I have copied the reference ..\\..\\packages\\NUnit.2.6.4\\lib\\nunit.framework.dll to" +
                     " folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 93
+#line 240
  testRunner.And(string.Format("I have specified {0} platform for assembly foo.tests", platform), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 94
+#line 241
  testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 95
+#line 242
  testRunner.And("I have added the assembly mocks\\foo.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 96
+#line 243
  testRunner.And("I have added the arg Where=cat!=CatA to NUnit console command line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 97
+#line 244
  testRunner.And("I want to use CmdArguments type of TeamCity integration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 98
+#line 245
  testRunner.And("I have added the arg workers=10 to NUnit console command line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 99
+#line 246
  testRunner.And(string.Format("I have added the arg agents={0} to NUnit console command line", agents), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 100
+#line 247
  testRunner.And(string.Format("I have added the arg process={0} to NUnit console command line", process), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 101
+#line 248
  testRunner.And(string.Format("I have added the arg domain={0} to NUnit console command line", domain), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 102
+#line 249
  testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 103
+#line 250
  testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 104
+#line 251
  testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "field",
                         "value"});
-            table2.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "Test Count",
                         "1"});
-            table2.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "Passed",
                         "1"});
-            table2.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "Failed",
                         "0"});
-            table2.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "Inconclusive",
                         "0"});
-            table2.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "Skipped",
                         "0"});
-#line 105
- testRunner.And("the Test Run Summary should has following:", ((string)(null)), table2, "And ");
+#line 252
+ testRunner.And("the Test Run Summary should has following:", ((string)(null)), table3, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
