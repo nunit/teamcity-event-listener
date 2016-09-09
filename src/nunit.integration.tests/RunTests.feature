@@ -66,12 +66,6 @@ Examples:
 	| Version40        | InProcess | Multiple | 1      | AnyCpu   | ProjectFile       |
 	| Version45        | Separate  | Multiple | 1      | AnyCpu   | ProjectFile       |
 	| Version40        | Separate  | Multiple | 1      | AnyCpu   | ProjectFile       |
-	| Version45        | Separate  | Single   | 10     | X86      | ProjectFile       |
-	| Version40        | Separate  | Single   | 10     | X86      | ProjectFile       |
-	| Version45        | Multiple  | Single   | 10     | X86      | ProjectFile       |
-	| Version40        | Multiple  | Single   | 10     | X86      | ProjectFile       |
-	| Version45        | Separate  | Multiple | 10     | X86      | ProjectFile       |
-	| Version40        | Separate  | Multiple | 10     | X86      | ProjectFile       |
 	| Version45        | Separate  | Single   | 1      | X86      | ProjectFile       |
 	| Version40        | Separate  | Single   | 1      | X86      | ProjectFile       |
 	| Version45        | Multiple  | Single   | 1      | X86      | ProjectFile       |
@@ -106,9 +100,6 @@ Examples:
 	| Version40        | InProcess | Multiple | 1      | AnyCpu   | CmdArguments      |
 	| Version45        | Separate  | Multiple | 1      | AnyCpu   | CmdArguments      |
 	| Version40        | Separate  | Multiple | 1      | AnyCpu   | CmdArguments      |
-	| Version40        | Multiple  | Single   | 10     | X86      | CmdArguments      |
-	| Version45        | Separate  | Multiple | 10     | X86      | CmdArguments      |
-	| Version40        | Separate  | Multiple | 10     | X86      | CmdArguments      |
 	| Version45        | Separate  | Single   | 1      | X86      | CmdArguments      |
 	| Version40        | Separate  | Single   | 1      | X86      | CmdArguments      |
 	| Version45        | Multiple  | Single   | 1      | X86      | CmdArguments      |
@@ -175,8 +166,6 @@ Examples:
 	| Version40        | InProcess | Multiple | 10     | AnyCpu   |
 	| Version45        | Separate  | Multiple | 10     | AnyCpu   |
 	| Version40        | Separate  | Multiple | 10     | AnyCpu   |
-#	| Version45        | Multiple  | Multiple | 10     | AnyCpu   |
-#	| Version40        | Multiple  | Multiple | 10     | AnyCpu   |
 	| Version45        | InProcess | Single   | 1      | AnyCpu   |
 	| Version40        | InProcess | Single   | 1      | AnyCpu   |
 	| Version45        | Separate  | Single   | 1      | AnyCpu   |
@@ -187,24 +176,18 @@ Examples:
 	| Version40        | InProcess | Multiple | 1      | AnyCpu   |
 	| Version45        | Separate  | Multiple | 1      | AnyCpu   |
 	| Version40        | Separate  | Multiple | 1      | AnyCpu   |
-#	| Version45        | Multiple  | Multiple | 1      | AnyCpu   |
-#	| Version40        | Multiple  | Multiple | 1      | AnyCpu   |
 	| Version45        | Separate  | Single   | 10     | X86     |
 	| Version40        | Separate  | Single   | 10     | X86     |
 	| Version45        | Multiple  | Single   | 10     | X86     |
 	| Version40        | Multiple  | Single   | 10     | X86     |
 	| Version45        | Separate  | Multiple | 10     | X86     |
 	| Version40        | Separate  | Multiple | 10     | X86     |
-#	| Version45        | Multiple  | Multiple | 10     | X86     |
-#	| Version40        | Multiple  | Multiple | 10     | X86     |
 	| Version45        | Separate  | Single   | 1      | X86     |
 	| Version40        | Separate  | Single   | 1      | X86     |
 	| Version45        | Multiple  | Single   | 1      | X86     |
 	| Version40        | Multiple  | Single   | 1      | X86     |
 	| Version45        | Separate  | Multiple | 1      | X86     |
 	| Version40        | Separate  | Multiple | 1      | X86     |
-#	| Version45        | Multiple  | Multiple | 1      | X86     |
-#	| Version40        | Multiple  | Multiple | 1      | X86     |
 
 Scenario Outline: User runs parallelizable tests for NUnit 2 framework
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
@@ -256,21 +239,15 @@ Examples:
 	| Version40        | InProcess | Multiple | 1      | AnyCpu   |
 	| Version45        | Separate  | Multiple | 1      | AnyCpu   |
 	| Version40        | Separate  | Multiple | 1      | AnyCpu   |
-#	| Version45        | Multiple  | Multiple | 1      | AnyCpu   |
-#	| Version40        | Multiple  | Multiple | 1      | AnyCpu   |
 	| Version45        | Separate  | Single   | 10     | X86      |
 	| Version40        | Separate  | Single   | 10     | X86      |
 	| Version45        | Multiple  | Single   | 10     | X86      |
 	| Version40        | Multiple  | Single   | 10     | X86      |
 	| Version45        | Separate  | Multiple | 10     | X86      |
 	| Version40        | Separate  | Multiple | 10     | X86      |
-#	| Version45        | Multiple  | Multiple | 10     | X86      |
-#	| Version40        | Multiple  | Multiple | 10     | X86      |
 	| Version45        | Separate  | Single   | 1      | X86      |
 	| Version40        | Separate  | Single   | 1      | X86      |
 	| Version45        | Multiple  | Single   | 1      | X86      |
 	| Version40        | Multiple  | Single   | 1      | X86      |
 	| Version45        | Separate  | Multiple | 1      | X86      |
 	| Version40        | Separate  | Multiple | 1      | X86      |
-#	| Version45        | Multiple  | Multiple | 1      | X86      |
-#	| Version40        | Multiple  | Multiple | 1      | X86      |
