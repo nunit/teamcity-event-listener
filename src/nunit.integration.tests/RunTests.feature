@@ -47,17 +47,6 @@ Scenario Outline: User runs tests for several assemblies
 
 Examples:
 	| frameworkVersion | process   | domain   | agents | platform | configurationType |
-	| Version45        | InProcess | Single   | 10     | AnyCpu   | ProjectFile       |
-	| Version40        | InProcess | Single   | 10     | AnyCpu   | ProjectFile       |
-	| Version45        | Separate  | Single   | 10     | AnyCpu   | ProjectFile       |
-	| Version40        | Separate  | Single   | 10     | AnyCpu   | ProjectFile       |
-	| Version45        | Multiple  | Single   | 10     | AnyCpu   | ProjectFile       |
-	| Version40        | Multiple  | Single   | 10     | AnyCpu   | ProjectFile       |
-	| Version45        | InProcess | Multiple | 10     | AnyCpu   | ProjectFile       |
-	| Version40        | InProcess | Multiple | 10     | AnyCpu   | ProjectFile       |
-	| Version45        | Separate  | Multiple | 10     | AnyCpu   | ProjectFile       |
-	| Version40        | Separate  | Multiple | 10     | AnyCpu   | ProjectFile       |
-	| Version45        | InProcess | Single   | 10     | AnyCpu   | ProjectFile       |
 	| Version40        | InProcess | Single   | 2      | AnyCpu   | ProjectFile       |
 	| Version45        | Separate  | Single   | 2      | AnyCpu   | ProjectFile       |
 	| Version40        | Separate  | Single   | 2      | AnyCpu   | ProjectFile       |
@@ -98,17 +87,6 @@ Examples:
 	| Version40        | InProcess | Multiple | 2      | X86      | ProjectFile       |
 	| Version45        | Separate  | Multiple | 2      | X86      | ProjectFile       |
 	| Version40        | Separate  | Multiple | 2      | X86      | ProjectFile       |
-	| Version45        | InProcess | Single   | 10     | AnyCpu   | CmdArguments      |
-	| Version40        | InProcess | Single   | 10     | AnyCpu   | CmdArguments      |
-	| Version45        | Separate  | Single   | 10     | AnyCpu   | CmdArguments      |
-	| Version40        | Separate  | Single   | 10     | AnyCpu   | CmdArguments      |
-	| Version45        | Multiple  | Single   | 10     | AnyCpu   | CmdArguments      |
-	| Version40        | Multiple  | Single   | 10     | AnyCpu   | CmdArguments      |
-	| Version45        | InProcess | Multiple | 10     | AnyCpu   | CmdArguments      |
-	| Version40        | InProcess | Multiple | 10     | AnyCpu   | CmdArguments      |
-	| Version45        | Separate  | Multiple | 10     | AnyCpu   | CmdArguments      |
-	| Version40        | Separate  | Multiple | 10     | AnyCpu   | CmdArguments      |
-	| Version45        | InProcess | Single   | 10     | AnyCpu   | CmdArguments      |
 	| Version40        | InProcess | Single   | 2      | AnyCpu   | CmdArguments      |
 	| Version45        | Separate  | Single   | 2      | AnyCpu   | CmdArguments      |
 	| Version40        | Separate  | Single   | 2      | AnyCpu   | CmdArguments      |
@@ -128,9 +106,6 @@ Examples:
 	| Version40        | InProcess | Multiple | 1      | AnyCpu   | CmdArguments      |
 	| Version45        | Separate  | Multiple | 1      | AnyCpu   | CmdArguments      |
 	| Version40        | Separate  | Multiple | 1      | AnyCpu   | CmdArguments      |
-	| Version45        | Separate  | Single   | 10     | X86      | CmdArguments      |
-	| Version40        | Separate  | Single   | 10     | X86      | CmdArguments      |
-	| Version45        | Multiple  | Single   | 10     | X86      | CmdArguments      |
 	| Version40        | Multiple  | Single   | 10     | X86      | CmdArguments      |
 	| Version45        | Separate  | Multiple | 10     | X86      | CmdArguments      |
 	| Version40        | Separate  | Multiple | 10     | X86      | CmdArguments      |
