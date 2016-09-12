@@ -44,14 +44,13 @@ namespace NUnit.Engine.Listeners
         private static readonly ServiceMessageWriter ServiceMessageWriter = new ServiceMessageWriter();
         private readonly TextWriter _outWriter;
         private readonly Dictionary<string, string> _refs = new Dictionary<string, string>();
-        private int _blockCounter;
-        private string _rootFlowId;
+        private readonly Dictionary<string, int> _blockCounters = new Dictionary<string, int>();
 
         public TeamCityEventListener() : this(Console.Out) { }
 
         public TeamCityEventListener(TextWriter outWriter)
         {
-            if (outWriter == null) throw new ArgumentNullException("outWriter");            
+            if (outWriter == null) throw new ArgumentNullException("outWriter");
 
             _outWriter = outWriter;
         }
@@ -93,8 +92,13 @@ namespace NUnit.Engine.Listeners
             }
 
             var id = testEvent.GetAttribute("id");
+            if (id == null)
+            {
+                id = string.Empty;
+            }
+
             var parentId = testEvent.GetAttribute("parentId");
-            string flowId;
+            var flowId = ".";
             if (parentId != null)
             {
                 // NUnit 3 case
@@ -104,7 +108,14 @@ namespace NUnit.Engine.Listeners
             else
             {
                 // NUnit 2 case
-                flowId = _rootFlowId;
+                if (!string.IsNullOrEmpty(id))
+                {
+                    var idParts = id.Split('-');
+                    if (idParts.Length == 2)
+                    {
+                        flowId = idParts[0];
+                    }
+                }
             }
 
             string testFlowId;
@@ -125,12 +136,12 @@ namespace NUnit.Engine.Listeners
             {
                 case "start-suite":
                     _refs[id] = parentId;
-                    StartSuiteCase(id, parentId, flowId, fullName);
+                    StartSuiteCase(parentId, flowId, fullName);
                     break;
 
                 case "test-suite":
                     _refs.Remove(id);
-                    TestSuiteCase(id, parentId, flowId, fullName);
+                    TestSuiteCase(parentId, flowId, fullName);
                     break;
 
                 case "start-test":
@@ -194,7 +205,7 @@ namespace NUnit.Engine.Listeners
             OnTestStart(testFlowId, fullName);
         }
 
-        private void TestSuiteCase(string id, string parentId, string flowId, string fullName)
+        private void TestSuiteCase(string parentId, string flowId, string fullName)
         {
             // NUnit 3 case
             if (parentId == string.Empty)
@@ -205,15 +216,14 @@ namespace NUnit.Engine.Listeners
             // NUnit 2 case
             if (parentId == null)
             {
-                if (--_blockCounter == 0)
+                if (ChangeBlockCounter(flowId, -1) == 0)
                 {
-                    _rootFlowId = null;
-                    OnRootSuiteFinish(id, fullName);
+                    OnRootSuiteFinish(flowId, fullName);
                 }
             }
         }
 
-        private void StartSuiteCase(string id, string parentId, string flowId, string fullName)
+        private void StartSuiteCase(string parentId, string flowId, string fullName)
         {
             // NUnit 3 case
             if (parentId == string.Empty)
@@ -224,12 +234,24 @@ namespace NUnit.Engine.Listeners
             // NUnit 2 case
             if (parentId == null)
             {
-                if (_blockCounter++ == 0)
+                if (ChangeBlockCounter(flowId, 1) == 1)
                 {
-                    _rootFlowId = id;
-                    OnRootSuiteStart(id, fullName);
+                    OnRootSuiteStart(flowId, fullName);
                 }
             }
+        }
+
+        private int ChangeBlockCounter(string flowId, int changeValue)
+        {
+            int currentBlockCounter;
+            if (!_blockCounters.TryGetValue(flowId, out currentBlockCounter))
+            {
+                currentBlockCounter = 0;
+            }
+
+            currentBlockCounter += changeValue;
+            _blockCounters[flowId] = currentBlockCounter;
+            return currentBlockCounter;
         }
 
         private bool TryFindParentId(string id, out string parentId)
@@ -278,7 +300,7 @@ namespace NUnit.Engine.Listeners
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, fullName),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Out, outputStr),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, "tc:parseServiceMessagesInside")));            
+                new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, "tc:parseServiceMessagesInside")));
         }        
 
         private void OnRootSuiteStart(string flowId, string assemblyName)

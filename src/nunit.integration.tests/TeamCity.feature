@@ -275,8 +275,70 @@ Examples:
 	| Version40        |
 
 @teamcity
+Scenario Outline: NUnit sends TeamCity's service messages when I run many test for several assemblies for NUnit2
+	Given Framework version is <frameworkVersion>	
+	And I have added 100 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests1
+	And I have added 100 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests2 for foo.tests2
+	And I have created the folder mocks
+	And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
+	And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests1
+	And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests2
+	And I have compiled the assembly foo.tests1 to file mocks\foo.tests1.dll	
+	And I have compiled the assembly foo.tests2 to file mocks\foo.tests2.dll
+	And I have added the assembly mocks\foo.tests1.dll to the list of testing assemblies
+	And I have added the assembly mocks\foo.tests2.dll to the list of testing assemblies
+	And I want to use CmdArguments type of TeamCity integration
+	And I have added the arg workers=10 to NUnit console command line
+	And I have added the arg agents=<agents> to NUnit console command line
+	And I have added the arg process=<process> to NUnit console command line
+	And I have added the arg domain=<domain> to NUnit console command line
+	When I run NUnit console
+	Then the exit code should be 0
+	And the output should contain correct set of TeamCity service messages
+
+Examples:
+	| frameworkVersion | process   | domain   | agents |
+	| Version45        | InProcess | None     | 10     |
+	| Version40        | InProcess | None     | 10     |
+	| Version45        | Separate  | None     | 10     |
+	| Version40        | Separate  | None     | 10     |
+	| Version45        | Multiple  | None     | 10     |
+	| Version40        | Multiple  | None     | 10     |
+	| Version45        | InProcess | Single   | 10     |
+	| Version40        | InProcess | Single   | 10     |
+	| Version45        | Separate  | Single   | 10     |
+	| Version40        | Separate  | Single   | 10     |
+	| Version45        | Multiple  | Single   | 10     |
+	| Version40        | Multiple  | Single   | 10     |
+	| Version45        | InProcess | Multiple | 10     |
+	| Version40        | InProcess | Multiple | 10     |
+	| Version45        | Separate  | Multiple | 10     |
+	| Version40        | Separate  | Multiple | 10     |
+#	| Version45        | Multiple  | Multiple | 10     |
+#	| Version40        | Multiple  | Multiple | 10     |
+	| Version45        | InProcess | None     | 1      |
+	| Version40        | InProcess | None     | 1      |
+	| Version45        | Separate  | None     | 1      |
+	| Version40        | Separate  | None     | 1      |
+	| Version45        | Multiple  | None     | 1      |
+	| Version40        | Multiple  | None     | 1      |
+	| Version45        | InProcess | Single   | 1      |
+	| Version40        | InProcess | Single   | 1      |
+	| Version45        | Separate  | Single   | 1      |
+	| Version40        | Separate  | Single   | 1      |
+	| Version45        | Multiple  | Single   | 1      |
+	| Version40        | Multiple  | Single   | 1      |
+	| Version45        | InProcess | Multiple | 1      |
+	| Version40        | InProcess | Multiple | 1      |
+	| Version45        | Separate  | Multiple | 1      |
+	| Version40        | Separate  | Multiple | 1      |
+#	| Version45        | Multiple  | Multiple | 1      |
+#	| Version40        | Multiple  | Multiple | 1      |
+
+
+@teamcity
 @Ignore
-Scenario Outline: NUnit sends TeamCity's service messages for bunch of test from several assemblies for NUnit2
+Scenario Outline: NUnit sends TeamCity's service messages for bunch of test for several assemblies for NUnit2
 	Given Framework version is <frameworkVersion>
 	And I have created the folder mocks
 	And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks	
@@ -297,22 +359,22 @@ Scenario Outline: NUnit sends TeamCity's service messages for bunch of test from
 	And the output should contain correct set of TeamCity service messages
 Examples:
 	| frameworkVersion | process   | domain   | agents |
-#	| Version45        | InProcess | None     | 10     |
-#	| Version40        | InProcess | None     | 10     |
-#	| Version45        | Separate  | None     | 10     |
-#	| Version40        | Separate  | None     | 10     |
-#	| Version45        | Multiple  | None     | 10     |
-#	| Version40        | Multiple  | None     | 10     |
-#	| Version45        | InProcess | Single   | 10     |
-#	| Version40        | InProcess | Single   | 10     |
-#	| Version45        | Separate  | Single   | 10     |
-#	| Version40        | Separate  | Single   | 10     |
-#	| Version45        | Multiple  | Single   | 10     |
-#	| Version40        | Multiple  | Single   | 10     |
-#	| Version45        | InProcess | Multiple | 10     |
-#	| Version40        | InProcess | Multiple | 10     |
-#	| Version45        | Separate  | Multiple | 10     |
-#	| Version40        | Separate  | Multiple | 10     |
+	| Version45        | InProcess | None     | 10     |
+	| Version40        | InProcess | None     | 10     |
+	| Version45        | Separate  | None     | 10     |
+	| Version40        | Separate  | None     | 10     |
+	| Version45        | Multiple  | None     | 10     |
+	| Version40        | Multiple  | None     | 10     |
+	| Version45        | InProcess | Single   | 10     |
+	| Version40        | InProcess | Single   | 10     |
+	| Version45        | Separate  | Single   | 10     |
+	| Version40        | Separate  | Single   | 10     |
+	| Version45        | Multiple  | Single   | 10     |
+	| Version40        | Multiple  | Single   | 10     |
+	| Version45        | InProcess | Multiple | 10     |
+	| Version40        | InProcess | Multiple | 10     |
+	| Version45        | Separate  | Multiple | 10     |
+	| Version40        | Separate  | Multiple | 10     |
 #	| Version45        | Multiple  | Multiple | 10     |
 #	| Version40        | Multiple  | Multiple | 10     |
 	| Version45        | InProcess | None     | 1      |
