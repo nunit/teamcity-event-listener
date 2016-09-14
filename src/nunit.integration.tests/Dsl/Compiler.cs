@@ -31,7 +31,7 @@
         {
             var architecture = DotNetFrameworkArchitecture.Current;
             switch (testAssembly.Platform)
-            {                    
+            {
                 case Platform.X86:
                     architecture = DotNetFrameworkArchitecture.Bitness32;
                     break;
@@ -41,7 +41,7 @@
                     break;
             }
 
-            var assemblyInfoSyntaxTree = CSharpSyntaxTree.ParseText(ResourceManager.GetContentFromResource(AssemblyInfoResourceName) + Environment.NewLine + string.Join(Environment.NewLine, testAssembly.Attributes));            
+            var assemblyInfoSyntaxTree = CSharpSyntaxTree.ParseText(ResourceManager.GetContentFromResource(AssemblyInfoResourceName) + Environment.NewLine + string.Join(Environment.NewLine, testAssembly.Attributes));
             var compilation =
                 CSharpCompilation.Create(Path.GetFileName(assemblyFileName))
                     .WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)
@@ -62,9 +62,9 @@
                     throw new Exception($"Errors:\n{string.Join(Environment.NewLine, result.Diagnostics.Select(i => i.GetMessage(CultureInfo.InvariantCulture)))}\n\nCode:\n{code}");
                 }
 
-                file.Flush(true);                
-            }            
-        }        
+                file.Flush(true);
+            }
+        }
 
         private static SyntaxTree CreateClassSyntaxTree(TestClass testClass)
         {
@@ -79,7 +79,21 @@
                                     .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                                     .AddAttributeLists(SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Attribute(SyntaxFactory.IdentifierName("TestFixtureAttribute")))))
                                     .AddAttributeLists(SyntaxFactory.AttributeList(SyntaxFactory.SeparatedList(attributes)))
-                                    .AddMembers(testClass.Methods.Select(CreateMethod).ToArray()))).SyntaxTree;            
+                                    // Ctor
+                                    .AddMembers(
+                                        SyntaxFactory.ConstructorDeclaration(testClass.ClassName)
+                                        .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                                        .AddBodyStatements(
+                                            testClass.CtorMethods.Select(CreateMethodStatement).ToArray()))
+                                    // Methods
+                                    .AddMembers(testClass.CtorMethods.Concat(testClass.Methods).Select(CreateMethod).ToArray()))).SyntaxTree;
+        }
+
+        private static StatementSyntax CreateMethodStatement(Method method)
+        {
+            var methodAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.ThisExpression(), SyntaxFactory.IdentifierName(method.Name));
+            var arguments = SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(Enumerable.Empty<ArgumentSyntax>()));
+            return SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(methodAccess, arguments));
         }
 
         private static MemberDeclarationSyntax CreateMethod(Method method)
@@ -98,7 +112,7 @@
         {
             yield return MetadataReference.CreateFromFile(ToolLocationHelper.GetPathToDotNetFrameworkFile("mscorlib.dll", dotNetFrameworkVersion, architecture));
             yield return MetadataReference.CreateFromFile(ToolLocationHelper.GetPathToDotNetFrameworkFile("System.dll", dotNetFrameworkVersion, architecture));
-            if(dotNetFrameworkVersion != TargetDotNetFrameworkVersion.Version11 && dotNetFrameworkVersion != TargetDotNetFrameworkVersion.Version20)
+            if (dotNetFrameworkVersion != TargetDotNetFrameworkVersion.Version11 && dotNetFrameworkVersion != TargetDotNetFrameworkVersion.Version20)
             {
                 yield return MetadataReference.CreateFromFile(ToolLocationHelper.GetPathToDotNetFrameworkFile("System.Core.dll", dotNetFrameworkVersion, architecture));
             }
