@@ -11,6 +11,11 @@
     [TestFixture]
     internal class UnitTest
     {
+        public void ThrowException()
+        {
+            throw new System.Exception("Exception");
+        }
+
         [SetUp]
         public void FailedSeTup()
         {
@@ -56,13 +61,13 @@
         [Test, Category("CatA")]
         public void SuccessfulCatA()
         {
-        }        
+        }
 
         [Test, Parallelizable]
         public void SuccessfulParallelizable()
         {
             System.Console.WriteLine($"!!! ManagedThreadId = {System.Threading.Thread.CurrentThread.ManagedThreadId}");
-            System.Threading.Thread.Sleep(100);            
+            System.Threading.Thread.Sleep(100);
         }
 
         [Test]

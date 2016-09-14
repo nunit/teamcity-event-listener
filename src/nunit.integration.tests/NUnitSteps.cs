@@ -39,6 +39,15 @@
             configuration.ConfigurationType = configurationType.ConvertToConfigurationType();            
         }
 
+        [Given(@"I have added (.+) method as (.+) to the Ctor of class (.+)\.(.+) for (.+)")]
+        public void AddMethodInvocationToCtor(string methodTemplate, string testMethodName, string namespaceName, string className, string assemblyName)
+        {
+            var ctx = ScenarioContext.Current.GetTestContext();
+            var testAssembly = ctx.GetOrCreateAssembly(assemblyName);
+            var testClass = testAssembly.GetOrCreateClass(namespaceName, className);
+            testClass.GetOrCreateCtorInvocationMethod(testMethodName, methodTemplate);
+        }
+
         [Given(@"I have added (.+) method as (.+) to the class (.+)\.(.+) for (.+)")]
         public void AddMethod(string methodTemplate, string testMethodName, string namespaceName, string className, string assemblyName)
         {

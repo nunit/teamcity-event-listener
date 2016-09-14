@@ -5,6 +5,7 @@
 
     internal class TestClass
     {
+        private readonly Dictionary<string, Method> _ctorMethods = new Dictionary<string, Method>(StringComparer.InvariantCultureIgnoreCase);
         private readonly Dictionary<string, Method> _methods = new Dictionary<string, Method>(StringComparer.InvariantCultureIgnoreCase);
         private readonly List<string> _attributes = new List<string>();
 
@@ -18,6 +19,8 @@
 
         public string ClassName { get; private set; }
 
+        public IEnumerable<Method> CtorMethods => _ctorMethods.Values;
+
         public IEnumerable<Method> Methods => _methods.Values;
 
         public IEnumerable<string> Attributes => _attributes;
@@ -28,6 +31,17 @@
             if (!_methods.TryGetValue(testMethodName, out method))
             {
                 _methods[testMethodName] = method = new Method(testMethodName, methodTemplate);
+            }
+
+            return method;
+        }
+
+        public Method GetOrCreateCtorInvocationMethod(string testMethodName, string methodTemplate)
+        {
+            Method method;
+            if (!_ctorMethods.TryGetValue(testMethodName, out method))
+            {
+                _ctorMethods[testMethodName] = method = new Method(testMethodName, methodTemplate);
             }
 
             return method;

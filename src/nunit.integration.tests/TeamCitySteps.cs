@@ -211,7 +211,7 @@
                         Assert.AreEqual(testStartedForTestFailed.Name, "testStarted", "testFailed should be within testStarted and testFinished");
                         Assert.AreEqual(testStartedForTestFailed.NameAttr, message.NameAttr, "Invalid Name attribute");
                         Assert.IsNotEmpty(message.MessageAttr, "Message attribute is empty");
-                        Assert.IsNotEmpty(message.DetailsAttr, "Details attribute is empty");
+                        Assert.IsNotNull(message.DetailsAttr, "Details attribute is empty");
                         break;
 
                     case "testIgnored":
