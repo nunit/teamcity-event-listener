@@ -1551,35 +1551,20 @@ this.FeatureBackground();
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "None", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "None", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "None", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "None", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "None", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "None", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Single", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Single", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Multiple", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Multiple", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "None", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "None", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "None", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "None", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "None", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "None", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Single", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Single", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Multiple", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Multiple", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "1", new string[0])]
         public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunManyTestForSeveralAssembliesForNUnit2(string frameworkVersion, string process, string domain, string agents, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -1649,35 +1634,20 @@ this.FeatureBackground();
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "None", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "None", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "None", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "None", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "None", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "None", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Single", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Single", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Multiple", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Multiple", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "10", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "10", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "None", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "None", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "None", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "None", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "None", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "None", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Single", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Single", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Single", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Single", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", "Single", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Multiple", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "InProcess", "Multiple", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Version40", "Separate", "Multiple", "1", new string[0])]
         public virtual void NUnitSendsTeamCitySServiceMessagesForBunchOfTestForSeveralAssembliesForNUnit2(string frameworkVersion, string process, string domain, string agents, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -1689,51 +1659,51 @@ this.FeatureBackground();
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages for bunch of test for several assemblies " +
                     "for NUnit2", @__tags);
-#line 398
+#line 378
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 399
+#line 379
  testRunner.Given(string.Format("Framework version is {0}", frameworkVersion), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 400
+#line 380
  testRunner.And("I have created the folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 401
+#line 381
  testRunner.And("I have copied the reference ..\\..\\packages\\NUnit.2.6.4\\lib\\nunit.framework.dll to" +
                     " folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 402
+#line 382
  testRunner.And("I have created assemblies according to NUnit2 test results ..\\..\\..\\testsData\\NUn" +
                     "it2HugeTestResult.xml", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 403
+#line 383
  testRunner.And("I have added the reference ..\\..\\packages\\NUnit.2.6.4\\lib\\nunit.framework.dll to " +
                     "MAP.Common.Test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 404
+#line 384
  testRunner.And("I have compiled the assembly MAP.Common.Test to file mocks\\MAP.Common.Test.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 405
+#line 385
  testRunner.And("I have added the reference ..\\..\\packages\\NUnit.2.6.4\\lib\\nunit.framework.dll to " +
                     "MAP.Web.Test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 406
+#line 386
  testRunner.And("I have compiled the assembly MAP.Web.Test to file mocks\\MAP.Web.Test.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 407
+#line 387
  testRunner.And("I have added the assembly mocks\\MAP.Common.Test.dll to the list of testing assemb" +
                     "lies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 408
+#line 388
  testRunner.And("I have added the assembly mocks\\MAP.Web.Test.dll to the list of testing assemblie" +
                     "s", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 409
+#line 389
  testRunner.And("I want to use CmdArguments type of TeamCity integration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 410
+#line 390
  testRunner.And("I have added the arg workers=10 to NUnit console command line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 411
+#line 391
  testRunner.And(string.Format("I have added the arg agents={0} to NUnit console command line", agents), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 412
+#line 392
  testRunner.And(string.Format("I have added the arg process={0} to NUnit console command line", process), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 413
+#line 393
  testRunner.And(string.Format("I have added the arg domain={0} to NUnit console command line", domain), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 414
+#line 394
  testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 415
+#line 395
  testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 416
+#line 396
  testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

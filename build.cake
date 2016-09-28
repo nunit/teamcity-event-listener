@@ -177,7 +177,7 @@ Task("InitializeForIntegrationTests")
 		CleanDirectories(TEST_NUNIT_DIR + "**/*.*");
 		CleanDirectories(TEST_PACKAGES_DIR + "**/*.*");		
 
-		NuGetInstall(new [] {"NUnit.Runners", "NUnit"}, new NuGetInstallSettings()
+		NuGetInstall(new [] {"NUnit", "NUnit.ConsoleRunner", "NUnit.Extension.NUnitProjectLoader", "NUnit.Extension.NUnitV2Driver" }, new NuGetInstallSettings()
         {
 			OutputDirectory = TEST_NUNIT_DIR,
             Source = PRERELEASE_PACKAGE_SOURCE,
@@ -213,7 +213,7 @@ Task("IntegrationTest")
 			NUNIT3_CONSOLE,
 			new ProcessSettings()
 			{
-				Arguments = INTEGRATION_TEST_ASSEMBLY
+				Arguments = INTEGRATION_TEST_ASSEMBLY + " --where cat==teamcity"
 			});
 
 		if (rc != 0)
@@ -226,6 +226,32 @@ Task("IntegrationTest")
 		}
 	});
 
+//////////////////////////////////////////////////////////////////////
+// FULL INTEGRATION TEST
+//////////////////////////////////////////////////////////////////////
+
+Task("IntegrationTestFull")
+	.IsDependentOn("Build")
+	.IsDependentOn("BuildForIntegrationTests")
+	.IsDependentOn("InitializeForIntegrationTests")
+	.Does(() =>
+	{
+		int rc = StartProcess(
+			NUNIT3_CONSOLE,
+			new ProcessSettings()
+			{
+				Arguments = INTEGRATION_TEST_ASSEMBLY
+			});
+
+		if (rc != 0)
+		{
+			var message = rc > 0
+				? string.Format("Test failure: {0} tests failed", rc)
+				: string.Format("Test exited with rc = {0}", rc);
+
+			throw new CakeException(message);
+		}
+	});
 
 //////////////////////////////////////////////////////////////////////
 // PACKAGE
@@ -257,6 +283,12 @@ Task("Appveyor")
 	.IsDependentOn("Build")
 	.IsDependentOn("Test")
 	.IsDependentOn("IntegrationTest")
+	.IsDependentOn("Package");
+
+Task("CheckIntegration")
+	.IsDependentOn("Build")
+	.IsDependentOn("Test")
+	.IsDependentOn("IntegrationTestFull")
 	.IsDependentOn("Package");
 
 Task("Travis")

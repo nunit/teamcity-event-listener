@@ -358,40 +358,20 @@ Examples:
 	| Version45        | InProcess | None     | 10     |
 	| Version40        | InProcess | None     | 10     |
 	| Version45        | Separate  | None     | 10     |
-	| Version40        | Separate  | None     | 10     |
 	| Version45        | Multiple  | None     | 10     |
-	| Version40        | Multiple  | None     | 10     |
 	| Version45        | InProcess | Single   | 10     |
-	| Version40        | InProcess | Single   | 10     |
 	| Version45        | Separate  | Single   | 10     |
-	| Version40        | Separate  | Single   | 10     |
 	| Version45        | Multiple  | Single   | 10     |
-	| Version40        | Multiple  | Single   | 10     |
 	| Version45        | InProcess | Multiple | 10     |
-	| Version40        | InProcess | Multiple | 10     |
 	| Version45        | Separate  | Multiple | 10     |
-	| Version40        | Separate  | Multiple | 10     |
-#	| Version45        | Multiple  | Multiple | 10     |
-#	| Version40        | Multiple  | Multiple | 10     |
 	| Version45        | InProcess | None     | 1      |
-	| Version40        | InProcess | None     | 1      |
 	| Version45        | Separate  | None     | 1      |
-	| Version40        | Separate  | None     | 1      |
 	| Version45        | Multiple  | None     | 1      |
-	| Version40        | Multiple  | None     | 1      |
 	| Version45        | InProcess | Single   | 1      |
-	| Version40        | InProcess | Single   | 1      |
 	| Version45        | Separate  | Single   | 1      |
-	| Version40        | Separate  | Single   | 1      |
 	| Version45        | Multiple  | Single   | 1      |
-	| Version40        | Multiple  | Single   | 1      |
 	| Version45        | InProcess | Multiple | 1      |
-	| Version40        | InProcess | Multiple | 1      |
 	| Version45        | Separate  | Multiple | 1      |
-	| Version40        | Separate  | Multiple | 1      |
-#	| Version45        | Multiple  | Multiple | 1      |
-#	| Version40        | Multiple  | Multiple | 1      |
-
 
 @teamcity
 @Ignore
@@ -419,36 +399,17 @@ Examples:
 	| Version45        | InProcess | None     | 10     |
 	| Version40        | InProcess | None     | 10     |
 	| Version45        | Separate  | None     | 10     |
-	| Version40        | Separate  | None     | 10     |
 	| Version45        | Multiple  | None     | 10     |
-	| Version40        | Multiple  | None     | 10     |
 	| Version45        | InProcess | Single   | 10     |
-	| Version40        | InProcess | Single   | 10     |
 	| Version45        | Separate  | Single   | 10     |
-	| Version40        | Separate  | Single   | 10     |
 	| Version45        | Multiple  | Single   | 10     |
-	| Version40        | Multiple  | Single   | 10     |
 	| Version45        | InProcess | Multiple | 10     |
-	| Version40        | InProcess | Multiple | 10     |
 	| Version45        | Separate  | Multiple | 10     |
-	| Version40        | Separate  | Multiple | 10     |
-#	| Version45        | Multiple  | Multiple | 10     |
-#	| Version40        | Multiple  | Multiple | 10     |
 	| Version45        | InProcess | None     | 1      |
-	| Version40        | InProcess | None     | 1      |
 	| Version45        | Separate  | None     | 1      |
-	| Version40        | Separate  | None     | 1      |
 	| Version45        | Multiple  | None     | 1      |
-	| Version40        | Multiple  | None     | 1      |
 	| Version45        | InProcess | Single   | 1      |
-	| Version40        | InProcess | Single   | 1      |
 	| Version45        | Separate  | Single   | 1      |
-	| Version40        | Separate  | Single   | 1      |
 	| Version45        | Multiple  | Single   | 1      |
-	| Version40        | Multiple  | Single   | 1      |
 	| Version45        | InProcess | Multiple | 1      |
-	| Version40        | InProcess | Multiple | 1      |
 	| Version45        | Separate  | Multiple | 1      |
-	| Version40        | Separate  | Multiple | 1      |
-#	| Version45        | Multiple  | Multiple | 1      |
-#	| Version40        | Multiple  | Multiple | 1      |
