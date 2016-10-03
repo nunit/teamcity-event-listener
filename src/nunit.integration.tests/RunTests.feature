@@ -3,6 +3,7 @@
 Background:
 	Given NUnit path is ..\nunit\
 
+@3.4.1
 Scenario Outline: User runs tests for several assemblies
 	Given Framework version is <frameworkVersion>
 	And I have created the folder mocks
@@ -44,7 +45,6 @@ Scenario Outline: User runs tests for several assemblies
 	| Failed       | 0     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-
 Examples:
 	| frameworkVersion | process   | domain   | agents | platform | configurationType |
 	| Version40        | InProcess | Single   | 2      | AnyCpu   | ProjectFile       |
@@ -116,6 +116,7 @@ Examples:
 	| Version45        | Separate  | Multiple | 2      | X86      | CmdArguments      |
 	| Version40        | Separate  | Multiple | 2      | X86      | CmdArguments      |
 
+@3.4.1
 Scenario Outline: User runs parallelizable tests
 	Given Framework version is <frameworkVersion>
 	And I have added SuccessfulParallelizable method as SuccessfulParallelizable1 to the class Foo.Tests.UnitTests1 for foo1.tests	
@@ -153,7 +154,6 @@ Scenario Outline: User runs parallelizable tests
 	| Failed       | 0     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-
 Examples:
 	| frameworkVersion | process   | domain   | agents | platform |
 	| Version45        | InProcess | Single   | 10     | AnyCpu   |
@@ -189,6 +189,7 @@ Examples:
 	| Version45        | Separate  | Multiple | 1      | X86     |
 	| Version40        | Separate  | Multiple | 1      | X86     |
 
+@3.4.1
 Scenario Outline: User runs parallelizable tests for NUnit 2 framework
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have added successfulCatA method as SuccessfulTestCatA to the class Foo.Tests.UnitTests1 for foo.tests	
@@ -214,7 +215,6 @@ Scenario Outline: User runs parallelizable tests for NUnit 2 framework
 	| Failed       | 0     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-
 Examples:
 	| frameworkVersion | process   | domain   | agents | platform |
 	| Version45        | InProcess | Single   | 10     | AnyCpu   |

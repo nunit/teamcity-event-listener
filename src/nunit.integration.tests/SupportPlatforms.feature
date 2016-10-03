@@ -2,7 +2,8 @@
 
 Background:
 	Given NUnit path is ..\nunit\
-	
+
+@3.4.1
 Scenario Outline: I can run test for different platforms
 	Given Framework version is <frameworkVersion>	
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests	
@@ -21,8 +22,6 @@ Scenario Outline: I can run test for different platforms
 	| Failed       | 0     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-
-		
 Examples:
 	| frameworkVersion | platform |
 	| Version45         | AnyCpu   |

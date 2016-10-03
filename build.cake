@@ -13,6 +13,9 @@ var configuration = Argument("configuration", "Debug");
 
 var version = "1.0.2";
 var modifier = "";
+var versionsOfNunitCore = new [] {"3.4.1", ""};
+
+var integrationTestsCategories = new List<string>();
 
 var dbgSuffix = configuration == "Debug" ? "-dbg" : "";
 var packageVersion = version + modifier + dbgSuffix;
@@ -166,37 +169,13 @@ Task("BuildForIntegrationTests")
     });
 
 //////////////////////////////////////////////////////////////////////
-// INITIALIZE FOR INTEGRATION TEST
+// ADD TEAMCITY TEST CATEGORY
 //////////////////////////////////////////////////////////////////////
 
-Task("InitializeForIntegrationTests")
+Task("AddTeamCityTestCategory")
     .Does(() =>
     {
-		EnsureDirectoryExists(TEST_NUNIT_DIR);
-		EnsureDirectoryExists(TEST_PACKAGES_DIR);
-		CleanDirectories(TEST_NUNIT_DIR + "**/*.*");
-		CleanDirectories(TEST_PACKAGES_DIR + "**/*.*");		
-
-		NuGetInstall(new [] {"NUnit", "NUnit.ConsoleRunner", "NUnit.Extension.NUnitProjectLoader", "NUnit.Extension.NUnitV2Driver" }, new NuGetInstallSettings()
-        {
-			OutputDirectory = TEST_NUNIT_DIR,
-            Source = PRERELEASE_PACKAGE_SOURCE,
-			Prerelease = true,
-			NoCache = true
-        });
-
-		NuGetInstall(new [] {"NUnit"}, new NuGetInstallSettings()
-        {
-			Version = "2.6.4",
-			OutputDirectory = TEST_PACKAGES_DIR,
-            Source = PACKAGE_SOURCE,
-			Prerelease = true,
-			NoCache = true
-        });		
-
-		CleanDirectories(TEST_NUNIT_DIR + "NUnit.Extension.TeamCityEventListener*");
-		EnsureDirectoryExists(TEST_TEAMCITY_EXT_DIR);				
-		CopyFileToDirectory(BIN_DIR + "teamcity-event-listener.dll", TEST_TEAMCITY_EXT_DIR);
+        integrationTestsCategories.Add("cat==teamcity");
     });
 
 //////////////////////////////////////////////////////////////////////
@@ -206,52 +185,74 @@ Task("InitializeForIntegrationTests")
 Task("IntegrationTest")
 	.IsDependentOn("Build")
 	.IsDependentOn("BuildForIntegrationTests")
-	.IsDependentOn("InitializeForIntegrationTests")
 	.Does(() =>
 	{
-		int rc = StartProcess(
-			NUNIT3_CONSOLE,
-			new ProcessSettings()
-			{
-				Arguments = INTEGRATION_TEST_ASSEMBLY + " --where cat==teamcity"
-			});
-
-		if (rc != 0)
+		foreach(var version in versionsOfNunitCore)
 		{
-			var message = rc > 0
-				? string.Format("Test failure: {0} tests failed", rc)
-				: string.Format("Test exited with rc = {0}", rc);
+			EnsureDirectoryExists(TEST_NUNIT_DIR);
+			EnsureDirectoryExists(TEST_PACKAGES_DIR);
+			CleanDirectories(TEST_NUNIT_DIR + "**/*.*");
+			CleanDirectories(TEST_PACKAGES_DIR + "**/*.*");		
 
-			throw new CakeException(message);
+			NuGetInstall(new [] {"NUnit", "NUnit.ConsoleRunner", "NUnit.Extension.NUnitProjectLoader", "NUnit.Extension.NUnitV2Driver" }, new NuGetInstallSettings()
+        	{
+				Version = version == string.Empty ? null : version,
+				OutputDirectory = TEST_NUNIT_DIR,
+	            Source = version == string.Empty ? PRERELEASE_PACKAGE_SOURCE : PACKAGE_SOURCE,
+				Prerelease = (version == string.Empty),
+				NoCache = true
+	        });
+
+			NuGetInstall(new [] {"NUnit"}, new NuGetInstallSettings()
+        	{
+				Version = "2.6.4",
+				OutputDirectory = TEST_PACKAGES_DIR,
+    	        Source = PACKAGE_SOURCE,
+				Prerelease = false,
+				NoCache = true
+    	    });		
+
+			CleanDirectories(TEST_NUNIT_DIR + "NUnit.Extension.TeamCityEventListener*");
+			EnsureDirectoryExists(TEST_TEAMCITY_EXT_DIR);				
+			CopyFileToDirectory(BIN_DIR + "teamcity-event-listener.dll", TEST_TEAMCITY_EXT_DIR);
+
+			var versionCategories = string.Join(
+				"||",
+				versionsOfNunitCore
+					.TakeWhile(i => i != version)
+					.Concat(Enumerable.Repeat(version, 1))
+					.Select(i => "cat==" + (string.IsNullOrEmpty(i) ? "dev" : i)));
+
+			var categoriesList = 
+				integrationTestsCategories
+				.Concat(Enumerable.Repeat(versionCategories, 1))
+				.Where(i => !string.IsNullOrEmpty(i))
+				.Select(i => "(" + i + ")").ToList();
+			
+			var arguments = INTEGRATION_TEST_ASSEMBLY;			
+			if (categoriesList.Count!= 0)
+			{
+				arguments += " --where \"" + string.Join("&&", categoriesList) + "\"";
+			}
+
+			int rc = StartProcess(
+				NUNIT3_CONSOLE,
+				new ProcessSettings()
+				{
+					Arguments = arguments
+				});
+
+			if (rc != 0)
+			{
+				var message = rc > 0
+					? string.Format("Test failure: {0} tests failed", rc)
+					: string.Format("Test exited with rc = {0}", rc);
+
+				throw new CakeException(message);
+			}
 		}
 	});
 
-//////////////////////////////////////////////////////////////////////
-// FULL INTEGRATION TEST
-//////////////////////////////////////////////////////////////////////
-
-Task("IntegrationTestFull")
-	.IsDependentOn("Build")
-	.IsDependentOn("BuildForIntegrationTests")
-	.IsDependentOn("InitializeForIntegrationTests")
-	.Does(() =>
-	{
-		int rc = StartProcess(
-			NUNIT3_CONSOLE,
-			new ProcessSettings()
-			{
-				Arguments = INTEGRATION_TEST_ASSEMBLY
-			});
-
-		if (rc != 0)
-		{
-			var message = rc > 0
-				? string.Format("Test failure: {0} tests failed", rc)
-				: string.Format("Test exited with rc = {0}", rc);
-
-			throw new CakeException(message);
-		}
-	});
 
 //////////////////////////////////////////////////////////////////////
 // PACKAGE
@@ -282,13 +283,14 @@ Task("Rebuild")
 Task("Appveyor")
 	.IsDependentOn("Build")
 	.IsDependentOn("Test")
+	.IsDependentOn("AddTeamCityTestCategory")
 	.IsDependentOn("IntegrationTest")
 	.IsDependentOn("Package");
 
 Task("CheckIntegration")
 	.IsDependentOn("Build")
-	.IsDependentOn("Test")
-	.IsDependentOn("IntegrationTestFull")
+	.IsDependentOn("Test")	
+	.IsDependentOn("IntegrationTest")
 	.IsDependentOn("Package");
 
 Task("Travis")

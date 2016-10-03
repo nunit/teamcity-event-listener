@@ -3,6 +3,7 @@
 Background:
 	Given NUnit path is ..\nunit\
 	
+@3.4.1
 Scenario Outline: I can the test with config file
 	Given Framework version is <frameworkVersion>	
 	And I have added successfulWithConfig method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
@@ -22,8 +23,6 @@ Scenario Outline: I can the test with config file
 	| Failed       | 0     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-
-		
 Examples:
 	| configurationType | frameworkVersion |
 	| CmdArguments      | Version45        |
@@ -31,6 +30,7 @@ Examples:
 	| ProjectFile       | Version45        |
 	| ProjectFile       | Version40        |
 
+@3.4.1
 Scenario Outline: I can the test with config file for several assemblies using the command line for the list of assemblies
 	Given Framework version is <frameworkVersion>	
 	And I have added successfulWithConfig method as SuccessfulTest to the class Foo1.Tests.UnitTests1 for foo1.tests
@@ -73,14 +73,12 @@ Scenario Outline: I can the test with config file for several assemblies using t
 	| testFinished      | Foo2.Tests.UnitTests1.SuccessfulTest |                       |
 	| flowFinished      |                                      |                       |
 	| testSuiteFinished | foo2.tests.dll                       |                       |
-
-
-		
 Examples:
 	| configurationType | frameworkVersion |
 	| CmdArguments      | Version45        |
 	| CmdArguments      | Version40        |
 	
+@3.4.1
 Scenario Outline: I can the test with config file for several assemblies using the project file for the list of assemblies
 	Given Framework version is <frameworkVersion>	
 	And I have added successfulWithConfig method as SuccessfulTest to the class Foo1.Tests.UnitTests1 for foo1.tests
@@ -123,9 +121,6 @@ Scenario Outline: I can the test with config file for several assemblies using t
 	| testFinished      | Foo2.Tests.UnitTests1.SuccessfulTest |                       |
 	| flowFinished      |                                      |                       |
 	| testSuiteFinished | foo2.tests.dll                       |                       |
-
-
-		
 Examples:
 	| configurationType | frameworkVersion |
 	| ProjectFile       | Version45        |

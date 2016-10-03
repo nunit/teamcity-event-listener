@@ -3,6 +3,7 @@
 Background:
 	Given NUnit path is ..\nunit\
 	
+@3.4.1
 @teamcity
 Scenario Outline: I can explore tests and write the list of tests to file
 	Given Framework version is <frameworkVersion>	
@@ -23,13 +24,12 @@ Scenario Outline: I can explore tests and write the list of tests to file
 	| fullname                             |
 	| Foo.Tests.UnitTests1.SuccessfulTest1 |
 	| Foo.Tests.UnitTests1.SuccessfulTest2 |
-
-		
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
 
+@3.4.1
 @teamcity
 Scenario Outline: I can explore tests and write the list of tests to file for several assemblies
 	Given Framework version is <frameworkVersion>	
@@ -58,14 +58,12 @@ Scenario Outline: I can explore tests and write the list of tests to file for se
 	| Foo.Tests.UnitTests1.SuccessfulTest2 |
 	| Foo.Tests.UnitTests2.SuccessfulTest1 |
 	| Foo.Tests.UnitTests1.SuccessfulTest1 |
-
-		
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
 
-
+@3.4.1
 @teamcity
 Scenario Outline: I can run tests from the list of tests
 	Given Framework version is <frameworkVersion>	
@@ -89,14 +87,12 @@ Scenario Outline: I can run tests from the list of tests
 	| Failed       | 0     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-
-		
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
 
-
+@3.4.1
 @teamcity
 Scenario Outline: I can run tests from the list of tests for several assemblies
 	Given Framework version is <frameworkVersion>	
@@ -126,7 +122,6 @@ Scenario Outline: I can run tests from the list of tests for several assemblies
 	| Failed       | 0     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-		
 Examples:
 	| configurationType | frameworkVersion |
 	| ProjectFile       | Version45        |
@@ -134,6 +129,7 @@ Examples:
 	| CmdArguments      | Version45        |
 	| CmdArguments      | Version40        |
 
+@3.4.1
 @teamcity
 Scenario Outline: I can run tests from the list of tests for several assemblies from different directories
 	Given Framework version is <frameworkVersion>	
@@ -166,7 +162,6 @@ Scenario Outline: I can run tests from the list of tests for several assemblies 
 	| Failed       | 0     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-		
 Examples:
 	| configurationType | frameworkVersion |
 	| ProjectFile       | Version45        |

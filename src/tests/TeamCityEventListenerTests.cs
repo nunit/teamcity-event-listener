@@ -56,7 +56,7 @@ namespace NUnit.Engine.Listeners
         {
             Assert.That(typeof(TeamCityEventListener),
                 Has.Attribute<ExtensionAttribute>()
-                    .With.Property("EngineVersion").EqualTo("3.5")
+                    .With.Property("EngineVersion").EqualTo("3.4")
                     .And.Property("Enabled").EqualTo(false));
         }
 

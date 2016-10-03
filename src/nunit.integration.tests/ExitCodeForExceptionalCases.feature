@@ -2,7 +2,8 @@
 
 Background:
 	Given NUnit path is ..\nunit\
-	
+
+@3.4.1
 @teamcity
 Scenario Outline: NUnit returns negative exit -2 code when I run it without any assemblies
 	Given Framework version is <frameworkVersion>	
@@ -10,7 +11,6 @@ Scenario Outline: NUnit returns negative exit -2 code when I run it without any 
 	And I have added the arg Process=<process> to NUnit console command line
 	When I run NUnit console
 	Then the exit code should be -2
-	
 Examples:
 	| frameworkVersion | process   |
 	| Version45        | InProcess |
@@ -20,6 +20,7 @@ Examples:
 	| Version45        | Multiple  |
 	| Version40        | Multiple  |
 
+@3.4.1
 @teamcity
 Scenario Outline: NUnit returns negative exit -2 code when I run it without nunit.framework.dll
 	Given Framework version is <frameworkVersion>	
@@ -31,7 +32,6 @@ Scenario Outline: NUnit returns negative exit -2 code when I run it without nuni
 	And I have added the arg Process=<process> to NUnit console command line
 	When I run NUnit console
 	Then the exit code should be -2
-	
 Examples:
 	| frameworkVersion | process   |
 	| Version45        | InProcess |
@@ -41,6 +41,7 @@ Examples:
 	| Version45        | Multiple  |
 	| Version40        | Multiple  |
 	
+@3.4.1
 @teamcity
 Scenario Outline: NUnit returns exit code -100 when the test throws StackOverflow exception
 	Given Framework version is <frameworkVersion>	
@@ -54,7 +55,6 @@ Scenario Outline: NUnit returns exit code -100 when the test throws StackOverflo
 	And I have added the arg Process=<process> to NUnit console command line
 	When I run NUnit console
 	Then the exit code should be -100
-	
 Examples:
 	| frameworkVersion | process   |
 #	| Version45        | InProcess |
@@ -64,6 +64,7 @@ Examples:
 	| Version45        | Multiple  |
 	| Version40        | Multiple  |
 
+@3.4.1
 @teamcity
 @ignore
 Scenario Outline: NUnit returns positive exit code when the test throws OutOfMemory exception
@@ -85,8 +86,6 @@ Scenario Outline: NUnit returns positive exit code when the test throws OutOfMem
 	| Failed       | 1     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-
-	
 Examples:
 	| frameworkVersion | process   |
 	| Version45        | InProcess |
@@ -95,4 +94,3 @@ Examples:
 	| Version40        | Separate  |
 	| Version45        | Multiple  |
 	| Version40        | Multiple  |
-
