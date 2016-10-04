@@ -187,7 +187,7 @@ Task("IntegrationTest")
 	.IsDependentOn("BuildForIntegrationTests")
 	.Does(() =>
 	{
-		foreach(var version in versionsOfNunitCore)
+		foreach(var nunitCoreVersion in versionsOfNunitCore)
 		{
 			EnsureDirectoryExists(TEST_NUNIT_DIR);
 			EnsureDirectoryExists(TEST_PACKAGES_DIR);
@@ -196,10 +196,10 @@ Task("IntegrationTest")
 
 			NuGetInstall(new [] {"NUnit", "NUnit.ConsoleRunner", "NUnit.Extension.NUnitProjectLoader", "NUnit.Extension.NUnitV2Driver" }, new NuGetInstallSettings()
         	{
-				Version = version == string.Empty ? null : version,
+				Version = nunitCoreVersion == string.Empty ? null : nunitCoreVersion,
 				OutputDirectory = TEST_NUNIT_DIR,
-	            Source = version == string.Empty ? PRERELEASE_PACKAGE_SOURCE : PACKAGE_SOURCE,
-				Prerelease = (version == string.Empty),
+	            Source = nunitCoreVersion == string.Empty ? PRERELEASE_PACKAGE_SOURCE : PACKAGE_SOURCE,
+				Prerelease = (nunitCoreVersion == string.Empty),
 				NoCache = true
 	        });
 
@@ -219,8 +219,8 @@ Task("IntegrationTest")
 			var versionCategories = string.Join(
 				"||",
 				versionsOfNunitCore
-					.TakeWhile(i => i != version)
-					.Concat(Enumerable.Repeat(version, 1))
+					.TakeWhile(i => i != nunitCoreVersion)
+					.Concat(Enumerable.Repeat(nunitCoreVersion, 1))
 					.Select(i => "cat==" + (string.IsNullOrEmpty(i) ? "dev" : i)));
 
 			var categoriesList = 
