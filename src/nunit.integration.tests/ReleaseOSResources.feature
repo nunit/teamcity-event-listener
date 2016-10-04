@@ -2,7 +2,8 @@
 
 Background:
 	Given NUnit path is ..\nunit\
-	
+
+@3.4.1
 @ignore
 Scenario Outline: Agent is finished when AppDomain did not unloaded correctly
 	Given Framework version is <frameworkVersion>	
@@ -16,10 +17,9 @@ Scenario Outline: Agent is finished when AppDomain did not unloaded correctly
 	When I run NUnit console
 	Then processes nunit-agent are finished
 	Then processes nunit-agent-x86 are finished
-			
 Examples:
 	| frameworkVersion | platform |
 	| Version45         | AnyCpu   |
 	| Version40         | AnyCpu   |
 	| Version45         | X86      |
-	| Version40         | X86      |	
+	| Version40         | X86      |

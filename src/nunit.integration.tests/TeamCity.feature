@@ -3,6 +3,7 @@
 Background:
 	Given NUnit path is ..\nunit\
 
+@3.4.1
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run successful test for NUnit3
 	Given Framework version is <frameworkVersion>	
@@ -25,12 +26,12 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run successful 
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |         |         |        |                               |
 	| flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
 	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |         |         |        |                               |
-
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
-	
+
+@3.4.1
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run it for different types of tests
 	Given Framework version is <frameworkVersion>	
@@ -70,7 +71,6 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for diff
 	| testIgnored       | Foo.Tests.UnitTests4.InconclusiveTest |                       |          | .+     |        | Inconclusive |                                   |        |                               |
 	| flowFinished      |                                       |                       |          | .+     |        |              |                                   |        |                               |
 	| testSuiteFinished | foo.tests.dll                         |                       |          | .+     |        |              |                                   |        |                               |
-
 Examples:
 	| configurationType | frameworkVersion | teamCityIntegration |
 	| ProjectFile       | Version45        | CmdArguments        |
@@ -82,6 +82,7 @@ Examples:
 	| CmdArguments      | Version45        | EnvVariable         |
 	| CmdArguments      | Version40        | EnvVariable         |
 
+@3.4.1
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run it for failed setup
 	Given Framework version is <frameworkVersion>	
@@ -105,12 +106,12 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for fail
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |                  |                                    |     |
 	| flowFinished      |                                     |                       |          | .+     |        |                  |                                    |     |
 	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |                  |                                    |     |
-
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
 
+@3.4.1
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run it for failed one time setup
 	Given Framework version is <frameworkVersion>	
@@ -134,13 +135,12 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for fail
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |                  |                                    |     |
 	| flowFinished      |                                     |                       |          | .+     |        |                  |                                    |     |
 	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |                  |                                    |     |
-
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
 
-
+@3.4.1
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run it for failed tear down
 	Given Framework version is <frameworkVersion>	
@@ -165,12 +165,12 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for fail
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |                  |                                       |        |                               |
 	| flowFinished      |                                     |                       |          | .+     |        |                  |                                       |        |                               |
 	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |                  |                                       |        |                               |
-
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
 
+@3.4.1
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run it for failed ctor
 	Given Framework version is <frameworkVersion>	
@@ -194,12 +194,12 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for fail
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |                                 |         |     |
 	| flowFinished      |                                     |                       |          | .+     |        |                                 |         |     |
 	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |                                 |         |     |
-
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
 
+@3.4.1
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run it for failed ctor for NUnit2
 	Given Framework version is <frameworkVersion>
@@ -221,13 +221,12 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for fail
 	| testFailed        | Foo.Tests.UnitTests1.SuccessfulTest |                       |          | .+     |        | TestFixtureSetUp failed in UnitTests1 |         |     |
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |                                       |         |     |
 	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |                                       |         |     |
-
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
 
-
+@3.4.1
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run it for parallelizable tests
 	Given Framework version is <frameworkVersion>	        
@@ -261,12 +260,12 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for para
 	| Failed       | 0     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
-	
+
+@3.4.1
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run successful tests with the same names in the several assemblies
 	Given Framework version is <frameworkVersion>	
@@ -302,13 +301,13 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run successful 
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |         |         |        |                               |
 	| flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
 	| testSuiteFinished | foo2.tests.dll                      |                       |          | .+     |        |         |         |        |                               |
-
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
 
-	@teamcity
+@3.4.1
+@teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run many test
 	Given Framework version is <frameworkVersion>	
 	And I have added 1000 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests1
@@ -325,12 +324,13 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run many test
 	When I run NUnit console
 	Then the exit code should be 0
 	And the output should contain correct set of TeamCity service messages
-
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
 
+@3.5
+@dev
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run many test for several assemblies for NUnit2
 	Given Framework version is <frameworkVersion>	
@@ -352,47 +352,27 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run many test f
 	When I run NUnit console
 	Then the exit code should be 0
 	And the output should contain correct set of TeamCity service messages
-
 Examples:
 	| frameworkVersion | process   | domain   | agents |
 	| Version45        | InProcess | None     | 10     |
 	| Version40        | InProcess | None     | 10     |
 	| Version45        | Separate  | None     | 10     |
-	| Version40        | Separate  | None     | 10     |
 	| Version45        | Multiple  | None     | 10     |
-	| Version40        | Multiple  | None     | 10     |
 	| Version45        | InProcess | Single   | 10     |
-	| Version40        | InProcess | Single   | 10     |
 	| Version45        | Separate  | Single   | 10     |
-	| Version40        | Separate  | Single   | 10     |
 	| Version45        | Multiple  | Single   | 10     |
-	| Version40        | Multiple  | Single   | 10     |
 	| Version45        | InProcess | Multiple | 10     |
-	| Version40        | InProcess | Multiple | 10     |
 	| Version45        | Separate  | Multiple | 10     |
-	| Version40        | Separate  | Multiple | 10     |
-#	| Version45        | Multiple  | Multiple | 10     |
-#	| Version40        | Multiple  | Multiple | 10     |
 	| Version45        | InProcess | None     | 1      |
-	| Version40        | InProcess | None     | 1      |
 	| Version45        | Separate  | None     | 1      |
-	| Version40        | Separate  | None     | 1      |
 	| Version45        | Multiple  | None     | 1      |
-	| Version40        | Multiple  | None     | 1      |
 	| Version45        | InProcess | Single   | 1      |
-	| Version40        | InProcess | Single   | 1      |
 	| Version45        | Separate  | Single   | 1      |
-	| Version40        | Separate  | Single   | 1      |
 	| Version45        | Multiple  | Single   | 1      |
-	| Version40        | Multiple  | Single   | 1      |
 	| Version45        | InProcess | Multiple | 1      |
-	| Version40        | InProcess | Multiple | 1      |
 	| Version45        | Separate  | Multiple | 1      |
-	| Version40        | Separate  | Multiple | 1      |
-#	| Version45        | Multiple  | Multiple | 1      |
-#	| Version40        | Multiple  | Multiple | 1      |
 
-
+@3.4.1
 @teamcity
 @Ignore
 Scenario Outline: NUnit sends TeamCity's service messages for bunch of test for several assemblies for NUnit2
@@ -419,36 +399,17 @@ Examples:
 	| Version45        | InProcess | None     | 10     |
 	| Version40        | InProcess | None     | 10     |
 	| Version45        | Separate  | None     | 10     |
-	| Version40        | Separate  | None     | 10     |
 	| Version45        | Multiple  | None     | 10     |
-	| Version40        | Multiple  | None     | 10     |
 	| Version45        | InProcess | Single   | 10     |
-	| Version40        | InProcess | Single   | 10     |
 	| Version45        | Separate  | Single   | 10     |
-	| Version40        | Separate  | Single   | 10     |
 	| Version45        | Multiple  | Single   | 10     |
-	| Version40        | Multiple  | Single   | 10     |
 	| Version45        | InProcess | Multiple | 10     |
-	| Version40        | InProcess | Multiple | 10     |
 	| Version45        | Separate  | Multiple | 10     |
-	| Version40        | Separate  | Multiple | 10     |
-#	| Version45        | Multiple  | Multiple | 10     |
-#	| Version40        | Multiple  | Multiple | 10     |
 	| Version45        | InProcess | None     | 1      |
-	| Version40        | InProcess | None     | 1      |
 	| Version45        | Separate  | None     | 1      |
-	| Version40        | Separate  | None     | 1      |
 	| Version45        | Multiple  | None     | 1      |
-	| Version40        | Multiple  | None     | 1      |
 	| Version45        | InProcess | Single   | 1      |
-	| Version40        | InProcess | Single   | 1      |
 	| Version45        | Separate  | Single   | 1      |
-	| Version40        | Separate  | Single   | 1      |
 	| Version45        | Multiple  | Single   | 1      |
-	| Version40        | Multiple  | Single   | 1      |
 	| Version45        | InProcess | Multiple | 1      |
-	| Version40        | InProcess | Multiple | 1      |
 	| Version45        | Separate  | Multiple | 1      |
-	| Version40        | Separate  | Multiple | 1      |
-#	| Version45        | Multiple  | Multiple | 1      |
-#	| Version40        | Multiple  | Multiple | 1      |

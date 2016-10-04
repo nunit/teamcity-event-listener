@@ -2,7 +2,8 @@
 
 Background:
 	Given NUnit path is ..\nunit\
-	
+
+@3.4.1
 Scenario Outline: I can run tests from nested directory
 	Given Framework version is <frameworkVersion>	
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
@@ -22,13 +23,12 @@ Scenario Outline: I can run tests from nested directory
 	| Failed       | 0     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-
-		
 Examples:
 	| configurationType | frameworkVersion |
 	| CmdArguments      | Version45        |
 	| CmdArguments      | Version40        |
 
+@3.4.1
 Scenario Outline: I can run tests from parent directory
 	Given Framework version is <frameworkVersion>	
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
@@ -48,8 +48,6 @@ Scenario Outline: I can run tests from parent directory
 	| Failed       | 0     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-
-		
 Examples:
 	| configurationType | frameworkVersion |
 	| ProjectFile       | Version45        |

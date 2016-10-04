@@ -2,7 +2,8 @@
 
 Background:
 	Given NUnit path is ..\nunit\
-	
+
+@3.4.1
 @teamcity
 Scenario Outline: I can run all tests except those in the CatA category
 	Given Framework version is <frameworkVersion>	
@@ -23,13 +24,12 @@ Scenario Outline: I can run all tests except those in the CatA category
 	| Failed       | 0     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-
-		
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
 
+@3.4.1
 @teamcity
 Scenario Outline: I can run only the tests in the CatA category
 	Given Framework version is <frameworkVersion>	
@@ -52,13 +52,12 @@ Scenario Outline: I can run only the tests in the CatA category
 	| Failed       | 0     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-
-		
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
 	
+@3.4.1
 @teamcity
 Scenario Outline: I can run all tests except those in the CatA category from NUnit 2 framework
 	Given Framework version is <frameworkVersion>	
@@ -79,10 +78,7 @@ Scenario Outline: I can run all tests except those in the CatA category from NUn
 	| Failed       | 0     |
 	| Inconclusive | 0     |
 	| Skipped      | 0     |
-
-		
 Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
-		

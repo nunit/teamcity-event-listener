@@ -1,0 +1,6 @@
+﻿teamcity-event-listener 1.0.2 - Oct 1, 2016
+
+Issues Resolved
+
+ * 0006 TeamCity does not parse service messages inside errors/output of tests
+ * 0014 Erroneous TeamCity service messages with multiple test assemblies and (default) parallel execution
