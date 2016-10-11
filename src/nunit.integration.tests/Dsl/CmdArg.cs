@@ -48,6 +48,9 @@
                         case DataType.Domain:
                             return $"--domain={_value}";
 
+                        case DataType.ListExtensions:
+                            return "--list-extensions";
+
                         default:
                             throw new NotSupportedException(_argType.ToString());
                     }

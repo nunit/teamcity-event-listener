@@ -18,6 +18,8 @@
 
         TestList,
 
-        Domain
+        Domain,
+
+        ListExtensions
     }
 }
