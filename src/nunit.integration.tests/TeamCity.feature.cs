@@ -1734,6 +1734,46 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("NUnit show version and extensions when users pass --list-extensions --teamcity ar" +
+            "gs")]
+        [NUnit.Framework.CategoryAttribute("3.4.1")]
+        [NUnit.Framework.CategoryAttribute("teamcity")]
+        public virtual void NUnitShowVersionAndExtensionsWhenUsersPass_List_Extensions_TeamcityArgs()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit show version and extensions when users pass --list-extensions --teamcity ar" +
+                    "gs", new string[] {
+                        "3.4.1",
+                        "teamcity"});
+#line 419
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 420
+ testRunner.Given("I have added the arg ListExtensions to NUnit console command line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 421
+ testRunner.And("I have added the arg TeamCity to NUnit console command line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 422
+ testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 423
+ testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                        ""});
+            table10.AddRow(new string[] {
+                        "\\s*NUnit\\sConsole\\sRunner\\s\\d+\\.\\d+\\.\\d+\\s*"});
+            table10.AddRow(new string[] {
+                        "\\s*Extension:\\sNUnit.Engine.Drivers.NUnit2FrameworkDriver\\s*"});
+            table10.AddRow(new string[] {
+                        "\\s*Extension:\\sNUnit.Engine.Listeners.TeamCityEventListener\\s*"});
+            table10.AddRow(new string[] {
+                        "\\s*Extension:\\sNUnit.Engine.Services.ProjectLoaders.NUnitProjectLoader\\s*"});
+#line 424
+ testRunner.And("the output should contain lines:", ((string)(null)), table10, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

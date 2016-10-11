@@ -413,3 +413,17 @@ Examples:
 	| Version45        | Multiple  | Single   | 1      |
 	| Version45        | InProcess | Multiple | 1      |
 	| Version45        | Separate  | Multiple | 1      |
+
+@3.4.1
+@teamcity
+Scenario: NUnit show version and extensions when users pass --list-extensions --teamcity args
+	Given I have added the arg ListExtensions to NUnit console command line
+	And I have added the arg TeamCity to NUnit console command line
+	When I run NUnit console
+	Then the exit code should be 0
+	And the output should contain lines:
+	|                                                                              |
+	| \\s*NUnit\\sConsole\\sRunner\\s\\d+\\.\\d+\\.\\d+\\s*                        |
+	| \\s*Extension:\\sNUnit.Engine.Drivers.NUnit2FrameworkDriver\\s*              |
+	| \\s*Extension:\\sNUnit.Engine.Listeners.TeamCityEventListener\\s*            |
+	| \\s*Extension:\\sNUnit.Engine.Services.ProjectLoaders.NUnitProjectLoader\\s* |

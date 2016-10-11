@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Text.RegularExpressions;
 
     using Dsl;
 
@@ -310,6 +311,32 @@
             if (errorMessages.Count > 0)
             {
                 Assert.Fail($"See {ctx}\n{string.Join("\n", errorMessages)}");
+            }
+        }
+
+        [Then(@"the output should contain lines:")]
+        public void ResultShouldContainServiceMessage(Table data)
+        {
+            var ctx = ScenarioContext.Current.GetTestContext();
+            var actualLines = ctx.TestSession.Output.Split(new [] { Environment.NewLine }, StringSplitOptions.None).ToList();
+            var expectedLines = data.Rows.Select(i => new Regex(i[""], RegexOptions.CultureInvariant | RegexOptions.Compiled)).ToList();
+            while (expectedLines.Count > 0 && actualLines.Count > 0)
+            {
+                while (actualLines.Count > 0)
+                {
+                    var actualLine = actualLines[0];
+                    actualLines.RemoveAt(0);
+                    if (expectedLines[0].IsMatch(actualLine))
+                    {
+                        expectedLines.RemoveAt(0);
+                        break;
+                    }
+                }
+            }
+
+            if (expectedLines.Count > 0)
+            {
+                Assert.Fail($"See {ctx}\nExpected line was not found \"{expectedLines[0]}\"");
             }
         }
     }

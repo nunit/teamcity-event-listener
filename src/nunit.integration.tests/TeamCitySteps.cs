@@ -44,7 +44,7 @@
         {
             var ctx = ScenarioContext.Current.GetTestContext();
             var messages = new TeamCityServiceMessageParser().Parse(ctx.TestSession.Output).ToList();
-            Assert.AreEqual(data.RowCount, messages.Count, $"{ctx}\nExpected service messages are {data.RowCount} but actual is {messages.Count}");
+            Assert.AreEqual(data.RowCount, messages.Count, $"{ctx}\nExpected number of service messages is {data.RowCount} but actual is {messages.Count}");
 
             var invalidMessages = (
                 from item in data.Rows.Zip(messages, (row, message) => new { row, message })
