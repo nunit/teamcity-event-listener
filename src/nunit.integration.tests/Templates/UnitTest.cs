@@ -34,10 +34,22 @@
             throw new System.Exception("Exception during tear down");
         }
 
+        [SetUp]
+        public void SetUpWithOutput()
+        {
+            System.Console.WriteLine("SetUp output");
+        }
+
+        [TearDown]
+        public void TearDownWithOutput()
+        {
+            System.Console.WriteLine("TearDown output");
+        }
+
         [Test]
         public void Successful()
-        {            
-            System.Console.Write("output");
+        {
+            System.Console.WriteLine("output");
         }
 
         [Test]

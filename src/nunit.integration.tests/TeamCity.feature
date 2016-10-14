@@ -427,3 +427,39 @@ Scenario: NUnit show version and extensions when users pass --list-extensions --
 	| \\s*Extension:\\sNUnit.Engine.Drivers.NUnit2FrameworkDriver\\s*              |
 	| \\s*Extension:\\sNUnit.Engine.Listeners.TeamCityEventListener\\s*            |
 	| \\s*Extension:\\sNUnit.Engine.Services.ProjectLoaders.NUnitProjectLoader\\s* |
+
+@3.4.1
+@teamcity
+Scenario Outline: NUnit sends TeamCity's service messages from SetUp and TearDown
+	Given Framework version is <frameworkVersion>	
+	And I have added SetUpWithOutput method as SetUpWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
+	And I have added Successful method as SuccessfulTest1 to the class Foo.Tests.UnitTests1 for foo.tests
+	And I have added Successful method as SuccessfulTest2 to the class Foo.Tests.UnitTests1 for foo.tests
+	And I have added TearDownWithOutput method as TearDownWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
+	And I have created the folder mocks
+	And I have added NUnit framework references to foo.tests
+	And I have copied NUnit framework references to folder mocks
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
+	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+	And I want to use CmdArguments type of TeamCity integration
+	When I run NUnit console
+	Then the exit code should be 0
+	And the output should contain correct set of TeamCity service messages
+	And the output should contain TeamCity service messages:
+	|                   | name                                 | captureStandardOutput | duration | flowId | parent | message | details | out                                           | tc:tags                       |
+	| testSuiteStarted  | foo.tests.dll                        |                       |          | .+     |        |         |         |                                               |                               |
+	| flowStarted       |                                      |                       |          | .+     | .+     |         |         |                                               |                               |
+	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest1 | false                 |          | .+     |        |         |         |                                               |                               |
+	| testStdOut        | Foo.Tests.UnitTests1.SuccessfulTest1 |                       |          | .+     |        |         |         | SetUp output\|r\|noutput\|r\|nTearDown output | tc:parseServiceMessagesInside |
+	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest1 |                       | \d+      | .+     |        |         |         |                                               |                               |
+	| flowFinished      |                                      |                       |          | .+     |        |         |         |                                               |                               |
+	| flowStarted       |                                      |                       |          | .+     | .+     |         |         |                                               |                               |
+	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest2 | false                 |          | .+     |        |         |         |                                               |                               |
+	| testStdOut        | Foo.Tests.UnitTests1.SuccessfulTest2 |                       |          | .+     |        |         |         | SetUp output\|r\|noutput\|r\|nTearDown output | tc:parseServiceMessagesInside |
+	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest2 |                       | \d+      | .+     |        |         |         |                                               |                               |
+	| flowFinished      |                                      |                       |          | .+     |        |         |         |                                               |                               |
+	| testSuiteFinished | foo.tests.dll                        |                       |          | .+     |        |         |         |                                               |                               |
+Examples:
+	| frameworkVersion |
+	| Version45        |
+	| Version40        |
