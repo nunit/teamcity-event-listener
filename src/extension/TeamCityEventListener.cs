@@ -282,7 +282,7 @@ namespace NUnit.Engine.Listeners
 
         private void TrySendOutput(string flowId, XmlNode message, string fullName)
         {
-            if (message == null) throw new ArgumentNullException("message");            
+            if (message == null) throw new ArgumentNullException("message");
 
             var output = message.SelectSingleNode("output");
             if (output == null)
@@ -290,23 +290,46 @@ namespace NUnit.Engine.Listeners
                 return;
             }
 
-            var outputStr = output.InnerText;
+            SendOutput(flowId, fullName, output.InnerText);
+        }
+
+        private void TrySendReasonMessage(string flowId, XmlNode message, string fullName)
+        {
+            if (message == null) throw new ArgumentNullException("message");
+
+            var reasonMessageElement = message.SelectSingleNode("reason/message");
+            if (reasonMessageElement == null)
+            {
+                return;
+            }
+
+            var reasonMessage = reasonMessageElement.InnerText;
+            if (string.IsNullOrEmpty(reasonMessage))
+            {
+                return;
+            }
+
+            SendOutput(flowId, fullName, "Assert.Pass message: " + reasonMessage);
+        }
+
+        private void SendOutput(string flowId, string fullName, string outputStr)
+        {
             if (string.IsNullOrEmpty(outputStr))
             {
                 return;
             }
 
-            Write(new ServiceMessage(ServiceMessage.Names.TestStdOut, 
+            Write(new ServiceMessage(ServiceMessage.Names.TestStdOut,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, fullName),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Out, outputStr),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, "tc:parseServiceMessagesInside")));
-        }        
+        }
 
         private void OnRootSuiteStart(string flowId, string assemblyName)
         {
             assemblyName = Path.GetFileName(assemblyName);
-            
+
             Write(new ServiceMessage(ServiceMessage.Names.TestSuiteStarted,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, assemblyName),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId)));
@@ -315,7 +338,7 @@ namespace NUnit.Engine.Listeners
         private void OnRootSuiteFinish(string flowId, string assemblyName)
         {
             assemblyName = Path.GetFileName(assemblyName);
-            
+
             Write(new ServiceMessage(ServiceMessage.Names.TestSuiteFinished,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, assemblyName),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId)));
@@ -358,6 +381,7 @@ namespace NUnit.Engine.Listeners
             }
 
             TrySendOutput(flowId, message, fullName);
+            TrySendReasonMessage(flowId, message, fullName);
 
             Write(new ServiceMessage(ServiceMessage.Names.TestFinished,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, fullName),
@@ -412,7 +436,7 @@ namespace NUnit.Engine.Listeners
             Write(new ServiceMessage(ServiceMessage.Names.TestIgnored,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, fullName),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Message, "Inconclusive"),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId)));            
+                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId)));
         }
 
         private void Write(ServiceMessage serviceMessage)
@@ -420,9 +444,9 @@ namespace NUnit.Engine.Listeners
             var sb = new StringBuilder();
             using (var writer = new StringWriter(sb))
             {
-                ServiceMessageWriter.Write(writer, serviceMessage);                
+                ServiceMessageWriter.Write(writer, serviceMessage);
             }
-            
+
             _outWriter.WriteLine(sb.ToString());
         }
     }
