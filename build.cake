@@ -13,7 +13,7 @@ var configuration = Argument("configuration", "Debug");
 
 var version = "1.0.2";
 var modifier = "";
-var versionsOfNunitCore = new [] {"3.4.1", ""};
+var versionsOfNunitCore = new [] {"3.4.1", "3.5", ""};
 
 var integrationTestsCategories = new List<string>();
 
@@ -235,12 +235,13 @@ Task("IntegrationTest")
 				arguments += " --where \"" + string.Join("&&", categoriesList) + "\"";
 			}
 
+			Console.WriteLine("!!! NUnit arguments: " + arguments);
 			int rc = StartProcess(
 				NUNIT3_CONSOLE,
 				new ProcessSettings()
 				{
 					Arguments = arguments
-				});
+				});			
 
 			if (rc != 0)
 			{
@@ -249,6 +250,18 @@ Task("IntegrationTest")
 					: string.Format("Test exited with rc = {0}", rc);
 
 				throw new CakeException(message);
+			}
+
+			using(var process = StartAndReturnProcess("TASKKILL", new ProcessSettings { Arguments = "/F /IM nunit-agent.exe /T" }))
+			{
+				Information("Kill nunit-agent.exe");
+				process.WaitForExit();
+			}
+
+			using(var process = StartAndReturnProcess("TASKKILL", new ProcessSettings { Arguments = "/F /IM nunit-agent-x86.exe /T" }))
+			{
+				Information("Kill nunit-agent.exe");
+				process.WaitForExit();
 			}
 		}
 	});

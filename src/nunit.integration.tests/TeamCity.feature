@@ -33,6 +33,111 @@ Examples:
 
 @3.4.1
 @teamcity
+Scenario Outline: NUnit sends TeamCity's service messages when I run test with Assert.Pass
+	Given Framework version is <frameworkVersion>	
+	And I have added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests	
+	And I have created the folder mocks
+	And I have added NUnit framework references to foo.tests
+	And I have copied NUnit framework references to folder mocks
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
+	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+	And I want to use CmdArguments type of TeamCity integration
+	When I run NUnit console
+	Then the exit code should be 0
+	And the output should contain correct set of TeamCity service messages
+	And the output should contain TeamCity service messages:
+	|                   | name                          | captureStandardOutput | duration | flowId | parent | message | details | out | tc:tags |
+	| testSuiteStarted  | foo.tests.dll                 |                       |          | .+     |        |         |         |     |         |
+	| flowStarted       |                               |                       |          | .+     | .+     |         |         |     |         |
+	| testStarted       | Foo.Tests.UnitTests1.PassTest | false                 |          | .+     |        |         |         |     |         |
+	| testFinished      | Foo.Tests.UnitTests1.PassTest |                       | \d+      | .+     |        |         |         |     |         |
+	| flowFinished      |                               |                       |          | .+     |        |         |         |     |         |
+	| testSuiteFinished | foo.tests.dll                 |                       |          | .+     |        |         |         |     |         |
+Examples:
+	| frameworkVersion |
+	| Version45        |
+	| Version40        |
+
+
+@3.4.1
+@teamcity
+Scenario Outline: NUnit sends TeamCity's service messages when I run test with Assert.Pass with text
+	Given Framework version is <frameworkVersion>	
+	And I have added PassWithText method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests	
+	And I have created the folder mocks
+	And I have added NUnit framework references to foo.tests
+	And I have copied NUnit framework references to folder mocks
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
+	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+	And I want to use CmdArguments type of TeamCity integration
+	When I run NUnit console
+	Then the exit code should be 0
+	And the output should contain correct set of TeamCity service messages
+	And the output should contain TeamCity service messages:
+	|                   | name                          | captureStandardOutput | duration | flowId | parent | message | details | out                            | tc:tags                       |
+	| testSuiteStarted  | foo.tests.dll                 |                       |          | .+     |        |         |         |                                |                               |
+	| flowStarted       |                               |                       |          | .+     | .+     |         |         |                                |                               |
+	| testStarted       | Foo.Tests.UnitTests1.PassTest | false                 |          | .+     |        |         |         |                                |                               |
+	| testStdOut        | Foo.Tests.UnitTests1.PassTest |                       |          | .+     |        |         |         | Assert.Pass message: some text | tc:parseServiceMessagesInside |
+	| testFinished      | Foo.Tests.UnitTests1.PassTest |                       | \d+      | .+     |        |         |         |                                |                               |
+	| flowFinished      |                               |                       |          | .+     |        |         |         |                                |                               |
+	| testSuiteFinished | foo.tests.dll                 |                       |          | .+     |        |         |         |                                |                               |
+Examples:
+	| frameworkVersion |
+	| Version45        |
+
+
+@3.4.1
+@teamcity
+Scenario Outline: NUnit sends TeamCity's service messages when I run test with Assert.Pass for NUnit2
+	Given Framework version is <frameworkVersion>
+	And I have added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
+	And I have created the folder mocks
+	And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
+	And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
+	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+	And I want to use CmdArguments type of TeamCity integration
+	When I run NUnit console
+	Then the exit code should be 0
+	And the output should contain correct set of TeamCity service messages
+	And the output should contain TeamCity service messages:
+	|                   | name                          | captureStandardOutput | duration | flowId | parent | message | details | out    | tc:tags                       |
+	| testSuiteStarted  | foo.tests.dll                 |                       |          | .+     |        |         |         |        |                               |
+	| testStarted       | Foo.Tests.UnitTests1.PassTest | false                 |          | .+     |        |         |         |        |                               |
+	| testFinished      | Foo.Tests.UnitTests1.PassTest |                       | \d+      | .+     |        |         |         |        |                               |
+	| testSuiteFinished | foo.tests.dll                 |                       |          | .+     |        |         |         |        |                               |
+Examples:
+	| frameworkVersion |
+	| Version45        |
+
+@3.4.1
+@teamcity
+Scenario Outline: NUnit sends TeamCity's service messages when I run test with Assert.Pass with text for NUnit2
+	Given Framework version is <frameworkVersion>
+	And I have added PassWithText method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
+	And I have created the folder mocks
+	And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
+	And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
+	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+	And I want to use CmdArguments type of TeamCity integration
+	When I run NUnit console
+	Then the exit code should be 0
+	And the output should contain correct set of TeamCity service messages
+	And the output should contain TeamCity service messages:
+	|                   | name                          | captureStandardOutput | duration | flowId | parent | message | details | out                            | tc:tags                       |
+	| testSuiteStarted  | foo.tests.dll                 |                       |          | .+     |        |         |         |                                |                               |
+	| testStarted       | Foo.Tests.UnitTests1.PassTest | false                 |          | .+     |        |         |         |                                |                               |
+	| testStdOut        | Foo.Tests.UnitTests1.PassTest |                       |          | .+     |        |         |         | Assert.Pass message: some text | tc:parseServiceMessagesInside |
+	| testFinished      | Foo.Tests.UnitTests1.PassTest |                       | \d+      | .+     |        |         |         |                                |                               |
+	| testSuiteFinished | foo.tests.dll                 |                       |          | .+     |        |         |         |                                |                               |
+Examples:
+	| frameworkVersion |
+	| Version45        |
+
+@3.4.1
+@teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run it for different types of tests
 	Given Framework version is <frameworkVersion>	
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests	
@@ -329,7 +434,6 @@ Examples:
 	| Version45        |
 	| Version40        |
 
-@3.5
 @dev
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run many test for several assemblies for NUnit2

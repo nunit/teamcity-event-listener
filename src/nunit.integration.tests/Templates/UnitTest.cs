@@ -53,6 +53,18 @@
         }
 
         [Test]
+        public void Pass()
+        {
+            Assert.Pass();
+        }
+
+        [Test]
+        public void PassWithText()
+        {
+            Assert.Pass("some text");
+        }
+
+        [Test]
         public void Failed()
         {
             Assert.Fail("Reason");

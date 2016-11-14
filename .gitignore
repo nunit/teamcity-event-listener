@@ -177,3 +177,4 @@ package
 images
 MockAssemblyResult.xml
 PortabilityAnalysis*.html
+tools/nuget.exe
