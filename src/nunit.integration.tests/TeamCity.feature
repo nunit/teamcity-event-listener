@@ -434,7 +434,6 @@ Examples:
 	| Version45        |
 	| Version40        |
 
-@3.5
 @dev
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run many test for several assemblies for NUnit2
