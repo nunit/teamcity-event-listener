@@ -71,9 +71,9 @@ var PACKAGE_SOURCE = new string[]
 // Package sources for nuget restore
 var PRERELEASE_PACKAGE_SOURCE = new string[]
 	{
-		"https://www.myget.org/F/nunit/api/v2"
+		"https://www.myget.org/F/nunit/api/v2",
+		"https://www.nuget.org/api/v2",
 	};
-
 
 //////////////////////////////////////////////////////////////////////
 // CLEAN
@@ -194,6 +194,7 @@ Task("IntegrationTest")
 			CleanDirectories(TEST_NUNIT_DIR + "**/*.*");
 			CleanDirectories(TEST_PACKAGES_DIR + "**/*.*");		
 
+			Information("Restoring basic packages to test");
 			NuGetInstall(new [] {"NUnit", "NUnit.ConsoleRunner", "NUnit.Extension.NUnitProjectLoader", "NUnit.Extension.NUnitV2Driver" }, new NuGetInstallSettings()
         	{
 				Version = nunitCoreVersion == string.Empty ? null : nunitCoreVersion,
@@ -203,6 +204,7 @@ Task("IntegrationTest")
 				NoCache = true
 	        });
 
+			Information("Restoring NUnit 2 packages");
 			NuGetInstall(new [] {"NUnit"}, new NuGetInstallSettings()
         	{
 				Version = "2.6.4",
@@ -235,7 +237,7 @@ Task("IntegrationTest")
 				arguments += " --where \"" + string.Join("&&", categoriesList) + "\"";
 			}
 
-			Console.WriteLine("!!! NUnit arguments: " + arguments);
+			Information("NUnit arguments: " + arguments);
 			int rc = StartProcess(
 				NUNIT3_CONSOLE,
 				new ProcessSettings()
@@ -260,7 +262,7 @@ Task("IntegrationTest")
 
 			using(var process = StartAndReturnProcess("TASKKILL", new ProcessSettings { Arguments = "/F /IM nunit-agent-x86.exe /T" }))
 			{
-				Information("Kill nunit-agent.exe");
+				Information("Kill nunit-agent-x86.exe");
 				process.WaitForExit();
 			}
 		}
