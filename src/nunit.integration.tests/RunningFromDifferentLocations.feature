@@ -13,7 +13,7 @@ Scenario Outline: I can run tests from nested directory
 	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
 	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
 	And I want to use <configurationType> configuration type
-	And I have change current directory to WorkingDirectory
+	And I have changed current directory to WorkingDirectory
 	When I run NUnit console
 	Then the exit code should be 0
 	And the Test Run Summary should has following:
@@ -38,7 +38,7 @@ Scenario Outline: I can run tests from parent directory
 	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
 	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
 	And I want to use <configurationType> configuration type
-	And I have change current directory to ..\..\..\
+	And I have changed current directory to ..\..\..\
 	When I run NUnit console
 	Then the exit code should be 0
 	And the Test Run Summary should has following:

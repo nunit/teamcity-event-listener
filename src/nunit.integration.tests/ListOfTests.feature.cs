@@ -263,9 +263,9 @@ this.FeatureBackground();
 #line 77
  testRunner.And("I have added the assembly mocks\\foo.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 78
- testRunner.And("I have append the line Foo.Tests.UnitTests1 to file mocks\\ListOfTests.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I have appended the line Foo.Tests.UnitTests1 to file mocks\\ListOfTests.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 79
- testRunner.And("I have append the line Foo.Tests.UnitTests2 to file mocks\\ListOfTests.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I have appended the line Foo.Tests.UnitTests2 to file mocks\\ListOfTests.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 80
  testRunner.And("I have added the arg TestList=mocks\\ListOfTests.txt to NUnit console command line" +
                     "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -354,9 +354,9 @@ this.FeatureBackground();
 #line 111
  testRunner.And("I have added the assembly mocks\\foo2.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 112
- testRunner.And("I have append the line Foo.Tests.UnitTests1 to file mocks\\ListOfTests.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I have appended the line Foo.Tests.UnitTests1 to file mocks\\ListOfTests.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 113
- testRunner.And("I have append the line Foo.Tests.UnitTests2 to file mocks\\ListOfTests.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I have appended the line Foo.Tests.UnitTests2 to file mocks\\ListOfTests.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 114
  testRunner.And("I have added the arg TestList=mocks\\ListOfTests.txt to NUnit console command line" +
                     "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -457,9 +457,9 @@ this.FeatureBackground();
  testRunner.And("I have added the assembly mocks\\2\\foo2.tests.dll to the list of testing assemblie" +
                     "s", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 152
- testRunner.And("I have append the line Foo.Tests.UnitTests1 to file mocks\\ListOfTests.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I have appended the line Foo.Tests.UnitTests1 to file mocks\\ListOfTests.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 153
- testRunner.And("I have append the line Foo.Tests.UnitTests2 to file mocks\\ListOfTests.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I have appended the line Foo.Tests.UnitTests2 to file mocks\\ListOfTests.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 154
  testRunner.And("I have added the arg TestList=mocks\\ListOfTests.txt to NUnit console command line" +
                     "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");

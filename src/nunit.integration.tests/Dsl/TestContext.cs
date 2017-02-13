@@ -1,4 +1,6 @@
-﻿namespace nunit.integration.tests.Dsl
+﻿using System.Text;
+
+namespace nunit.integration.tests.Dsl
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +15,7 @@
         {
             AssemblyDirectory = Path.GetDirectoryName(new Uri(typeof(NUnitSteps).Assembly.CodeBase).LocalPath);
             SandboxPath = !string.IsNullOrWhiteSpace(AssemblyDirectory) ? Path.Combine(AssemblyDirectory, GetSandboxPath()) : GetSandboxPath();
-            CurrentDirectory = SandboxPath;            
+            CurrentDirectory = SandboxPath;
         }
 
         public string AssemblyDirectory { get; private set; }
@@ -24,8 +26,10 @@
 
         public TestSession TestSession { get; set; }
 
+        public Encoding Encoding { get; set; }
+
         public TestAssembly GetOrCreateAssembly(string assemblyName)
-        {            
+        {
             TestAssembly testAssembly;
             if (!_assemblies.TryGetValue(assemblyName, out testAssembly))
             {
@@ -44,18 +48,7 @@
 
         private static string GetSandboxPath()
         {
-            return NUnit.Framework.TestContext.CurrentContext.Test.Name?
-                .GetHashCode().ToString();
-
-            //return NUnit.Framework.TestContext.CurrentContext.Test.Name?
-            //    .Replace("(", string.Empty)
-            //    .Replace("\"", string.Empty)
-            //    .Replace(",null", string.Empty)
-            //    .Replace(",", string.Empty)
-            //    .Replace("]", string.Empty)
-            //    .Replace("[", string.Empty)
-            //    .Replace("System.String", string.Empty)
-            //    .Replace(")", string.Empty) ?? string.Empty;
+            return NUnit.Framework.TestContext.CurrentContext.Test.Name?.GetHashCode().ToString();
         }
     }
 }

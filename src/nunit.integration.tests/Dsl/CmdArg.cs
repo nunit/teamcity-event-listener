@@ -51,6 +51,9 @@
                         case DataType.ListExtensions:
                             return "--list-extensions";
 
+                        case DataType.Encoding:
+                            return $"--encoding={_value}";
+
                         default:
                             throw new NotSupportedException(_argType.ToString());
                     }

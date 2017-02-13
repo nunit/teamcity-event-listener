@@ -75,8 +75,8 @@ Scenario Outline: I can run tests from the list of tests
 	And I have copied NUnit framework references to folder mocks
 	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
 	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
-	And I have append the line Foo.Tests.UnitTests1 to file mocks\ListOfTests.txt
-	And I have append the line Foo.Tests.UnitTests2 to file mocks\ListOfTests.txt
+	And I have appended the line Foo.Tests.UnitTests1 to file mocks\ListOfTests.txt
+	And I have appended the line Foo.Tests.UnitTests2 to file mocks\ListOfTests.txt
 	And I have added the arg TestList=mocks\ListOfTests.txt to NUnit console command line
 	When I run NUnit console
 	Then the exit code should be 0
@@ -109,8 +109,8 @@ Scenario Outline: I can run tests from the list of tests for several assemblies
 	And I have compiled the assembly foo2.tests to file mocks\foo2.tests.dll
 	And I have added the assembly mocks\foo1.tests.dll to the list of testing assemblies
 	And I have added the assembly mocks\foo2.tests.dll to the list of testing assemblies
-	And I have append the line Foo.Tests.UnitTests1 to file mocks\ListOfTests.txt
-	And I have append the line Foo.Tests.UnitTests2 to file mocks\ListOfTests.txt
+	And I have appended the line Foo.Tests.UnitTests1 to file mocks\ListOfTests.txt
+	And I have appended the line Foo.Tests.UnitTests2 to file mocks\ListOfTests.txt
 	And I have added the arg TestList=mocks\ListOfTests.txt to NUnit console command line
 	And I want to use <configurationType> configuration type
 	When I run NUnit console
@@ -149,8 +149,8 @@ Scenario Outline: I can run tests from the list of tests for several assemblies 
 	And I have compiled the assembly foo2.tests to file mocks\2\foo2.tests.dll
 	And I have added the assembly mocks\1\foo1.tests.dll to the list of testing assemblies
 	And I have added the assembly mocks\2\foo2.tests.dll to the list of testing assemblies
-	And I have append the line Foo.Tests.UnitTests1 to file mocks\ListOfTests.txt
-	And I have append the line Foo.Tests.UnitTests2 to file mocks\ListOfTests.txt
+	And I have appended the line Foo.Tests.UnitTests1 to file mocks\ListOfTests.txt
+	And I have appended the line Foo.Tests.UnitTests2 to file mocks\ListOfTests.txt
 	And I have added the arg TestList=mocks\ListOfTests.txt to NUnit console command line
 	And I want to use <configurationType> configuration type
 	When I run NUnit console

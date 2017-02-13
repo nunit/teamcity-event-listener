@@ -1,4 +1,6 @@
-﻿namespace nunit.integration.tests
+﻿using System.Text;
+
+namespace nunit.integration.tests
 {
     using System;
     using System.Collections.Generic;
@@ -16,7 +18,7 @@
     [Binding]
     public class CommonSteps
     {
-        [Given(@"I have change current directory to (.+)")]
+        [Given(@"I have changed current directory to (.+)")]
         public void ChangeCurrentDirectory(string newCurrentDirectory)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -29,14 +31,21 @@
             ctx.CurrentDirectory = newCurrentDirectory;
         }
 
-        [Given(@"I have append the string (.+) to file (.+)")]
+        [Given(@"I have specified encoding (.+)")]
+        public void SpecifyEncoding(string encoding)
+        {
+            var ctx = ScenarioContext.Current.GetTestContext();
+            ctx.Encoding = Encoding.GetEncoding(encoding);
+        }
+
+        [Given(@"I have appended the string (.+) to file (.+)")]
         public void AppendStringToFile(string content, string fileName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
             File.AppendAllText(Path.GetFullPath(Path.Combine(ctx.SandboxPath, fileName)), content);            
         }
 
-        [Given(@"I have append the line (.+) to file (.+)")]
+        [Given(@"I have appended the line (.+) to file (.+)")]
         public void AppendLineFile(string line, string fileName)
         {
             AppendStringToFile(line + Environment.NewLine, fileName);

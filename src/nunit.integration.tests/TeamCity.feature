@@ -567,3 +567,88 @@ Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
+
+@3.4.1
+@teamcity
+Scenario Outline: NUnit sends TeamCity's service messages when I run test scenarios for NUnit3
+	Given Framework version is <frameworkVersion>	
+	And I have added TestCasesWithSymbols method as TestCasesWithSymbols to the class Foo.Tests.UnitTests1 for foo.tests
+	And I have created the folder mocks
+	And I have added NUnit framework references to foo.tests
+	And I have copied NUnit framework references to folder mocks
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
+	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+	And I want to use CmdArguments type of TeamCity integration
+	When I run NUnit console
+	Then the exit code should be 0
+	And the output should contain correct set of TeamCity service messages
+	And the output should contain 137 TeamCity service messages
+Examples:
+	| frameworkVersion |
+	| Version45        |
+	| Version40        |
+
+@3.4.1
+@teamcity
+Scenario Outline: NUnit sends TeamCity's service messages when I run test with polish name for NUnit3
+	Given Framework version is <frameworkVersion>
+	And I have specified encoding <encoding>
+	And I have added successful method as da_się_przefiltrować_produkty_dodatkowe_po_nazwie to the class Foo.Tests.UnitTests1 for foo.tests	
+	And I have created the folder mocks
+	And I have added NUnit framework references to foo.tests
+	And I have copied NUnit framework references to folder mocks
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
+	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+	And I want to use CmdArguments type of TeamCity integration
+	And I have added the arg Encoding=<encoding> to NUnit console command line
+	When I run NUnit console
+	Then the exit code should be 0
+	And the output should contain correct set of TeamCity service messages
+	And the output should contain TeamCity service messages:
+	|                   | name                                                                   | captureStandardOutput | duration | flowId | parent | message | details | out    | tc:tags                       |
+	| testSuiteStarted  | foo.tests.dll                                                          |                       |          | .+     |        |         |         |        |                               |
+	| flowStarted       |                                                                        |                       |          | .+     | .+     |         |         |        |                               |
+	| testStarted       | Foo.Tests.UnitTests1.da_się_przefiltrować_produkty_dodatkowe_po_nazwie | false                 |          | .+     |        |         |         |        |                               |
+	| testStdOut        | Foo.Tests.UnitTests1.da_się_przefiltrować_produkty_dodatkowe_po_nazwie |                       |          | .+     |        |         |         | output | tc:parseServiceMessagesInside |
+	| testFinished      | Foo.Tests.UnitTests1.da_się_przefiltrować_produkty_dodatkowe_po_nazwie |                       | \d+      | .+     |        |         |         |        |                               |
+	| flowFinished      |                                                                        |                       |          | .+     |        |         |         |        |                               |
+	| testSuiteFinished | foo.tests.dll                                                          |                       |          | .+     |        |         |         |        |                               |
+Examples:
+	| frameworkVersion | encoding     |
+	| Version45        | utf-8        |
+	| Version40        | utf-8        |
+	| Version45        | windows-1250 |
+	| Version40        | windows-1250 |
+
+
+@3.4.1
+@teamcity
+Scenario Outline: NUnit sends TeamCity's service messages when I run test with russian output for NUnit3
+	Given Framework version is <frameworkVersion>
+	And I have specified encoding <encoding>
+	And I have added RusTest method as RusTest to the class Foo.Tests.UnitTests1 for foo.tests	
+	And I have created the folder mocks
+	And I have added NUnit framework references to foo.tests
+	And I have copied NUnit framework references to folder mocks
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
+	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+	And I want to use CmdArguments type of TeamCity integration
+	And I have added the arg Encoding=<encoding> to NUnit console command line
+	When I run NUnit console
+	Then the exit code should be 0
+	And the output should contain correct set of TeamCity service messages
+	And the output should contain TeamCity service messages:
+	|                   | name                         | captureStandardOutput | duration | flowId | parent | message | details | out    | tc:tags                       |
+	| testSuiteStarted  | foo.tests.dll                |                       |          | .+     |        |         |         |        |                               |
+	| flowStarted       |                              |                       |          | .+     | .+     |         |         |        |                               |
+	| testStarted       | Foo.Tests.UnitTests1.RusTest | false                 |          | .+     |        |         |         |        |                               |
+	| testStdOut        | Foo.Tests.UnitTests1.RusTest |                       |          | .+     |        |         |         | привет | tc:parseServiceMessagesInside |
+	| testFinished      | Foo.Tests.UnitTests1.RusTest |                       | \d+      | .+     |        |         |         |        |                               |
+	| flowFinished      |                              |                       |          | .+     |        |         |         |        |                               |
+	| testSuiteFinished | foo.tests.dll                |                       |          | .+     |        |         |         |        |                               |
+Examples:
+	| frameworkVersion | encoding     |
+	| Version45        | utf-8        |
+	| Version40        | utf-8        |
+	| Version45        | windows-1251 |
+	| Version40        | windows-1251 |
