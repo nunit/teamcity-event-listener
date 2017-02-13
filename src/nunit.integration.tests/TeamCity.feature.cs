@@ -2520,7 +2520,7 @@ this.FeatureBackground();
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run test with polish name for NUni" +
             "t3")]
-        [NUnit.Framework.CategoryAttribute("3.4.1")]
+        [NUnit.Framework.CategoryAttribute("3.6.0")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", "utf-8", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", "utf-8", new string[0])]
@@ -2529,7 +2529,7 @@ this.FeatureBackground();
         public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunTestWithPolishNameForNUnit3(string frameworkVersion, string encoding, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "3.4.1",
+                    "3.6.0",
                     "teamcity"};
             if ((exampleTags != null))
             {
@@ -2666,7 +2666,7 @@ this.FeatureBackground();
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run test with russian output for N" +
             "Unit3")]
-        [NUnit.Framework.CategoryAttribute("3.4.1")]
+        [NUnit.Framework.CategoryAttribute("3.6.0")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", "utf-8", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", "utf-8", new string[0])]
@@ -2675,7 +2675,7 @@ this.FeatureBackground();
         public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunTestWithRussianOutputForNUnit3(string frameworkVersion, string encoding, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "3.4.1",
+                    "3.6.0",
                     "teamcity"};
             if ((exampleTags != null))
             {

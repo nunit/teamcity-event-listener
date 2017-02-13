@@ -588,7 +588,7 @@ Examples:
 	| Version45        |
 	| Version40        |
 
-@3.4.1
+@3.6.0
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run test with polish name for NUnit3
 	Given Framework version is <frameworkVersion>
@@ -621,7 +621,7 @@ Examples:
 	| Version40        | windows-1250 |
 
 
-@3.4.1
+@3.6.0
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run test with russian output for NUnit3
 	Given Framework version is <frameworkVersion>

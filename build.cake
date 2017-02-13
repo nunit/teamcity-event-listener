@@ -13,7 +13,7 @@ var configuration = Argument("configuration", "Debug");
 
 var version = "1.0.2";
 var modifier = "";
-var versionsOfNunitCore = new [] {"3.4.1", "3.5", ""};
+var versionsOfNunitCore = new [] {"3.4.1", "3.5", "3.6", ""};
 
 var integrationTestsCategories = new List<string>();
 
