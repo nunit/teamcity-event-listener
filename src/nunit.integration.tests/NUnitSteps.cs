@@ -196,7 +196,7 @@
             switch (nUnitArg)
             {
                 case DataType.WorkingDirectory:
-                    value = Path.Combine(ctx.SandboxPath, value);                    
+                    value = Path.Combine(ctx.SandboxPath, value);
                     break;
             }
 

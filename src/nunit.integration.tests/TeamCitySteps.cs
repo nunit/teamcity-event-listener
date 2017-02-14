@@ -39,6 +39,14 @@
             }
         }
 
+        [Then(@"the output should contain ([\d]+) TeamCity service messages")]
+        public void ResultShouldContainNumberServiceMessage(int expectedNumberOfServiceMessages)
+        {
+            var ctx = ScenarioContext.Current.GetTestContext();
+            var actualMessages = new TeamCityServiceMessageParser().Parse(ctx.TestSession.Output).ToList();
+            Assert.AreEqual(expectedNumberOfServiceMessages, actualMessages.Count);
+        }
+
         [Then(@"the output should contain TeamCity service messages:")]
         public void ResultShouldContainServiceMessage(Table data)
         {

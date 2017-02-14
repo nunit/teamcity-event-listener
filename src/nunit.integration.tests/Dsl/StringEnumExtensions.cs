@@ -35,7 +35,7 @@
         public static Platform ConvertToPlatform(this string platformStr)
         {
             return ConvertToEnumType<Platform>(platformStr);
-        }        
+        }
 
         private static T ConvertToEnumType<T>(this string strValue)
         {

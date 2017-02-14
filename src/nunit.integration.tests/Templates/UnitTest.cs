@@ -53,6 +53,45 @@
         }
 
         [Test]
+        public void RusTest()
+        {
+            System.Console.WriteLine("привет");
+        }
+
+        [Test]
+        [TestCase('"')]
+        [TestCase('\'')]
+        [TestCase('`')]
+        [TestCase('~')]
+        [TestCase('!')]
+        [TestCase('@')]
+        [TestCase('#')]
+        [TestCase('$')]
+        [TestCase('%')]
+        [TestCase('^')]
+        [TestCase('&')]
+        [TestCase('*')]
+        [TestCase('(')]
+        [TestCase(')')]
+        [TestCase('\\')]
+        [TestCase('.')]
+        [TestCase(',')]
+        [TestCase('/')]
+        [TestCase('|')]
+        [TestCase('?')]
+        [TestCase('{')]
+        [TestCase('}')]
+        [TestCase('[')]
+        [TestCase(']')]
+        [TestCase('+')]
+        [TestCase('-')]
+        [TestCase('=')]
+        public void TestCasesWithSymbols(char caseChar)
+        {
+            System.Console.WriteLine("test case " + caseChar);
+        }
+
+        [Test]
         public void Pass()
         {
             Assert.Pass();

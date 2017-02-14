@@ -13,7 +13,7 @@ var configuration = Argument("configuration", "Debug");
 
 var version = "1.0.2";
 var modifier = "";
-var versionsOfNunitCore = new [] {"3.4.1", "3.5", ""};
+var versionsOfNunitCore = new [] {"3.4.1", "3.5", "3.6", ""};
 
 var integrationTestsCategories = new List<string>();
 
@@ -195,7 +195,7 @@ Task("IntegrationTest")
 			CleanDirectories(TEST_PACKAGES_DIR + "**/*.*");		
 
 			Information("Restoring basic packages to test");
-			NuGetInstall(new [] {"NUnit", "NUnit.ConsoleRunner", "NUnit.Extension.NUnitProjectLoader", "NUnit.Extension.NUnitV2Driver" }, new NuGetInstallSettings()
+			NuGetInstall(new [] {"NUnit", "NUnit.Console" }, new NuGetInstallSettings()
         	{
 				Version = nunitCoreVersion == string.Empty ? null : nunitCoreVersion,
 				OutputDirectory = TEST_NUNIT_DIR,

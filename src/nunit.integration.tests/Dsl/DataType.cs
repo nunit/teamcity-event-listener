@@ -20,6 +20,8 @@
 
         Domain,
 
-        ListExtensions
+        ListExtensions,
+
+        Encoding
     }
 }

@@ -27,6 +27,9 @@
             process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.StandardOutputEncoding = ctx.Encoding;
+            process.StartInfo.StandardErrorEncoding = ctx.Encoding;
             foreach (var envVariable in setup.EnvVariables)
             {
                 process.StartInfo.EnvironmentVariables[envVariable.Key] = envVariable.Value;
@@ -54,6 +57,6 @@
                 select processItem).ToList();
 
             return new TestSession(ctx, process.ExitCode, output, processesAfter);
-        }        
+        }
     }
 }
