@@ -40,6 +40,7 @@
             return value != null
                 ? value.Replace("|", "||")
                        .Replace("'", "|'")
+                       .Replace("’", "|’")
                        .Replace("\n", "|n")
                        .Replace("\r", "|r")
                        .Replace(char.ConvertFromUtf32(int.Parse("0086", NumberStyles.HexNumber)), "|x")
