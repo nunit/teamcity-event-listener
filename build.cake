@@ -107,11 +107,24 @@ Task("Build")
     .IsDependentOn("NuGetRestore")
     .Does(() =>
     {
-        DotNetBuild(SOLUTION_FILE, settings => settings
-            .WithTarget("Build")
-            .SetConfiguration(configuration)
-            .SetVerbosity(Verbosity.Minimal)
-        );
+		if(IsRunningOnWindows())
+		{
+			MSBuild(SOLUTION_FILE, new MSBuildSettings()
+				.SetConfiguration(configuration)
+				.SetMSBuildPlatform(MSBuildPlatform.Automatic)
+				.SetVerbosity(Verbosity.Minimal)
+				.SetNodeReuse(false)
+				.SetPlatformTarget(PlatformTarget.MSIL)
+			);
+		}
+		else
+		{
+			XBuild(SOLUTION_FILE, new XBuildSettings()
+				.WithTarget("Build")
+				.WithProperty("Configuration", configuration)
+				.SetVerbosity(Verbosity.Minimal)
+			);
+		}
     });
 
 //////////////////////////////////////////////////////////////////////
