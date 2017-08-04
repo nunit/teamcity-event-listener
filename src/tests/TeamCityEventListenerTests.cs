@@ -177,7 +177,7 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(CreateTestRun());
 
             // Then
-            Assert.AreEqual(                
+            Assert.AreEqual(
                 "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-1']" + Environment.NewLine
                 + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='1-1' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
                 + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1-1']" + Environment.NewLine,
