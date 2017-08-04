@@ -21,6 +21,7 @@ Examples:
 	| Version40        | Multiple  |
 
 @3.4.1
+@ignore
 @teamcity
 Scenario Outline: NUnit returns negative exit -2 code when I run it without nunit.framework.dll
 	Given Framework version is <frameworkVersion>	

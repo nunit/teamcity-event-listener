@@ -316,16 +316,28 @@ Task("IntegrationTest")
 				throw new CakeException(message);
 			}
 
-			using(var process = StartAndReturnProcess("TASKKILL", new ProcessSettings { Arguments = "/F /IM nunit-agent.exe /T" }))
+			try
 			{
-				Information("Kill nunit-agent.exe");
-				process.WaitForExit();
+				using(var process = StartAndReturnProcess("TASKKILL", new ProcessSettings { Arguments = "/F /IM nunit-agent.exe /T" }))
+				{
+					Information("Kill nunit-agent.exe");
+					process.WaitForExit();
+				}
+			}
+			catch(Exception)
+			{
 			}
 
-			using(var process = StartAndReturnProcess("TASKKILL", new ProcessSettings { Arguments = "/F /IM nunit-agent-x86.exe /T" }))
+			try
 			{
-				Information("Kill nunit-agent-x86.exe");
-				process.WaitForExit();
+				using(var process = StartAndReturnProcess("TASKKILL", new ProcessSettings { Arguments = "/F /IM nunit-agent-x86.exe /T" }))
+				{
+					Information("Kill nunit-agent-x86.exe");
+					process.WaitForExit();
+				}
+			}
+			catch(Exception)
+			{
 			}
 		}
 	});
