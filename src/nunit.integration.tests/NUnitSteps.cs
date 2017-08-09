@@ -247,7 +247,7 @@
 
             foreach (var agent in agents)
             {
-                agent.Kill();                
+                agent.Kill();
             }
 
             Assert.IsEmpty(agents, $"Agents are not finished: {agentsList}.\nSee {ctx}");

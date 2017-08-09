@@ -436,6 +436,7 @@ Examples:
 
 @dev
 @teamcity
+@ignore
 Scenario Outline: NUnit sends TeamCity's service messages when I run many test for several assemblies for NUnit2
 	Given Framework version is <frameworkVersion>	
 	And I have added 100 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests1
@@ -477,8 +478,8 @@ Examples:
 	| Version45        | Separate  | Multiple | 1      |
 
 @3.4.1
+@ignore
 @teamcity
-@Ignore
 Scenario Outline: NUnit sends TeamCity's service messages for bunch of test for several assemblies for NUnit2
 	Given Framework version is <frameworkVersion>
 	And I have created the folder mocks
