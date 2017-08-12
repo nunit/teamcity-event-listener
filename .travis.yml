@@ -6,9 +6,5 @@ mono:
 os:
   - linux
   - osx
-matrix:
-  exclude:
-    - os: osx
-      mono: 4.6.2
 script:
   - ./build.sh --target "Travis"
