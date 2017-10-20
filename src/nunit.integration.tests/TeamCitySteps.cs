@@ -73,23 +73,10 @@ namespace nunit.integration.tests
         {
             var ctx = ScenarioContext.Current.GetTestContext();
             var messages = new TeamCityServiceMessageParser().Parse(ctx.TestSession.Output).ToList();
-            var rootFlows = new List<Flow>();
+            var rootFlow = new Flow(string.Empty);
             foreach (var serviceMessage in messages)
             {
-                var message = new Message(serviceMessage);
-                var flow = rootFlows.SingleOrDefault(i => i.FlowId == message.CurrentFlowId);
-                if (flow == null)
-                {
-                    flow = new Flow(message.FlowIdAttr);
-                    rootFlows.Add(flow);
-                }
-
-                flow.ProcessMessage(message);
-
-                if (flow.IsFinished)
-                {
-                    rootFlows.Remove(flow);
-                }
+                rootFlow.ProcessMessage(new Message(serviceMessage));
             }
         }
 
@@ -141,17 +128,43 @@ namespace nunit.integration.tests
         {
             private readonly Stack<Message> _messages = new Stack<Message>();
             private readonly List<Message> _allMessages = new List<Message>();
+            private readonly List<Flow> _flows = new List<Flow>();
+            private readonly string _parentFlowId;
 
-            public Flow(string flowId)
+            public Flow(string flowId, Flow parentFlow = null)
             {
                 FlowId = flowId;
+                _parentFlowId = parentFlow?.FlowId ?? string.Empty;
             }
 
-            public string FlowId { get; private set; }
+            public string FlowId { get; }
 
             public bool IsFinished => _messages.Count == 0;
 
             public void ProcessMessage(Message message)
+            {
+                if (message.FlowIdAttr == FlowId)
+                {
+                    ProcessMessageInternal(message);
+                    return;
+                }
+
+                var flow = _flows.SingleOrDefault(i => i.FlowId == message.FlowIdAttr);
+                if (flow == null)
+                {
+                    flow = new Flow(message.FlowIdAttr, this);
+                    _flows.Add(flow);
+                }
+
+                flow.ProcessMessage(message);
+
+                if (flow.IsFinished)
+                {
+                    _flows.Remove(flow);
+                }
+            }
+
+            private void ProcessMessageInternal(Message message)
             {
                 _allMessages.Add(message);
                 switch (message.Name)
@@ -160,7 +173,6 @@ namespace nunit.integration.tests
                         Assert.AreEqual(_messages.Count, 0, "testSuiteStarted should be a first message" + GetDetails());
                         Assert.IsNotEmpty(message.FlowIdAttr, "FlowId attribute is empty" + GetDetails());
                         Assert.IsNotEmpty(message.NameAttr, "Name attribute is empty" + GetDetails());
-                        FlowId = message.FlowIdAttr;
                         _messages.Push(message);
                         break;
 
@@ -174,17 +186,19 @@ namespace nunit.integration.tests
 
                     case "flowStarted":
                         Assert.IsNotEmpty(message.FlowIdAttr, "Invalid FlowId attribute" + GetDetails());
-                        Assert.AreEqual(message.ParentAttr, FlowId, "Invalid Parent attribute" + GetDetails());
-                        FlowId = message.FlowIdAttr;
+                        if (_parentFlowId != string.Empty)
+                        {
+                            Assert.AreEqual(message.ParentAttr, _parentFlowId, "Invalid Parent attribute" + GetDetails());
+                        }
+
                         _messages.Push(message);
                         break;
 
                     case "flowFinished":
                         Assert.AreEqual(message.FlowIdAttr, FlowId, "Invalid FlowId attribute" + GetDetails());
-                        Assert.Greater(_messages.Count, 1, "flowFinished should close flowStarted" + GetDetails());
+                        Assert.Greater(_messages.Count, 0, "flowFinished should close flowStarted" + GetDetails());
                         var flowStarted = _messages.Pop();
                         Assert.AreEqual(flowStarted.Name, "flowStarted", "flowFinished should close flowStarted" + GetDetails());
-                        FlowId = flowStarted.ParentAttr;
                         break;
 
                     case "testStarted":
@@ -197,7 +211,7 @@ namespace nunit.integration.tests
                     case "testFinished":
                         Assert.AreEqual(message.FlowIdAttr, FlowId, "Invalid FlowId attribute" + GetDetails());
                         Assert.IsNotEmpty(message.NameAttr, "Name attribute is empty" + GetDetails());
-                        Assert.Greater(_messages.Count, 1, "testFinished should close testStarted" + GetDetails());
+                        Assert.Greater(_messages.Count, 0, "testFinished should close testStarted" + GetDetails());
                         var testStarted = _messages.Pop();
                         Assert.AreEqual(testStarted.Name, "testStarted", "testFinished should close testStarted" + GetDetails());
                         Assert.AreEqual(testStarted.NameAttr, message.NameAttr, "Invalid Name attribute" + GetDetails());
@@ -207,7 +221,7 @@ namespace nunit.integration.tests
                     case "testStdOut":
                         Assert.AreEqual(message.FlowIdAttr, FlowId, "Invalid FlowId attribute" + GetDetails());
                         Assert.IsNotEmpty(message.NameAttr, "Name attribute is empty" + GetDetails());
-                        Assert.Greater(_messages.Count, 1, "testStdOut should be within testStarted and testFinished" + GetDetails());
+                        Assert.Greater(_messages.Count, 0, "testStdOut should be within testStarted and testFinished" + GetDetails());
                         var testStartedForStdOut = _messages.Peek();
                         Assert.AreEqual(testStartedForStdOut.Name, "testStarted", "testStdOut should be within testStarted and testFinished" + GetDetails());
                         Assert.AreEqual(testStartedForStdOut.NameAttr, message.NameAttr, "Invalid Name attribute" + GetDetails());
@@ -218,7 +232,7 @@ namespace nunit.integration.tests
                     case "testFailed":
                         Assert.AreEqual(message.FlowIdAttr, FlowId, "Invalid FlowId attribute" + GetDetails());
                         Assert.IsNotEmpty(message.NameAttr, "Name attribute is empty" + GetDetails());
-                        Assert.Greater(_messages.Count, 1, "testFailed should be within testStarted and testFinished" + GetDetails());
+                        Assert.Greater(_messages.Count, 0, "testFailed should be within testStarted and testFinished" + GetDetails());
                         var testStartedForTestFailed = _messages.Peek();
                         Assert.AreEqual(testStartedForTestFailed.Name, "testStarted", "testFailed should be within testStarted and testFinished" + GetDetails());
                         Assert.AreEqual(testStartedForTestFailed.NameAttr, message.NameAttr, "Invalid Name attribute" + GetDetails());
@@ -229,7 +243,7 @@ namespace nunit.integration.tests
                     case "testIgnored":
                         Assert.AreEqual(message.FlowIdAttr, FlowId, "Invalid FlowId attribute" + GetDetails());
                         Assert.IsNotEmpty(message.NameAttr, "Name attribute is empty" + GetDetails());
-                        Assert.Greater(_messages.Count, 1, "testIgnored should be within testStarted and testFinished" + GetDetails());
+                        Assert.Greater(_messages.Count, 0, "testIgnored should be within testStarted and testFinished" + GetDetails());
                         var testStartedForTestIgnored = _messages.Pop();
                         Assert.AreEqual(testStartedForTestIgnored.Name, "testStarted", "testIgnored should be within testStarted and testFinished" + GetDetails());
                         Assert.AreEqual(testStartedForTestIgnored.NameAttr, message.NameAttr, "Invalid Name attribute" + GetDetails());
