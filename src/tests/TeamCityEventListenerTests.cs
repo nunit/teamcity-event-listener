@@ -420,7 +420,7 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(CreateStartSuite("1-1", "", "aaa" + Path.DirectorySeparatorChar + "Assembly1"));
 
             // Test Assembly1.Namespace1.1.Test1
-            publisher.RegisterMessage(CreateTestCaseFailed("1-2", "1-1", "Assembly1.Namespace1.1.Test1", "0.1", "Error output", "Stack trace"));
+            publisher.RegisterMessage(CreateTestCaseFailed("1-2", "1-1", "Assembly1.Namespace1.1.Test1", "0.1", "Error output xyz", "Stack trace xyz"));
 
             publisher.RegisterMessage(CreateFinishSuite("1-1", "", "Assembly1"));
 
@@ -430,11 +430,9 @@ namespace NUnit.Engine.Listeners
             Assert.AreEqual(
                 "##teamcity[testSuiteStarted name='Assembly1' flowId='1-1']" + Environment.NewLine
 
-                + "##teamcity[flowStarted flowId='1-2' parent='1-1']" + Environment.NewLine
-                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-2']" + Environment.NewLine
-                + "##teamcity[testFailed name='Assembly1.Namespace1.1.Test1' message='Error output' details='Stack trace' flowId='1-2']" + Environment.NewLine
-                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1-2']" + Environment.NewLine
-                + "##teamcity[flowFinished flowId='1-2']" + Environment.NewLine
+                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-1']" + Environment.NewLine
+                + "##teamcity[testFailed name='Assembly1.Namespace1.1.Test1' message='One or more child tests had errors' details='stack abc' flowId='1-1']" + Environment.NewLine
+                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1-1']" + Environment.NewLine
 
                 + "##teamcity[testSuiteFinished name='Assembly1' flowId='1-1']" + Environment.NewLine,
                 _output.ToString());
@@ -453,7 +451,7 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(CreateStartSuite("1-1", null, "aaa" + Path.DirectorySeparatorChar + "Assembly1"));
 
             // Test Assembly1.Namespace1.1.Test1
-            publisher.RegisterMessage(CreateTestCaseFailed("1-2", null, "Assembly1.Namespace1.1.Test1", "0.1", "Error output", "Stack trace"));
+            publisher.RegisterMessage(CreateTestCaseFailed("1-2", null, "Assembly1.Namespace1.1.Test1", "0.1", "Error output xyz", "Stack trace xyz"));
 
             publisher.RegisterMessage(CreateFinishSuite("1-1", null, "Assembly1"));
 
@@ -464,7 +462,7 @@ namespace NUnit.Engine.Listeners
                 "##teamcity[testSuiteStarted name='Assembly1' flowId='1']" + Environment.NewLine
 
                 + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1']" + Environment.NewLine
-                + "##teamcity[testFailed name='Assembly1.Namespace1.1.Test1' message='Error output' details='Stack trace' flowId='1']" + Environment.NewLine
+                + "##teamcity[testFailed name='Assembly1.Namespace1.1.Test1' message='One or more child tests had errors' details='stack abc' flowId='1']" + Environment.NewLine
                 + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1']" + Environment.NewLine
                 
                 + "##teamcity[testSuiteFinished name='Assembly1' flowId='1']" + Environment.NewLine,
@@ -495,7 +493,7 @@ namespace NUnit.Engine.Listeners
 
         private static XmlNode CreateFinishSuite(string id, string parentId, string name)
         {
-            return CreateMessage(string.Format("<test-suite id=\"{0}\" {1} name=\"{2}\" fullname=\"{2}\" runstate=\"Runnable\" testcasecount=\"3\" result=\"Failed\" duration=\"0.251125\" total=\"3\" passed=\"0\" failed=\"0\" inconclusive=\"0\" skipped=\"0\" asserts=\"0\"><failure><message><![CDATA[One or more child tests had errors]]></message></failure></test-suite>", id, GetNamedAttr("parentId", parentId), name));
+            return CreateMessage(string.Format("<test-suite id=\"{0}\" {1} name=\"{2}\" fullname=\"{2}\" runstate=\"Runnable\" testcasecount=\"3\" result=\"Failed\" duration=\"0.251125\" total=\"3\" passed=\"0\" failed=\"0\" inconclusive=\"0\" skipped=\"0\" asserts=\"0\"><failure><message><![CDATA[One or more child tests had errors]]></message><stack-trace><![CDATA[stack abc]]></stack-trace></failure></test-suite>", id, GetNamedAttr("parentId", parentId), name));
         }
 
         private static XmlNode CreateStartTest(string id, string parentId, string name)

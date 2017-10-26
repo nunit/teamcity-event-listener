@@ -45,6 +45,7 @@ namespace NUnit.Engine.Listeners
         private readonly TextWriter _outWriter;
         private readonly Dictionary<string, string> _refs = new Dictionary<string, string>();
         private readonly Dictionary<string, int> _blockCounters = new Dictionary<string, int>();
+        private readonly Dictionary<string, XmlNode> _notStartedTests = new Dictionary<string, XmlNode>();
 
         public TeamCityEventListener() : this(Console.Out) { }
 
@@ -73,6 +74,7 @@ namespace NUnit.Engine.Listeners
             if (testEvent == null) throw new ArgumentNullException("testEvent");
 
             var messageName = testEvent.Name;
+            // Console.WriteLine(testEvent.OuterXml);
             if (string.IsNullOrEmpty(messageName))
             {
                 return;
@@ -82,6 +84,7 @@ namespace NUnit.Engine.Listeners
             if (messageName == "start-run")
             {
                 _refs.Clear();
+                _notStartedTests.Clear();
                 return;
             }
 
@@ -99,7 +102,8 @@ namespace NUnit.Engine.Listeners
 
             var parentId = testEvent.GetAttribute("parentId");
             var flowId = ".";
-            if (parentId != null)
+            var isNUnit3 = parentId != null;
+            if (isNUnit3)
             {
                 // NUnit 3 case
                 string rootId;
@@ -119,7 +123,7 @@ namespace NUnit.Engine.Listeners
             }
 
             string testFlowId;
-            if (id != flowId && parentId != null)
+            if (id != flowId && isNUnit3)
             {
                 testFlowId = id;
             }
@@ -140,7 +144,8 @@ namespace NUnit.Engine.Listeners
                     break;
 
                 case "test-suite":
-                    _refs.Remove(id);
+                    _refs[id] = parentId;
+                    ProcessNotStartedTests(isNUnit3, id, flowId, testEvent);
                     TestSuiteCase(parentId, flowId, fullName);
                     break;
 
@@ -150,38 +155,18 @@ namespace NUnit.Engine.Listeners
                     break;
 
                 case "test-case":
+                    if (!_refs.ContainsKey(id))
+                    {
+                        _refs[id] = parentId;
+
+                        // When test without starting
+                        _notStartedTests[testFlowId] = testEvent;
+                        break;
+                    }
+
                     try
                     {
-                        if (!_refs.Remove(id))
-                        {
-                            // When test without starting
-                            CaseStartTest(id, flowId, parentId, testFlowId, fullName);
-                        }
-
-                        var result = testEvent.GetAttribute("result");
-                        if (string.IsNullOrEmpty(result))
-                        {
-                            break;
-                        }
-
-                        switch (result.ToLowerInvariant())
-                        {
-                            case "passed":
-                                OnTestFinished(testFlowId, testEvent, fullName);
-                                break;
-
-                            case "inconclusive":
-                                OnTestInconclusive(testFlowId, testEvent, fullName);
-                                break;
-
-                            case "skipped":
-                                OnTestSkipped(testFlowId, testEvent, fullName);
-                                break;
-
-                            case "failed":
-                                OnTestFailed(testFlowId, testEvent, fullName);
-                                break;
-                        }
+                        OnTestCase(testEvent, testEvent, testFlowId, fullName);
                     }
                     finally
                     {
@@ -192,6 +177,76 @@ namespace NUnit.Engine.Listeners
                     }
 
                     break;
+
+                case "test-run":
+                    ProcessNotStartedTests(isNUnit3, id, flowId, testEvent);
+                    break;
+            }
+        }
+
+        private void OnTestCase(XmlNode testEvent, XmlNode infoEvent, string testFlowId, string fullName)
+        {
+            var result = testEvent.GetAttribute("result");
+            if (string.IsNullOrEmpty(result))
+            {
+                return;
+            }
+
+            switch (result.ToLowerInvariant())
+            {
+                case "passed":
+                    OnTestFinished(testFlowId, testEvent, fullName);
+                    break;
+
+                case "inconclusive":
+                    OnTestInconclusive(testFlowId, testEvent, fullName);
+                    break;
+
+                case "skipped":
+                    OnTestSkipped(testFlowId, testEvent, fullName);
+                    break;
+
+                case "failed":
+                    OnTestFailed(testFlowId, testEvent, fullName, infoEvent);
+                    break;
+            }
+        }
+
+        private void ProcessNotStartedTests(bool isNUnit3, string id, string flowId, XmlNode currentEvent)
+        {
+            var testToProcess = new List<string>();
+            foreach (var notStartedTest in _notStartedTests)
+            {
+                var parentId = notStartedTest.Key;
+                if (isNUnit3)
+                {
+                    while (_refs.TryGetValue(parentId, out parentId))
+                    {
+                        if (id == parentId)
+                        {
+                            testToProcess.Add(notStartedTest.Key);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    testToProcess.Add(notStartedTest.Key);
+                }
+            }
+
+            foreach (var testId in testToProcess)
+            {
+                var testEvent = _notStartedTests[testId];
+                _notStartedTests.Remove(testId);
+                var fullName = testEvent.GetAttribute("fullname");
+                if (string.IsNullOrEmpty(fullName))
+                {
+                    continue;
+                }
+
+                OnTestStart(flowId, fullName);
+                OnTestCase(testEvent, currentEvent, flowId, fullName);
             }
         }
 
@@ -389,15 +444,20 @@ namespace NUnit.Engine.Listeners
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId)));
         }
 
-        private void OnTestFailed(string flowId, XmlNode message, string fullName)
+        private void OnTestFailed(string flowId, XmlNode message, string fullName, XmlNode infoSource)
         {
             if (message == null)
             {
                 throw new ArgumentNullException("message");
             }
 
-            var errorMessage = message.SelectSingleNode("failure/message");
-            var stackTrace = message.SelectSingleNode("failure/stack-trace");
+            if (infoSource == null)
+            {
+                infoSource = message;
+            }
+
+            var errorMessage = infoSource.SelectSingleNode("failure/message");
+            var stackTrace = infoSource.SelectSingleNode("failure/stack-trace");
 
             Write(new ServiceMessage(ServiceMessage.Names.TestFailed,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, fullName),

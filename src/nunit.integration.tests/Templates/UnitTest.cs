@@ -17,7 +17,7 @@
         }
 
         [SetUp]
-        public void FailedSeTup()
+        public void FailedSetUp()
         {
             throw new System.Exception("Exception during setup");
         }
@@ -26,10 +26,16 @@
         public void FailedOneTimeSetUp()
         {
             throw new System.Exception("Exception during one time setup");
-        }        
+        }
 
         [TearDown]
         public void FailedTearDown()
+        {
+            throw new System.Exception("Exception during tear down");
+        }
+
+        [OneTimeTearDown]
+        public void FailedOneTimeTearDown()
         {
             throw new System.Exception("Exception during tear down");
         }
