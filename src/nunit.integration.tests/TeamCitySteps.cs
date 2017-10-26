@@ -220,11 +220,11 @@ namespace nunit.integration.tests
                         break;
 
                     case "testStdOut":
+                    case "testStdErr":
                         Assert.AreEqual(message.FlowIdAttr, FlowId, "Invalid FlowId attribute" + GetDetails());
                         Assert.IsNotEmpty(message.NameAttr, "Name attribute is empty" + GetDetails());
                         Assert.Greater(_messages.Count, 0, "testStdOut should be within testStarted and testFinished" + GetDetails());
                         var testStartedForStdOut = _messages.Peek();
-                        Assert.AreEqual(testStartedForStdOut.Name, "testStarted", "testStdOut should be within testStarted and testFinished" + GetDetails());
                         Assert.AreEqual(testStartedForStdOut.NameAttr, message.NameAttr, "Invalid Name attribute" + GetDetails());
                         Assert.IsNotEmpty(message.OutAttr, "Out attribute is empty" + GetDetails());
                         Assert.IsNotEmpty(message.TcTagsAttr, "tc:tags should be tc:parseServiceMessagesInside" + GetDetails());

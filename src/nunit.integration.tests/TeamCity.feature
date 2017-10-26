@@ -931,15 +931,17 @@ Scenario Outline: NUnit sends TeamCity's service messages with output when TestF
 	Then the exit code should be 0
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
-	|                   | name                       | captureStandardOutput | duration | flowId | parent | message | details | out                            | tc:tags |
-	| testSuiteStarted  | foo.tests.dll              |                       |          | .+     |        |         |         |                                |         |
-	| testStarted       | Foo.Tests.UnitTests1.Test1 | false                 |          | .+     |        |         |         |                                |         |
+	|                   | name                       | captureStandardOutput | duration | flowId | parent | message | details | out                             | tc:tags |
+	| flowStarted       |                            |                       |          | .+     | .+     |         |         |                                 |         |
+	| testSuiteStarted  | foo.tests.dll              |                       |          | .+     |        |         |         |                                 |         |
+	| testStarted       | Foo.Tests.UnitTests1.Test1 | false                 |          | .+     |        |         |         |                                 |         |
 	| testStdOut        | Foo.Tests.UnitTests1.Test1 |                       |          | .+     |        |         |         | TestFixtureSetup output.+output |         |
-	| testFinished      | Foo.Tests.UnitTests1.Test1 |                       |          | .+     |        |         |         |                                |         |
-	| testStarted       | Foo.Tests.UnitTests1.Test2 | false                 |          | .+     |        |         |         |                                |         |
-	| testStdOut        | Foo.Tests.UnitTests1.Test2 |                       |          | .+     |        |         |         | output                         |         |
-	| testFinished      | Foo.Tests.UnitTests1.Test2 |                       |          | .+     |        |         |         |                                |         |
-	| testSuiteFinished | foo.tests.dll              |                       |          | .+     |        |         |         |                                |         |
+	| testFinished      | Foo.Tests.UnitTests1.Test1 |                       |          | .+     |        |         |         |                                 |         |
+	| testStarted       | Foo.Tests.UnitTests1.Test2 | false                 |          | .+     |        |         |         |                                 |         |
+	| testStdOut        | Foo.Tests.UnitTests1.Test2 |                       |          | .+     |        |         |         | output                          |         |
+	| testFinished      | Foo.Tests.UnitTests1.Test2 |                       |          | .+     |        |         |         |                                 |         |
+	| testSuiteFinished | foo.tests.dll              |                       |          | .+     |        |         |         |                                 |         |
+	| flowFinished      |                            |                       |          | .+     |        |         |         |                                 |         |
 	Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -965,6 +967,7 @@ Scenario Outline: NUnit sends TeamCity's service messages with output when TestF
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                       | captureStandardOutput | duration | flowId | parent | message                    | details | out    | tc:tags |
+	| flowStarted       |                            |                       |          | .+     | .+     |                            |         |        |         |
 	| testSuiteStarted  | foo.tests.dll              |                       |          | .+     |        |                            |         |        |         |
 	| testStarted       | Foo.Tests.UnitTests1.Test1 | false                 |          | .+     |        |                            |         |        |         |
 	| testStdOut        | Foo.Tests.UnitTests1.Test1 |                       |          | .+     |        |                            |         | output |         |
@@ -974,8 +977,39 @@ Scenario Outline: NUnit sends TeamCity's service messages with output when TestF
 	| testFinished      | Foo.Tests.UnitTests1.Test2 |                       |          | .+     |        |                            |         |        |         |
 	| message           |                            |                       |          | .+     |        | TestFixtureTearDown output |         |        |         |
 	| testSuiteFinished | foo.tests.dll              |                       |          | .+     |        |                            |         |        |         |
+	| flowFinished      |                            |                       |          | .+     |        |                            |         |        |         |
 	Examples:
 	| frameworkVersion |
 	| Version45        |
 	| Version40        |
 
+@3.9
+@teamcity
+Scenario Outline: NUnit sends TeamCity's service messages when I run successful test writing to stdError
+	Given Framework version is <frameworkVersion>
+	And I have added SuccessfulStdError method as SuccessfulStdErrorTest to the class Foo.Tests.UnitTests1 for foo.tests
+	And I have created the folder mocks
+	And I have added NUnit framework references to foo.tests
+	And I have copied NUnit framework references to folder mocks
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
+	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+	And I want to use CmdArguments type of TeamCity integration
+	When I run NUnit console
+	Then the exit code should be 0
+	And the output should contain correct set of TeamCity service messages
+	And the output should contain TeamCity service messages:
+	|                   | name                                        | captureStandardOutput | duration | flowId | parent | message | details | out      | tc:tags                       |
+	| flowStarted       |                                             |                       |          | .+     | .+     |         |         |          |                               |
+	| testSuiteStarted  | foo.tests.dll                               |                       |          | .+     |        |         |         |          |                               |
+	| flowStarted       |                                             |                       |          | .+     | .+     |         |         |          |                               |
+	| testStarted       | Foo.Tests.UnitTests1.SuccessfulStdErrorTest | false                 |          | .+     |        |         |         |          |                               |
+	| testStdErr        | Foo.Tests.UnitTests1.SuccessfulStdErrorTest |                       |          | .+     |        |         |         | errorout | tc:parseServiceMessagesInside |
+	| testStdOut        | Foo.Tests.UnitTests1.SuccessfulStdErrorTest |                       |          | .+     |        |         |         | stdout   | tc:parseServiceMessagesInside |
+	| testFinished      | Foo.Tests.UnitTests1.SuccessfulStdErrorTest |                       | \d+      | .+     |        |         |         |          |                               |
+	| flowFinished      |                                             |                       |          | .+     |        |         |         |          |                               |
+	| testSuiteFinished | foo.tests.dll                               |                       |          | .+     |        |         |         |          |                               |
+	| flowFinished      |                                             |                       |          | .+     |        |         |         |          |                               |
+Examples:
+	| frameworkVersion |
+	| Version45        |
+	| Version40        |
