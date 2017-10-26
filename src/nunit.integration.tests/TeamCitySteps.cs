@@ -362,7 +362,7 @@ namespace nunit.integration.tests
 
                 var serviceMessageValue = serviceMessage.GetValue(key) ?? "";
                 var rowValueRegex = new Regex(rowValue ?? "");
-                if (!rowValueRegex.IsMatch(serviceMessageValue))
+                if (!rowValueRegex.IsMatch(serviceMessageValue.Replace("\n", " ").Replace("\r", " ")))
                 {
                     return false;
                 }

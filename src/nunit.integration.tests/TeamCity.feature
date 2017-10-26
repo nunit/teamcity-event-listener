@@ -6,8 +6,8 @@ Background:
 @3.4.1
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run successful test for NUnit3
-	Given Framework version is <frameworkVersion>	
-	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests	
+	Given Framework version is <frameworkVersion>
+	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have created the folder mocks
 	And I have added NUnit framework references to foo.tests
 	And I have copied NUnit framework references to folder mocks
@@ -35,7 +35,7 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run test with Assert.Pass
 	Given Framework version is <frameworkVersion>	
-	And I have added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests	
+	And I have added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have created the folder mocks
 	And I have added NUnit framework references to foo.tests
 	And I have copied NUnit framework references to folder mocks
@@ -63,11 +63,11 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run test with Assert.Pass with text
 	Given Framework version is <frameworkVersion>	
-	And I have added PassWithText method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests	
+	And I have added PassWithText method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have created the folder mocks
 	And I have added NUnit framework references to foo.tests
 	And I have copied NUnit framework references to folder mocks
-	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
 	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
 	And I want to use CmdArguments type of TeamCity integration
 	When I run NUnit console
@@ -248,13 +248,13 @@ Examples:
 @3.4.1
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run it for failed tear down
-	Given Framework version is <frameworkVersion>	
-	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests	
-	And I have added failedTearDown method as FailedTearDown to the class Foo.Tests.UnitTests1 for foo.tests	
+	Given Framework version is <frameworkVersion>
+	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
+	And I have added failedTearDown method as FailedTearDown to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have created the folder mocks
 	And I have added NUnit framework references to foo.tests
 	And I have copied NUnit framework references to folder mocks
-	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
 	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
 	And I want to use CmdArguments type of TeamCity integration
 	When I run NUnit console
@@ -291,14 +291,12 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for fail
 	Then the exit code should be 1
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
-	|                   | name                                | captureStandardOutput | duration | flowId | parent | message                         | details | out |
-	| testSuiteStarted  | foo.tests.dll                       |                       |          | .+     |        |                                 |         |     |
-	| flowStarted       |                                     |                       |          | .+     | .+     |                                 |         |     |
-	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest | false                 |          | .+     |        |                                 |         |     |
-	| testFailed        | Foo.Tests.UnitTests1.SuccessfulTest |                       |          | .+     |        | .+ System.Exception : Exception |         |     |
-	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |                                 |         |     |
-	| flowFinished      |                                     |                       |          | .+     |        |                                 |         |     |
-	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |                                 |         |     |
+	|                   | name                                | captureStandardOutput | duration | flowId | parent | message                      | details                                                                              | out |
+	| testSuiteStarted  | foo.tests.dll                       |                       |          | .+     |        |                              |                                                                                      |     |
+	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest | false                 |          | .+     |        |                              |                                                                                      |     |
+	| testFailed        | Foo.Tests.UnitTests1.SuccessfulTest |                       |          | .+     |        | System.Exception : Exception | at Foo\.Tests\.UnitTests1\.ThrowException\(\).+at Foo\.Tests\.UnitTests1\.\.ctor\(\) |     |
+	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |                              |                                                                                      |     |
+	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |                              |                                                                                      |     |
 Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -653,3 +651,73 @@ Examples:
 	| Version40        | utf-8        |
 	| Version45        | windows-1251 |
 	| Version40        | windows-1251 |
+
+@teamcity
+Scenario Outline: NUnit sends TeamCity's service messages including stack trace when OneTimeSetUp in SetUpFixture throws exception
+	Given Framework version is <frameworkVersion>
+	And I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
+	And I have added successful method as Test2 to the class Foo.Tests.UnitTests2 for foo.tests
+	And I have added FailedOneTimeSetUp method as FailedOneTimeSetUp to the class Foo.Tests.FailingSetUpFixture for foo.tests
+	And I have added attribute [NUnit.Framework.SetUpFixture] to the class Foo.Tests.FailingSetUpFixture for foo.tests
+	And I have created the folder mocks
+	And I have added NUnit framework references to foo.tests
+	And I have copied NUnit framework references to folder mocks
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
+	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+	And I want to use CmdArguments type of TeamCity integration
+	And I want to use CmdArguments configuration type
+	And I have added the arg process=InProcess to NUnit console command line
+	When I run NUnit console
+	Then the exit code should be 2
+	And the output should contain correct set of TeamCity service messages
+	And the output should contain TeamCity service messages:
+	|                   | name                       | captureStandardOutput | duration | flowId | parent | message                                             | details                                                | out | tc:tags |
+	| testSuiteStarted  | foo.tests.dll              |                       |          | .+     |        |                                                     |                                                        |     |         |
+	| testStarted       | Foo.Tests.UnitTests1.Test1 | false                 |          | .+     |        |                                                     |                                                        |     |         |
+	| testFailed        | Foo.Tests.UnitTests1.Test1 |                       |          | .+     |        | System\.Exception : Exception during one time setup | at Foo\.Tests\.FailingSetUpFixture\.FailedOneTimeSetUp |     |         |
+	| testFinished      | Foo.Tests.UnitTests1.Test1 |                       | 0        | .+     |        |                                                     |                                                        |     |         |
+	| testStarted       | Foo.Tests.UnitTests2.Test2 | false                 |          | .+     |        |                                                     |                                                        |     |         |
+	| testFailed        | Foo.Tests.UnitTests2.Test2 |                       |          | .+     |        | System\.Exception : Exception during one time setup | at Foo\.Tests\.FailingSetUpFixture\.FailedOneTimeSetUp |     |         |
+	| testFinished      | Foo.Tests.UnitTests2.Test2 |                       | 0        | .+     |        |                                                     |                                                        |     |         |
+	| testSuiteFinished | foo.tests.dll              |                       |          | .+     |        |                                                     |                                                        |     |         |
+	Examples:
+	| frameworkVersion |
+	| Version45        |
+	| Version40        |
+
+    @teamcity
+Scenario Outline: NUnit sends TeamCity'successful s service messages when OneTimeTearDown in SetUpFixture throws exception
+	Given Framework version is <frameworkVersion>
+	And I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
+	And I have added successful method as Test2 to the class Foo.Tests.UnitTests2 for foo.tests
+	And I have added FailedOneTimeTearDown method as FailedOneTimeTearDown to the class Foo.Tests.FailingSetUpFixture for foo.tests
+	And I have added attribute [NUnit.Framework.SetUpFixture] to the class Foo.Tests.FailingSetUpFixture for foo.tests
+	And I have created the folder mocks
+	And I have added NUnit framework references to foo.tests
+	And I have copied NUnit framework references to folder mocks
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
+	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+	And I want to use CmdArguments type of TeamCity integration
+	And I want to use CmdArguments configuration type
+	And I have added the arg process=InProcess to NUnit console command line
+	When I run NUnit console
+	Then the exit code should be 0
+	And the output should contain correct set of TeamCity service messages
+	And the output should contain TeamCity service messages:
+	|                   | name                       | captureStandardOutput | duration | flowId | parent | message | details | out    | tc:tags                       |
+	| testSuiteStarted  | foo.tests.dll              |                       |          | .+     |        |         |         |        |                               |
+	| flowStarted       |                            |                       |          | .+     | .+     |         |         |        |                               |
+	| testStarted       | Foo.Tests.UnitTests1.Test1 | false                 |          | .+     |        |         |         |        |                               |
+	| testStdOut        | Foo.Tests.UnitTests1.Test1 |                       |          | .+     |        |         |         | output | tc:parseServiceMessagesInside |
+	| testFinished      | Foo.Tests.UnitTests1.Test1 |                       | \d+      | .+     |        |         |         |        |                               |
+	| flowFinished      |                            |                       |          | .+     |        |         |         |        |                               |
+	| flowStarted       |                            |                       |          | .+     | .+     |         |         |        |                               |
+	| testStarted       | Foo.Tests.UnitTests2.Test2 | false                 |          | .+     |        |         |         |        |                               |
+	| testStdOut        | Foo.Tests.UnitTests2.Test2 |                       |          | .+     |        |         |         | output | tc:parseServiceMessagesInside |
+	| testFinished      | Foo.Tests.UnitTests2.Test2 |                       | \d+      | .+     |        |         |         |        |                               |
+	| flowFinished      |                            |                       |          | .+     |        |         |         |        |                               |
+	| testSuiteFinished | foo.tests.dll              |                       |          | .+     |        |         |         |        |                               |
+	Examples:
+	| frameworkVersion |
+	| Version45        |
+	| Version40        |
