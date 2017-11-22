@@ -20,7 +20,7 @@ var binaries = Argument("binaries", (string)null);
 // SET PACKAGE VERSION
 //////////////////////////////////////////////////////////////////////
 
-var version = "1.0.2";
+var version = "1.0.3";
 var modifier = "";
 var versionsOfNunitCore = new [] {"3.4.1", "3.5", "3.6", ""};
 
