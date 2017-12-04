@@ -28,6 +28,12 @@
             throw new System.Exception("Exception during one time setup");
         }
 
+        [NUnit.Framework.TestFixtureSetUpAttribute]
+        public void FailedTestFixtureSetup()
+        {
+            throw new System.Exception("Exception during TestFixtureSetup");
+        }
+
         [TearDown]
         public void FailedTearDown()
         {
@@ -38,6 +44,12 @@
         public void FailedOneTimeTearDown()
         {
             throw new System.Exception("Exception during tear down");
+        }
+
+        [NUnit.Framework.TestFixtureTearDown]
+        public void FailedTestFixtureTearDown()
+        {
+            throw new System.Exception("Exception during TestFixtureTearDown");
         }
 
         [SetUp]

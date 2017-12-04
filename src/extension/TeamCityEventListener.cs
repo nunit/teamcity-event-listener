@@ -45,7 +45,8 @@ namespace NUnit.Engine.Listeners
         private readonly TextWriter _outWriter;
         private readonly Dictionary<string, string> _refs = new Dictionary<string, string>();
         private readonly Dictionary<string, int> _blockCounters = new Dictionary<string, int>();
-        private readonly Dictionary<string, XmlNode> _notStartedTests = new Dictionary<string, XmlNode>();
+        private readonly Dictionary<string, XmlNode> _notStartedNUnit3Tests = new Dictionary<string, XmlNode>();
+        private readonly List<XmlNode> _notStartedNUnit2Tests = new List<XmlNode>();
 
         public TeamCityEventListener() : this(Console.Out) { }
 
@@ -84,7 +85,8 @@ namespace NUnit.Engine.Listeners
             if (messageName == "start-run")
             {
                 _refs.Clear();
-                _notStartedTests.Clear();
+                _notStartedNUnit3Tests.Clear();
+                _notStartedNUnit2Tests.Clear();
                 return;
             }
 
@@ -151,17 +153,35 @@ namespace NUnit.Engine.Listeners
 
                 case "start-test":
                     _refs[id] = parentId;
-                    CaseStartTest(id, flowId, parentId, testFlowId, fullName);
+                    if (isNUnit3)
+                    {
+                        CaseStartTest(id, flowId, parentId, testFlowId, fullName);
+                    }
+
                     break;
 
                 case "test-case":
-                    if (!_refs.ContainsKey(id))
+                    if (isNUnit3)
                     {
-                        _refs[id] = parentId;
+                        if (!_refs.ContainsKey(id))
+                        {
+                            _refs[id] = parentId;
 
-                        // When test without starting
-                        _notStartedTests[testFlowId] = testEvent;
-                        break;
+                            // When test without starting
+                            _notStartedNUnit3Tests[testFlowId] = testEvent;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        var errorMessage = testEvent.SelectSingleNode("failure/message");
+                        if (errorMessage != null && errorMessage.InnerText.StartsWith("TestFixtureSetUp failed in", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            _notStartedNUnit2Tests.Add(testEvent);
+                            break;
+                        }
+
+                        CaseStartTest(id, flowId, null, testFlowId, fullName);
                     }
 
                     try
@@ -214,12 +234,12 @@ namespace NUnit.Engine.Listeners
 
         private void ProcessNotStartedTests(bool isNUnit3, string id, string flowId, XmlNode currentEvent)
         {
-            var testToProcess = new List<string>();
-            foreach (var notStartedTest in _notStartedTests)
+            if (isNUnit3)
             {
-                var parentId = notStartedTest.Key;
-                if (isNUnit3)
+                var testToProcess = new List<string>();
+                foreach (var notStartedTest in _notStartedNUnit3Tests)
                 {
+                    var parentId = notStartedTest.Key;
                     while (_refs.TryGetValue(parentId, out parentId))
                     {
                         if (id == parentId)
@@ -229,24 +249,36 @@ namespace NUnit.Engine.Listeners
                         }
                     }
                 }
-                else
+
+                foreach (var testId in testToProcess)
                 {
-                    testToProcess.Add(notStartedTest.Key);
+                    var testEvent = _notStartedNUnit3Tests[testId];
+                    _notStartedNUnit3Tests.Remove(testId);
+                    var fullName = testEvent.GetAttribute("fullname");
+                    if (string.IsNullOrEmpty(fullName))
+                    {
+                        continue;
+                    }
+
+                    OnTestStart(flowId, fullName);
+                    OnTestCase(testEvent, currentEvent, flowId, fullName);
                 }
             }
-
-            foreach (var testId in testToProcess)
+            else
             {
-                var testEvent = _notStartedTests[testId];
-                _notStartedTests.Remove(testId);
-                var fullName = testEvent.GetAttribute("fullname");
-                if (string.IsNullOrEmpty(fullName))
+                foreach (var notStartedTest in _notStartedNUnit2Tests)
                 {
-                    continue;
+                    var fullName = notStartedTest.GetAttribute("fullname");
+                    if (string.IsNullOrEmpty(fullName))
+                    {
+                        continue;
+                    }
+
+                    OnTestStart(flowId, fullName);
+                    OnTestCase(notStartedTest, currentEvent, flowId, fullName);
                 }
 
-                OnTestStart(flowId, fullName);
-                OnTestCase(testEvent, currentEvent, flowId, fullName);
+                _notStartedNUnit2Tests.Clear();
             }
         }
 
