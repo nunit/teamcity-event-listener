@@ -451,7 +451,8 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(CreateStartSuite("1-1", null, "aaa" + Path.DirectorySeparatorChar + "Assembly1"));
 
             // Test Assembly1.Namespace1.1.Test1
-            publisher.RegisterMessage(CreateTestCaseFailed("1-2", null, "Assembly1.Namespace1.1.Test1", "0.1", "Error output xyz", "Stack trace xyz"));
+            publisher.RegisterMessage(CreateStartTest("1-1", null, "Assembly1.Namespace1.1.Test1"));
+            publisher.RegisterMessage(CreateTestCaseFailed("1-1", null, "Assembly1.Namespace1.1.Test1", "0.1", "TestFixtureSetUp failed in Test1", "Stack trace xyz"));
 
             publisher.RegisterMessage(CreateFinishSuite("1-1", null, "Assembly1"));
 
