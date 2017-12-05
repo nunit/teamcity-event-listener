@@ -1,4 +1,10 @@
-﻿teamcity-event-listener 1.0.3 - Nov 22, 2017
+﻿teamcity-event-listener 1.0.4 - Dec 5, 2017
+
+Issues Resolved
+
+ * 0051 Add stack trace to tests' details of TeamCity service messages when tests fail during TestFixtureSetUpAttribute for NUnit framework 2
+
+teamcity-event-listener 1.0.3 - Nov 22, 2017
 
 Issues Resolved
 
