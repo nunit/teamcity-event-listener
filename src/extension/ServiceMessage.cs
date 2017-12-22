@@ -56,6 +56,7 @@ namespace NUnit.Engine.Listeners
             public const string TestFinished = "testFinished";
             public const string TestFailed = "testFailed";
             public const string TestIgnored = "testIgnored";
+            public const string Message = "message";
         }
     }    
 }

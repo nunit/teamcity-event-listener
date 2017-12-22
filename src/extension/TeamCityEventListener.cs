@@ -148,7 +148,7 @@ namespace NUnit.Engine.Listeners
                 case "test-suite":
                     _refs[id] = parentId;
                     ProcessNotStartedTests(isNUnit3, id, flowId, testEvent);
-                    TestSuiteCase(parentId, flowId, fullName);
+                    TestSuiteCase(parentId, flowId, fullName, testEvent);
                     break;
 
                 case "start-test":
@@ -292,8 +292,10 @@ namespace NUnit.Engine.Listeners
             OnTestStart(testFlowId, fullName);
         }
 
-        private void TestSuiteCase(string parentId, string flowId, string fullName)
+        private void TestSuiteCase(string parentId, string flowId, string fullName, XmlNode testEvent)
         {
+            TrySendOutputAsMessage(flowId, testEvent, fullName);
+
             // NUnit 3 case
             if (parentId == string.Empty)
             {
@@ -380,6 +382,19 @@ namespace NUnit.Engine.Listeners
             SendOutput(flowId, fullName, output.InnerText);
         }
 
+        private void TrySendOutputAsMessage(string flowId, XmlNode message, string fullName)
+        {
+            if (message == null) throw new ArgumentNullException("message");
+
+            var output = message.SelectSingleNode("output");
+            if (output == null)
+            {
+                return;
+            }
+
+            SendOutputAsMessage(flowId, fullName, output.InnerText);
+        }
+
         private void TrySendReasonMessage(string flowId, XmlNode message, string fullName)
         {
             if (message == null) throw new ArgumentNullException("message");
@@ -409,6 +424,19 @@ namespace NUnit.Engine.Listeners
             Write(new ServiceMessage(ServiceMessage.Names.TestStdOut,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, fullName),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Out, outputStr),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, "tc:parseServiceMessagesInside")));
+        }
+
+        private void SendOutputAsMessage(string flowId, string fullName, string outputStr)
+        {
+            if (string.IsNullOrEmpty(outputStr))
+            {
+                return;
+            }
+
+            Write(new ServiceMessage(ServiceMessage.Names.Message,
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Message, outputStr),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, "tc:parseServiceMessagesInside")));
         }

@@ -250,6 +250,12 @@ namespace nunit.integration.tests
                         Assert.IsNotEmpty(message.MessageAttr, "Message attribute is empty" + GetDetails());
                         break;
 
+                    case "message":
+                        Assert.AreEqual(message.FlowIdAttr, FlowId, "Invalid FlowId attribute" + GetDetails());
+                        Assert.IsNotEmpty(message.MessageAttr, "Message attribute is empty" + GetDetails());
+                        Assert.IsNotEmpty(message.TcTagsAttr, "tc:tags should be tc:parseServiceMessagesInside" + GetDetails());
+                        break;
+
                     default:
                         Assert.Fail($"Unexpected message {message.Name}" + GetDetails());
                         break;
