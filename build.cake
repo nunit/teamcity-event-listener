@@ -91,8 +91,8 @@ var NUGET_ID = "NUnit.Extension.TeamCityEventListener";
 var CHOCO_ID = "nunit-extension-teamcity-event-listener";
 
 var TITLE = "NUnit 3 - Team City Event Listener Extension";
-var AUTHORS = new [] { "Charlie Poole" };
-var OWNERS = new [] { "Charlie Poole" };
+var AUTHORS = new [] { "Charlie Poole", "Nikolay Pianikov" };
+var OWNERS = new [] { "Charlie Poole", "Nikolay Pianikov" };
 var DESCRIPTION = "This extension sends specially formatted messages about test progress to TeamCity as each test executes, allowing TeamCity to monitor progress.";
 var SUMMARY = "NUnit Team City Event Listener extension for TeamCity.";
 var COPYRIGHT = "Copyright (c) 2017 Charlie Poole";
