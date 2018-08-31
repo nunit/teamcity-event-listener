@@ -1,5 +1,6 @@
 ﻿namespace nunit.integration.tests.Dsl
 {
+    using System;
     using System.IO;
     using System.Linq;
     using System.Linq.Expressions;
@@ -52,13 +53,15 @@
                 select new CommandLineArtifact(configFile.ConfigFileName, ResourceManager.GetContentFromResource(ConfigFileResourceName));
             var artifacts = configFiles.Union(Enumerable.Repeat(projectFile, 1)).ToArray();
 
+            var envVars = configuration.EnvVariables.Select(i => Tuple.Create(i.GetName(configuration.NUnitVersion), i.GetValue(configuration.NUnitVersion)));
+            var rawEnvVars = configuration.RawEnvVariables.Select(i => Tuple.Create(i.Name, i.Value));
             return new CommandLineSetup(
                 Path.Combine(configuration.NUnitConsolePath, Const.NUnitConsoleFileName),
                 ctx.CurrentDirectory,
                 projectFile.FileName
                 + " "
                 + string.Join(" ", args.Select(arg => arg.ConvertToString(configuration.NUnitVersion))),
-                configuration.EnvVariables.ToDictionary(envVariable => envVariable.GetName(configuration.NUnitVersion), envVariable => envVariable.GetValue(configuration.NUnitVersion)),
+                envVars.Concat(rawEnvVars).ToDictionary(i => i.Item1, i => i.Item2),
                 artifacts);
         }
     }

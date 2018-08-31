@@ -35,6 +35,33 @@ Examples:
 
 @3.4.1
 @teamcity
+Scenario: Use root flow id from environment variable TEAMCITY_PROCESS_FLOW_ID
+	Given Framework version is Version45
+	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
+	And I have created the folder mocks
+	And I have added NUnit framework references to foo.tests
+	And I have copied NUnit framework references to folder mocks
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
+	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+	And I want to use CmdArguments type of TeamCity integration
+	And I have added the environment variable TEAMCITY_PROCESS_FLOW_ID as abc
+	When I run NUnit console
+	Then the exit code should be 0
+	And the output should contain correct set of TeamCity service messages
+	And the output should contain TeamCity service messages:
+	|                   | name                                | captureStandardOutput | duration | flowId | parent | message | details | out    | tc:tags                       |
+	| flowStarted       |                                     |                       |          | .+     | abc    |         |         |        |                               |
+	| testSuiteStarted  | foo.tests.dll                       |                       |          | .+     |        |         |         |        |                               |
+	| flowStarted       |                                     |                       |          | .+     | .+     |         |         |        |                               |
+	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest | false                 |          | .+     |        |         |         |        |                               |
+	| testStdOut        | Foo.Tests.UnitTests1.SuccessfulTest |                       |          | .+     |        |         |         | output | tc:parseServiceMessagesInside |
+	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |         |         |        |                               |
+	| flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
+	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |         |         |        |                               |
+	| flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
+
+@3.4.1
+@teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run test with Assert.Pass
 	Given Framework version is <frameworkVersion>	
 	And I have added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
