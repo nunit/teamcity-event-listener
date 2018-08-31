@@ -94,12 +94,14 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(CreateFinishSuite("1-3", "1-2",  "Assembly1.Namespace1.1"));
             publisher.RegisterMessage(CreateFinishSuite("1-2", "1-1", "Assembly1.Namespace1"));
             publisher.RegisterMessage(CreateFinishSuite("1-1", "", "Assembly1"));
-                        
+
             publisher.RegisterMessage(CreateTestRun());
 
             // Then
-            Assert.AreEqual(                
-                "##teamcity[testSuiteStarted name='Assembly1' flowId='1-1']" + Environment.NewLine
+            Assert.AreEqual(
+                "##teamcity[flowStarted flowId='1-1' parent='.']" + Environment.NewLine
+                + "##teamcity[testSuiteStarted name='Assembly1' flowId='1-1']" + Environment.NewLine
+                + "##teamcity[flowStarted flowId='1-6' parent='.']" + Environment.NewLine
                 + "##teamcity[testSuiteStarted name='Assembly2' flowId='1-6']" + Environment.NewLine
                 
                 + "##teamcity[flowStarted flowId='1-4' parent='1-1']" + Environment.NewLine
@@ -121,7 +123,9 @@ namespace NUnit.Engine.Listeners
                 + "##teamcity[flowFinished flowId='1-5']" + Environment.NewLine
 
                 + "##teamcity[testSuiteFinished name='Assembly2' flowId='1-6']" + Environment.NewLine
-                + "##teamcity[testSuiteFinished name='Assembly1' flowId='1-1']" + Environment.NewLine,
+                + "##teamcity[flowFinished flowId='1-6']" + Environment.NewLine
+                + "##teamcity[testSuiteFinished name='Assembly1' flowId='1-1']" + Environment.NewLine
+                + "##teamcity[flowFinished flowId='1-1']" + Environment.NewLine,
                 _output.ToString());
         }
 
@@ -146,8 +150,9 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(CreateTestRun());
 
             // Then
-            Assert.AreEqual(                
-                "##teamcity[testSuiteStarted name='Assembly1' flowId='1-1']" + Environment.NewLine
+            Assert.AreEqual(
+                "##teamcity[flowStarted flowId='1-1' parent='.']" + Environment.NewLine
+                + "##teamcity[testSuiteStarted name='Assembly1' flowId='1-1']" + Environment.NewLine
 
                 + "##teamcity[flowStarted flowId='1-2' parent='1-1']" + Environment.NewLine
                 + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-2']" + Environment.NewLine
@@ -155,7 +160,8 @@ namespace NUnit.Engine.Listeners
                 + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1-2']" + Environment.NewLine
                 + "##teamcity[flowFinished flowId='1-2']" + Environment.NewLine
 
-                + "##teamcity[testSuiteFinished name='Assembly1' flowId='1-1']" + Environment.NewLine,
+                + "##teamcity[testSuiteFinished name='Assembly1' flowId='1-1']" + Environment.NewLine
+                + "##teamcity[flowFinished flowId='1-1']" + Environment.NewLine,
                 _output.ToString());
         }
 
@@ -198,7 +204,7 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(CreateTestRun());
 
             // Then
-            Assert.AreEqual(                
+            Assert.AreEqual(
                 "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-1']" + Environment.NewLine
                 + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1-1']" + Environment.NewLine,
                 _output.ToString());
@@ -220,7 +226,7 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(CreateTestRun());
 
             // Then
-            Assert.AreEqual(                
+            Assert.AreEqual(
                 "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-1']" + Environment.NewLine
                 + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='10000' flowId='1-1']" + Environment.NewLine,
                 _output.ToString());
@@ -428,13 +434,15 @@ namespace NUnit.Engine.Listeners
 
             // Then
             Assert.AreEqual(
-                "##teamcity[testSuiteStarted name='Assembly1' flowId='1-1']" + Environment.NewLine
+                "##teamcity[flowStarted flowId='1-1' parent='.']" + Environment.NewLine
+                + "##teamcity[testSuiteStarted name='Assembly1' flowId='1-1']" + Environment.NewLine
 
                 + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-1']" + Environment.NewLine
                 + "##teamcity[testFailed name='Assembly1.Namespace1.1.Test1' message='One or more child tests had errors' details='stack abc' flowId='1-1']" + Environment.NewLine
                 + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1-1']" + Environment.NewLine
 
-                + "##teamcity[testSuiteFinished name='Assembly1' flowId='1-1']" + Environment.NewLine,
+                + "##teamcity[testSuiteFinished name='Assembly1' flowId='1-1']" + Environment.NewLine
+                + "##teamcity[flowFinished flowId='1-1']" + Environment.NewLine,
                 _output.ToString());
         }
 

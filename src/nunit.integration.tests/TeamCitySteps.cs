@@ -170,14 +170,15 @@ namespace nunit.integration.tests
                 switch (message.Name)
                 {
                     case "testSuiteStarted":
-                        Assert.AreEqual(_messages.Count, 0, "testSuiteStarted should be a first message" + GetDetails());
                         Assert.IsNotEmpty(message.FlowIdAttr, "FlowId attribute is empty" + GetDetails());
+                        Assert.IsNotEmpty(message.ParentAttr, "Parent attribute is empty" + GetDetails());
                         Assert.IsNotEmpty(message.NameAttr, "Name attribute is empty" + GetDetails());
                         _messages.Push(message);
                         break;
 
                     case "testSuiteFinished":
-                        Assert.AreEqual(_messages.Count, 1, "testSuiteFinished should close testSuiteStarted" + GetDetails());
+                        Assert.IsNotEmpty(message.FlowIdAttr, "FlowId attribute is empty" + GetDetails());
+                        Assert.IsNotEmpty(message.ParentAttr, "Parent attribute is empty" + GetDetails());
                         var testSuiteStarted = _messages.Pop();
                         Assert.AreEqual(testSuiteStarted.Name, "testSuiteStarted", "testSuiteFinished should close testSuiteStarted" + GetDetails());
                         Assert.AreEqual(testSuiteStarted.FlowIdAttr, message.FlowIdAttr, "Invalid FlowId attribute" + GetDetails());

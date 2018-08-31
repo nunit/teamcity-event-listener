@@ -103,7 +103,7 @@ namespace NUnit.Engine.Listeners
             }
 
             var parentId = testEvent.GetAttribute("parentId");
-            var flowId = ".";
+            var flowId = GetRootFlowId();
             var isNUnit3 = parentId != null;
             if (isNUnit3)
             {
@@ -141,18 +141,36 @@ namespace NUnit.Engine.Listeners
             switch (messageName.ToLowerInvariant())
             {
                 case "start-suite":
-                    _refs[id] = parentId;
+                    AddParent(id, parentId);
+
+                    // NUnit 3 case
+                    if (parentId == string.Empty)
+                    {
+                        // Start the flow from the root flow
+                        // https://youtrack.jetbrains.com/issue/TW-56310
+                        OnFlowStarted(flowId, GetRootFlowId());
+                    }
+
                     StartSuiteCase(parentId, flowId, fullName);
                     break;
 
                 case "test-suite":
-                    _refs[id] = parentId;
+                    AddParent(id, parentId);
                     ProcessNotStartedTests(isNUnit3, id, flowId, testEvent);
                     TestSuiteCase(parentId, flowId, fullName, testEvent);
+
+                    // NUnit 3 case
+                    if (parentId == string.Empty)
+                    {
+                        // Finish the child flow from the root flow
+                        // https://youtrack.jetbrains.com/issue/TW-56310
+                        OnFlowFinished(flowId);
+                    }
+
                     break;
 
                 case "start-test":
-                    _refs[id] = parentId;
+                    AddParent(id, parentId);
                     if (isNUnit3)
                     {
                         CaseStartTest(id, flowId, parentId, testFlowId, fullName);
@@ -202,6 +220,16 @@ namespace NUnit.Engine.Listeners
                     ProcessNotStartedTests(isNUnit3, id, flowId, testEvent);
                     break;
             }
+        }
+
+        private string GetRootFlowId()
+        {
+            return ".";
+        }
+
+        private void AddParent(string id, string parentId)
+        {
+            _refs[id] = parentId;
         }
 
         private void OnTestCase(XmlNode testEvent, XmlNode infoEvent, string testFlowId, string fullName)

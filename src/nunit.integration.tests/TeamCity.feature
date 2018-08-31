@@ -19,6 +19,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run successful 
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                                | captureStandardOutput | duration | flowId | parent | message | details | out    | tc:tags                       |
+	| flowStarted       |                                     |                       |          | .+     | .+     |         |         |        |                               |
 	| testSuiteStarted  | foo.tests.dll                       |                       |          | .+     |        |         |         |        |                               |
 	| flowStarted       |                                     |                       |          | .+     | .+     |         |         |        |                               |
 	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest | false                 |          | .+     |        |         |         |        |                               |
@@ -26,6 +27,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run successful 
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |         |         |        |                               |
 	| flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
 	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |         |         |        |                               |
+	| flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
 Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -47,12 +49,14 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run test with A
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                          | captureStandardOutput | duration | flowId | parent | message | details | out | tc:tags |
+	| flowStarted       |                               |                       |          | .+     | .+     |         |         |     |         |
 	| testSuiteStarted  | foo.tests.dll                 |                       |          | .+     |        |         |         |     |         |
 	| flowStarted       |                               |                       |          | .+     | .+     |         |         |     |         |
 	| testStarted       | Foo.Tests.UnitTests1.PassTest | false                 |          | .+     |        |         |         |     |         |
 	| testFinished      | Foo.Tests.UnitTests1.PassTest |                       | \d+      | .+     |        |         |         |     |         |
 	| flowFinished      |                               |                       |          | .+     |        |         |         |     |         |
 	| testSuiteFinished | foo.tests.dll                 |                       |          | .+     |        |         |         |     |         |
+	| flowFinished      |                               |                       |          | .+     |        |         |         |     |         |
 Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -75,6 +79,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run test with A
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                          | captureStandardOutput | duration | flowId | parent | message | details | out                            | tc:tags                       |
+	| flowStarted       |                               |                       |          | .+     | .+     |         |         |                                |                               |
 	| testSuiteStarted  | foo.tests.dll                 |                       |          | .+     |        |         |         |                                |                               |
 	| flowStarted       |                               |                       |          | .+     | .+     |         |         |                                |                               |
 	| testStarted       | Foo.Tests.UnitTests1.PassTest | false                 |          | .+     |        |         |         |                                |                               |
@@ -82,6 +87,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run test with A
 	| testFinished      | Foo.Tests.UnitTests1.PassTest |                       | \d+      | .+     |        |         |         |                                |                               |
 	| flowFinished      |                               |                       |          | .+     |        |         |         |                                |                               |
 	| testSuiteFinished | foo.tests.dll                 |                       |          | .+     |        |         |         |                                |                               |
+	| flowFinished      |                               |                       |          | .+     |        |         |         |                                |                               |
 Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -156,6 +162,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for diff
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                                  | captureStandardOutput | duration | flowId | parent | message      | details                           | out    | tc:tags                       |
+	| flowStarted       |                                       |                       |          | .+     | .+     |              |                                   |        |                               |
 	| testSuiteStarted  | foo.tests.dll                         |                       |          | .+     |        |              |                                   |        |                               |
 	| flowStarted       |                                       |                       |          | .+     | .+     |              |                                   |        |                               |
 	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest   | false                 |          | .+     |        |              |                                   |        |                               |
@@ -176,6 +183,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for diff
 	| testIgnored       | Foo.Tests.UnitTests4.InconclusiveTest |                       |          | .+     |        | Inconclusive |                                   |        |                               |
 	| flowFinished      |                                       |                       |          | .+     |        |              |                                   |        |                               |
 	| testSuiteFinished | foo.tests.dll                         |                       |          | .+     |        |              |                                   |        |                               |
+	| flowFinished      |                                       |                       |          | .+     |        |              |                                   |        |                               |
 Examples:
 	| configurationType | frameworkVersion | teamCityIntegration |
 	| ProjectFile       | Version45        | CmdArguments        |
@@ -204,6 +212,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for fail
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                                | captureStandardOutput | duration | flowId | parent | message          | details                            | out |
+	| flowStarted       |                                     |                       |          | .+     | .+     |                  |                                    |     |
 	| testSuiteStarted  | foo.tests.dll                       |                       |          | .+     |        |                  |                                    |     |
 	| flowStarted       |                                     |                       |          | .+     | .+     |                  |                                    |     |
 	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest | false                 |          | .+     |        |                  |                                    |     |
@@ -211,6 +220,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for fail
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |                  |                                    |     |
 	| flowFinished      |                                     |                       |          | .+     |        |                  |                                    |     |
 	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |                  |                                    |     |
+	| flowFinished      |                                     |                       |          | .+     |        |                  |                                    |     |
 Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -233,6 +243,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for fail
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                                | captureStandardOutput | duration | flowId | parent | message          | details                            | out |
+	| flowStarted       |                                     |                       |          | .+     | .+     |                  |                                    |     |
 	| testSuiteStarted  | foo.tests.dll                       |                       |          | .+     |        |                  |                                    |     |
 	| flowStarted       |                                     |                       |          | .+     | .+     |                  |                                    |     |
 	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest | false                 |          | .+     |        |                  |                                    |     |
@@ -240,6 +251,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for fail
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |                  |                                    |     |
 	| flowFinished      |                                     |                       |          | .+     |        |                  |                                    |     |
 	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |                  |                                    |     |
+	| flowFinished      |                                     |                       |          | .+     |        |                  |                                    |     |
 Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -262,6 +274,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for fail
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                                | captureStandardOutput | duration | flowId | parent | message          | details                               | out    | tc:tags                       |
+	| flowStarted       |                                     |                       |          | .+     | .+     |                  |                                       |        |                               |
 	| testSuiteStarted  | foo.tests.dll                       |                       |          | .+     |        |                  |                                       |        |                               |
 	| flowStarted       |                                     |                       |          | .+     | .+     |                  |                                       |        |                               |
 	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest | false                 |          | .+     |        |                  |                                       |        |                               |
@@ -270,6 +283,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for fail
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |                  |                                       |        |                               |
 	| flowFinished      |                                     |                       |          | .+     |        |                  |                                       |        |                               |
 	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |                  |                                       |        |                               |
+	| flowFinished      |                                     |                       |          | .+     |        |                  |                                       |        |                               |
 Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -292,11 +306,13 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for fail
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                                | captureStandardOutput | duration | flowId | parent | message                      | details                                                                              | out |
+	| flowStarted       |                                     |                       |          |        |        |                              |                                                                                      |     |
 	| testSuiteStarted  | foo.tests.dll                       |                       |          | .+     |        |                              |                                                                                      |     |
 	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest | false                 |          | .+     |        |                              |                                                                                      |     |
 	| testFailed        | Foo.Tests.UnitTests1.SuccessfulTest |                       |          | .+     |        | System.Exception : Exception | at Foo\.Tests\.UnitTests1\.ThrowException\(\).+at Foo\.Tests\.UnitTests1\.\.ctor\(\) |     |
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |                              |                                                                                      |     |
 	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |                              |                                                                                      |     |
+	| flowFinished      |                                     |                       |          | .+     |        |                              |                                                                                      |     |
 Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -390,6 +406,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run successful 
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                                | captureStandardOutput | duration | flowId | parent | message | details | out    | tc:tags                       |
+	| flowStarted       |                                     |                       |          | .+     | .+     |         |         |        |                               |
 	| testSuiteStarted  | foo1.tests.dll                      |                       |          | .+     |        |         |         |        |                               |
 	| flowStarted       |                                     |                       |          | .+     | .+     |         |         |        |                               |
 	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest | false                 |          | .+     |        |         |         |        |                               |
@@ -397,6 +414,8 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run successful 
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |         |         |        |                               |
 	| flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
 	| testSuiteFinished | foo1.tests.dll                      |                       |          | .+     |        |         |         |        |                               |
+	| flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
+	| flowStarted       |                                     |                       |          | .+     | .+     |         |         |        |                               |
 	| testSuiteStarted  | foo2.tests.dll                      |                       |          | .+     |        |         |         |        |                               |
 	| flowStarted       |                                     |                       |          | .+     | .+     |         |         |        |                               |
 	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest | false                 |          | .+     |        |         |         |        |                               |
@@ -404,6 +423,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run successful 
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |         |         |        |                               |
 	| flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
 	| testSuiteFinished | foo2.tests.dll                      |                       |          | .+     |        |         |         |        |                               |
+	| flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
 Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -550,6 +570,7 @@ Scenario Outline: NUnit sends TeamCity's service messages from SetUp and TearDow
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                                 | captureStandardOutput | duration | flowId | parent | message | details | out                                           | tc:tags                       |
+	| flowStarted       |                                      |                       |          | .+     | .+     |         |         |                                               |                               |
 	| testSuiteStarted  | foo.tests.dll                        |                       |          | .+     |        |         |         |                                               |                               |
 	| flowStarted       |                                      |                       |          | .+     | .+     |         |         |                                               |                               |
 	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest1 | false                 |          | .+     |        |         |         |                                               |                               |
@@ -562,6 +583,7 @@ Scenario Outline: NUnit sends TeamCity's service messages from SetUp and TearDow
 	| testFinished      | Foo.Tests.UnitTests1.SuccessfulTest2 |                       | \d+      | .+     |        |         |         |                                               |                               |
 	| flowFinished      |                                      |                       |          | .+     |        |         |         |                                               |                               |
 	| testSuiteFinished | foo.tests.dll                        |                       |          | .+     |        |         |         |                                               |                               |
+	| flowFinished      |                                      |                       |          | .+     |        |         |         |                                               |                               |
 Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -581,7 +603,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run test scenar
 	When I run NUnit console
 	Then the exit code should be 0
 	And the output should contain correct set of TeamCity service messages
-	And the output should contain 137 TeamCity service messages
+	And the output should contain 139 TeamCity service messages
 Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -605,6 +627,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run test with p
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                                                                   | captureStandardOutput | duration | flowId | parent | message | details | out    | tc:tags                       |
+	| flowStarted       |                                                                        |                       |          | .+     | .+     |         |         |        |                               |
 	| testSuiteStarted  | foo.tests.dll                                                          |                       |          | .+     |        |         |         |        |                               |
 	| flowStarted       |                                                                        |                       |          | .+     | .+     |         |         |        |                               |
 	| testStarted       | Foo.Tests.UnitTests1.da_się_przefiltrować_produkty_dodatkowe_po_nazwie | false                 |          | .+     |        |         |         |        |                               |
@@ -612,6 +635,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run test with p
 	| testFinished      | Foo.Tests.UnitTests1.da_się_przefiltrować_produkty_dodatkowe_po_nazwie |                       | \d+      | .+     |        |         |         |        |                               |
 	| flowFinished      |                                                                        |                       |          | .+     |        |         |         |        |                               |
 	| testSuiteFinished | foo.tests.dll                                                          |                       |          | .+     |        |         |         |        |                               |
+	| flowFinished      |                                                                        |                       |          | .+     |        |         |         |        |                               |
 Examples:
 	| frameworkVersion | encoding     |
 	| Version45        | utf-8        |
@@ -638,6 +662,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run test with r
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                         | captureStandardOutput | duration | flowId | parent | message | details | out    | tc:tags                       |
+	| flowStarted       |                              |                       |          | .+     | .+     |         |         |        |                               |
 	| testSuiteStarted  | foo.tests.dll                |                       |          | .+     |        |         |         |        |                               |
 	| flowStarted       |                              |                       |          | .+     | .+     |         |         |        |                               |
 	| testStarted       | Foo.Tests.UnitTests1.RusTest | false                 |          | .+     |        |         |         |        |                               |
@@ -645,6 +670,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run test with r
 	| testFinished      | Foo.Tests.UnitTests1.RusTest |                       | \d+      | .+     |        |         |         |        |                               |
 	| flowFinished      |                              |                       |          | .+     |        |         |         |        |                               |
 	| testSuiteFinished | foo.tests.dll                |                       |          | .+     |        |         |         |        |                               |
+	| flowFinished      |                              |                       |          | .+     |        |         |         |        |                               |
 Examples:
 	| frameworkVersion | encoding     |
 	| Version45        | utf-8        |
@@ -672,6 +698,7 @@ Scenario Outline: NUnit sends TeamCity's service messages including stack trace 
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                       | captureStandardOutput | duration | flowId | parent | message                                             | details                                                | out | tc:tags |
+	| flowStarted       |                            |                       |          | .+     | .+     |                                                     |                                                        |     |         |
 	| testSuiteStarted  | foo.tests.dll              |                       |          | .+     |        |                                                     |                                                        |     |         |
 	| testStarted       | Foo.Tests.UnitTests1.Test1 | false                 |          | .+     |        |                                                     |                                                        |     |         |
 	| testFailed        | Foo.Tests.UnitTests1.Test1 |                       |          | .+     |        | System\.Exception : Exception during one time setup | at Foo\.Tests\.FailingSetUpFixture\.FailedOneTimeSetUp |     |         |
@@ -680,6 +707,7 @@ Scenario Outline: NUnit sends TeamCity's service messages including stack trace 
 	| testFailed        | Foo.Tests.UnitTests2.Test2 |                       |          | .+     |        | System\.Exception : Exception during one time setup | at Foo\.Tests\.FailingSetUpFixture\.FailedOneTimeSetUp |     |         |
 	| testFinished      | Foo.Tests.UnitTests2.Test2 |                       | 0        | .+     |        |                                                     |                                                        |     |         |
 	| testSuiteFinished | foo.tests.dll              |                       |          | .+     |        |                                                     |                                                        |     |         |
+	| flowFinished      |                            |                       |          | .+     |        |                                                     |                                                        |     |         |
 	Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -705,6 +733,7 @@ Scenario Outline: NUnit sends TeamCity'successful s service messages when OneTim
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                       | captureStandardOutput | duration | flowId | parent | message | details | out    | tc:tags                       |
+	| flowStarted       |                            |                       |          | .+     | .+     |         |         |        |                               |
 	| testSuiteStarted  | foo.tests.dll              |                       |          | .+     |        |         |         |        |                               |
 	| flowStarted       |                            |                       |          | .+     | .+     |         |         |        |                               |
 	| testStarted       | Foo.Tests.UnitTests1.Test1 | false                 |          | .+     |        |         |         |        |                               |
@@ -717,6 +746,7 @@ Scenario Outline: NUnit sends TeamCity'successful s service messages when OneTim
 	| testFinished      | Foo.Tests.UnitTests2.Test2 |                       | \d+      | .+     |        |         |         |        |                               |
 	| flowFinished      |                            |                       |          | .+     |        |         |         |        |                               |
 	| testSuiteFinished | foo.tests.dll              |                       |          | .+     |        |         |         |        |                               |
+	| flowFinished      |                            |                       |          | .+     |        |         |         |        |                               |
 	Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -807,6 +837,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for one 
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                                | captureStandardOutput | duration | flowId | parent | message             | details | out    |
+	| flowStarted       |                                     |                       |          | .+     | .+     |                     |         |        |
 	| testSuiteStarted  | foo.tests.dll                       |                       |          | .+     |        |                     |         |        |
 	| flowStarted       |                                     |                       |          | .+     | .+     |                     |         |        |
 	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest | false                 |          | .+     |        |                     |         |        |
@@ -815,6 +846,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for one 
 	| flowFinished      |                                     |                       |          | .+     |        |                     |         |        |
 	| message           |                                     |                       |          | .+     |        | OneTimeSetUp output |         |        |
 	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |                     |         |        |
+	| flowFinished      |                                     |                       |          | .+     |        |                     |         |        |
 Examples:
 	| frameworkVersion |
 	| Version45        |
@@ -838,6 +870,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for one 
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                                | captureStandardOutput | duration | flowId | parent | message                | details | out    |
+	| flowStarted       |                                     |                       |          | .+     | .+     |                        |         |        |
 	| testSuiteStarted  | foo.tests.dll                       |                       |          | .+     |        |                        |         |        |
 	| flowStarted       |                                     |                       |          | .+     | .+     |                        |         |        |
 	| testStarted       | Foo.Tests.UnitTests1.SuccessfulTest | false                 |          | .+     |        |                        |         |        |
@@ -846,6 +879,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for one 
 	| flowFinished      |                                     |                       |          | .+     |        |                        |         |        |
 	| message           |                                     |                       |          | .+     |        | OneTimeTearDown output |         |        |
 	| testSuiteFinished | foo.tests.dll                       |                       |          | .+     |        |                        |         |        |
+	| flowFinished      |                                     |                       |          | .+     |        |                        |         |        |
 Examples:
 	| frameworkVersion |
 	| Version45        |

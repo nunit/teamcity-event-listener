@@ -59,6 +59,7 @@ Scenario Outline: I can the test with config file for several assemblies using t
 	| Skipped      | 0     |
 	And the output should contain TeamCity service messages:
 	|                   | name                                 | out                   |
+	| flowStarted       |                                      |                       |
 	| testSuiteStarted  | foo1.tests.dll                       |                       |
 	| flowStarted       |                                      |                       |
 	| testStarted       | Foo1.Tests.UnitTests1.SuccessfulTest |                       |
@@ -66,6 +67,8 @@ Scenario Outline: I can the test with config file for several assemblies using t
 	| testFinished      | Foo1.Tests.UnitTests1.SuccessfulTest |                       |
 	| flowFinished      |                                      |                       |
 	| testSuiteFinished | foo1.tests.dll                       |                       |
+	| flowFinished      |                                      |                       |
+	| flowStarted       |                                      |                       |
 	| testSuiteStarted  | foo2.tests.dll                       |                       |
 	| flowStarted       |                                      |                       |
 	| testStarted       | Foo2.Tests.UnitTests1.SuccessfulTest |                       |
@@ -73,6 +76,7 @@ Scenario Outline: I can the test with config file for several assemblies using t
 	| testFinished      | Foo2.Tests.UnitTests1.SuccessfulTest |                       |
 	| flowFinished      |                                      |                       |
 	| testSuiteFinished | foo2.tests.dll                       |                       |
+	| flowFinished      |                                      |                       |
 Examples:
 	| configurationType | frameworkVersion |
 	| CmdArguments      | Version45        |
@@ -107,6 +111,7 @@ Scenario Outline: I can the test with config file for several assemblies using t
 	| Skipped      | 0     |
 	And the output should contain TeamCity service messages:
 	|                   | name                                 | out                   |
+	| flowStarted       |                                      |                       |
 	| testSuiteStarted  | foo1.tests.dll                       |                       |
 	| flowStarted       |                                      |                       |
 	| testStarted       | Foo1.Tests.UnitTests1.SuccessfulTest |                       |
@@ -114,6 +119,8 @@ Scenario Outline: I can the test with config file for several assemblies using t
 	| testFinished      | Foo1.Tests.UnitTests1.SuccessfulTest |                       |
 	| flowFinished      |                                      |                       |
 	| testSuiteFinished | foo1.tests.dll                       |                       |
+	| flowFinished      |                                      |                       |
+	| flowStarted       |                                      |                       |
 	| testSuiteStarted  | foo2.tests.dll                       |                       |
 	| flowStarted       |                                      |                       |
 	| testStarted       | Foo2.Tests.UnitTests1.SuccessfulTest |                       |
@@ -121,6 +128,7 @@ Scenario Outline: I can the test with config file for several assemblies using t
 	| testFinished      | Foo2.Tests.UnitTests1.SuccessfulTest |                       |
 	| flowFinished      |                                      |                       |
 	| testSuiteFinished | foo2.tests.dll                       |                       |
+	| flowFinished      |                                      |                       |
 Examples:
 	| configurationType | frameworkVersion |
 	| ProjectFile       | Version45        |
