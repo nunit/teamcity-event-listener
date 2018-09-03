@@ -63,6 +63,7 @@ namespace NUnit.Engine.Listeners
         {
             // Given
             var publisher = CreateInstance();
+            publisher.RootFlowId = ".";
 
             // When
             publisher.RegisterMessage(CreateStartRun(1));
@@ -134,6 +135,7 @@ namespace NUnit.Engine.Listeners
         {
             // Given
             var publisher = CreateInstance();
+            publisher.RootFlowId = ".";
 
             // When
             publisher.RegisterMessage(CreateStartRun(1));
@@ -455,6 +457,7 @@ namespace NUnit.Engine.Listeners
         {
             // Given
             var publisher = CreateInstance();
+            publisher.RootFlowId = ".";
 
             // When
             publisher.RegisterMessage(CreateStartRun(1));
