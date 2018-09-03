@@ -63,6 +63,7 @@ namespace NUnit.Engine.Listeners
         {
             // Given
             var publisher = CreateInstance();
+            publisher.RootFlowId = ".";
 
             // When
             publisher.RegisterMessage(CreateStartRun(1));
@@ -134,6 +135,7 @@ namespace NUnit.Engine.Listeners
         {
             // Given
             var publisher = CreateInstance();
+            publisher.RootFlowId = ".";
 
             // When
             publisher.RegisterMessage(CreateStartRun(1));
@@ -152,6 +154,43 @@ namespace NUnit.Engine.Listeners
             // Then
             Assert.AreEqual(
                 "##teamcity[flowStarted flowId='1-1' parent='.']" + Environment.NewLine
+                + "##teamcity[testSuiteStarted name='Assembly1' flowId='1-1']" + Environment.NewLine
+
+                + "##teamcity[flowStarted flowId='1-2' parent='1-1']" + Environment.NewLine
+                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-2']" + Environment.NewLine
+                + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='1-2' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
+                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1-2']" + Environment.NewLine
+                + "##teamcity[flowFinished flowId='1-2']" + Environment.NewLine
+
+                + "##teamcity[testSuiteFinished name='Assembly1' flowId='1-1']" + Environment.NewLine
+                + "##teamcity[flowFinished flowId='1-1']" + Environment.NewLine,
+                _output.ToString());
+        }
+
+        [Test]
+        public void ShouldSendMessagesWithPredefinedRootFlowId()
+        {
+            // Given
+            var publisher = CreateInstance();
+
+            // When
+            publisher.RootFlowId = "root";
+            publisher.RegisterMessage(CreateStartRun(1));
+
+            // Assembly 1
+            publisher.RegisterMessage(CreateStartSuite("1-1", "", "aaa" + Path.DirectorySeparatorChar + "Assembly1"));
+            
+            // Test Assembly1.Namespace1.1.Test1
+            publisher.RegisterMessage(CreateStartTest("1-2", "1-1", "Assembly1.Namespace1.1.Test1"));
+            publisher.RegisterMessage(CreateTestCaseSuccessful("1-2", "1-1", "Assembly1.Namespace1.1.Test1", "0.1", "Text output"));
+
+            publisher.RegisterMessage(CreateFinishSuite("1-1", "", "Assembly1"));
+
+            publisher.RegisterMessage(CreateTestRun());
+
+            // Then
+            Assert.AreEqual(
+                "##teamcity[flowStarted flowId='1-1' parent='root']" + Environment.NewLine
                 + "##teamcity[testSuiteStarted name='Assembly1' flowId='1-1']" + Environment.NewLine
 
                 + "##teamcity[flowStarted flowId='1-2' parent='1-1']" + Environment.NewLine
@@ -418,6 +457,7 @@ namespace NUnit.Engine.Listeners
         {
             // Given
             var publisher = CreateInstance();
+            publisher.RootFlowId = ".";
 
             // When
             publisher.RegisterMessage(CreateStartRun(1));

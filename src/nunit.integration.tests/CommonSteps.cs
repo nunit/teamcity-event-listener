@@ -6,9 +6,6 @@ namespace nunit.integration.tests
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Xml.Linq;
-    using System.Xml.XPath;
-
     using Dsl;
 
     using NUnit.Framework;
@@ -71,6 +68,14 @@ namespace nunit.integration.tests
             }
         }
 
+        [Given(@"I have added the environment variable (.+) as (.+)")]
+        public void AddEnvVar(string name, string value)
+        {
+            var ctx = ScenarioContext.Current.GetTestContext();
+            var configuration = ctx.GetOrCreateNUnitConfiguration();
+            configuration.AddRawEnvVariable(new RawEnvVariable(name, value));
+        }
+
         private bool VerifyItem(TableRow row, IEnumerable<ItemValue> item)
         {
             var vals = item.ToDictionary(i => i.Name, i => i.Value);
@@ -100,7 +105,7 @@ namespace nunit.integration.tests
             }
 
             return true;
-        }       
+        }
 
         private static string CreateErrorMessage(TableRow row, IEnumerable<ItemValue> item)
         {
@@ -108,6 +113,6 @@ namespace nunit.integration.tests
             var itemInfo = string.Join(", ", from val in item select $"{val.Name} = {val.Value}");
 
             return $"Expected item should has:\n{rowInfo}\nbut it has:\n{itemInfo}";
-        }        
+        }
     }
 }

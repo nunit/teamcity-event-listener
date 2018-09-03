@@ -88,12 +88,12 @@
         }
 
         [Given(@"I have specified (.+) platform for assembly (.+)")]
-        public void DefinePaltformForAssembly(string platform, string assemblyName)
+        public void DefinePlatformForAssembly(string platform, string assemblyName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
             var testAssembly = ctx.GetOrCreateAssembly(assemblyName);
             testAssembly.Platform = platform.ConvertToPlatform();
-        }        
+        }
 
         [Given(@"I have compiled the assembly (.+) to file (.+)")]
         public void Compile(string assemblyName, string assemblyFileName)

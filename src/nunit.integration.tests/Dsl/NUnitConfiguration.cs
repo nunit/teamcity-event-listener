@@ -9,6 +9,7 @@
         private readonly List<string> _assemblyFileNames = new List<string>();
         private readonly List<CmdArg> _args = new List<CmdArg>();
         private readonly List<EnvVariable> _envVariables = new List<EnvVariable>();
+        private readonly List<RawEnvVariable> _rawEnvVariables = new List<RawEnvVariable>();
         private readonly List<ConfigFile> _configFiles = new List<ConfigFile>();
 
         public NUnitConfiguration()
@@ -34,6 +35,8 @@
 
         public IEnumerable<EnvVariable> EnvVariables => _envVariables;
 
+        public IEnumerable<RawEnvVariable> RawEnvVariables => _rawEnvVariables;
+
         public IEnumerable<ConfigFile> ConfigFiles => _configFiles;
 
         public ConfigurationType ConfigurationType { get; set; }
@@ -53,9 +56,14 @@
             _envVariables.Add(envVariable);
         }
 
+        public void AddRawEnvVariable(RawEnvVariable envVariable)
+        {
+            _rawEnvVariables.Add(envVariable);
+        }
+
         public void AddConfigFile(ConfigFile configFile)
         {
-            _configFiles.Add(configFile);            
+            _configFiles.Add(configFile);
         }
     }
 }

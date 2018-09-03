@@ -202,6 +202,7 @@
     <Compile Include="Dsl\NUnitVersion.cs" />
     <Compile Include="Dsl\OutputSummary.cs" />
     <Compile Include="Dsl\ProjectCommandLineSetupFactory.cs" />
+    <Compile Include="Dsl\RawEnvVariable.cs" />
     <Compile Include="Dsl\ResourceManager.cs" />
     <Compile Include="Dsl\StringEnumExtensions.cs" />
     <Compile Include="Dsl\TeamCityIntegration.cs" />

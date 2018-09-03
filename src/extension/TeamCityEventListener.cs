@@ -47,14 +47,31 @@ namespace NUnit.Engine.Listeners
         private readonly Dictionary<string, int> _blockCounters = new Dictionary<string, int>();
         private readonly Dictionary<string, XmlNode> _notStartedNUnit3Tests = new Dictionary<string, XmlNode>();
         private readonly List<XmlNode> _notStartedNUnit2Tests = new List<XmlNode>();
+        private string _rootFlowId;
 
         public TeamCityEventListener() : this(Console.Out) { }
+
+        public string RootFlowId
+        {
+            get { return _rootFlowId; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    _rootFlowId = ".";
+                    return;
+                }
+
+                _rootFlowId = value;
+            }
+        }
 
         public TeamCityEventListener(TextWriter outWriter)
         {
             if (outWriter == null) throw new ArgumentNullException("outWriter");
 
             _outWriter = outWriter;
+            RootFlowId = Environment.GetEnvironmentVariable("TEAMCITY_PROCESS_FLOW_ID");
         }
 
         #region ITestEventListener Implementation
@@ -103,7 +120,7 @@ namespace NUnit.Engine.Listeners
             }
 
             var parentId = testEvent.GetAttribute("parentId");
-            var flowId = GetRootFlowId();
+            var flowId = RootFlowId;
             var isNUnit3 = parentId != null;
             if (isNUnit3)
             {
@@ -148,7 +165,7 @@ namespace NUnit.Engine.Listeners
                     {
                         // Start the flow from the root flow
                         // https://youtrack.jetbrains.com/issue/TW-56310
-                        OnFlowStarted(flowId, GetRootFlowId());
+                        OnFlowStarted(flowId, RootFlowId);
                     }
 
                     StartSuiteCase(parentId, flowId, fullName);
@@ -220,11 +237,6 @@ namespace NUnit.Engine.Listeners
                     ProcessNotStartedTests(isNUnit3, id, flowId, testEvent);
                     break;
             }
-        }
-
-        private string GetRootFlowId()
-        {
-            return ".";
         }
 
         private void AddParent(string id, string parentId)
