@@ -96,6 +96,13 @@
         }
 
         [Test]
+        public void SuccessfulStdError()
+        {
+            System.Console.Out.WriteLine("stdout");
+            System.Console.Error.WriteLine("errorout");
+        }
+
+        [Test]
         public void RusTest()
         {
             System.Console.WriteLine("привет");

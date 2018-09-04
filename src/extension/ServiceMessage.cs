@@ -48,6 +48,7 @@ namespace NUnit.Engine.Listeners
         public static class Names
         {
             public const string TestStdOut = "testStdOut";
+            public const string TestStdErr = "testStdErr";
             public const string TestSuiteStarted = "testSuiteStarted";
             public const string TestSuiteFinished = "testSuiteFinished";
             public const string FlowStarted = "flowStarted";

@@ -110,18 +110,27 @@ namespace NUnit.Engine.Listeners
             var fullName = testEvent.GetAttribute("fullname");
             if (string.IsNullOrEmpty(fullName))
             {
-                return;
+                fullName = testEvent.GetAttribute("testname");
+                if (string.IsNullOrEmpty(fullName))
+                {
+                    return;
+                }
             }
 
             var id = testEvent.GetAttribute("id");
             if (id == null)
             {
-                id = string.Empty;
+                id = testEvent.GetAttribute("testid");
+                if (id == null)
+                {
+                    id = string.Empty;
+                }
             }
 
             var parentId = testEvent.GetAttribute("parentId");
             var flowId = RootFlowId;
             var isNUnit3 = parentId != null;
+
             if (isNUnit3)
             {
                 // NUnit 3 case
@@ -236,12 +245,29 @@ namespace NUnit.Engine.Listeners
                 case "test-run":
                     ProcessNotStartedTests(isNUnit3, id, flowId, testEvent);
                     break;
+
+                case "test-output":
+                    TestOutput(testEvent, id, fullName);
+                    break;
             }
         }
 
         private void AddParent(string id, string parentId)
         {
             _refs[id] = parentId;
+        }
+
+        private void TestOutput(XmlNode testEvent, string flowId, string fullName)
+        {
+            var stream = testEvent.GetAttribute("stream");
+            if (!string.IsNullOrEmpty(stream) && stream.ToLower() == "error")
+            {
+                SendStdErr(flowId, fullName, testEvent.InnerText);
+            }
+            else
+            {
+                SendStdOut(flowId, fullName, testEvent.InnerText);
+            }
         }
 
         private void OnTestCase(XmlNode testEvent, XmlNode infoEvent, string testFlowId, string fullName)
@@ -419,7 +445,7 @@ namespace NUnit.Engine.Listeners
                 return;
             }
 
-            SendOutput(flowId, fullName, output.InnerText);
+            SendStdOut(flowId, fullName, output.InnerText);
         }
 
         private void TrySendOutputAsMessage(string flowId, XmlNode message, string fullName)
@@ -451,17 +477,27 @@ namespace NUnit.Engine.Listeners
                 return;
             }
 
-            SendOutput(flowId, fullName, "Assert.Pass message: " + reasonMessage);
+            SendStdOut(flowId, fullName, "Assert.Pass message: " + reasonMessage);
         }
 
-        private void SendOutput(string flowId, string fullName, string outputStr)
+        private void SendStdOut(string flowId, string fullName, string outputStr)
+        {
+            SendOutput(ServiceMessage.Names.TestStdOut, flowId, fullName, outputStr);
+        }
+
+        private void SendStdErr(string flowId, string fullName, string outputStr)
+        {
+            SendOutput(ServiceMessage.Names.TestStdErr, flowId, fullName, outputStr);
+        }
+
+        private void SendOutput(string messageName, string flowId, string fullName, string outputStr)
         {
             if (string.IsNullOrEmpty(outputStr))
             {
                 return;
             }
 
-            Write(new ServiceMessage(ServiceMessage.Names.TestStdOut,
+            Write(new ServiceMessage(messageName,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, fullName),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Out, outputStr),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId),
