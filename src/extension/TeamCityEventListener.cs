@@ -259,6 +259,11 @@ namespace NUnit.Engine.Listeners
 
         private void TestOutput(XmlNode testEvent, string flowId, string fullName)
         {
+            if (string.IsNullOrEmpty(flowId))
+            {
+                return;
+            }
+
             var stream = testEvent.GetAttribute("stream");
             if (!string.IsNullOrEmpty(stream) && stream.ToLower() == "error")
             {
