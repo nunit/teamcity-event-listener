@@ -21,12 +21,13 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml;
 
 namespace System.Runtime.CompilerServices
 {
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Method)]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     sealed class ExtensionAttribute : Attribute { }
 }
 
@@ -45,8 +46,12 @@ namespace NUnit.Engine.Listeners
         /// <returns></returns>
         public static string GetAttribute(this XmlNode result, string name)
         {
-            XmlAttribute attr = result.Attributes[name];
+            if (result == null || result.Attributes == null)
+            {
+                return null;
+            }
 
+            var attr = result.Attributes[name];
             return attr == null ? null : attr.Value;
         }
     }

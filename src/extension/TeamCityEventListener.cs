@@ -33,7 +33,7 @@ namespace NUnit.Engine.Listeners
     using System.Diagnostics.CodeAnalysis;
     using System.Text;
 
-    // Note: Setting mimimum engine version in this case is
+    // Note: Setting minimum engine version in this case is
     // purely documentary since engines prior to 3.4 do not
     // check the EngineVersion property and will try to
     // load this extension anyway.
@@ -49,11 +49,12 @@ namespace NUnit.Engine.Listeners
         private readonly List<XmlNode> _notStartedNUnit2Tests = new List<XmlNode>();
         private string _rootFlowId;
 
+        // ReSharper disable once UnusedMember.Global
         public TeamCityEventListener() : this(Console.Out) { }
 
         public string RootFlowId
         {
-            get { return _rootFlowId; }
+            private get { return _rootFlowId; }
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -117,16 +118,7 @@ namespace NUnit.Engine.Listeners
                 }
             }
 
-            var id = testEvent.GetAttribute("id");
-            if (id == null)
-            {
-                id = testEvent.GetAttribute("testid");
-                if (id == null)
-                {
-                    id = string.Empty;
-                }
-            }
-
+            var id = testEvent.GetAttribute("id") ?? testEvent.GetAttribute("testid") ?? string.Empty;
             var parentId = testEvent.GetAttribute("parentId");
             var flowId = RootFlowId;
             var isNUnit3 = parentId != null;
@@ -157,11 +149,7 @@ namespace NUnit.Engine.Listeners
             }
             else
             {
-                testFlowId = flowId;
-                if (testFlowId == null)
-                {
-                    testFlowId = id;
-                }
+                testFlowId = flowId ?? id;
             }
 
             switch (messageName.ToLowerInvariant())
@@ -365,7 +353,7 @@ namespace NUnit.Engine.Listeners
 
         private void TestSuiteCase(string parentId, string flowId, string fullName, XmlNode testEvent)
         {
-            TrySendOutputAsMessage(flowId, testEvent, fullName);
+            TrySendOutputAsMessage(flowId, testEvent);
 
             // NUnit 3 case
             if (parentId == string.Empty)
@@ -453,7 +441,7 @@ namespace NUnit.Engine.Listeners
             SendStdOut(flowId, fullName, output.InnerText);
         }
 
-        private void TrySendOutputAsMessage(string flowId, XmlNode message, string fullName)
+        private void TrySendOutputAsMessage(string flowId, XmlNode message)
         {
             if (message == null) throw new ArgumentNullException("message");
 
@@ -463,7 +451,7 @@ namespace NUnit.Engine.Listeners
                 return;
             }
 
-            SendOutputAsMessage(flowId, fullName, output.InnerText);
+            SendOutputAsMessage(flowId, output.InnerText);
         }
 
         private void TrySendReasonMessage(string flowId, XmlNode message, string fullName)
@@ -509,7 +497,7 @@ namespace NUnit.Engine.Listeners
                 new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, "tc:parseServiceMessagesInside")));
         }
 
-        private void SendOutputAsMessage(string flowId, string fullName, string outputStr)
+        private void SendOutputAsMessage(string flowId, string outputStr)
         {
             if (string.IsNullOrEmpty(outputStr))
             {

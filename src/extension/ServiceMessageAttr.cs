@@ -41,7 +41,7 @@ namespace NUnit.Engine.Listeners
 
         public string Value { get; private set; }
 
-        public string Name { get; private set; }        
+        public string Name { get; private set; }
 
         public static class Names
         {
