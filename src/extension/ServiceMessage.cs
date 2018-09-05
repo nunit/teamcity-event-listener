@@ -27,7 +27,7 @@ namespace NUnit.Engine.Listeners
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
-    internal struct ServiceMessage
+    public struct ServiceMessage
     {
         public ServiceMessage(string name, params ServiceMessageAttr[] attributes)
             : this()

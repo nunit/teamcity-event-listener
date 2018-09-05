@@ -31,7 +31,7 @@ namespace NUnit.Engine.Listeners
     using Framework;
 
     [TestFixture]
-    public class TeamCityEventListenerTests
+    public class TeamCityEventListenerIntegrationTests
     {
         private StringBuilder _output;
         private StringWriter _outputWriter;
