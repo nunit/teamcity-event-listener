@@ -1,0 +1,42 @@
+diff a/src/extension/TeamCityEventListener.cs b/src/extension/TeamCityEventListener.cs	(rejected hunks)
+@@ -181,6 +181,10 @@
+                 case "test-run":
+                     ProcessNotStartedTests(isNUnit3, id, flowId, testEvent);
+                     break;
++
++                case "test-output":
++                    OnTestOut(testEvent, testFlowId, fullName);
++                    break;
+             }
+         }
+ 
+@@ -296,6 +300,12 @@
+             }
+         }
+ 
++        private void OnTestOut(XmlNode testEvent, string testFlowId, string fullName)
++        {
++            throw new NotImplementedException();
++        }
++
++
+         private int ChangeBlockCounter(string flowId, int changeValue)
+         {
+             int currentBlockCounter;
+@@ -367,14 +377,14 @@
+             SendOutput(flowId, fullName, "Assert.Pass message: " + reasonMessage);
+         }
+ 
+-        private void SendOutput(string flowId, string fullName, string outputStr)
++        private void SendOutput(string flowId, string fullName, string outputStr, bool error = false)
+         {
+             if (string.IsNullOrEmpty(outputStr))
+             {
+                 return;
+             }
+ 
+-            Write(new ServiceMessage(ServiceMessage.Names.TestStdOut,
++            Write(new ServiceMessage(error ? ServiceMessage.Names.TestErrorOut: ServiceMessage.Names.TestStdOut,
+                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, fullName),
+                 new ServiceMessageAttr(ServiceMessageAttr.Names.Out, outputStr),
+                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId),

@@ -4,26 +4,29 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
+    using System.Collections.Generic;
 
     [SuppressMessage("ReSharper", "UseNameofExpression")]
-    internal class ServiceMessageWriter
+    internal class ServiceMessageWriter : IServiceMessageWriter
     {
         private const string Header = "##teamcity[";
         private const string Footer = "]";
 
-        public void Write(TextWriter writer, ServiceMessage serviceMessage)
+        public void Write(TextWriter writer, IEnumerable<ServiceMessage> serviceMessages)
         {
             if (writer == null) throw new ArgumentNullException("writer");
-            
-            writer.Write(Header);
-            writer.Write(serviceMessage.Name);
-            foreach (var attribute in serviceMessage.Attributes)
+            foreach (var serviceMessage in serviceMessages)
             {
-                writer.Write(' ');
-                Write(writer, attribute);
-            }
+                writer.Write(Header);
+                writer.Write(serviceMessage.Name);
+                foreach (var attribute in serviceMessage.Attributes)
+                {
+                    writer.Write(' ');
+                    Write(writer, attribute);
+                }
 
-            writer.Write(Footer);
+                writer.WriteLine(Footer);
+            }
         }
 
 
