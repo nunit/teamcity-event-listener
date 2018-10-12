@@ -850,7 +850,7 @@ Scenario Outline: NUnit sends TeamCity'successful s service messages when Failed
 @3.4.1
 @teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run it for one time setup with output
-	Given Framework version is <frameworkVersion>	
+	Given Framework version is <frameworkVersion>
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have added OneTimeSetUpWithOutput method as OneTimeSetUpWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have created the folder mocks
@@ -863,7 +863,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for one 
 	Then the exit code should be 0
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
-	|                   | name                                | captureStandardOutput | duration | flowId | parent | message             | details | out    |
+	|                   | name                                | captureStandardOutput | duration | flowId | parent | text                | details | out    |
 	| flowStarted       |                                     |                       |          | .+     | .+     |                     |         |        |
 	| testSuiteStarted  | foo.tests.dll                       |                       |          | .+     |        |                     |         |        |
 	| flowStarted       |                                     |                       |          | .+     | .+     |                     |         |        |
@@ -896,7 +896,7 @@ Scenario Outline: NUnit sends TeamCity's service messages when I run it for one 
 	Then the exit code should be 0
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
-	|                   | name                                | captureStandardOutput | duration | flowId | parent | message                | details | out    |
+	|                   | name                                | captureStandardOutput | duration | flowId | parent | text                   | details | out    |
 	| flowStarted       |                                     |                       |          | .+     | .+     |                        |         |        |
 	| testSuiteStarted  | foo.tests.dll                       |                       |          | .+     |        |                        |         |        |
 	| flowStarted       |                                     |                       |          | .+     | .+     |                        |         |        |
@@ -964,7 +964,7 @@ Scenario Outline: NUnit sends TeamCity's service messages with output when TestF
 	Then the exit code should be 0
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
-	|                   | name                       | captureStandardOutput | duration | flowId | parent | message                    | details | out    | tc:tags |
+	|                   | name                       | captureStandardOutput | duration | flowId | parent | text                       | details | out    | tc:tags |
 	| testSuiteStarted  | foo.tests.dll              |                       |          | .+     |        |                            |         |        |         |
 	| testStarted       | Foo.Tests.UnitTests1.Test1 | false                 |          | .+     |        |                            |         |        |         |
 	| testStdOut        | Foo.Tests.UnitTests1.Test1 |                       |          | .+     |        |                            |         | output |         |

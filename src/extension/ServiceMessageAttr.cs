@@ -48,6 +48,7 @@ namespace NUnit.Engine.Listeners
             public const string Name = "name";
             public const string FlowId = "flowId";
             public const string Message = "message";
+            public const string Text = "text";
             public const string Out = "out";
             public const string TcTags = "tc:tags";
             public const string Parent = "parent";

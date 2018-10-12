@@ -4023,7 +4023,7 @@ this.FeatureBackground();
                         "duration",
                         "flowId",
                         "parent",
-                        "message",
+                        "text",
                         "details",
                         "out"});
             table23.AddRow(new string[] {
@@ -4188,7 +4188,7 @@ this.FeatureBackground();
                         "duration",
                         "flowId",
                         "parent",
-                        "message",
+                        "text",
                         "details",
                         "out"});
             table24.AddRow(new string[] {
@@ -4527,7 +4527,7 @@ this.FeatureBackground();
                         "duration",
                         "flowId",
                         "parent",
-                        "message",
+                        "text",
                         "details",
                         "out",
                         "tc:tags"});

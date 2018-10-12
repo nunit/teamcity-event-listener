@@ -8,6 +8,7 @@
 
     internal class ServiceMessageFactory : IServiceMessageFactory
     {
+        private const string TcParseServiceMessagesInside = "tc:parseServiceMessagesInside";
         private static readonly IEnumerable<ServiceMessage> EmptyServiceMessages = new ServiceMessage[0];
 
         public IEnumerable<ServiceMessage> SuiteStarted(EventId eventId)
@@ -234,7 +235,7 @@
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, eventId.FullName),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Out, outputStr),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, "tc:parseServiceMessagesInside"));
+                new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, TcParseServiceMessagesInside));
         }
 
         private IEnumerable<ServiceMessage> OutputAsMessage(EventId eventId, string outputStr)
@@ -245,9 +246,9 @@
             }
 
             yield return new ServiceMessage(ServiceMessage.Names.Message,
-                new ServiceMessageAttr(ServiceMessageAttr.Names.Message, outputStr),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Text, outputStr),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, "tc:parseServiceMessagesInside"));
+                new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, TcParseServiceMessagesInside));
         }
 
         private IEnumerable<ServiceMessage> Output(EventId eventId, XmlNode sendOutputEvent)

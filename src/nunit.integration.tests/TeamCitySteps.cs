@@ -97,6 +97,7 @@ namespace nunit.integration.tests
                 DurationAttr = message.GetValue("duration");
                 OutAttr = message.GetValue("duration");
                 MessageAttr = message.GetValue("message");
+                TextAttr = message.GetValue("text");
                 DetailsAttr = message.GetValue("details");
                 TcTagsAttr = message.GetValue("tc:tags");
             }
@@ -118,6 +119,8 @@ namespace nunit.integration.tests
             public string OutAttr { get; }
 
             public string MessageAttr { get; }
+
+            public string TextAttr { get; }
 
             public string DetailsAttr { get; }
 
@@ -253,7 +256,7 @@ namespace nunit.integration.tests
 
                     case "message":
                         Assert.AreEqual(message.FlowIdAttr, FlowId, "Invalid FlowId attribute" + GetDetails());
-                        Assert.IsNotEmpty(message.MessageAttr, "Message attribute is empty" + GetDetails());
+                        Assert.IsNotEmpty(message.TextAttr, "Text attribute is empty" + GetDetails());
                         Assert.IsNotEmpty(message.TcTagsAttr, "tc:tags should be tc:parseServiceMessagesInside" + GetDetails());
                         break;
 
