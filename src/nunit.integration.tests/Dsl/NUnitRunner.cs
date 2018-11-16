@@ -16,6 +16,7 @@
             File.WriteAllText(
                 cmd,
                 $"@pushd \"{ctx.CurrentDirectory}\""
+                + Environment.NewLine + string.Join(Environment.NewLine, setup.EnvVariables.Select(i => "SET \"" + i.Key + "=" + i.Value + "\""))
                 + Environment.NewLine + $"\"{setup.ToolName}\" {setup.Arguments}"
                 + Environment.NewLine + "@set exitCode=%errorlevel%"
                 + Environment.NewLine + "@popd"
@@ -30,11 +31,6 @@
             process.StartInfo.RedirectStandardError = true;
             process.StartInfo.StandardOutputEncoding = ctx.Encoding;
             process.StartInfo.StandardErrorEncoding = ctx.Encoding;
-            foreach (var envVariable in setup.EnvVariables)
-            {
-                process.StartInfo.EnvironmentVariables[envVariable.Key] = envVariable.Value;
-            }
-
             foreach (var artifact in setup.Artifacts)
             {
                 File.WriteAllText(artifact.FileName, artifact.Content);

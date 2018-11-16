@@ -56,6 +56,11 @@ namespace NUnit.Engine.Listeners
             string rootId;
             var flowId = _hierarchy.TryFindRootId(parentId, out rootId) ? rootId : id;
             var testFlowId = id != flowId ? id : flowId;
+            var rootFlowId = testEvent.RootFlowId;
+            if (string.IsNullOrEmpty(rootFlowId))
+            {
+                rootFlowId = ".";
+            }
 
             var eventId = new EventId(flowId, testEvent.FullName);
             switch (testEvent.MessageName)
@@ -67,7 +72,7 @@ namespace NUnit.Engine.Listeners
                     if (parentId == string.Empty)
                     {
                         // Start a flow from a root flow https://youtrack.jetbrains.com/issue/TW-56310
-                        yield return _serviceMessageFactory.FlowStarted(flowId, testEvent.RootFlowId);
+                        yield return _serviceMessageFactory.FlowStarted(flowId, rootFlowId);
 
                         yield return _serviceMessageFactory.SuiteStarted(eventId);
                     }
@@ -121,7 +126,7 @@ namespace NUnit.Engine.Listeners
                     break;
 
                 case "test-output":
-                    testFlowId = testEvent.TestEvent.GetAttribute("testid") ?? testEvent.RootFlowId;
+                    testFlowId = testEvent.TestEvent.GetAttribute("testid") ?? rootFlowId;
                     yield return _serviceMessageFactory.TestOutput(new EventId(testFlowId, testEvent.FullName), testEvent.TestEvent);
                     break;
             }

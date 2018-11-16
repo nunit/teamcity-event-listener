@@ -44,7 +44,7 @@ namespace NUnit.Engine.Listeners
 
         private readonly object _lockObject = new object();
         private readonly TextWriter _outWriter;
-        private string _rootFlowId;
+        private string _rootFlowId = string.Empty;
 
         // ReSharper disable once UnusedMember.Global
         public TeamCityEventListener() : this(Console.Out) { }
@@ -67,13 +67,11 @@ namespace NUnit.Engine.Listeners
         {
             set
             {
-                if (string.IsNullOrEmpty(value))
-                {
-                    _rootFlowId = ".";
-                    return;
-                }
-
                 _rootFlowId = value;
+                if (_rootFlowId == null)
+                {
+                    _rootFlowId = string.Empty;
+                }
             }
         }
 

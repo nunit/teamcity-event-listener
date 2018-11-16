@@ -62,6 +62,31 @@ Scenario: Use root flow id from environment variable TEAMCITY_PROCESS_FLOW_ID
 
 @3.4.1
 @teamcity
+Scenario Outline: Use root flow id from environment variable TEAMCITY_PROCESS_FLOW_ID for NUnit2
+	Given Framework version is <frameworkVersion>
+	And I have added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
+	And I have created the folder mocks
+	And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
+	And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
+	And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
+	And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+	And I want to use CmdArguments type of TeamCity integration
+    And I have added the environment variable TEAMCITY_PROCESS_FLOW_ID as abc
+	When I run NUnit console
+	Then the exit code should be 0
+	And the output should contain correct set of TeamCity service messages
+	And the output should contain TeamCity service messages:
+	|                   | name                          | captureStandardOutput | duration | flowId  | parent | message | details | out | tc:tags |
+	| testSuiteStarted  | foo.tests.dll                 |                       |          | abc\..+ |        |         |         |     |         |
+	| testStarted       | Foo.Tests.UnitTests1.PassTest | false                 |          | abc\..+ |        |         |         |     |         |
+	| testFinished      | Foo.Tests.UnitTests1.PassTest |                       | \d+      | abc\..+ |        |         |         |     |         |
+	| testSuiteFinished | foo.tests.dll                 |                       |          | abc\..+ |        |         |         |     |         |
+Examples:
+	| frameworkVersion |
+	| Version45        |
+
+@3.4.1
+@teamcity
 Scenario Outline: NUnit sends TeamCity's service messages when I run test with Assert.Pass
 	Given Framework version is <frameworkVersion>	
 	And I have added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
@@ -740,6 +765,7 @@ Scenario Outline: NUnit sends TeamCity's service messages including stack trace 
 	| Version45        |
 	| Version40        |
 
+@3.9
 @teamcity
 Scenario Outline: NUnit sends TeamCity'successful s service messages when OneTimeTearDown in SetUpFixture throws exception
 	Given Framework version is <frameworkVersion>
@@ -756,7 +782,7 @@ Scenario Outline: NUnit sends TeamCity'successful s service messages when OneTim
 	And I want to use CmdArguments configuration type
 	And I have added the arg process=InProcess to NUnit console command line
 	When I run NUnit console
-	Then the exit code should be 0
+	Then the exit code should be 2
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                       | captureStandardOutput | duration | flowId | parent | message | details | out    | tc:tags                       |

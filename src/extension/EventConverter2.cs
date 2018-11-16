@@ -52,16 +52,27 @@ namespace NUnit.Engine.Listeners
                 yield break;
             }
             
+            var rootFlowId = testEvent.RootFlowId;
             var id = testEvent.Id;
-            var flowId = testEvent.RootFlowId;
+            var flowId = rootFlowId;
 
             if (!string.IsNullOrEmpty(id))
             {
                 var idParts = id.Split('-');
                 if (idParts.Length == 2)
                 {
-                    flowId = idParts[0];
+                    if (!string.IsNullOrEmpty(flowId))
+                    {
+                        flowId += ".";
+                    }
+
+                    flowId += idParts[0];
                 }
+            }
+
+            if (string.IsNullOrEmpty(flowId))
+            {
+                flowId = ".";
             }
 
             var testFlowId = flowId ?? id;
@@ -115,7 +126,7 @@ namespace NUnit.Engine.Listeners
                     break;
 
                 case "test-output":
-                    testFlowId = testEvent.TestEvent.GetAttribute("testid") ?? testEvent.RootFlowId;
+                    testFlowId = testEvent.TestEvent.GetAttribute("testid") ?? rootFlowId;
                     yield return _serviceMessageFactory.TestOutput(new EventId(testFlowId, testEvent.FullName), testEvent.TestEvent);
                     break;
             }
