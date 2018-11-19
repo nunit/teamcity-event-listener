@@ -20,7 +20,7 @@ var binaries = Argument("binaries", (string)null);
 // SET PACKAGE VERSION
 //////////////////////////////////////////////////////////////////////
 
-var version = "1.0.5";
+var version = "1.0.6-beta";
 var modifier = "";
 var versionsOfNunitCore = new [] {Tuple.Create("3.4.1", "3.4.1"), Tuple.Create("3.5", "3.5"), Tuple.Create("3.6", "3.6.1"), Tuple.Create("3.9", "3.8"), Tuple.Create("", "")};
 
