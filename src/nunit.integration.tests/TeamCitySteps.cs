@@ -100,6 +100,9 @@ namespace nunit.integration.tests
                 TextAttr = message.GetValue("text");
                 DetailsAttr = message.GetValue("details");
                 TcTagsAttr = message.GetValue("tc:tags");
+                TestNameAttr = message.GetValue("testName");
+                TypeAttr = message.GetValue("type");
+                ValueAttr = message.GetValue("value");
             }
 
             public string Name { get; }
@@ -125,6 +128,12 @@ namespace nunit.integration.tests
             public string DetailsAttr { get; }
 
             public string TcTagsAttr { get; }
+
+            public string TestNameAttr { get; }
+
+            public string TypeAttr { get; }
+
+            public string ValueAttr { get; }
         }
 
         private class Flow
@@ -260,6 +269,20 @@ namespace nunit.integration.tests
                         Assert.IsNotEmpty(message.TcTagsAttr, "tc:tags should be tc:parseServiceMessagesInside" + GetDetails());
                         break;
 
+                    case "publishArtifacts":
+                        Assert.AreEqual(message.FlowIdAttr, FlowId, "Invalid FlowId attribute" + GetDetails());
+                        break;
+
+                    case "testMetadata":
+                        Assert.AreEqual(message.FlowIdAttr, FlowId, "Invalid FlowId attribute" + GetDetails());
+                        Assert.IsNotEmpty(message.TestNameAttr, "TestName attribute is empty" + GetDetails());
+                        Assert.IsNotEmpty(message.TypeAttr, "Type attribute is empty" + GetDetails());
+                        Assert.IsNotEmpty(message.ValueAttr, "Value attribute is empty" + GetDetails());
+                        Assert.Greater(_messages.Count, 0, "testMetadata should be after testStarted" + GetDetails());
+                        testStarted = _messages.Peek();
+                        Assert.AreEqual(testStarted.NameAttr, message.TestNameAttr, "Invalid TestName attribute" + GetDetails());
+                        break;
+
                     default:
                         Assert.Fail($"Unexpected message {message.Name}" + GetDetails());
                         break;
@@ -370,7 +393,16 @@ namespace nunit.integration.tests
                     continue;
                 }
 
-                var serviceMessageValue = serviceMessage.GetValue(key) ?? "";
+                string serviceMessageValue;
+                if (key == ".")
+                {
+                    serviceMessageValue = serviceMessage.DefaultValue ?? "";
+                }
+                else
+                {
+                    serviceMessageValue = serviceMessage.GetValue(key) ?? "";
+                }
+
                 var rowValueRegex = new Regex(rowValue ?? "");
                 if (!rowValueRegex.IsMatch(serviceMessageValue.Replace("\n", " ").Replace("\r", " ")))
                 {

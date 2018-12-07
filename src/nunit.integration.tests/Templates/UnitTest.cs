@@ -214,5 +214,21 @@
         {
             UnloadingDomainUtil.Create();
         }
+
+        [Test]
+        public void SuccessfulWithAttachedFiles()
+        {
+            TestContext.AddTestAttachment(@"data\MyImage.jpg", "My Image");
+            TestContext.AddTestAttachment(@"data\MyImage2.gif");
+            TestContext.AddTestAttachment(@"data\Class.cs", "source");
+            TestContext.AddTestAttachment(@"data\report.txt");
+        }
+
+        [Test]
+        public void SuccessfulWithAttachedFileToCustomPath()
+        {
+            TestContext.AddTestAttachment(@"data\MyImage.jpg", "My Image => images");
+            TestContext.AddTestAttachment(@"data\report.txt", "=> reports");
+        }
     }
 }

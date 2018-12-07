@@ -260,6 +260,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="TeamCity.Attachments.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TeamCity.Attachments.feature</DependentUpon>
+    </Compile>
     <Compile Include="TeamCity.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -303,6 +308,10 @@
     <None Include="RunTests.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>RunTests.feature.cs</LastGenOutput>
+    </None>
+    <None Include="TeamCity.Attachments.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>TeamCity.Attachments.feature.cs</LastGenOutput>
     </None>
     <None Include="TeamCity.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

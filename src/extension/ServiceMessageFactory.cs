@@ -4,12 +4,14 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
+    using System.Text.RegularExpressions;
     using System.Xml;
 
     internal class ServiceMessageFactory : IServiceMessageFactory
     {
         private const string TcParseServiceMessagesInside = "tc:parseServiceMessagesInside";
         private static readonly IEnumerable<ServiceMessage> EmptyServiceMessages = new ServiceMessage[0];
+        private static readonly Regex AttachmentDescriptionRegex = new Regex("(.*)=>(.+)", RegexOptions.Compiled);
 
         public IEnumerable<ServiceMessage> SuiteStarted(EventId eventId)
         {
@@ -56,6 +58,14 @@
             if (string.IsNullOrEmpty(result))
             {
                 yield break;
+            }
+
+            if (TeamCityInfo.AllowExperimental)
+            {
+                foreach (var message in Attachments(eventId, testEvent))
+                {
+                    yield return message;
+                }
             }
 
             IEnumerable<ServiceMessage> messages;
@@ -128,7 +138,7 @@
             }
         }
 
-        private IEnumerable<ServiceMessage> TestFinished(EventId eventId, XmlNode testFinishedEvent)
+        private static IEnumerable<ServiceMessage> TestFinished(EventId eventId, XmlNode testFinishedEvent)
         {
             if (testFinishedEvent == null)
             {
@@ -159,7 +169,7 @@
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
         }
 
-        private IEnumerable<ServiceMessage> TestFailed(EventId eventId, XmlNode testFailedEvent, XmlNode infoSource)
+        private static IEnumerable<ServiceMessage> TestFailed(EventId eventId, XmlNode testFailedEvent, XmlNode infoSource)
         {
             if (testFailedEvent == null)
             {
@@ -186,7 +196,7 @@
             }
         }
 
-        private IEnumerable<ServiceMessage> TestSkipped(EventId eventId, XmlNode testSkippedEvent)
+        private static IEnumerable<ServiceMessage> TestSkipped(EventId eventId, XmlNode testSkippedEvent)
         {
             if (testSkippedEvent == null)
             {
@@ -206,7 +216,7 @@
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
         }
 
-        private IEnumerable<ServiceMessage> TestInconclusive(EventId eventId, XmlNode testInconclusiveEvent)
+        private static IEnumerable<ServiceMessage> TestInconclusive(EventId eventId, XmlNode testInconclusiveEvent)
         {
             if (testInconclusiveEvent == null)
             {
@@ -224,7 +234,7 @@
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
         }
 
-        private IEnumerable<ServiceMessage> Output(EventId eventId, string messageName, string outputStr)
+        private static IEnumerable<ServiceMessage> Output(EventId eventId, string messageName, string outputStr)
         {
             if (string.IsNullOrEmpty(outputStr))
             {
@@ -238,7 +248,7 @@
                 new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, TcParseServiceMessagesInside));
         }
 
-        private IEnumerable<ServiceMessage> OutputAsMessage(EventId eventId, string outputStr)
+        private static IEnumerable<ServiceMessage> OutputAsMessage(EventId eventId, string outputStr)
         {
             if (string.IsNullOrEmpty(outputStr))
             {
@@ -251,7 +261,7 @@
                 new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, TcParseServiceMessagesInside));
         }
 
-        private IEnumerable<ServiceMessage> Output(EventId eventId, XmlNode sendOutputEvent)
+        private static IEnumerable<ServiceMessage> Output(EventId eventId, XmlNode sendOutputEvent)
         {
             if (sendOutputEvent == null) throw new ArgumentNullException("sendOutputEvent");
 
@@ -267,7 +277,7 @@
             }
         }
 
-        private IEnumerable<ServiceMessage> ReasonMessage(EventId eventId, XmlNode ev)
+        private static IEnumerable<ServiceMessage> ReasonMessage(EventId eventId, XmlNode ev)
         {
             if (ev == null) throw new ArgumentNullException("ev");
 
@@ -286,6 +296,100 @@
             foreach (var message in Output(eventId, ServiceMessage.Names.TestStdOut, "Assert.Pass message: " + reasonMessage))
             {
                 yield return message;
+            }
+        }
+
+        private static IEnumerable<ServiceMessage> Attachments(EventId eventId, XmlNode testEvent)
+        {
+            var attachments = testEvent.SelectNodes("attachments/attachment");
+            if (attachments != null)
+            {
+                foreach (var attachment in attachments)
+                {
+                    var attachmentElement = attachment as XmlNode;
+                    if (attachmentElement == null)
+                    {
+                        continue;
+                    }
+
+                    var filePathNode = attachmentElement.SelectSingleNode("filePath");
+                    if (filePathNode != null)
+                    {
+                        var filePath = filePathNode.InnerText;
+                        var descriptionNode = attachmentElement.SelectSingleNode("description");
+                        string description = null;
+                        if (descriptionNode != null)
+                        {
+                            description = descriptionNode.InnerText;
+                        }
+
+                        var fileName = Path.GetFileName(filePath);
+                        var fileExtension = Path.GetExtension(fileName).ToLowerInvariant();
+
+                        string artifactDir = null;
+                        if (!string.IsNullOrEmpty(description))
+                        {
+                            var match = AttachmentDescriptionRegex.Match(description);
+                            if (match.Success)
+                            {
+                                description = match.Groups[1].Value.Trim();
+                                artifactDir = match.Groups[2].Value.Trim();
+                            }
+                        }
+
+                        if (artifactDir == null)
+                        {
+                            artifactDir = ".teamcity/NUnit/" + eventId.FullName + "/" + Guid.NewGuid().ToString().Replace("{", "").Replace("-", "").Replace("}", "");
+                        }
+
+                        string artifactType;
+                        switch (fileExtension)
+                        {
+                            case ".bmp":
+                            case ".gif":
+                            case ".ico":
+                            case ".jng":
+                            case ".jpeg":
+                            case ".jpg":
+                            case ".jfif":
+                            case ".jp2":
+                            case ".jps":
+                            case ".tga":
+                            case ".tiff":
+                            case ".tif":
+                            case ".svg":
+                            case ".wmf":
+                            case ".emf":
+                            case ".png":
+                                artifactType = "image";
+                                break;
+
+                            default:
+                                artifactType = "artifact";
+                                break;
+                        }
+
+                        yield return new ServiceMessage(ServiceMessage.Names.PublishArtifacts, filePath + " => " + artifactDir);
+
+                        if (TeamCityInfo.Version.CompareTo(TeamCityInfo.TestMetadataSupportVersion) >= 0)
+                        {
+                            var attrs = new List<ServiceMessageAttr>
+                            {
+                                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId),
+                                new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, eventId.FullName),
+                                new ServiceMessageAttr(ServiceMessageAttr.Names.Type, artifactType),
+                                new ServiceMessageAttr(ServiceMessageAttr.Names.Value, artifactDir + "/" + fileName)
+                            };
+
+                            if (!string.IsNullOrEmpty(description))
+                            {
+                                attrs.Add(new ServiceMessageAttr(ServiceMessageAttr.Names.Name, description));
+                            }
+
+                            yield return new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
+                        }
+                    }
+                }
             }
         }
     }

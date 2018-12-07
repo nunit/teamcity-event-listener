@@ -55,6 +55,9 @@ namespace NUnit.Engine.Listeners
             public const string CaptureStandardOutput = "captureStandardOutput";
             public const string Duration = "duration";
             public const string Details = "details";
+            public const string TestName = "testName";
+            public const string Type = "type";
+            public const string Value = "value";
         }
     }
 }

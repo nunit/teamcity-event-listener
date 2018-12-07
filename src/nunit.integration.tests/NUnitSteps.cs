@@ -296,7 +296,7 @@
                 string val;
                 if (!testOutputSummary.TryGetValue(rowField, out val))
                 {
-                    errorMessages.Add($"Test Run Summary should containt field \"{rowField}\" = {rowVal}");
+                    errorMessages.Add($"Test Run Summary should contain field \"{rowField}\" = {rowVal}");
                     continue;
                 }
 
@@ -305,7 +305,7 @@
                     continue;
                 }
 
-                errorMessages.Add($"Test Run Summary should containt field \"{rowField}\" = {rowVal}, but value is {val}");
+                errorMessages.Add($"Test Run Summary should contain field \"{rowField}\" = {rowVal}, but value is {val}");
             }
 
             if (errorMessages.Count > 0)

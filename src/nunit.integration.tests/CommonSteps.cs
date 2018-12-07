@@ -39,7 +39,21 @@ namespace nunit.integration.tests
         public void AppendStringToFile(string content, string fileName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
-            File.AppendAllText(Path.GetFullPath(Path.Combine(ctx.SandboxPath, fileName)), content);            
+            var path = Path.GetFullPath(Path.Combine(ctx.SandboxPath, fileName));
+            if (!File.Exists(path))
+            {
+                var dir = Path.GetDirectoryName(path);
+                if (dir != null && !Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+
+                File.WriteAllText(path, content);
+            }
+            else
+            {
+                File.AppendAllText(path, content);
+            }
         }
 
         [Given(@"I have appended the line (.+) to file (.+)")]
