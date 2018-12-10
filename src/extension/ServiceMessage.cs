@@ -29,7 +29,14 @@ namespace NUnit.Engine.Listeners
 
     public struct ServiceMessage
     {
+        private static readonly ServiceMessageAttr[] EmptyAttrs = new ServiceMessageAttr[0];
+
         public ServiceMessage(string name, params ServiceMessageAttr[] attributes)
+            : this(name, (IList<ServiceMessageAttr>)attributes)
+        {
+        }
+
+        public ServiceMessage(string name, IList<ServiceMessageAttr> attributes)
             : this()
         {
             // ReSharper disable once UseNameofExpression
@@ -38,10 +45,26 @@ namespace NUnit.Engine.Listeners
             if (attributes == null) throw new ArgumentNullException("attributes");
 
             Name = name;
+            Value = string.Empty;
             Attributes = new ReadOnlyCollection<ServiceMessageAttr>(attributes);
         }
 
+        public ServiceMessage(string name, string value)
+            : this()
+        {
+            // ReSharper disable once UseNameofExpression
+            if (name == null) throw new ArgumentNullException("name");
+            // ReSharper disable once UseNameofExpression
+            if (value == null) throw new ArgumentNullException("value");
+
+            Name = name;
+            Value = value;
+            Attributes = EmptyAttrs;
+        }
+
         public string Name { get; private set; }
+
+        public string Value { get; private set; }
 
         public IEnumerable<ServiceMessageAttr> Attributes { get; private set; }
 
@@ -58,6 +81,8 @@ namespace NUnit.Engine.Listeners
             public const string TestFailed = "testFailed";
             public const string TestIgnored = "testIgnored";
             public const string Message = "message";
+            public const string PublishArtifacts  = "publishArtifacts";
+            public const string TestMetadata = "testMetadata";
         }
     }    
 }

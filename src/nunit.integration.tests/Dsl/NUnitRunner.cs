@@ -4,7 +4,6 @@
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
-    using System.Text;
 
     internal class NUnitRunner
     {
@@ -20,6 +19,7 @@
                 + Environment.NewLine + $"\"{setup.ToolName}\" {setup.Arguments}"
                 + Environment.NewLine + "@set exitCode=%errorlevel%"
                 + Environment.NewLine + "@popd"
+                + Environment.NewLine + "@echo Exit Code: %exitCode%"
                 + Environment.NewLine + "@exit /b %exitCode%");
 
             var process = new Process();

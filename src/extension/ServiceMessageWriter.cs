@@ -19,22 +19,37 @@
             {
                 writer.Write(Header);
                 writer.Write(serviceMessage.Name);
-                foreach (var attribute in serviceMessage.Attributes)
+
+                if (!string.IsNullOrEmpty(serviceMessage.Value))
                 {
                     writer.Write(' ');
-                    Write(writer, attribute);
+                    Write(writer, serviceMessage.Value);
+                }
+                else
+                {
+                    foreach (var attribute in serviceMessage.Attributes)
+                    {
+                        writer.Write(' ');
+                        Write(writer, attribute);
+                    }
                 }
 
                 writer.WriteLine(Footer);
             }
         }
 
-
         private static void Write(TextWriter writer, ServiceMessageAttr attribute)
         {
             writer.Write(attribute.Name);
             writer.Write("='");
             writer.Write(EscapeString(attribute.Value));
+            writer.Write('\'');
+        }
+
+        private static void Write(TextWriter writer, string value)
+        {
+            writer.Write('\'');
+            writer.Write(EscapeString(value));
             writer.Write('\'');
         }
 

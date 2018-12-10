@@ -160,23 +160,23 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit returns exit code -100 when the test throws StackOverflow exception")]
-        [NUnit.Framework.CategoryAttribute("3.4.1")]
+        [NUnit.Framework.DescriptionAttribute("NUnit returns exit code -5 when the test throws StackOverflow exception")]
+        [NUnit.Framework.CategoryAttribute("3.9")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", "Separate", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", "Multiple", new string[0])]
-        public virtual void NUnitReturnsExitCode_100WhenTheTestThrowsStackOverflowException(string frameworkVersion, string process, string[] exampleTags)
+        public virtual void NUnitReturnsExitCode_5WhenTheTestThrowsStackOverflowException(string frameworkVersion, string process, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "3.4.1",
+                    "3.9",
                     "teamcity"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit returns exit code -100 when the test throws StackOverflow exception", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit returns exit code -5 when the test throws StackOverflow exception", @__tags);
 #line 47
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -203,7 +203,7 @@ this.FeatureBackground();
 #line 57
  testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 58
- testRunner.Then("the exit code should be -100", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the exit code should be -5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

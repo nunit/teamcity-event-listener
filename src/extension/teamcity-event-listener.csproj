@@ -59,6 +59,8 @@
     <Compile Include="EventConverter2.cs" />
     <Compile Include="TeamCityEventListener.cs" />
     <Compile Include="SafeAttributeAccess.cs" />
+    <Compile Include="TeamCityInfo.cs" />
+    <Compile Include="TeamCityVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="LICENSE.txt">

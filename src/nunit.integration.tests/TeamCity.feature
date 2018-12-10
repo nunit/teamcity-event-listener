@@ -5,7 +5,7 @@ Background:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run successful test for NUnit3
+Scenario Outline: NUnit sends TeamCity service messages when I run successful test for NUnit3
 	Given Framework version is <frameworkVersion>
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have created the folder mocks
@@ -87,7 +87,7 @@ Examples:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run test with Assert.Pass
+Scenario Outline: NUnit sends TeamCity service messages when I run test with Assert.Pass
 	Given Framework version is <frameworkVersion>	
 	And I have added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have created the folder mocks
@@ -117,7 +117,7 @@ Examples:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run test with Assert.Pass with text
+Scenario Outline: NUnit sends TeamCity service messages when I run test with Assert.Pass with text
 	Given Framework version is <frameworkVersion>	
 	And I have added PassWithText method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have created the folder mocks
@@ -147,7 +147,7 @@ Examples:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run test with Assert.Pass for NUnit2
+Scenario Outline: NUnit sends TeamCity service messages when I run test with Assert.Pass for NUnit2
 	Given Framework version is <frameworkVersion>
 	And I have added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have created the folder mocks
@@ -171,7 +171,7 @@ Examples:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run test with Assert.Pass with text for NUnit2
+Scenario Outline: NUnit sends TeamCity service messages when I run test with Assert.Pass with text for NUnit2
 	Given Framework version is <frameworkVersion>
 	And I have added PassWithText method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have created the folder mocks
@@ -196,7 +196,7 @@ Examples:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run it for different types of tests
+Scenario Outline: NUnit sends TeamCity service messages when I run it for different types of tests
 	Given Framework version is <frameworkVersion>	
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests	
 	And I have added failed method as FailedTest to the class Foo.Tests.UnitTests2 for foo.tests
@@ -249,7 +249,7 @@ Examples:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run it for failed setup
+Scenario Outline: NUnit sends TeamCity service messages when I run it for failed setup
 	Given Framework version is <frameworkVersion>	
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests	
 	And I have added failedSetUp method as FailedSetUp to the class Foo.Tests.UnitTests1 for foo.tests	
@@ -280,7 +280,7 @@ Examples:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run it for failed one time setup
+Scenario Outline: NUnit sends TeamCity service messages when I run it for failed one time setup
 	Given Framework version is <frameworkVersion>	
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests	
 	And I have added failedSetUp method as FailedOneTimeSetUp to the class Foo.Tests.UnitTests1 for foo.tests	
@@ -311,7 +311,7 @@ Examples:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run it for failed tear down
+Scenario Outline: NUnit sends TeamCity service messages when I run it for failed tear down
 	Given Framework version is <frameworkVersion>
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have added failedTearDown method as FailedTearDown to the class Foo.Tests.UnitTests1 for foo.tests
@@ -343,7 +343,7 @@ Examples:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run it for failed ctor
+Scenario Outline: NUnit sends TeamCity service messages when I run it for failed ctor
 	Given Framework version is <frameworkVersion>	
 	And I have added throwException method as ThrowException to the Ctor of class Foo.Tests.UnitTests1 for foo.tests
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
@@ -372,7 +372,7 @@ Examples:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run it for failed ctor for NUnit2
+Scenario Outline: NUnit sends TeamCity service messages when I run it for failed ctor for NUnit2
 	Given Framework version is <frameworkVersion>
 	And I have added throwException method as ThrowException to the Ctor of class Foo.Tests.UnitTests1 for foo.tests
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
@@ -399,7 +399,7 @@ Examples:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run it for parallelizable tests
+Scenario Outline: NUnit sends TeamCity service messages when I run it for parallelizable tests
 	Given Framework version is <frameworkVersion>	        
 	And I have added SuccessfulParallelizable method as SuccessfulParallelizable1 to the class Foo.Tests.UnitTests1 for foo1.tests	
 	And I have added SuccessfulParallelizable method as SuccessfulParallelizable2 to the class Foo.Tests.UnitTests1 for foo1.tests	
@@ -438,7 +438,7 @@ Examples:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run successful tests with the same names in the several assemblies
+Scenario Outline: NUnit sends TeamCity service messages when I run successful tests with the same names in the several assemblies
 	Given Framework version is <frameworkVersion>	
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo1.tests
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo2.tests
@@ -483,7 +483,7 @@ Examples:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run many test
+Scenario Outline: NUnit sends TeamCity service messages when I run many test
 	Given Framework version is <frameworkVersion>	
 	And I have added 1000 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests1
 	And I have added 1000 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests2 for foo.tests2
@@ -507,7 +507,7 @@ Examples:
 @dev
 @teamcity
 @ignore
-Scenario Outline: NUnit sends TeamCity's service messages when I run many test for several assemblies for NUnit2
+Scenario Outline: NUnit sends TeamCity service messages when I run many test for several assemblies for NUnit2
 	Given Framework version is <frameworkVersion>	
 	And I have added 100 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests1
 	And I have added 100 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests2 for foo.tests2
@@ -550,7 +550,7 @@ Examples:
 @3.4.1
 @ignore
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages for bunch of test for several assemblies for NUnit2
+Scenario Outline: NUnit sends TeamCity service messages for bunch of test for several assemblies for NUnit2
 	Given Framework version is <frameworkVersion>
 	And I have created the folder mocks
 	And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks	
@@ -605,7 +605,7 @@ Scenario: NUnit show version and extensions when users pass --list-extensions --
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages from SetUp and TearDown
+Scenario Outline: NUnit sends TeamCity service messages from SetUp and TearDown
 	Given Framework version is <frameworkVersion>	
 	And I have added SetUpWithOutput method as SetUpWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have added Successful method as SuccessfulTest1 to the class Foo.Tests.UnitTests1 for foo.tests
@@ -643,7 +643,7 @@ Examples:
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run test scenarios for NUnit3
+Scenario Outline: NUnit sends TeamCity service messages when I run test scenarios for NUnit3
 	Given Framework version is <frameworkVersion>	
 	And I have added TestCasesWithSymbols method as TestCasesWithSymbols to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have created the folder mocks
@@ -663,7 +663,7 @@ Examples:
 
 @3.6.0
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run test with polish name for NUnit3
+Scenario Outline: NUnit sends TeamCity service messages when I run test with polish name for NUnit3
 	Given Framework version is <frameworkVersion>
 	And I have specified encoding <encoding>
 	And I have added successful method as da_się_przefiltrować_produkty_dodatkowe_po_nazwie to the class Foo.Tests.UnitTests1 for foo.tests	
@@ -698,7 +698,7 @@ Examples:
 
 @3.6.0
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run test with russian output for NUnit3
+Scenario Outline: NUnit sends TeamCity service messages when I run test with russian output for NUnit3
 	Given Framework version is <frameworkVersion>
 	And I have specified encoding <encoding>
 	And I have added RusTest method as RusTest to the class Foo.Tests.UnitTests1 for foo.tests	
@@ -731,7 +731,7 @@ Examples:
 	| Version40        | windows-1251 |
 
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages including stack trace when OneTimeSetUp in SetUpFixture throws exception
+Scenario Outline: NUnit sends TeamCity service messages including stack trace when OneTimeSetUp in SetUpFixture throws exception
 	Given Framework version is <frameworkVersion>
 	And I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have added successful method as Test2 to the class Foo.Tests.UnitTests2 for foo.tests
@@ -767,7 +767,7 @@ Scenario Outline: NUnit sends TeamCity's service messages including stack trace 
 
 @3.9
 @teamcity
-Scenario Outline: NUnit sends TeamCity'successful s service messages when OneTimeTearDown in SetUpFixture throws exception
+Scenario Outline: NUnit sends TeamCityuccessful service messages when OneTimeTearDown in SetUpFixture throws exception
 	Given Framework version is <frameworkVersion>
 	And I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have added successful method as Test2 to the class Foo.Tests.UnitTests2 for foo.tests
@@ -782,7 +782,6 @@ Scenario Outline: NUnit sends TeamCity'successful s service messages when OneTim
 	And I want to use CmdArguments configuration type
 	And I have added the arg process=InProcess to NUnit console command line
 	When I run NUnit console
-	Then the exit code should be 2
 	And the output should contain correct set of TeamCity service messages
 	And the output should contain TeamCity service messages:
 	|                   | name                       | captureStandardOutput | duration | flowId | parent | message | details | out    | tc:tags                       |
@@ -806,7 +805,7 @@ Scenario Outline: NUnit sends TeamCity'successful s service messages when OneTim
 	| Version40        |
 
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages including stack trace when TestFixtureSetup in SetUpFixture throws exception for NUnit2
+Scenario Outline: NUnit sends TeamCity service messages including stack trace when TestFixtureSetup in SetUpFixture throws exception for NUnit2
 	Given Framework version is <frameworkVersion>
 	And I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have added successful method as Test2 to the class Foo.Tests.UnitTests1 for foo.tests
@@ -840,7 +839,7 @@ Scenario Outline: NUnit sends TeamCity's service messages including stack trace 
 
 
     @teamcity
-Scenario Outline: NUnit sends TeamCity'successful s service messages when FailedTestFixtureTearDown in SetUpFixture throws exception for NUnit2
+Scenario Outline: NUnit sends TeamCityuccessful s service messages when FailedTestFixtureTearDown in SetUpFixture throws exception for NUnit2
 	Given Framework version is <frameworkVersion>
 	And I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have added successful method as Test2 to the class Foo.Tests.UnitTests2 for foo.tests
@@ -875,7 +874,7 @@ Scenario Outline: NUnit sends TeamCity'successful s service messages when Failed
 
 @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run it for one time setup with output
+Scenario Outline: NUnit sends TeamCity service messages when I run it for one time setup with output
 	Given Framework version is <frameworkVersion>
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have added OneTimeSetUpWithOutput method as OneTimeSetUpWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
@@ -908,7 +907,7 @@ Examples:
 
     @3.4.1
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run it for one time TearDown with output
+Scenario Outline: NUnit sends TeamCity service messages when I run it for one time TearDown with output
 	Given Framework version is <frameworkVersion>	
 	And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have added OneTimeTearDownWithOutput method as OneTimeTearDownWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
@@ -939,7 +938,7 @@ Examples:
 	| Version40        |
 
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages with output when TestFixtureSetup in SetUpFixture
+Scenario Outline: NUnit sends TeamCity service messages with output when TestFixtureSetup in SetUpFixture
 	Given Framework version is <frameworkVersion>
 	And I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have added successful method as Test2 to the class Foo.Tests.UnitTests1 for foo.tests
@@ -972,7 +971,7 @@ Scenario Outline: NUnit sends TeamCity's service messages with output when TestF
 	| Version40        |
 
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages with output when TestFixtureTearDown in SetUpFixture
+Scenario Outline: NUnit sends TeamCity service messages with output when TestFixtureTearDown in SetUpFixture
 	Given Framework version is <frameworkVersion>
 	And I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have added successful method as Test2 to the class Foo.Tests.UnitTests1 for foo.tests
@@ -1007,7 +1006,7 @@ Scenario Outline: NUnit sends TeamCity's service messages with output when TestF
 
 @3.9
 @teamcity
-Scenario Outline: NUnit sends TeamCity's service messages when I run successful test writing to stdError
+Scenario Outline: NUnit sends TeamCity service messages when I run successful test writing to stdError
 	Given Framework version is <frameworkVersion>
 	And I have added SuccessfulStdError method as SuccessfulStdErrorTest to the class Foo.Tests.UnitTests1 for foo.tests
 	And I have created the folder mocks

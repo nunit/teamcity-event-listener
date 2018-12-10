@@ -7,7 +7,7 @@
 
     internal class TeamCityServiceMessageParser: IParser<IEnumerable<IServiceMessage>>
     {
-        private readonly static ServiceMessageParser ServiceMessageParser = new ServiceMessageParser();
+        private static readonly ServiceMessageParser ServiceMessageParser = new ServiceMessageParser();
 
         public IEnumerable<IServiceMessage> Parse(string text)
         {

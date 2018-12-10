@@ -59,8 +59,7 @@ namespace NUnit.Engine.Listeners
             var hierarchy =  new Hierarchy();
             _eventConverter2 = new EventConverter2(serviceMessageFactory, hierarchy);
             _eventConverter3 = new EventConverter3(serviceMessageFactory, hierarchy);
-
-            RootFlowId = Environment.GetEnvironmentVariable("TEAMCITY_PROCESS_FLOW_ID");
+            RootFlowId = TeamCityInfo.RootFlowId;
         }
 
         public string RootFlowId
