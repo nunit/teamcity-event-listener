@@ -42,9 +42,9 @@ Examples:
 	| Version45        | Multiple  |
 	| Version40        | Multiple  |
 	
-@3.4.1
+@3.9
 @teamcity
-Scenario Outline: NUnit returns exit code -100 when the test throws StackOverflow exception
+Scenario Outline: NUnit returns exit code -5 when the test throws StackOverflow exception
 	Given Framework version is <frameworkVersion>	
 	And I have added failedStackOverflow method as FailedStackOverflow to the class Foo.Tests.UnitTests1 for foo.tests	
 	And I have created the folder mocks
@@ -55,7 +55,7 @@ Scenario Outline: NUnit returns exit code -100 when the test throws StackOverflo
 	And I want to use CmdArguments type of TeamCity integration
 	And I have added the arg Process=<process> to NUnit console command line
 	When I run NUnit console
-	Then the exit code should be -100
+	Then the exit code should be -5
 Examples:
 	| frameworkVersion | process   |
 #	| Version45        | InProcess |

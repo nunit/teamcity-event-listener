@@ -72,12 +72,12 @@ namespace nunit.integration.tests
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run successful test for NUnit3")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run successful test for NUnit3")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunSuccessfulTestForNUnit3(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunSuccessfulTestForNUnit3(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -86,7 +86,7 @@ namespace nunit.integration.tests
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run successful test for NUnit3", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run successful test for NUnit3", @__tags);
 #line 8
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -495,12 +495,12 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run test with Assert.Pass")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run test with Assert.Pass")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunTestWithAssert_Pass(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunTestWithAssert_Pass(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -509,7 +509,7 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run test with Assert.Pass", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run test with Assert.Pass", @__tags);
 #line 90
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -644,12 +644,11 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run test with Assert.Pass with tex" +
-            "t")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run test with Assert.Pass with text")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunTestWithAssert_PassWithText(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunTestWithAssert_PassWithText(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -658,8 +657,7 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run test with Assert.Pass with tex" +
-                    "t", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run test with Assert.Pass with text", @__tags);
 #line 120
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -805,12 +803,12 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run test with Assert.Pass for NUni" +
-            "t2")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run test with Assert.Pass for NUnit2" +
+            "")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunTestWithAssert_PassForNUnit2(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunTestWithAssert_PassForNUnit2(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -819,8 +817,8 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run test with Assert.Pass for NUni" +
-                    "t2", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run test with Assert.Pass for NUnit2" +
+                    "", @__tags);
 #line 150
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -913,12 +911,12 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run test with Assert.Pass with tex" +
-            "t for NUnit2")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run test with Assert.Pass with text " +
+            "for NUnit2")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunTestWithAssert_PassWithTextForNUnit2(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunTestWithAssert_PassWithTextForNUnit2(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -927,8 +925,8 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run test with Assert.Pass with tex" +
-                    "t for NUnit2", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run test with Assert.Pass with text " +
+                    "for NUnit2", @__tags);
 #line 174
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -1032,8 +1030,7 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run it for different types of test" +
-            "s")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run it for different types of tests")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("ProjectFile", "Version45", "CmdArguments", new string[0])]
@@ -1044,7 +1041,7 @@ this.FeatureBackground();
         [NUnit.Framework.TestCaseAttribute("ProjectFile", "Version40", "EnvVariable", new string[0])]
         [NUnit.Framework.TestCaseAttribute("CmdArguments", "Version45", "EnvVariable", new string[0])]
         [NUnit.Framework.TestCaseAttribute("CmdArguments", "Version40", "EnvVariable", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunItForDifferentTypesOfTests(string configurationType, string frameworkVersion, string teamCityIntegration, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunItForDifferentTypesOfTests(string configurationType, string frameworkVersion, string teamCityIntegration, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -1053,8 +1050,7 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run it for different types of test" +
-                    "s", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run it for different types of tests", @__tags);
 #line 199
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -1354,12 +1350,12 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run it for failed setup")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run it for failed setup")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunItForFailedSetup(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunItForFailedSetup(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -1368,7 +1364,7 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run it for failed setup", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run it for failed setup", @__tags);
 #line 252
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -1507,12 +1503,12 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run it for failed one time setup")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run it for failed one time setup")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunItForFailedOneTimeSetup(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunItForFailedOneTimeSetup(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -1521,7 +1517,7 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run it for failed one time setup", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run it for failed one time setup", @__tags);
 #line 283
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -1660,12 +1656,12 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run it for failed tear down")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run it for failed tear down")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunItForFailedTearDown(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunItForFailedTearDown(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -1674,7 +1670,7 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run it for failed tear down", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run it for failed tear down", @__tags);
 #line 314
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -1834,12 +1830,12 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run it for failed ctor")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run it for failed ctor")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunItForFailedCtor(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunItForFailedCtor(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -1848,7 +1844,7 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run it for failed ctor", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run it for failed ctor", @__tags);
 #line 346
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -1968,12 +1964,12 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run it for failed ctor for NUnit2")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run it for failed ctor for NUnit2")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunItForFailedCtorForNUnit2(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunItForFailedCtorForNUnit2(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -1982,7 +1978,7 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run it for failed ctor for NUnit2", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run it for failed ctor for NUnit2", @__tags);
 #line 375
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -2083,12 +2079,12 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run it for parallelizable tests")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run it for parallelizable tests")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunItForParallelizableTests(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunItForParallelizableTests(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -2097,7 +2093,7 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run it for parallelizable tests", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run it for parallelizable tests", @__tags);
 #line 402
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -2186,13 +2182,13 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run successful tests with the same" +
-            " names in the several assemblies")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run successful tests with the same n" +
+            "ames in the several assemblies")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunSuccessfulTestsWithTheSameNamesInTheSeveralAssemblies(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunSuccessfulTestsWithTheSameNamesInTheSeveralAssemblies(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -2201,8 +2197,8 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run successful tests with the same" +
-                    " names in the several assemblies", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run successful tests with the same n" +
+                    "ames in the several assemblies", @__tags);
 #line 441
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -2460,12 +2456,12 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run many test")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run many test")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunManyTest(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunManyTest(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -2474,7 +2470,7 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run many test", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run many test", @__tags);
 #line 486
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -2516,8 +2512,8 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run many test for several assembli" +
-            "es for NUnit2")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run many test for several assemblies" +
+            " for NUnit2")]
         [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         [NUnit.Framework.CategoryAttribute("dev")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
@@ -2538,7 +2534,7 @@ this.FeatureBackground();
         [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Multiple", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "1", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunManyTestForSeveralAssembliesForNUnit2(string frameworkVersion, string process, string domain, string agents, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunManyTestForSeveralAssembliesForNUnit2(string frameworkVersion, string process, string domain, string agents, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "dev",
@@ -2548,8 +2544,8 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run many test for several assembli" +
-                    "es for NUnit2", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run many test for several assemblies" +
+                    " for NUnit2", @__tags);
 #line 510
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -2602,8 +2598,8 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages for bunch of test for several assemblies " +
-            "for NUnit2")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages for bunch of test for several assemblies fo" +
+            "r NUnit2")]
         [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
@@ -2624,7 +2620,7 @@ this.FeatureBackground();
         [NUnit.Framework.TestCaseAttribute("Version45", "Multiple", "Single", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "InProcess", "Multiple", "1", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "Separate", "Multiple", "1", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesForBunchOfTestForSeveralAssembliesForNUnit2(string frameworkVersion, string process, string domain, string agents, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesForBunchOfTestForSeveralAssembliesForNUnit2(string frameworkVersion, string process, string domain, string agents, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -2634,8 +2630,8 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages for bunch of test for several assemblies " +
-                    "for NUnit2", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages for bunch of test for several assemblies fo" +
+                    "r NUnit2", @__tags);
 #line 553
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -2727,12 +2723,12 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages from SetUp and TearDown")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages from SetUp and TearDown")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesFromSetUpAndTearDown(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesFromSetUpAndTearDown(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -2741,7 +2737,7 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages from SetUp and TearDown", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages from SetUp and TearDown", @__tags);
 #line 608
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -2951,12 +2947,12 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run test scenarios for NUnit3")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run test scenarios for NUnit3")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunTestScenariosForNUnit3(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunTestScenariosForNUnit3(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -2965,7 +2961,7 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run test scenarios for NUnit3", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run test scenarios for NUnit3", @__tags);
 #line 646
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -3000,15 +2996,15 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run test with polish name for NUni" +
-            "t3")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run test with polish name for NUnit3" +
+            "")]
         [NUnit.Framework.CategoryAttribute("3.6.0")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", "utf-8", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", "utf-8", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "windows-1250", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", "windows-1250", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunTestWithPolishNameForNUnit3(string frameworkVersion, string encoding, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunTestWithPolishNameForNUnit3(string frameworkVersion, string encoding, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.6.0",
@@ -3017,8 +3013,8 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run test with polish name for NUni" +
-                    "t3", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run test with polish name for NUnit3" +
+                    "", @__tags);
 #line 666
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -3168,15 +3164,15 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run test with russian output for N" +
-            "Unit3")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run test with russian output for NUn" +
+            "it3")]
         [NUnit.Framework.CategoryAttribute("3.6.0")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", "utf-8", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", "utf-8", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "windows-1251", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", "windows-1251", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunTestWithRussianOutputForNUnit3(string frameworkVersion, string encoding, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunTestWithRussianOutputForNUnit3(string frameworkVersion, string encoding, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.6.0",
@@ -3185,8 +3181,8 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run test with russian output for N" +
-                    "Unit3", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run test with russian output for NUn" +
+                    "it3", @__tags);
 #line 701
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -3336,12 +3332,12 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages including stack trace when OneTimeSetUp i" +
-            "n SetUpFixture throws exception")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages including stack trace when OneTimeSetUp in " +
+            "SetUpFixture throws exception")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesIncludingStackTraceWhenOneTimeSetUpInSetUpFixtureThrowsException(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesIncludingStackTraceWhenOneTimeSetUpInSetUpFixtureThrowsException(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "teamcity"};
@@ -3349,8 +3345,8 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages including stack trace when OneTimeSetUp i" +
-                    "n SetUpFixture throws exception", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages including stack trace when OneTimeSetUp in " +
+                    "SetUpFixture throws exception", @__tags);
 #line 734
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -3520,13 +3516,13 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'successful s service messages when OneTimeTearDown in SetUpF" +
-            "ixture throws exception")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCityuccessful service messages when OneTimeTearDown in SetUpFixtu" +
+            "re throws exception")]
         [NUnit.Framework.CategoryAttribute("3.9")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySuccessfulSServiceMessagesWhenOneTimeTearDownInSetUpFixtureThrowsException(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityuccessfulServiceMessagesWhenOneTimeTearDownInSetUpFixtureThrowsException(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.9",
@@ -3535,8 +3531,8 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'successful s service messages when OneTimeTearDown in SetUpF" +
-                    "ixture throws exception", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCityuccessful service messages when OneTimeTearDown in SetUpFixtu" +
+                    "re throws exception", @__tags);
 #line 770
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -3574,8 +3570,6 @@ this.FeatureBackground();
 #line 784
  testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 785
- testRunner.Then("the exit code should be 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 786
  testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
@@ -3743,19 +3737,19 @@ this.FeatureBackground();
                         "",
                         "",
                         ""});
-#line 787
+#line 786
  testRunner.And("the output should contain TeamCity service messages:", ((string)(null)), table21, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages including stack trace when TestFixtureSet" +
-            "up in SetUpFixture throws exception for NUnit2")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages including stack trace when TestFixtureSetup" +
+            " in SetUpFixture throws exception for NUnit2")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesIncludingStackTraceWhenTestFixtureSetupInSetUpFixtureThrowsExceptionForNUnit2(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesIncludingStackTraceWhenTestFixtureSetupInSetUpFixtureThrowsExceptionForNUnit2(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "teamcity"};
@@ -3763,49 +3757,49 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages including stack trace when TestFixtureSet" +
-                    "up in SetUpFixture throws exception for NUnit2", @__tags);
-#line 809
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages including stack trace when TestFixtureSetup" +
+                    " in SetUpFixture throws exception for NUnit2", @__tags);
+#line 808
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 810
+#line 809
  testRunner.Given(string.Format("Framework version is {0}", frameworkVersion), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 811
+#line 810
  testRunner.And("I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo" +
                     ".tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 812
+#line 811
  testRunner.And("I have added successful method as Test2 to the class Foo.Tests.UnitTests1 for foo" +
                     ".tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 813
+#line 812
  testRunner.And("I have added FailedTestFixtureSetup method as FailedTestFixtureSetup to the class" +
                     " Foo.Tests.UnitTests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 814
+#line 813
  testRunner.And("I have added attribute [NUnit.Framework.TestFixture] to the class Foo.Tests.UnitT" +
                     "ests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 815
+#line 814
  testRunner.And("I have created the folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 816
+#line 815
  testRunner.And("I have copied the reference ..\\..\\packages\\NUnit.2.6.4\\lib\\nunit.framework.dll to" +
                     " folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 817
+#line 816
  testRunner.And("I have added the reference ..\\..\\packages\\NUnit.2.6.4\\lib\\nunit.framework.dll to " +
                     "foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 818
+#line 817
  testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 819
+#line 818
  testRunner.And("I have added the assembly mocks\\foo.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 820
+#line 819
  testRunner.And("I want to use CmdArguments type of TeamCity integration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 821
+#line 820
  testRunner.And("I want to use CmdArguments configuration type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 822
+#line 821
  testRunner.And("I have added the arg process=InProcess to NUnit console command line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 823
+#line 822
  testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 824
+#line 823
  testRunner.Then("the exit code should be 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 825
+#line 824
  testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
@@ -3907,19 +3901,19 @@ this.FeatureBackground();
                         "",
                         "",
                         ""});
-#line 826
+#line 825
  testRunner.And("the output should contain TeamCity service messages:", ((string)(null)), table22, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'successful s service messages when FailedTestFixtureTearDown" +
-            " in SetUpFixture throws exception for NUnit2")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCityuccessful s service messages when FailedTestFixtureTearDown i" +
+            "n SetUpFixture throws exception for NUnit2")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySuccessfulSServiceMessagesWhenFailedTestFixtureTearDownInSetUpFixtureThrowsExceptionForNUnit2(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityuccessfulSServiceMessagesWhenFailedTestFixtureTearDownInSetUpFixtureThrowsExceptionForNUnit2(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "teamcity"};
@@ -3927,49 +3921,49 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'successful s service messages when FailedTestFixtureTearDown" +
-                    " in SetUpFixture throws exception for NUnit2", @__tags);
-#line 843
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCityuccessful s service messages when FailedTestFixtureTearDown i" +
+                    "n SetUpFixture throws exception for NUnit2", @__tags);
+#line 842
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 844
+#line 843
  testRunner.Given(string.Format("Framework version is {0}", frameworkVersion), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 845
+#line 844
  testRunner.And("I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo" +
                     ".tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 846
+#line 845
  testRunner.And("I have added successful method as Test2 to the class Foo.Tests.UnitTests2 for foo" +
                     ".tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 847
+#line 846
  testRunner.And("I have added FailedTestFixtureTearDown method as FailedTestFixtureTearDown to the" +
                     " class Foo.Tests.UnitTests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 848
+#line 847
  testRunner.And("I have added attribute [NUnit.Framework.TestFixture] to the class Foo.Tests.UnitT" +
                     "ests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 849
+#line 848
  testRunner.And("I have created the folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 850
+#line 849
  testRunner.And("I have copied the reference ..\\..\\packages\\NUnit.2.6.4\\lib\\nunit.framework.dll to" +
                     " folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 851
+#line 850
  testRunner.And("I have added the reference ..\\..\\packages\\NUnit.2.6.4\\lib\\nunit.framework.dll to " +
                     "foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 852
+#line 851
  testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 853
+#line 852
  testRunner.And("I have added the assembly mocks\\foo.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 854
+#line 853
  testRunner.And("I want to use CmdArguments type of TeamCity integration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 855
+#line 854
  testRunner.And("I want to use CmdArguments configuration type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 856
+#line 855
  testRunner.And("I have added the arg process=InProcess to NUnit console command line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 857
+#line 856
  testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 858
+#line 857
  testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 859
+#line 858
  testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
@@ -4071,20 +4065,20 @@ this.FeatureBackground();
                         "",
                         "",
                         ""});
-#line 860
+#line 859
  testRunner.And("the output should contain TeamCity service messages:", ((string)(null)), table23, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run it for one time setup with out" +
-            "put")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run it for one time setup with outpu" +
+            "t")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunItForOneTimeSetupWithOutput(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunItForOneTimeSetupWithOutput(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -4093,37 +4087,37 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run it for one time setup with out" +
-                    "put", @__tags);
-#line 878
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run it for one time setup with outpu" +
+                    "t", @__tags);
+#line 877
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 879
+#line 878
  testRunner.Given(string.Format("Framework version is {0}", frameworkVersion), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 880
+#line 879
  testRunner.And("I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests" +
                     "1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 881
+#line 880
  testRunner.And("I have added OneTimeSetUpWithOutput method as OneTimeSetUpWithOutput to the class" +
                     " Foo.Tests.UnitTests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 882
+#line 881
  testRunner.And("I have created the folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 883
+#line 882
  testRunner.And("I have added NUnit framework references to foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 884
+#line 883
  testRunner.And("I have copied NUnit framework references to folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 885
+#line 884
  testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 886
+#line 885
  testRunner.And("I have added the assembly mocks\\foo.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 887
+#line 886
  testRunner.And("I want to use CmdArguments type of TeamCity integration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 888
+#line 887
  testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 889
+#line 888
  testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 890
+#line 889
  testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
@@ -4236,20 +4230,20 @@ this.FeatureBackground();
                         "",
                         "",
                         ""});
-#line 891
+#line 890
  testRunner.And("the output should contain TeamCity service messages:", ((string)(null)), table24, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run it for one time TearDown with " +
-            "output")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run it for one time TearDown with ou" +
+            "tput")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunItForOneTimeTearDownWithOutput(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunItForOneTimeTearDownWithOutput(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -4258,37 +4252,37 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run it for one time TearDown with " +
-                    "output", @__tags);
-#line 911
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run it for one time TearDown with ou" +
+                    "tput", @__tags);
+#line 910
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 912
+#line 911
  testRunner.Given(string.Format("Framework version is {0}", frameworkVersion), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 913
+#line 912
  testRunner.And("I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests" +
                     "1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 914
+#line 913
  testRunner.And("I have added OneTimeTearDownWithOutput method as OneTimeTearDownWithOutput to the" +
                     " class Foo.Tests.UnitTests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 915
+#line 914
  testRunner.And("I have created the folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 916
+#line 915
  testRunner.And("I have added NUnit framework references to foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 917
+#line 916
  testRunner.And("I have copied NUnit framework references to folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 918
+#line 917
  testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 919
+#line 918
  testRunner.And("I have added the assembly mocks\\foo.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 920
+#line 919
  testRunner.And("I want to use CmdArguments type of TeamCity integration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 921
+#line 920
  testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 922
+#line 921
  testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 923
+#line 922
  testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
@@ -4401,19 +4395,19 @@ this.FeatureBackground();
                         "",
                         "",
                         ""});
-#line 924
+#line 923
  testRunner.And("the output should contain TeamCity service messages:", ((string)(null)), table25, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages with output when TestFixtureSetup in SetU" +
-            "pFixture")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages with output when TestFixtureSetup in SetUpF" +
+            "ixture")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWithOutputWhenTestFixtureSetupInSetUpFixture(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWithOutputWhenTestFixtureSetupInSetUpFixture(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "teamcity"};
@@ -4421,49 +4415,49 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages with output when TestFixtureSetup in SetU" +
-                    "pFixture", @__tags);
-#line 942
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages with output when TestFixtureSetup in SetUpF" +
+                    "ixture", @__tags);
+#line 941
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 943
+#line 942
  testRunner.Given(string.Format("Framework version is {0}", frameworkVersion), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 944
+#line 943
  testRunner.And("I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo" +
                     ".tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 945
+#line 944
  testRunner.And("I have added successful method as Test2 to the class Foo.Tests.UnitTests1 for foo" +
                     ".tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 946
+#line 945
  testRunner.And("I have added TestFixtureSetupWithOutput method as TestFixtureSetupWithOutput to t" +
                     "he class Foo.Tests.UnitTests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 947
+#line 946
  testRunner.And("I have added attribute [NUnit.Framework.TestFixture] to the class Foo.Tests.UnitT" +
                     "ests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 948
+#line 947
  testRunner.And("I have created the folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 949
+#line 948
  testRunner.And("I have copied the reference ..\\..\\packages\\NUnit.2.6.4\\lib\\nunit.framework.dll to" +
                     " folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 950
+#line 949
  testRunner.And("I have added the reference ..\\..\\packages\\NUnit.2.6.4\\lib\\nunit.framework.dll to " +
                     "foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 951
+#line 950
  testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 952
+#line 951
  testRunner.And("I have added the assembly mocks\\foo.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 953
+#line 952
  testRunner.And("I want to use CmdArguments type of TeamCity integration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 954
+#line 953
  testRunner.And("I want to use CmdArguments configuration type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 955
+#line 954
  testRunner.And("I have added the arg process=InProcess to NUnit console command line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 956
+#line 955
  testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 957
+#line 956
  testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 958
+#line 957
  testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
@@ -4565,19 +4559,19 @@ this.FeatureBackground();
                         "",
                         "",
                         ""});
-#line 959
+#line 958
  testRunner.And("the output should contain TeamCity service messages:", ((string)(null)), table26, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages with output when TestFixtureTearDown in S" +
-            "etUpFixture")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages with output when TestFixtureTearDown in Set" +
+            "UpFixture")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWithOutputWhenTestFixtureTearDownInSetUpFixture(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWithOutputWhenTestFixtureTearDownInSetUpFixture(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "teamcity"};
@@ -4585,49 +4579,49 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages with output when TestFixtureTearDown in S" +
-                    "etUpFixture", @__tags);
-#line 975
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages with output when TestFixtureTearDown in Set" +
+                    "UpFixture", @__tags);
+#line 974
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 976
+#line 975
  testRunner.Given(string.Format("Framework version is {0}", frameworkVersion), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 977
+#line 976
  testRunner.And("I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo" +
                     ".tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 978
+#line 977
  testRunner.And("I have added successful method as Test2 to the class Foo.Tests.UnitTests1 for foo" +
                     ".tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 979
+#line 978
  testRunner.And("I have added TestFixtureTearDownWithOutput method as TestFixtureTearDownWithOutpu" +
                     "t to the class Foo.Tests.UnitTests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 980
+#line 979
  testRunner.And("I have added attribute [NUnit.Framework.TestFixture] to the class Foo.Tests.UnitT" +
                     "ests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 981
+#line 980
  testRunner.And("I have created the folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 982
+#line 981
  testRunner.And("I have copied the reference ..\\..\\packages\\NUnit.2.6.4\\lib\\nunit.framework.dll to" +
                     " folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 983
+#line 982
  testRunner.And("I have added the reference ..\\..\\packages\\NUnit.2.6.4\\lib\\nunit.framework.dll to " +
                     "foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 984
+#line 983
  testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 985
+#line 984
  testRunner.And("I have added the assembly mocks\\foo.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 986
+#line 985
  testRunner.And("I want to use CmdArguments type of TeamCity integration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 987
+#line 986
  testRunner.And("I want to use CmdArguments configuration type", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 988
+#line 987
  testRunner.And("I have added the arg process=InProcess to NUnit console command line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 989
+#line 988
  testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 990
+#line 989
  testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 991
+#line 990
  testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
@@ -4740,20 +4734,20 @@ this.FeatureBackground();
                         "",
                         "",
                         ""});
-#line 992
+#line 991
  testRunner.And("the output should contain TeamCity service messages:", ((string)(null)), table27, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity\'s service messages when I run successful test writing to std" +
-            "Error")]
+        [NUnit.Framework.DescriptionAttribute("NUnit sends TeamCity service messages when I run successful test writing to stdEr" +
+            "ror")]
         [NUnit.Framework.CategoryAttribute("3.9")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
         [NUnit.Framework.TestCaseAttribute("Version45", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", new string[0])]
-        public virtual void NUnitSendsTeamCitySServiceMessagesWhenIRunSuccessfulTestWritingToStdError(string frameworkVersion, string[] exampleTags)
+        public virtual void NUnitSendsTeamCityServiceMessagesWhenIRunSuccessfulTestWritingToStdError(string frameworkVersion, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.9",
@@ -4762,34 +4756,34 @@ this.FeatureBackground();
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity\'s service messages when I run successful test writing to std" +
-                    "Error", @__tags);
-#line 1010
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NUnit sends TeamCity service messages when I run successful test writing to stdEr" +
+                    "ror", @__tags);
+#line 1009
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 1011
+#line 1010
  testRunner.Given(string.Format("Framework version is {0}", frameworkVersion), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 1012
+#line 1011
  testRunner.And("I have added SuccessfulStdError method as SuccessfulStdErrorTest to the class Foo" +
                     ".Tests.UnitTests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 1013
+#line 1012
  testRunner.And("I have created the folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 1014
+#line 1013
  testRunner.And("I have added NUnit framework references to foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 1015
+#line 1014
  testRunner.And("I have copied NUnit framework references to folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 1016
+#line 1015
  testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 1017
+#line 1016
  testRunner.And("I have added the assembly mocks\\foo.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 1018
+#line 1017
  testRunner.And("I want to use CmdArguments type of TeamCity integration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 1019
+#line 1018
  testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 1020
+#line 1019
  testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 1021
+#line 1020
  testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table28 = new TechTalk.SpecFlow.Table(new string[] {
@@ -4913,7 +4907,7 @@ this.FeatureBackground();
                         "",
                         "",
                         ""});
-#line 1022
+#line 1021
  testRunner.And("the output should contain TeamCity service messages:", ((string)(null)), table28, "And ");
 #line hidden
             this.ScenarioCleanup();

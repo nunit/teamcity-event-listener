@@ -36,7 +36,6 @@ Scenario Outline: User runs tests for several assemblies
 	And I have added the arg domain=<domain> to NUnit console command line
 
 	When I run NUnit console
-	Then the exit code should be 0
 	And the output should contain correct set of TeamCity service messages
 	And the Test Run Summary should has following:
 	| field        | value |
