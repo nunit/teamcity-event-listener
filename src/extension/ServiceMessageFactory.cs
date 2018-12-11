@@ -339,7 +339,18 @@
 
                         if (artifactDir == null)
                         {
-                            artifactDir = ".teamcity/NUnit/" + eventId.FullName + "/" + Guid.NewGuid().ToString().Replace("{", "").Replace("-", "").Replace("}", "");
+                            var testDirName = eventId.FullName;
+                            foreach (var c in Path.GetInvalidPathChars())
+                            {
+                                testDirName = testDirName.Replace(c, '_');
+                            }
+                            
+                            foreach (var c in Path.GetInvalidFileNameChars())
+                            {
+                                testDirName = testDirName.Replace(c, '_');
+                            }
+
+                            artifactDir = ".teamcity/NUnit/" + testDirName + "/" + Guid.NewGuid().ToString().Replace("{", "").Replace("-", "").Replace("}", "");
                         }
 
                         string artifactType;
