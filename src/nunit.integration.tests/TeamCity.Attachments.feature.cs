@@ -287,24 +287,14 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("User can attach artifacts to test for TeamCity less 2018.2")]
+        [NUnit.Framework.DescriptionAttribute("User can attach artifacts and test metadata using custom path")]
         [NUnit.Framework.CategoryAttribute("3.9")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
-        [NUnit.Framework.TestCaseAttribute("10.2", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("2017.3", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("2018.1 (build SNAPSHOT)", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("2018.1", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("2018.1.1", new string[0])]
-        public virtual void UserCanAttachArtifactsToTestForTeamCityLess2018_2(string teamCityVersion, string[] exampleTags)
+        public virtual void UserCanAttachArtifactsAndTestMetadataUsingCustomPath()
         {
-            string[] @__tags = new string[] {
-                    "3.9",
-                    "teamcity"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User can attach artifacts to test for TeamCity less 2018.2", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User can attach artifacts and test metadata using custom path", new string[] {
+                        "3.9",
+                        "teamcity"});
 #line 52
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -312,8 +302,8 @@ this.FeatureBackground();
 #line 53
     testRunner.Given("Framework version is Version45", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 54
-    testRunner.And("I have added SuccessfulWithAttachedFiles method as SuccessfulTest to the class Fo" +
-                    "o.Tests.UnitTests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("I have added SuccessfulWithAttachedFileToCustomPath method as SuccessfulTest to t" +
+                    "he class Foo.Tests.UnitTests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 55
     testRunner.And("I have created the folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 56
@@ -327,21 +317,16 @@ this.FeatureBackground();
 #line 60
     testRunner.And("I want to use CmdArguments type of TeamCity integration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 61
-    testRunner.And("I have added the environment variable TEAMCITY_VERSION as 2018.1 (build SNAPSHOT)" +
-                    "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("I have added the environment variable TEAMCITY_VERSION as 2018.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 62
     testRunner.And("I have appended the string MyImage to file Data\\MyImage.jpg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 63
-    testRunner.And("I have appended the string MyImage2 to file Data\\MyImage2.gif", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 64
-    testRunner.And("I have appended the string Class to file Data\\Class.cs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 65
     testRunner.And("I have appended the string report.txt to file Data\\report.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 66
+#line 64
     testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 67
+#line 65
     testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 68
+#line 66
     testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -391,7 +376,7 @@ this.FeatureBackground();
                         ".+"});
             table2.AddRow(new string[] {
                         "publishArtifacts",
-                        ".+MyImage.jpg\\s=>\\s.+",
+                        ".+MyImage.jpg => images",
                         "",
                         "",
                         "",
@@ -399,8 +384,17 @@ this.FeatureBackground();
                         "",
                         ""});
             table2.AddRow(new string[] {
+                        "testMetadata",
+                        "",
+                        "",
+                        "Foo.Tests.UnitTests1.SuccessfulTest",
+                        "image",
+                        "images/MyImage.jpg",
+                        "My Image",
+                        ".+"});
+            table2.AddRow(new string[] {
                         "publishArtifacts",
-                        ".+MyImage2.gif\\s=>\\s.+",
+                        ".+report.txt => reports",
                         "",
                         "",
                         "",
@@ -408,23 +402,14 @@ this.FeatureBackground();
                         "",
                         ""});
             table2.AddRow(new string[] {
-                        "publishArtifacts",
-                        ".+Class.cs\\s=>\\s.+",
+                        "testMetadata",
                         "",
                         "",
+                        "Foo.Tests.UnitTests1.SuccessfulTest",
+                        "artifact",
+                        "reports/report.txt",
                         "",
-                        "",
-                        "",
-                        ""});
-            table2.AddRow(new string[] {
-                        "publishArtifacts",
-                        ".+report.txt\\s=>\\s.+",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ""});
+                        ".+"});
             table2.AddRow(new string[] {
                         "testFinished",
                         "",
@@ -461,53 +446,86 @@ this.FeatureBackground();
                         "",
                         "",
                         ".+"});
-#line 69
+#line 67
     testRunner.And("the output should contain TeamCity service messages:", ((string)(null)), table2, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("User can attach artifacts and test metadata using custom path")]
+        [NUnit.Framework.DescriptionAttribute("Attachments should be suppressed")]
         [NUnit.Framework.CategoryAttribute("3.9")]
         [NUnit.Framework.CategoryAttribute("teamcity")]
-        public virtual void UserCanAttachArtifactsAndTestMetadataUsingCustomPath()
+        [NUnit.Framework.TestCaseAttribute("10.2", "false", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2018.1 (build SNAPSHOT)", "false", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2018.2 (build SNAPSHOT)", "false", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2018.2", "false", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2019", "false", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2018.2", "False", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2018.2", "FALSE", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("10.2", "true", "false", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2018.1 (build SNAPSHOT)", "true", "false", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2018.2 (build SNAPSHOT)", "true", "false", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2018.2", "true", "false", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2019", "true", "false", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2018.2", "true", "False", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2018.2", "true", "FALSE", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("10.2", "true", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("10", "true", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2018.1 (build SNAPSHOT)", "true", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2018.1 RC", "true", "true", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("2018.1", "true", "true", new string[0])]
+        public virtual void AttachmentsShouldBeSuppressed(string teamCityVersion, string teamcityloggerExperimental, string teamcityDotnetTestMetadataEnable, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User can attach artifacts and test metadata using custom path", new string[] {
-                        "3.9",
-                        "teamcity"});
-#line 93
+            string[] @__tags = new string[] {
+                    "3.9",
+                    "teamcity"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Attachments should be suppressed", @__tags);
+#line 84
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 94
+#line 85
     testRunner.Given("Framework version is Version45", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 95
-    testRunner.And("I have added SuccessfulWithAttachedFileToCustomPath method as SuccessfulTest to t" +
-                    "he class Foo.Tests.UnitTests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 96
+#line 86
+    testRunner.And("I have added SuccessfulWithAttachedFiles method as SuccessfulTest to the class Fo" +
+                    "o.Tests.UnitTests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 87
     testRunner.And("I have created the folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 97
+#line 88
     testRunner.And("I have added NUnit framework references to foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 98
+#line 89
     testRunner.And("I have copied NUnit framework references to folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 99
+#line 90
     testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 100
+#line 91
     testRunner.And("I have added the assembly mocks\\foo.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 101
+#line 92
     testRunner.And("I want to use CmdArguments type of TeamCity integration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 102
-    testRunner.And("I have added the environment variable TEAMCITY_VERSION as 2018.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 103
+#line 93
+    testRunner.And(string.Format("I have added the environment variable TEAMCITY_LOGGER_ALLOW_EXPERIMENTAL as {0}", teamcityloggerExperimental), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 94
+    testRunner.And(string.Format("I have added the environment variable TEAMCITY_DOTNET_TEST_METADATA_ENABLE as {0}" +
+                        "", teamcityDotnetTestMetadataEnable), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 95
+    testRunner.And(string.Format("I have added the environment variable TEAMCITY_VERSION as {0}", teamCityVersion), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 96
     testRunner.And("I have appended the string MyImage to file Data\\MyImage.jpg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 104
+#line 97
+    testRunner.And("I have appended the string MyImage2 to file Data\\MyImage2.gif", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 98
+    testRunner.And("I have appended the string Class to file Data\\Class.cs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 99
     testRunner.And("I have appended the string report.txt to file Data\\report.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 105
+#line 100
     testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 106
+#line 101
     testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 107
+#line 102
     testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -556,42 +574,6 @@ this.FeatureBackground();
                         "",
                         ".+"});
             table3.AddRow(new string[] {
-                        "publishArtifacts",
-                        ".+MyImage.jpg => images",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ""});
-            table3.AddRow(new string[] {
-                        "testMetadata",
-                        "",
-                        "",
-                        "Foo.Tests.UnitTests1.SuccessfulTest",
-                        "image",
-                        "images/MyImage.jpg",
-                        "My Image",
-                        ".+"});
-            table3.AddRow(new string[] {
-                        "publishArtifacts",
-                        ".+report.txt => reports",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ""});
-            table3.AddRow(new string[] {
-                        "testMetadata",
-                        "",
-                        "",
-                        "Foo.Tests.UnitTests1.SuccessfulTest",
-                        "artifact",
-                        "reports/report.txt",
-                        "",
-                        ".+"});
-            table3.AddRow(new string[] {
                         "testFinished",
                         "",
                         "Foo.Tests.UnitTests1.SuccessfulTest",
@@ -627,156 +609,8 @@ this.FeatureBackground();
                         "",
                         "",
                         ".+"});
-#line 108
+#line 103
     testRunner.And("the output should contain TeamCity service messages:", ((string)(null)), table3, "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Attachments should be suppressed when experimental mode is off")]
-        [NUnit.Framework.CategoryAttribute("3.9")]
-        [NUnit.Framework.CategoryAttribute("teamcity")]
-        [NUnit.Framework.TestCaseAttribute("10.2", "false", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("2018.1 (build SNAPSHOT)", "false", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("2018.2 (build SNAPSHOT)", "false", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("2018.2", "false", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("2019", "false", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("2018.2", "False", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("2018.2", "FALSE", new string[0])]
-        public virtual void AttachmentsShouldBeSuppressedWhenExperimentalModeIsOff(string teamCityVersion, string teamcityloggerExperimental, string[] exampleTags)
-        {
-            string[] @__tags = new string[] {
-                    "3.9",
-                    "teamcity"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Attachments should be suppressed when experimental mode is off", @__tags);
-#line 125
-this.ScenarioSetup(scenarioInfo);
-#line 3
-this.FeatureBackground();
-#line 126
-    testRunner.Given("Framework version is Version45", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 127
-    testRunner.And("I have added SuccessfulWithAttachedFiles method as SuccessfulTest to the class Fo" +
-                    "o.Tests.UnitTests1 for foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 128
-    testRunner.And("I have created the folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 129
-    testRunner.And("I have added NUnit framework references to foo.tests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 130
-    testRunner.And("I have copied NUnit framework references to folder mocks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 131
-    testRunner.And("I have compiled the assembly foo.tests to file mocks\\foo.tests.dll", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 132
-    testRunner.And("I have added the assembly mocks\\foo.tests.dll to the list of testing assemblies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 133
-    testRunner.And("I want to use CmdArguments type of TeamCity integration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 134
-    testRunner.And(string.Format("I have added the environment variable TEAMCITY_LOGGER_ALLOW_EXPERIMENTAL as {0}", teamcityloggerExperimental), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 135
-    testRunner.And(string.Format("I have added the environment variable TEAMCITY_VERSION as {0}", teamCityVersion), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 136
-    testRunner.And("I have appended the string MyImage to file Data\\MyImage.jpg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 137
-    testRunner.And("I have appended the string MyImage2 to file Data\\MyImage2.gif", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 138
-    testRunner.And("I have appended the string Class to file Data\\Class.cs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 139
-    testRunner.And("I have appended the string report.txt to file Data\\report.txt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 140
-    testRunner.When("I run NUnit console", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 141
-    testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 142
-    testRunner.And("the output should contain correct set of TeamCity service messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                        "",
-                        ".",
-                        "name",
-                        "testName",
-                        "type",
-                        "value",
-                        "name",
-                        "flowId"});
-            table4.AddRow(new string[] {
-                        "flowStarted",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ".+"});
-            table4.AddRow(new string[] {
-                        "testSuiteStarted",
-                        "",
-                        "foo.tests.dll",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ".+"});
-            table4.AddRow(new string[] {
-                        "flowStarted",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ".+"});
-            table4.AddRow(new string[] {
-                        "testStarted",
-                        "",
-                        "Foo.Tests.UnitTests1.SuccessfulTest",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ".+"});
-            table4.AddRow(new string[] {
-                        "testFinished",
-                        "",
-                        "Foo.Tests.UnitTests1.SuccessfulTest",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ".+"});
-            table4.AddRow(new string[] {
-                        "flowFinished",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ".+"});
-            table4.AddRow(new string[] {
-                        "testSuiteFinished",
-                        "",
-                        "foo.tests.dll",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ".+"});
-            table4.AddRow(new string[] {
-                        "flowFinished",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ".+"});
-#line 143
-    testRunner.And("the output should contain TeamCity service messages:", ((string)(null)), table4, "And ");
 #line hidden
             this.ScenarioCleanup();
         }

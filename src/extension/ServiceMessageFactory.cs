@@ -1,6 +1,7 @@
 ﻿namespace NUnit.Engine.Listeners
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
@@ -12,7 +13,29 @@
         private const string TcParseServiceMessagesInside = "tc:parseServiceMessagesInside";
         private static readonly IEnumerable<ServiceMessage> EmptyServiceMessages = new ServiceMessage[0];
         private static readonly Regex AttachmentDescriptionRegex = new Regex("(.*)=>(.+)", RegexOptions.Compiled);
+        private static readonly List<char> _invalidChars;
 
+        static ServiceMessageFactory()
+        {
+            var invalidPathChars = Path.GetInvalidPathChars();
+            var invalidFileNameChars = Path.GetInvalidFileNameChars();
+            _invalidChars = new List<char>(invalidPathChars.Length + invalidFileNameChars.Length);
+            foreach (var c in invalidPathChars)
+            {
+                _invalidChars.Add(c);
+            }
+
+            foreach (var c in invalidFileNameChars)
+            {
+                if (_invalidChars.Contains(c))
+                {
+                    continue;
+                }
+
+                _invalidChars.Add(c);
+            }
+        }
+        
         public IEnumerable<ServiceMessage> SuiteStarted(EventId eventId)
         {
             var assemblyName = Path.GetFileName(eventId.FullName);
@@ -60,7 +83,7 @@
                 yield break;
             }
 
-            if (TeamCityInfo.AllowExperimental)
+            if (TeamCityInfo.MetadataEnabled)
             {
                 foreach (var message in Attachments(eventId, testEvent))
                 {
@@ -339,18 +362,18 @@
 
                         if (artifactDir == null)
                         {
-                            var testDirName = eventId.FullName;
-                            foreach (var c in Path.GetInvalidPathChars())
+                            var testDirNameChars = new char[eventId.FullName.Length];
+                            eventId.FullName.CopyTo(0, testDirNameChars, 0, eventId.FullName.Length);
+                            for (var i = 0; i < testDirNameChars.Length; i++)
                             {
-                                testDirName = testDirName.Replace(c, '_');
-                            }
-                            
-                            foreach (var c in Path.GetInvalidFileNameChars())
-                            {
-                                testDirName = testDirName.Replace(c, '_');
+                                if (_invalidChars.Contains(testDirNameChars[i]))
+                                {
+                                    testDirNameChars[i] = '_';
+                                }
                             }
 
-                            artifactDir = ".teamcity/NUnit/" + testDirName + "/" + Guid.NewGuid().ToString().Replace("{", "").Replace("-", "").Replace("}", "");
+                            var testDirName = new string(testDirNameChars);
+                            artifactDir = ".teamcity/NUnit/" + testDirName + "/" + Guid.NewGuid();
                         }
 
                         string artifactType;
@@ -382,23 +405,20 @@
 
                         yield return new ServiceMessage(ServiceMessage.Names.PublishArtifacts, filePath + " => " + artifactDir);
 
-                        if (TeamCityInfo.Version.CompareTo(TeamCityInfo.TestMetadataSupportVersion) >= 0)
+                        var attrs = new List<ServiceMessageAttr>
                         {
-                            var attrs = new List<ServiceMessageAttr>
-                            {
-                                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId),
-                                new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, eventId.FullName),
-                                new ServiceMessageAttr(ServiceMessageAttr.Names.Type, artifactType),
-                                new ServiceMessageAttr(ServiceMessageAttr.Names.Value, artifactDir + "/" + fileName)
-                            };
+                            new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId),
+                            new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, eventId.FullName),
+                            new ServiceMessageAttr(ServiceMessageAttr.Names.Type, artifactType),
+                            new ServiceMessageAttr(ServiceMessageAttr.Names.Value, artifactDir + "/" + fileName)
+                        };
 
-                            if (!string.IsNullOrEmpty(description))
-                            {
-                                attrs.Add(new ServiceMessageAttr(ServiceMessageAttr.Names.Name, description));
-                            }
-
-                            yield return new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
+                        if (!string.IsNullOrEmpty(description))
+                        {
+                            attrs.Add(new ServiceMessageAttr(ServiceMessageAttr.Names.Name, description));
                         }
+
+                        yield return new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
                     }
                 }
             }

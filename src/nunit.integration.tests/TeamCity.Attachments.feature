@@ -49,47 +49,6 @@ Examples:
 
 @3.9
 @teamcity
-Scenario Outline: User can attach artifacts to test for TeamCity less 2018.2
-    Given Framework version is Version45
-    And I have added SuccessfulWithAttachedFiles method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
-    And I want to use CmdArguments type of TeamCity integration
-    And I have added the environment variable TEAMCITY_VERSION as 2018.1 (build SNAPSHOT)
-    And I have appended the string MyImage to file Data\MyImage.jpg
-    And I have appended the string MyImage2 to file Data\MyImage2.gif
-    And I have appended the string Class to file Data\Class.cs
-    And I have appended the string report.txt to file Data\report.txt
-    When I run NUnit console
-    Then the exit code should be 0
-    And the output should contain correct set of TeamCity service messages
-    And the output should contain TeamCity service messages:
-    |                   | .                        | name                                | testName                            | type     | value          | name     | flowId |
-    | flowStarted       |                          |                                     |                                     |          |                |          | .+     |
-    | testSuiteStarted  |                          | foo.tests.dll                       |                                     |          |                |          | .+     |
-    | flowStarted       |                          |                                     |                                     |          |                |          | .+     |
-    | testStarted       |                          | Foo.Tests.UnitTests1.SuccessfulTest |                                     |          |                |          | .+     |
-    | publishArtifacts  | .+MyImage.jpg\\s=>\\s.+  |                                     |                                     |          |                |          |        |
-    | publishArtifacts  | .+MyImage2.gif\\s=>\\s.+ |                                     |                                     |          |                |          |        |
-    | publishArtifacts  | .+Class.cs\\s=>\\s.+     |                                     |                                     |          |                |          |        |
-    | publishArtifacts  | .+report.txt\\s=>\\s.+   |                                     |                                     |          |                |          |        |
-    | testFinished      |                          | Foo.Tests.UnitTests1.SuccessfulTest |                                     |          |                |          | .+     |
-    | flowFinished      |                          |                                     |                                     |          |                |          | .+     |
-    | testSuiteFinished |                          | foo.tests.dll                       |                                     |          |                |          | .+     |
-    | flowFinished      |                          |                                     |                                     |          |                |          | .+     |
-Examples:
-    | teamCityVersion         |
-    | 10.2                    |
-    | 2017.3                  |
-    | 2018.1 (build SNAPSHOT) |
-    | 2018.1                  |
-    | 2018.1.1                |
-
-@3.9
-@teamcity
 Scenario: User can attach artifacts and test metadata using custom path
     Given Framework version is Version45
     And I have added SuccessfulWithAttachedFileToCustomPath method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
@@ -122,7 +81,7 @@ Scenario: User can attach artifacts and test metadata using custom path
 
 @3.9
 @teamcity
-Scenario Outline: Attachments should be suppressed when experimental mode is off
+Scenario Outline: Attachments should be suppressed
     Given Framework version is Version45
     And I have added SuccessfulWithAttachedFiles method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
     And I have created the folder mocks
@@ -132,6 +91,7 @@ Scenario Outline: Attachments should be suppressed when experimental mode is off
     And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     And I have added the environment variable TEAMCITY_LOGGER_ALLOW_EXPERIMENTAL as <teamcityloggerExperimental>
+    And I have added the environment variable TEAMCITY_DOTNET_TEST_METADATA_ENABLE as <teamcityDotnetTestMetadataEnable>
     And I have added the environment variable TEAMCITY_VERSION as <teamCityVersion>
     And I have appended the string MyImage to file Data\MyImage.jpg
     And I have appended the string MyImage2 to file Data\MyImage2.gif
@@ -151,11 +111,23 @@ Scenario Outline: Attachments should be suppressed when experimental mode is off
     | testSuiteFinished |                          | foo.tests.dll                       |                                     |          |                |          | .+     |
     | flowFinished      |                          |                                     |                                     |          |                |          | .+     |
 Examples:
-    | teamCityVersion         | teamcityloggerExperimental |
-    | 10.2                    | false                      |
-    | 2018.1 (build SNAPSHOT) | false                      |
-    | 2018.2 (build SNAPSHOT) | false                      |
-    | 2018.2                  | false                      |
-    | 2019                    | false                      |
-    | 2018.2                  | False                      |
-    | 2018.2                  | FALSE                      |
+    | teamCityVersion         | teamcityloggerExperimental | teamcityDotnetTestMetadataEnable |
+    | 10.2                    | false                      | true                             |
+    | 2018.1 (build SNAPSHOT) | false                      | true                             |
+    | 2018.2 (build SNAPSHOT) | false                      | true                             |
+    | 2018.2                  | false                      | true                             |
+    | 2019                    | false                      | true                             |
+    | 2018.2                  | False                      | true                             |
+    | 2018.2                  | FALSE                      | true                             |
+    | 10.2                    | true                       | false                            |
+    | 2018.1 (build SNAPSHOT) | true                       | false                            |
+    | 2018.2 (build SNAPSHOT) | true                       | false                            |
+    | 2018.2                  | true                       | false                            |
+    | 2019                    | true                       | false                            |
+    | 2018.2                  | true                       | False                            |
+    | 2018.2                  | true                       | FALSE                            |
+    | 10.2                    | true                       | true                             |
+    | 10                      | true                       | true                             |
+    | 2018.1 (build SNAPSHOT) | true                       | true                             |
+    | 2018.1 RC               | true                       | true                             |
+    | 2018.1                  | true                       | true                             |
