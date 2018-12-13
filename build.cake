@@ -1,4 +1,5 @@
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.4.1
+#tool nuget:?package=NUnit.ConsoleRunner&version=3.9.0
+#tool nuget:?package=NUnit.Extension.TeamCityEventListener&version=1.0.5
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -79,7 +80,7 @@ if (binaries != null)
 // Files
 var SOLUTION_FILE = PROJECT_DIR + "teamcity-event-listener.sln";
 var TEST_SOLUTION_FILE = PROJECT_DIR + "teamcity-event-listener-tests.sln";
-var NUNIT3_CONSOLE = TOOLS_DIR + "NUnit.ConsoleRunner/tools/nunit3-console.exe";
+var NUNIT3_CONSOLE = TOOLS_DIR + "NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe";
 var TEST_ASSEMBLY = BIN_DIR + "teamcity-event-listener.tests.dll";
 var INTEGRATION_TEST_ASSEMBLY = BIN_DIR + "nunit.integration.tests.dll";
 
