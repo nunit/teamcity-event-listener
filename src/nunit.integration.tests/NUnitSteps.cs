@@ -21,7 +21,7 @@
             var configuration = ctx.GetOrCreateNUnitConfiguration();
             configuration.OriginNUnitPath = Path.GetFullPath(Path.Combine(ctx.AssemblyDirectory, originNUnitPath));
             var environmentManager = new EnvironmentManager();
-            configuration.NUnitConsolePath = environmentManager.PrepareNUnitClonsoleAndGetPath(ctx.SandboxPath, configuration.OriginNUnitPath);
+            configuration.NUnitConsolePath = environmentManager.PrepareNUnitConsoleAndGetPath(ctx.SandboxPath, configuration.OriginNUnitPath);
         }
 
         [Given(@"Framework version is (.+)")]
@@ -29,7 +29,7 @@
         {
             var ctx = ScenarioContext.Current.GetTestContext();
             var configuration = ctx.GetOrCreateNUnitConfiguration();
-            configuration.FrameworkVersion = frameworkVersion.ConvertToFrameworkVersion();            
+            configuration.FrameworkVersion = frameworkVersion.ConvertToFrameworkVersion();
         }
 
         [Given(@"I want to use (.+) configuration type")]
@@ -37,7 +37,7 @@
         {
             var ctx = ScenarioContext.Current.GetTestContext();
             var configuration = ctx.GetOrCreateNUnitConfiguration();
-            configuration.ConfigurationType = configurationType.ConvertToConfigurationType();            
+            configuration.ConfigurationType = configurationType.ConvertToConfigurationType();
         }
 
         [Given(@"I have added (.+) method as (.+) to the Ctor of class (.+)\.(.+) for (.+)")]
@@ -55,7 +55,7 @@
             var ctx = ScenarioContext.Current.GetTestContext();
             var testAssembly = ctx.GetOrCreateAssembly(assemblyName);
             var testClass = testAssembly.GetOrCreateClass(namespaceName, className);
-            testClass.GetOrCreateMethod(testMethodName, methodTemplate);            
+            testClass.GetOrCreateMethod(testMethodName, methodTemplate);
         }
 
         [Given(@"I have added (\d+) (.+) methods as (.+) to the class (.+)\.(.+) for (.+)")]
@@ -103,7 +103,7 @@
             var testAssembly = ctx.GetOrCreateAssembly(assemblyName);
             var compiler = new Compiler();
             var configuration = ctx.GetOrCreateNUnitConfiguration();
-            compiler.Compile(testAssembly, assemblyFileName, configuration.FrameworkVersion);            
+            compiler.Compile(testAssembly, assemblyFileName, configuration.FrameworkVersion);
         }
 
         [Given(@"I have created the folder (.+)")]
@@ -142,7 +142,7 @@
             targetDirectoryName = Path.GetFullPath(Path.Combine(ctx.SandboxPath, targetDirectoryName));
             var environmentManager = new EnvironmentManager();
             var configuration = ctx.GetOrCreateNUnitConfiguration();
-            foreach(var reference in environmentManager.EnumerateNUnitAssemblies(configuration.OriginNUnitPath, configuration.FrameworkVersion))
+            foreach (var reference in environmentManager.EnumerateNUnitAssemblies(configuration.OriginNUnitPath, configuration.FrameworkVersion))
             {
                 environmentManager.CopyReference(targetDirectoryName, reference);
             }
@@ -152,7 +152,7 @@
         public void AddConfigFile(string configFile)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
-            var configuration = ctx.GetOrCreateNUnitConfiguration();            
+            var configuration = ctx.GetOrCreateNUnitConfiguration();
             configuration.AddConfigFile(new ConfigFile(Path.Combine(ctx.SandboxPath, configFile)));
         }
 
@@ -169,12 +169,12 @@
         public void AddNUnitFrameworkReference(string assemblyName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
-            var assembly = ctx.GetOrCreateAssembly(assemblyName);            
+            var assembly = ctx.GetOrCreateAssembly(assemblyName);
             var environmentManager = new EnvironmentManager();
             var configuration = ctx.GetOrCreateNUnitConfiguration();
             foreach (var reference in environmentManager.EnumerateNUnitReferences(configuration.OriginNUnitPath, configuration.FrameworkVersion))
             {
-                assembly.AddReference(reference);                
+                assembly.AddReference(reference);
             }
         }
 
@@ -208,7 +208,7 @@
         {
             AddArg(arg, string.Empty);
         }
-        
+
         [When(@"I run NUnit console")]
         public void RunNUnitConsole()
         {
@@ -231,7 +231,7 @@
             }
 
             var testSession = runner.Run(ctx, setupFactory.Create(ctx));
-            ctx.TestSession = testSession;            
+            ctx.TestSession = testSession;
         }
 
         [Then(@"processes (.+) are finished")]
@@ -261,14 +261,14 @@
             var environmentManager = new EnvironmentManager();
             environmentManager.RemoveFileOrDirectoryFromNUnitDirectory(fileToRemove, configuration.NUnitConsolePath);
         }
-     
+
         [Then(@"the exit code should be (-?\d+)")]
         public void VerifyExitCode(int expectedExitCode)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
             Assert.AreEqual(expectedExitCode, ctx.TestSession.ExitCode, $"Invalid exit code.\nSee {ctx}");
         }
-       
+
         [Then(@"the exit code should be negative")]
         public void VerifyExitCodeIsNegative()
         {
@@ -318,7 +318,7 @@
         public void ResultShouldContainServiceMessage(Table data)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
-            var actualLines = ctx.TestSession.Output.Split(new [] { Environment.NewLine }, StringSplitOptions.None).ToList();
+            var actualLines = ctx.TestSession.Output.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
             var expectedLines = data.Rows.Select(i => new Regex(i[""], RegexOptions.CultureInvariant | RegexOptions.Compiled)).ToList();
             while (expectedLines.Count > 0 && actualLines.Count > 0)
             {

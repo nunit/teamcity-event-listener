@@ -548,48 +548,6 @@ Examples:
     | Version45        | Separate  | Multiple | 1      |
 
 @3.4.1
-@ignore
-@teamcity
-Scenario Outline: NUnit sends TeamCity service messages for bunch of test for several assemblies for NUnit2
-    Given Framework version is <frameworkVersion>
-    And I have created the folder mocks
-    And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks	
-    And I have created assemblies according to NUnit2 test results ..\..\..\testsData\NUnit2HugeTestResult.xml
-    And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to MAP.Common.Test
-    And I have compiled the assembly MAP.Common.Test to file mocks\MAP.Common.Test.dll
-    And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to MAP.Web.Test
-    And I have compiled the assembly MAP.Web.Test to file mocks\MAP.Web.Test.dll
-    And I have added the assembly mocks\MAP.Common.Test.dll to the list of testing assemblies
-    And I have added the assembly mocks\MAP.Web.Test.dll to the list of testing assemblies	
-    And I want to use CmdArguments type of TeamCity integration
-    And I have added the arg workers=10 to NUnit console command line
-    And I have added the arg agents=<agents> to NUnit console command line
-    And I have added the arg process=<process> to NUnit console command line
-    And I have added the arg domain=<domain> to NUnit console command line
-    When I run NUnit console
-    Then the exit code should be 0
-    And the output should contain correct set of TeamCity service messages
-Examples:
-    | frameworkVersion | process   | domain   | agents |
-    | Version45        | InProcess | None     | 10     |
-    | Version40        | InProcess | None     | 10     |
-    | Version45        | Separate  | None     | 10     |
-    | Version45        | Multiple  | None     | 10     |
-    | Version45        | InProcess | Single   | 10     |
-    | Version45        | Separate  | Single   | 10     |
-    | Version45        | Multiple  | Single   | 10     |
-    | Version45        | InProcess | Multiple | 10     |
-    | Version45        | Separate  | Multiple | 10     |
-    | Version45        | InProcess | None     | 1      |
-    | Version45        | Separate  | None     | 1      |
-    | Version45        | Multiple  | None     | 1      |
-    | Version45        | InProcess | Single   | 1      |
-    | Version45        | Separate  | Single   | 1      |
-    | Version45        | Multiple  | Single   | 1      |
-    | Version45        | InProcess | Multiple | 1      |
-    | Version45        | Separate  | Multiple | 1      |
-
-@3.4.1
 @teamcity
 Scenario: NUnit show version and extensions when users pass --list-extensions --teamcity args
     Given I have added the arg ListExtensions to NUnit console command line

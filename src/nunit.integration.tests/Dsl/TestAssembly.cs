@@ -15,7 +15,7 @@
         public TestAssembly(string assemblyName)
         {
             Platform = Platform.AnyCpu;
-            _assemblyName = assemblyName;
+            _assemblyName = assemblyName ?? throw new ArgumentNullException(nameof(assemblyName));
         }
 
         public IEnumerable<TestClass> Classes => _classes.Values;
@@ -28,6 +28,8 @@
 
         public TestClass GetOrCreateClass(string namespaceName, string className)
         {
+            if (namespaceName == null) throw new ArgumentNullException(nameof(namespaceName));
+            if (className == null) throw new ArgumentNullException(nameof(className));
             TestClass testClass;
             var key = $"{namespaceName}.{className}";
             if (!_classes.TryGetValue(key, out testClass))
@@ -40,11 +42,13 @@
 
         public void AddReference(string assemblyName)
         {
+            if (assemblyName == null) throw new ArgumentNullException(nameof(assemblyName));
             _reference.Add(assemblyName);
         }
 
         public void AddAttribute(string attribute)
         {
+            if (attribute == null) throw new ArgumentNullException(nameof(attribute));
             _attributes.Add(attribute);
         }
     }

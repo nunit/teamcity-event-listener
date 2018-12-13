@@ -72,14 +72,14 @@ namespace nunit.integration.tests
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Agent is finished when AppDomain did not unloaded correctly")]
+        [NUnit.Framework.DescriptionAttribute("Agent is finished when AppDomain are not unloaded correctly")]
         [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         [NUnit.Framework.CategoryAttribute("3.4.1")]
         [NUnit.Framework.TestCaseAttribute("Version45", "AnyCpu", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", "AnyCpu", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version45", "X86", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Version40", "X86", new string[0])]
-        public virtual void AgentIsFinishedWhenAppDomainDidNotUnloadedCorrectly(string frameworkVersion, string platform, string[] exampleTags)
+        public virtual void AgentIsFinishedWhenAppDomainAreNotUnloadedCorrectly(string frameworkVersion, string platform, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "3.4.1",
@@ -88,7 +88,7 @@ namespace nunit.integration.tests
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Agent is finished when AppDomain did not unloaded correctly", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Agent is finished when AppDomain are not unloaded correctly", @__tags);
 #line 8
 this.ScenarioSetup(scenarioInfo);
 #line 3

@@ -44,6 +44,7 @@ Examples:
     
 @3.9
 @teamcity
+@ignore
 Scenario Outline: NUnit returns exit code -5 when the test throws StackOverflow exception
     Given Framework version is <frameworkVersion>	
     And I have added failedStackOverflow method as FailedStackOverflow to the class Foo.Tests.UnitTests1 for foo.tests	
@@ -55,7 +56,7 @@ Scenario Outline: NUnit returns exit code -5 when the test throws StackOverflow 
     And I want to use CmdArguments type of TeamCity integration
     And I have added the arg Process=<process> to NUnit console command line
     When I run NUnit console
-    Then the exit code should be -5
+    Then the exit code should be negative
 Examples:
     | frameworkVersion | process   |
 #	| Version45        | InProcess |
@@ -69,7 +70,7 @@ Examples:
 @teamcity
 @ignore
 Scenario Outline: NUnit returns positive exit code when the test throws OutOfMemory exception
-    Given Framework version is <frameworkVersion>	
+    Given Framework version is <frameworkVersion>
     And I have added failedOutOfMemory method as FailedOutOfMemory to the class Foo.Tests.UnitTests1 for foo.tests	
     And I have created the folder mocks
     And I have added NUnit framework references to foo.tests

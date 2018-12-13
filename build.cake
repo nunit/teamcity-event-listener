@@ -1,5 +1,5 @@
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.9.0
-#tool nuget:?package=NUnit.Extension.TeamCityEventListener&version=1.0.5
+#tool nuget:?package=NUnit.ConsoleRunner&version=3.8.0
+#tool nuget:?package=NUnit.Extension.TeamCityEventListener&version=1.0.4
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -21,9 +21,12 @@ var binaries = Argument("binaries", (string)null);
 // SET PACKAGE VERSION
 //////////////////////////////////////////////////////////////////////
 
-var version = "1.0.6";
+var version = "1.0.6-beta2";
 var modifier = "";
-var versionsOfNunitCore = new [] {Tuple.Create("3.4.1", "3.4.1"), Tuple.Create("3.5", "3.5"), Tuple.Create("3.6", "3.6.1"), Tuple.Create("3.9", "3.8"), Tuple.Create("", "")};
+
+// Tuple(NUnit.Console version, NUnit version)
+var versionsOfNunitCore = new [] {Tuple.Create("3.4.1", "3.4.1"), Tuple.Create("3.5", "3.5"), Tuple.Create("3.6", "3.6.1"), Tuple.Create("3.9", "3.8")};
+// var versionsOfNunitCore = new [] {Tuple.Create("3.4.1", "3.4.1"), Tuple.Create("3.5", "3.5"), Tuple.Create("3.6", "3.6.1"), Tuple.Create("3.9", "3.8"), Tuple.Create("", "")};
 
 var integrationTestsCategories = new List<string>();
 
@@ -80,7 +83,7 @@ if (binaries != null)
 // Files
 var SOLUTION_FILE = PROJECT_DIR + "teamcity-event-listener.sln";
 var TEST_SOLUTION_FILE = PROJECT_DIR + "teamcity-event-listener-tests.sln";
-var NUNIT3_CONSOLE = TOOLS_DIR + "NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe";
+var NUNIT3_CONSOLE = TOOLS_DIR + "NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe";
 var TEST_ASSEMBLY = BIN_DIR + "teamcity-event-listener.tests.dll";
 var INTEGRATION_TEST_ASSEMBLY = BIN_DIR + "nunit.integration.tests.dll";
 
