@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>NUnit.ConsoleRunner</id>
+    <version>3.9.0</version>
+    <title>NUnit Console Runner Version 3 (No Extensions)</title>
+    <authors>Charlie Poole, Rob Prouse</authors>
+    <owners>Charlie Poole, Rob Prouse</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/nunit/nunit-console/master/LICENSE.txt</licenseUrl>
+    <projectUrl>http://nunit.org/</projectUrl>
+    <iconUrl>https://cdn.rawgit.com/nunit/resources/master/images/icon/nunit_256.png</iconUrl>
+    <description>This package includes the nunit3-console runner and test engine for version 3 of the NUnit unit-testing framework.
+
+      Any extensions, if needed, may be installed as separate packages.</description>
+    <summary>Console runner for the NUnit 3 unit-testing framework, without any extensions.</summary>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) 2018 Charlie Poole, Rob Prouse</copyright>
+    <language>en-US</language>
+    <tags>nunit test testing tdd runner</tags>
+    <repository type="git" url="https://github.com/nunit/nunit-console" />
+  </metadata>
+</package>
