@@ -15,7 +15,7 @@ namespace nunit.integration.tests
     [Binding]
     public class CommonSteps
     {
-        [Given(@"I have changed current directory to (.+)")]
+        [Given(@"I changed current directory to (.+)")]
         public void ChangeCurrentDirectory(string newCurrentDirectory)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -28,14 +28,14 @@ namespace nunit.integration.tests
             ctx.CurrentDirectory = newCurrentDirectory;
         }
 
-        [Given(@"I have specified encoding (.+)")]
+        [Given(@"I specified encoding (.+)")]
         public void SpecifyEncoding(string encoding)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
             ctx.Encoding = Encoding.GetEncoding(encoding);
         }
 
-        [Given(@"I have appended the string (.+) to file (.+)")]
+        [Given(@"I appended the string (.+) to file (.+)")]
         public void AppendStringToFile(string content, string fileName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -56,7 +56,7 @@ namespace nunit.integration.tests
             }
         }
 
-        [Given(@"I have appended the line (.+) to file (.+)")]
+        [Given(@"I appended the line (.+) to file (.+)")]
         public void AppendLineFile(string line, string fileName)
         {
             AppendStringToFile(line + Environment.NewLine, fileName);
@@ -82,7 +82,7 @@ namespace nunit.integration.tests
             }
         }
 
-        [Given(@"I have added the environment variable (.+) as (.+)")]
+        [Given(@"I added the environment variable (.+) as (.+)")]
         public void AddEnvVar(string name, string value)
         {
             var ctx = ScenarioContext.Current.GetTestContext();

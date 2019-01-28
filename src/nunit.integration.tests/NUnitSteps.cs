@@ -40,7 +40,7 @@
             configuration.ConfigurationType = configurationType.ConvertToConfigurationType();
         }
 
-        [Given(@"I have added (.+) method as (.+) to the Ctor of class (.+)\.(.+) for (.+)")]
+        [Given(@"I added (.+) method as (.+) to the Ctor of class (.+)\.(.+) for (.+)")]
         public void AddMethodInvocationToCtor(string methodTemplate, string testMethodName, string namespaceName, string className, string assemblyName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -49,7 +49,7 @@
             testClass.GetOrCreateCtorInvocationMethod(testMethodName, methodTemplate);
         }
 
-        [Given(@"I have added (.+) method as (.+) to the class (.+)\.(.+) for (.+)")]
+        [Given(@"I added (.+) method as (.+) to the class (.+)\.(.+) for (.+)")]
         public void AddMethod(string methodTemplate, string testMethodName, string namespaceName, string className, string assemblyName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -58,7 +58,7 @@
             testClass.GetOrCreateMethod(testMethodName, methodTemplate);
         }
 
-        [Given(@"I have added (\d+) (.+) methods as (.+) to the class (.+)\.(.+) for (.+)")]
+        [Given(@"I added (\d+) (.+) methods as (.+) to the class (.+)\.(.+) for (.+)")]
         public void AddMethods(int methodsNumber, string methodTemplate, string testMethodName, string namespaceName, string className, string assemblyName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -70,7 +70,7 @@
             }
         }
 
-        [Given(@"I have added attribute (.+) to the class (.+)\.(.+) for (.+)")]
+        [Given(@"I added attribute (.+) to the class (.+)\.(.+) for (.+)")]
         public void AddAttributeToClass(string attribute, string namespaceName, string className, string assemblyName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -79,7 +79,7 @@
             testClass.AddAttribute(attribute);
         }
 
-        [Given(@"I have added attribute (.+) to the assembly (.+)")]
+        [Given(@"I added attribute (.+) to the assembly (.+)")]
         public void AddAttributeToAssembly(string attribute, string assemblyName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -87,7 +87,7 @@
             testAssembly.AddAttribute(attribute);
         }
 
-        [Given(@"I have specified (.+) platform for assembly (.+)")]
+        [Given(@"I specified (.+) platform for assembly (.+)")]
         public void DefinePlatformForAssembly(string platform, string assemblyName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -95,7 +95,7 @@
             testAssembly.Platform = platform.ConvertToPlatform();
         }
 
-        [Given(@"I have compiled the assembly (.+) to file (.+)")]
+        [Given(@"I compiled the assembly (.+) to file (.+)")]
         public void Compile(string assemblyName, string assemblyFileName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -106,7 +106,7 @@
             compiler.Compile(testAssembly, assemblyFileName, configuration.FrameworkVersion);
         }
 
-        [Given(@"I have created the folder (.+)")]
+        [Given(@"I created the folder (.+)")]
         public void CreateDirectory(string targetDirectoryName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -115,7 +115,7 @@
             environmentManager.CreateDirectory(targetDirectoryName);
         }
 
-        [Given(@"I have copied NUNit framework assemblies to folder (.+)")]
+        [Given(@"I copied NUNit framework assemblies to folder (.+)")]
         public void CopyNUnitFrameworkAssemblies(string targetDirectoryName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -125,7 +125,7 @@
             environmentManager.CopyNUnitFrameworkAssemblies(targetDirectoryName, configuration.OriginNUnitPath, configuration.FrameworkVersion);
         }
 
-        [Given(@"I have copied the reference (.+) to folder (.+)")]
+        [Given(@"I copied the reference (.+) to folder (.+)")]
         public void CopyReference(string referenceFileName, string targetDirectoryName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -135,7 +135,7 @@
             environmentManager.CopyReference(targetDirectoryName, referenceFileName);
         }
 
-        [Given(@"I have copied NUnit framework references to folder (.+)")]
+        [Given(@"I copied NUnit framework references to folder (.+)")]
         public void CopyNUnitFrameworkReferences(string targetDirectoryName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -148,7 +148,7 @@
             }
         }
 
-        [Given(@"I have added config file (.+)")]
+        [Given(@"I added config file (.+)")]
         public void AddConfigFile(string configFile)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -156,7 +156,7 @@
             configuration.AddConfigFile(new ConfigFile(Path.Combine(ctx.SandboxPath, configFile)));
         }
 
-        [Given(@"I have added the reference (.+) to (.+)")]
+        [Given(@"I added the reference (.+) to (.+)")]
         public void AddReference(string referenceFileName, string assemblyName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -165,7 +165,7 @@
             assembly.AddReference(referenceFileName);
         }
 
-        [Given(@"I have added NUnit framework references to (.+)")]
+        [Given(@"I added NUnit framework references to (.+)")]
         public void AddNUnitFrameworkReference(string assemblyName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -178,7 +178,7 @@
             }
         }
 
-        [Given(@"I have added the assembly (.+) to the list of testing assemblies")]
+        [Given(@"I added the assembly (.+) to the list of testing assemblies")]
         public void AddTestingAssembly(string assemblyFileName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -187,7 +187,7 @@
             configuration.AddAssemblyFile(Path.GetFullPath(assemblyFileName));
         }
 
-        [Given(@"I have added the arg ([^=]+\s*)=(\s*.+) to NUnit console command line")]
+        [Given(@"I added the arg ([^=]+\s*)=(\s*.+) to NUnit console command line")]
         public void AddArg(string arg, string value)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
@@ -203,7 +203,7 @@
             configuration.AddArg(string.IsNullOrEmpty(value) ? new CmdArg(nUnitArg) : new CmdArg(nUnitArg, value.Trim()));
         }
 
-        [Given(@"I have added the arg ([^=]+) to NUnit console command line")]
+        [Given(@"I added the arg ([^=]+) to NUnit console command line")]
         public void AddArg(string arg)
         {
             AddArg(arg, string.Empty);

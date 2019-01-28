@@ -7,12 +7,12 @@ Background:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run successful test for NUnit3
     Given Framework version is <frameworkVersion>
-    And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll	
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 0
@@ -37,14 +37,14 @@ Examples:
 @teamcity
 Scenario: Use root flow id from environment variable TEAMCITY_PROCESS_FLOW_ID
     Given Framework version is Version45
-    And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
-    And I have added the environment variable TEAMCITY_PROCESS_FLOW_ID as abc
+    And I added the environment variable TEAMCITY_PROCESS_FLOW_ID as abc
     When I run NUnit console
     Then the exit code should be 0
     And the output should contain correct set of TeamCity service messages
@@ -64,14 +64,14 @@ Scenario: Use root flow id from environment variable TEAMCITY_PROCESS_FLOW_ID
 @teamcity
 Scenario Outline: Use root flow id from environment variable TEAMCITY_PROCESS_FLOW_ID for NUnit2
     Given Framework version is <frameworkVersion>
-    And I have added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
-    And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
+    And I added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
-    And I have added the environment variable TEAMCITY_PROCESS_FLOW_ID as abc
+    And I added the environment variable TEAMCITY_PROCESS_FLOW_ID as abc
     When I run NUnit console
     Then the exit code should be 0
     And the output should contain correct set of TeamCity service messages
@@ -89,12 +89,12 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run test with Assert.Pass
     Given Framework version is <frameworkVersion>	
-    And I have added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 0
@@ -119,12 +119,12 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run test with Assert.Pass with text
     Given Framework version is <frameworkVersion>	
-    And I have added PassWithText method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added PassWithText method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 0
@@ -149,12 +149,12 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run test with Assert.Pass for NUnit2
     Given Framework version is <frameworkVersion>
-    And I have added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
-    And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added Pass method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
+    And I added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 0
@@ -173,12 +173,12 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run test with Assert.Pass with text for NUnit2
     Given Framework version is <frameworkVersion>
-    And I have added PassWithText method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
-    And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added PassWithText method as PassTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
+    And I added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 0
@@ -198,15 +198,15 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run it for different types of tests
     Given Framework version is <frameworkVersion>	
-    And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests	
-    And I have added failed method as FailedTest to the class Foo.Tests.UnitTests2 for foo.tests
-    And I have added ignored method as IgnoredTest to the class Foo.Tests.UnitTests3 for foo.tests
-    And I have added inconclusive method as InconclusiveTest to the class Foo.Tests.UnitTests4 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests	
+    And I added failed method as FailedTest to the class Foo.Tests.UnitTests2 for foo.tests
+    And I added ignored method as IgnoredTest to the class Foo.Tests.UnitTests3 for foo.tests
+    And I added inconclusive method as InconclusiveTest to the class Foo.Tests.UnitTests4 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll	
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use <teamCityIntegration> type of TeamCity integration
     And I want to use <configurationType> configuration type
     When I run NUnit console
@@ -251,13 +251,13 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run it for failed setup
     Given Framework version is <frameworkVersion>	
-    And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests	
-    And I have added failedSetUp method as FailedSetUp to the class Foo.Tests.UnitTests1 for foo.tests	
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests	
+    And I added failedSetUp method as FailedSetUp to the class Foo.Tests.UnitTests1 for foo.tests	
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll	
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 1
@@ -282,13 +282,13 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run it for failed one time setup
     Given Framework version is <frameworkVersion>	
-    And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests	
-    And I have added failedSetUp method as FailedOneTimeSetUp to the class Foo.Tests.UnitTests1 for foo.tests	
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests	
+    And I added failedSetUp method as FailedOneTimeSetUp to the class Foo.Tests.UnitTests1 for foo.tests	
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll	
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 1
@@ -313,13 +313,13 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run it for failed tear down
     Given Framework version is <frameworkVersion>
-    And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added failedTearDown method as FailedTearDown to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added failedTearDown method as FailedTearDown to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 1
@@ -345,13 +345,13 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run it for failed ctor
     Given Framework version is <frameworkVersion>	
-    And I have added throwException method as ThrowException to the Ctor of class Foo.Tests.UnitTests1 for foo.tests
-    And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added throwException method as ThrowException to the Ctor of class Foo.Tests.UnitTests1 for foo.tests
+    And I added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll	
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 1
@@ -374,13 +374,13 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run it for failed ctor for NUnit2
     Given Framework version is <frameworkVersion>
-    And I have added throwException method as ThrowException to the Ctor of class Foo.Tests.UnitTests1 for foo.tests
-    And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
-    And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added throwException method as ThrowException to the Ctor of class Foo.Tests.UnitTests1 for foo.tests
+    And I added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
+    And I added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 1
@@ -401,27 +401,27 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run it for parallelizable tests
     Given Framework version is <frameworkVersion>	        
-    And I have added SuccessfulParallelizable method as SuccessfulParallelizable1 to the class Foo.Tests.UnitTests1 for foo1.tests	
-    And I have added SuccessfulParallelizable method as SuccessfulParallelizable2 to the class Foo.Tests.UnitTests1 for foo1.tests	
-    And I have added SuccessfulParallelizable method as SuccessfulParallelizable3 to the class Foo.Tests.UnitTests1 for foo1.tests	
-    And I have added attribute [assembly: NUnit.Framework.Parallelizable] to the assembly foo1.tests
-    And I have added attribute [NUnit.Framework.Parallelizable] to the class Foo.Tests.UnitTests1 for foo1.tests
-    And I have added NUnit framework references to foo1.tests
-    And I have added SuccessfulParallelizable method as SuccessfulParallelizable4 to the class Foo.Tests.UnitTests1 for foo2.tests	
-    And I have added SuccessfulParallelizable method as SuccessfulParallelizable5 to the class Foo.Tests.UnitTests1 for foo2.tests	
-    And I have added SuccessfulParallelizable method as SuccessfulParallelizable6 to the class Foo.Tests.UnitTests1 for foo2.tests	
-    And I have added attribute [assembly: NUnit.Framework.Parallelizable] to the assembly foo2.tests
-    And I have added attribute [NUnit.Framework.Parallelizable] to the class Foo.Tests.UnitTests1 for foo2.tests
-    And I have added NUnit framework references to foo2.tests
-    And I have created the folder mocks	
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo1.tests to file mocks\foo1.tests.dll	
-    And I have compiled the assembly foo2.tests to file mocks\foo2.tests.dll	
-    And I have added the assembly mocks\foo1.tests.dll to the list of testing assemblies
-    And I have added the assembly mocks\foo2.tests.dll to the list of testing assemblies
+    And I added SuccessfulParallelizable method as SuccessfulParallelizable1 to the class Foo.Tests.UnitTests1 for foo1.tests	
+    And I added SuccessfulParallelizable method as SuccessfulParallelizable2 to the class Foo.Tests.UnitTests1 for foo1.tests	
+    And I added SuccessfulParallelizable method as SuccessfulParallelizable3 to the class Foo.Tests.UnitTests1 for foo1.tests	
+    And I added attribute [assembly: NUnit.Framework.Parallelizable] to the assembly foo1.tests
+    And I added attribute [NUnit.Framework.Parallelizable] to the class Foo.Tests.UnitTests1 for foo1.tests
+    And I added NUnit framework references to foo1.tests
+    And I added SuccessfulParallelizable method as SuccessfulParallelizable4 to the class Foo.Tests.UnitTests1 for foo2.tests	
+    And I added SuccessfulParallelizable method as SuccessfulParallelizable5 to the class Foo.Tests.UnitTests1 for foo2.tests	
+    And I added SuccessfulParallelizable method as SuccessfulParallelizable6 to the class Foo.Tests.UnitTests1 for foo2.tests	
+    And I added attribute [assembly: NUnit.Framework.Parallelizable] to the assembly foo2.tests
+    And I added attribute [NUnit.Framework.Parallelizable] to the class Foo.Tests.UnitTests1 for foo2.tests
+    And I added NUnit framework references to foo2.tests
+    And I created the folder mocks	
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo1.tests to file mocks\foo1.tests.dll	
+    And I compiled the assembly foo2.tests to file mocks\foo2.tests.dll	
+    And I added the assembly mocks\foo1.tests.dll to the list of testing assemblies
+    And I added the assembly mocks\foo2.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
-    And I have added the arg workers=10 to NUnit console command line
-    And I have added the arg agents=10 to NUnit console command line
+    And I added the arg workers=10 to NUnit console command line
+    And I added the arg agents=10 to NUnit console command line
     When I run NUnit console
     Then the exit code should be 0
     And the Test Run Summary should has following:
@@ -440,18 +440,18 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run successful tests with the same names in the several assemblies
     Given Framework version is <frameworkVersion>	
-    And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo1.tests
-    And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo2.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo1.tests
-    And I have added NUnit framework references to foo2.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo1.tests to file mocks\foo1.tests.dll	
-    And I have compiled the assembly foo2.tests to file mocks\foo2.tests.dll	
-    And I have added the assembly mocks\foo1.tests.dll to the list of testing assemblies
-    And I have added the assembly mocks\foo2.tests.dll to the list of testing assemblies
-    And I have added the arg workers=1 to NUnit console command line
-    And I have added the arg agents=1 to NUnit console command line
+    And I added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo1.tests
+    And I added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo2.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo1.tests
+    And I added NUnit framework references to foo2.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo1.tests to file mocks\foo1.tests.dll	
+    And I compiled the assembly foo2.tests to file mocks\foo2.tests.dll	
+    And I added the assembly mocks\foo1.tests.dll to the list of testing assemblies
+    And I added the assembly mocks\foo2.tests.dll to the list of testing assemblies
+    And I added the arg workers=1 to NUnit console command line
+    And I added the arg agents=1 to NUnit console command line
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 0
@@ -485,16 +485,16 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run many test
     Given Framework version is <frameworkVersion>	
-    And I have added 1000 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests1
-    And I have added 1000 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests2 for foo.tests2
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests1
-    And I have added NUnit framework references to foo.tests2
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests1 to file mocks\foo.tests1.dll	
-    And I have compiled the assembly foo.tests2 to file mocks\foo.tests2.dll
-    And I have added the assembly mocks\foo.tests1.dll to the list of testing assemblies
-    And I have added the assembly mocks\foo.tests2.dll to the list of testing assemblies
+    And I added 1000 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests1
+    And I added 1000 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests2 for foo.tests2
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests1
+    And I added NUnit framework references to foo.tests2
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests1 to file mocks\foo.tests1.dll	
+    And I compiled the assembly foo.tests2 to file mocks\foo.tests2.dll
+    And I added the assembly mocks\foo.tests1.dll to the list of testing assemblies
+    And I added the assembly mocks\foo.tests2.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 0
@@ -509,21 +509,21 @@ Examples:
 @ignore
 Scenario Outline: NUnit sends TeamCity service messages when I run many test for several assemblies for NUnit2
     Given Framework version is <frameworkVersion>	
-    And I have added 100 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests1
-    And I have added 100 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests2 for foo.tests2
-    And I have created the folder mocks
-    And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
-    And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests1
-    And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests2
-    And I have compiled the assembly foo.tests1 to file mocks\foo.tests1.dll	
-    And I have compiled the assembly foo.tests2 to file mocks\foo.tests2.dll
-    And I have added the assembly mocks\foo.tests1.dll to the list of testing assemblies
-    And I have added the assembly mocks\foo.tests2.dll to the list of testing assemblies
+    And I added 100 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests1
+    And I added 100 successful methods as SuccessfulTest to the class Foo.Tests.UnitTests2 for foo.tests2
+    And I created the folder mocks
+    And I copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
+    And I added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests1
+    And I added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests2
+    And I compiled the assembly foo.tests1 to file mocks\foo.tests1.dll	
+    And I compiled the assembly foo.tests2 to file mocks\foo.tests2.dll
+    And I added the assembly mocks\foo.tests1.dll to the list of testing assemblies
+    And I added the assembly mocks\foo.tests2.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
-    And I have added the arg workers=10 to NUnit console command line
-    And I have added the arg agents=<agents> to NUnit console command line
-    And I have added the arg process=<process> to NUnit console command line
-    And I have added the arg domain=<domain> to NUnit console command line
+    And I added the arg workers=10 to NUnit console command line
+    And I added the arg agents=<agents> to NUnit console command line
+    And I added the arg process=<process> to NUnit console command line
+    And I added the arg domain=<domain> to NUnit console command line
     When I run NUnit console
     Then the exit code should be 0
     And the output should contain correct set of TeamCity service messages
@@ -550,8 +550,8 @@ Examples:
 @3.4.1
 @teamcity
 Scenario: NUnit show version and extensions when users pass --list-extensions --teamcity args
-    Given I have added the arg ListExtensions to NUnit console command line
-    And I have added the arg TeamCity to NUnit console command line
+    Given I added the arg ListExtensions to NUnit console command line
+    And I added the arg TeamCity to NUnit console command line
     When I run NUnit console
     Then the exit code should be 0
     And the output should contain lines:
@@ -565,15 +565,15 @@ Scenario: NUnit show version and extensions when users pass --list-extensions --
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages from SetUp and TearDown
     Given Framework version is <frameworkVersion>	
-    And I have added SetUpWithOutput method as SetUpWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added Successful method as SuccessfulTest1 to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added Successful method as SuccessfulTest2 to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added TearDownWithOutput method as TearDownWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added SetUpWithOutput method as SetUpWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added Successful method as SuccessfulTest1 to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added Successful method as SuccessfulTest2 to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added TearDownWithOutput method as TearDownWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll	
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 0
@@ -603,12 +603,12 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run test scenarios for NUnit3
     Given Framework version is <frameworkVersion>	
-    And I have added TestCasesWithSymbols method as TestCasesWithSymbols to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added TestCasesWithSymbols method as TestCasesWithSymbols to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll	
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 0
@@ -623,15 +623,15 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run test with polish name for NUnit3
     Given Framework version is <frameworkVersion>
-    And I have specified encoding <encoding>
-    And I have added successful method as da_się_przefiltrować_produkty_dodatkowe_po_nazwie to the class Foo.Tests.UnitTests1 for foo.tests	
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I specified encoding <encoding>
+    And I added successful method as da_się_przefiltrować_produkty_dodatkowe_po_nazwie to the class Foo.Tests.UnitTests1 for foo.tests	
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll	
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
-    And I have added the arg Encoding=<encoding> to NUnit console command line
+    And I added the arg Encoding=<encoding> to NUnit console command line
     When I run NUnit console
     Then the exit code should be 0
     And the output should contain correct set of TeamCity service messages
@@ -658,15 +658,15 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run test with russian output for NUnit3
     Given Framework version is <frameworkVersion>
-    And I have specified encoding <encoding>
-    And I have added RusTest method as RusTest to the class Foo.Tests.UnitTests1 for foo.tests	
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll	
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I specified encoding <encoding>
+    And I added RusTest method as RusTest to the class Foo.Tests.UnitTests1 for foo.tests	
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll	
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
-    And I have added the arg Encoding=<encoding> to NUnit console command line
+    And I added the arg Encoding=<encoding> to NUnit console command line
     When I run NUnit console
     Then the exit code should be 0
     And the output should contain correct set of TeamCity service messages
@@ -691,18 +691,18 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages including stack trace when OneTimeSetUp in SetUpFixture throws exception
     Given Framework version is <frameworkVersion>
-    And I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added successful method as Test2 to the class Foo.Tests.UnitTests2 for foo.tests
-    And I have added FailedOneTimeSetUp method as FailedOneTimeSetUp to the class Foo.Tests.FailingSetUpFixture for foo.tests
-    And I have added attribute [NUnit.Framework.SetUpFixture] to the class Foo.Tests.FailingSetUpFixture for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added successful method as Test2 to the class Foo.Tests.UnitTests2 for foo.tests
+    And I added FailedOneTimeSetUp method as FailedOneTimeSetUp to the class Foo.Tests.FailingSetUpFixture for foo.tests
+    And I added attribute [NUnit.Framework.SetUpFixture] to the class Foo.Tests.FailingSetUpFixture for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     And I want to use CmdArguments configuration type
-    And I have added the arg process=InProcess to NUnit console command line
+    And I added the arg process=InProcess to NUnit console command line
     When I run NUnit console
     Then the exit code should be 2
     And the output should contain correct set of TeamCity service messages
@@ -727,18 +727,18 @@ Scenario Outline: NUnit sends TeamCity service messages including stack trace wh
 @teamcity
 Scenario Outline: NUnit sends TeamCityuccessful service messages when OneTimeTearDown in SetUpFixture throws exception
     Given Framework version is <frameworkVersion>
-    And I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added successful method as Test2 to the class Foo.Tests.UnitTests2 for foo.tests
-    And I have added FailedOneTimeTearDown method as FailedOneTimeTearDown to the class Foo.Tests.FailingSetUpFixture for foo.tests
-    And I have added attribute [NUnit.Framework.SetUpFixture] to the class Foo.Tests.FailingSetUpFixture for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added successful method as Test2 to the class Foo.Tests.UnitTests2 for foo.tests
+    And I added FailedOneTimeTearDown method as FailedOneTimeTearDown to the class Foo.Tests.FailingSetUpFixture for foo.tests
+    And I added attribute [NUnit.Framework.SetUpFixture] to the class Foo.Tests.FailingSetUpFixture for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     And I want to use CmdArguments configuration type
-    And I have added the arg process=InProcess to NUnit console command line
+    And I added the arg process=InProcess to NUnit console command line
     When I run NUnit console
     And the output should contain correct set of TeamCity service messages
     And the output should contain TeamCity service messages:
@@ -765,18 +765,18 @@ Scenario Outline: NUnit sends TeamCityuccessful service messages when OneTimeTea
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages including stack trace when TestFixtureSetup in SetUpFixture throws exception for NUnit2
     Given Framework version is <frameworkVersion>
-    And I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added successful method as Test2 to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added FailedTestFixtureSetup method as FailedTestFixtureSetup to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added attribute [NUnit.Framework.TestFixture] to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
-    And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added successful method as Test2 to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added FailedTestFixtureSetup method as FailedTestFixtureSetup to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added attribute [NUnit.Framework.TestFixture] to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
+    And I added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     And I want to use CmdArguments configuration type
-    And I have added the arg process=InProcess to NUnit console command line
+    And I added the arg process=InProcess to NUnit console command line
     When I run NUnit console
     Then the exit code should be 2
     And the output should contain correct set of TeamCity service messages
@@ -799,18 +799,18 @@ Scenario Outline: NUnit sends TeamCity service messages including stack trace wh
     @teamcity
 Scenario Outline: NUnit sends TeamCityuccessful s service messages when FailedTestFixtureTearDown in SetUpFixture throws exception for NUnit2
     Given Framework version is <frameworkVersion>
-    And I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added successful method as Test2 to the class Foo.Tests.UnitTests2 for foo.tests
-    And I have added FailedTestFixtureTearDown method as FailedTestFixtureTearDown to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added attribute [NUnit.Framework.TestFixture] to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
-    And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added successful method as Test2 to the class Foo.Tests.UnitTests2 for foo.tests
+    And I added FailedTestFixtureTearDown method as FailedTestFixtureTearDown to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added attribute [NUnit.Framework.TestFixture] to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
+    And I added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     And I want to use CmdArguments configuration type
-    And I have added the arg process=InProcess to NUnit console command line
+    And I added the arg process=InProcess to NUnit console command line
     When I run NUnit console
     Then the exit code should be 0
     And the output should contain correct set of TeamCity service messages
@@ -834,13 +834,13 @@ Scenario Outline: NUnit sends TeamCityuccessful s service messages when FailedTe
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run it for one time setup with output
     Given Framework version is <frameworkVersion>
-    And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added OneTimeSetUpWithOutput method as OneTimeSetUpWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added OneTimeSetUpWithOutput method as OneTimeSetUpWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 0
@@ -867,13 +867,13 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run it for one time TearDown with output
     Given Framework version is <frameworkVersion>	
-    And I have added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added OneTimeTearDownWithOutput method as OneTimeTearDownWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added OneTimeTearDownWithOutput method as OneTimeTearDownWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 0
@@ -898,18 +898,18 @@ Examples:
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages with output when TestFixtureSetup in SetUpFixture
     Given Framework version is <frameworkVersion>
-    And I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added successful method as Test2 to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added TestFixtureSetupWithOutput method as TestFixtureSetupWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added attribute [NUnit.Framework.TestFixture] to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
-    And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added successful method as Test2 to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added TestFixtureSetupWithOutput method as TestFixtureSetupWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added attribute [NUnit.Framework.TestFixture] to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
+    And I added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     And I want to use CmdArguments configuration type
-    And I have added the arg process=InProcess to NUnit console command line
+    And I added the arg process=InProcess to NUnit console command line
     When I run NUnit console
     Then the exit code should be 0
     And the output should contain correct set of TeamCity service messages
@@ -931,18 +931,18 @@ Scenario Outline: NUnit sends TeamCity service messages with output when TestFix
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages with output when TestFixtureTearDown in SetUpFixture
     Given Framework version is <frameworkVersion>
-    And I have added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added successful method as Test2 to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added TestFixtureTearDownWithOutput method as TestFixtureTearDownWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have added attribute [NUnit.Framework.TestFixture] to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
-    And I have added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added successful method as Test1 to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added successful method as Test2 to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added TestFixtureTearDownWithOutput method as TestFixtureTearDownWithOutput to the class Foo.Tests.UnitTests1 for foo.tests
+    And I added attribute [NUnit.Framework.TestFixture] to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I copied the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to folder mocks
+    And I added the reference ..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll to foo.tests
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     And I want to use CmdArguments configuration type
-    And I have added the arg process=InProcess to NUnit console command line
+    And I added the arg process=InProcess to NUnit console command line
     When I run NUnit console
     Then the exit code should be 0
     And the output should contain correct set of TeamCity service messages
@@ -966,12 +966,12 @@ Scenario Outline: NUnit sends TeamCity service messages with output when TestFix
 @teamcity
 Scenario Outline: NUnit sends TeamCity service messages when I run successful test writing to stdError
     Given Framework version is <frameworkVersion>
-    And I have added SuccessfulStdError method as SuccessfulStdErrorTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added SuccessfulStdError method as SuccessfulStdErrorTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
     When I run NUnit console
     Then the exit code should be 0

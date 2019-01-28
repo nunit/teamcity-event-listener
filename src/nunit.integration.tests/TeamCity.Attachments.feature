@@ -7,18 +7,18 @@ Background:
 @teamcity
 Scenario Outline: User can attach artifacts and test metadata to test
     Given Framework version is Version45
-    And I have added SuccessfulWithAttachedFiles method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added SuccessfulWithAttachedFiles method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
-    And I have added the environment variable TEAMCITY_VERSION as <teamCityVersion>
-    And I have appended the string MyImage to file Data\MyImage.jpg
-    And I have appended the string MyImage2 to file Data\MyImage2.gif
-    And I have appended the string Class to file Data\Class.cs
-    And I have appended the string report.txt to file Data\report.txt
+    And I added the environment variable TEAMCITY_VERSION as <teamCityVersion>
+    And I appended the string MyImage to file Data\MyImage.jpg
+    And I appended the string MyImage2 to file Data\MyImage2.gif
+    And I appended the string Class to file Data\Class.cs
+    And I appended the string report.txt to file Data\report.txt
     When I run NUnit console
     Then the exit code should be 0
     And the output should contain correct set of TeamCity service messages
@@ -51,16 +51,16 @@ Examples:
 @teamcity
 Scenario: User can attach artifacts and test metadata using custom path
     Given Framework version is Version45
-    And I have added SuccessfulWithAttachedFileToCustomPath method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added SuccessfulWithAttachedFileToCustomPath method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
-    And I have added the environment variable TEAMCITY_VERSION as 2018.2
-    And I have appended the string MyImage to file Data\MyImage.jpg
-    And I have appended the string report.txt to file Data\report.txt
+    And I added the environment variable TEAMCITY_VERSION as 2018.2
+    And I appended the string MyImage to file Data\MyImage.jpg
+    And I appended the string report.txt to file Data\report.txt
     When I run NUnit console
     Then the exit code should be 0
     And the output should contain correct set of TeamCity service messages
@@ -83,20 +83,20 @@ Scenario: User can attach artifacts and test metadata using custom path
 @teamcity
 Scenario Outline: Attachments should be suppressed
     Given Framework version is Version45
-    And I have added SuccessfulWithAttachedFiles method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
-    And I have created the folder mocks
-    And I have added NUnit framework references to foo.tests
-    And I have copied NUnit framework references to folder mocks
-    And I have compiled the assembly foo.tests to file mocks\foo.tests.dll
-    And I have added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I added SuccessfulWithAttachedFiles method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
     And I want to use CmdArguments type of TeamCity integration
-    And I have added the environment variable TEAMCITY_LOGGER_ALLOW_EXPERIMENTAL as <teamcityloggerExperimental>
-    And I have added the environment variable TEAMCITY_DOTNET_TEST_METADATA_ENABLE as <teamcityDotnetTestMetadataEnable>
-    And I have added the environment variable TEAMCITY_VERSION as <teamCityVersion>
-    And I have appended the string MyImage to file Data\MyImage.jpg
-    And I have appended the string MyImage2 to file Data\MyImage2.gif
-    And I have appended the string Class to file Data\Class.cs
-    And I have appended the string report.txt to file Data\report.txt
+    And I added the environment variable TEAMCITY_LOGGER_ALLOW_EXPERIMENTAL as <teamcityloggerExperimental>
+    And I added the environment variable TEAMCITY_DOTNET_TEST_METADATA_ENABLE as <teamcityDotnetTestMetadataEnable>
+    And I added the environment variable TEAMCITY_VERSION as <teamCityVersion>
+    And I appended the string MyImage to file Data\MyImage.jpg
+    And I appended the string MyImage2 to file Data\MyImage2.gif
+    And I appended the string Class to file Data\Class.cs
+    And I appended the string report.txt to file Data\report.txt
     When I run NUnit console
     Then the exit code should be 0
     And the output should contain correct set of TeamCity service messages

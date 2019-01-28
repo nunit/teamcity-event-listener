@@ -299,7 +299,7 @@ namespace nunit.integration.tests
             }
         }
 
-        [Given(@"I have created assemblies according to NUnit2 test results (.+)")]
+        [Given(@"I created assemblies according to NUnit2 test results (.+)")]
         public void CreateAssemblies(string xmlReportFileName)
         {
             var ctx = ScenarioContext.Current.GetTestContext();
