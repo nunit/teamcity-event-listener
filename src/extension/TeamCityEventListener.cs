@@ -44,6 +44,7 @@ namespace NUnit.Engine.Listeners
 
         private readonly object _lockObject = new object();
         private readonly TextWriter _outWriter;
+        private readonly bool _diagnostics;
         private string _rootFlowId = string.Empty;
 
         // ReSharper disable once UnusedMember.Global
@@ -60,6 +61,7 @@ namespace NUnit.Engine.Listeners
             _eventConverter2 = new EventConverter2(serviceMessageFactory, hierarchy);
             _eventConverter3 = new EventConverter3(serviceMessageFactory, hierarchy);
             RootFlowId = TeamCityInfo.RootFlowId;
+            _diagnostics = TeamCityInfo.Diagnostics;
         }
 
         public string RootFlowId
@@ -76,6 +78,12 @@ namespace NUnit.Engine.Listeners
 
         public void OnTestEvent(string report)
         {
+            if (_diagnostics)
+            {
+                _outWriter.WriteLine();
+                _outWriter.WriteLine("!! " + report);
+            }
+
             var doc = new XmlDocument();
             doc.LoadXml(report);
 
@@ -109,6 +117,11 @@ namespace NUnit.Engine.Listeners
             var eventConverter = isNUnit3 ? _eventConverter3 : _eventConverter2;
 
             var testEvent = new Event(_rootFlowId, messageName.ToLowerInvariant(), fullName, id, parentId, xmlEvent);
+            if (_diagnostics)
+            {
+                _outWriter.WriteLine("@@ isNUnit3: " + isNUnit3 + ", " + testEvent);
+            }
+
             lock (_lockObject)
             {
                 var sb = new StringBuilder();
