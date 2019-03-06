@@ -74,7 +74,7 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(TestUtil.CreateStartTest("1-2", null, "Assembly1.Namespace1.1.Test1"));
             publisher.RegisterMessage(TestUtil.CreateTestCaseSuccessful("1-2", null, "Assembly1.Namespace1.1.Test1", "1.3", "Text output"));
 
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", null, "Assembly1"));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", null, "Assembly1", "Assembly"));
 
             publisher.RegisterMessage(TestUtil.CreateTestRun());
 
@@ -112,9 +112,9 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(TestUtil.CreateStartTest("1-5", null, "Assembly1.Namespace1.1.Test2"));
             publisher.RegisterMessage(TestUtil.CreateTestCaseFailed("1-5", null, "Assembly1.Namespace1.1.Test2", "0.2", "Error output", "Stack trace"));
             
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-3", null, "Assembly1.Namespace1.1"));
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-2", null, "Assembly1.Namespace1"));
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", null, "Assembly1"));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-3", null, "Assembly1.Namespace1.1", "namespace"));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-2", null, "Assembly1.Namespace1", "namespace"));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", null, "Assembly1", "Assembly"));
 
             // Assembly 2
             publisher.RegisterMessage(TestUtil.CreateStartSuite("1-6", null, "ddd//Assembly2"));
@@ -124,8 +124,8 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(TestUtil.CreateStartTest("1-8", null, "Assembly2.Namespace2.1.Test1"));
             publisher.RegisterMessage(TestUtil.CreateTestCaseSuccessful("1-8", null, "Assembly2.Namespace2.1.Test1", "0.3", "Text output"));
 
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-7", null, "Assembly2.Namespace2"));
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-6", null, "Assembly2"));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-7", null, "Assembly2.Namespace2", "namespace"));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-6", null, "Assembly2", "Assembly"));
 
             publisher.RegisterMessage(TestUtil.CreateTestRun());
 
@@ -168,7 +168,7 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(TestUtil.CreateStartTest("1-2", null, "Assembly1.Namespace1.1.Test1"));
             publisher.RegisterMessage(TestUtil.CreateTestCaseSuccessful("1-2", null, "Assembly1.Namespace1.1.Test1", "1.3", "Text output"));
 
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", null, "Assembly1"));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", null, "Assembly1", "Assembly"));
 
             publisher.RegisterMessage(TestUtil.CreateTestRun());
 
@@ -223,7 +223,7 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(TestUtil.CreateStartTest("1-1", null, "Assembly1.Namespace1.1.Test1"));
             publisher.RegisterMessage(TestUtil.CreateTestCaseFailed("1-1", null, "Assembly1.Namespace1.1.Test1", "0.1", "TestFixtureSetUp failed in Test1", "Stack trace xyz"));
 
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", null, "Assembly1"));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", null, "Assembly1", "Assembly"));
 
             publisher.RegisterMessage(TestUtil.CreateTestRun());
 
@@ -237,7 +237,7 @@ namespace NUnit.Engine.Listeners
                 
                 + "##teamcity[testSuiteFinished name='Assembly1' flowId='1']" + Environment.NewLine,
                 _output.ToString());
-        }
+        }        
 
         private TeamCityEventListener CreateInstance()
         {

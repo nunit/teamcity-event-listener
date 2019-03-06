@@ -26,6 +26,7 @@ namespace NUnit.Engine.Listeners
     using System.Diagnostics.CodeAnalysis;
     using System.Text;
     using System;
+    using System.Diagnostics;
     using System.IO;
     using System.Xml;
     using Extensibility;
@@ -98,6 +99,10 @@ namespace NUnit.Engine.Listeners
             if (string.IsNullOrEmpty(messageName))
             {
                 return;
+            }
+
+            if (xmlEvent.OuterXml.Contains("Edlund.Common.Servertalis.DatabaseAccess.Microsoft_SqlClient"))
+            {                
             }
 
             var fullName = xmlEvent.GetAttribute("fullname");

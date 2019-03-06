@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TeamCityEventListener2IntegrationTests.cs" />
+    <Compile Include="TeamCityEventListenerIntegrationTests.cs" />
     <Compile Include="TeamCityVersionTest.cs" />
     <Compile Include="TestUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

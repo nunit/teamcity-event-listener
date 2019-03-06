@@ -1,13 +1,14 @@
 ﻿namespace NUnit.Engine.Listeners
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
     using System.Text.RegularExpressions;
     using System.Xml;
 
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal class ServiceMessageFactory : IServiceMessageFactory
     {
         private const string TcParseServiceMessagesInside = "tc:parseServiceMessagesInside";
@@ -159,7 +160,7 @@
             {
                 yield return message;
             }
-        }
+        }       
 
         private static IEnumerable<ServiceMessage> TestFinished(EventId eventId, XmlNode testFinishedEvent)
         {

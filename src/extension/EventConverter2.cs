@@ -31,8 +31,8 @@ namespace NUnit.Engine.Listeners
     {
         private readonly IServiceMessageFactory _serviceMessageFactory;
         private readonly IHierarchy _hierarchy;
+        private bool _inAssembly;        
 
-        private readonly Dictionary<string, int> _blockCounters = new Dictionary<string, int>();
         private readonly List<XmlNode> _notStartedNUnit2Tests = new List<XmlNode>();
 
         public EventConverter2(IServiceMessageFactory serviceMessageFactory, IHierarchy hierarchy)
@@ -49,6 +49,7 @@ namespace NUnit.Engine.Listeners
             {
                 _hierarchy.Clear();
                 _notStartedNUnit2Tests.Clear();
+                _inAssembly = false;
                 yield break;
             }
             
@@ -83,8 +84,9 @@ namespace NUnit.Engine.Listeners
                 case "start-suite":
                     _hierarchy.AddLink(id, testEvent.ParentId);
 
-                    if (ChangeBlockCounter(flowId, 1) == 1)
+                    if (!_inAssembly)
                     {
+                        _inAssembly = true;
                         yield return _serviceMessageFactory.SuiteStarted(eventId);
                     }
 
@@ -95,9 +97,9 @@ namespace NUnit.Engine.Listeners
                     yield return ProcessNotStartedTests(flowId, testEvent.TestEvent);
                     yield return _serviceMessageFactory.TestOutputAsMessage(eventId, testEvent.TestEvent);
 
-                   
-                    if (ChangeBlockCounter(flowId, -1) == 0)
+                    if (_inAssembly && testEvent.TestEvent.GetAttribute("type") == "Assembly")
                     {
+                        _inAssembly = false;
                         yield return _serviceMessageFactory.SuiteFinished(eventId);
                     }
 
@@ -154,19 +156,6 @@ namespace NUnit.Engine.Listeners
             }
 
             _notStartedNUnit2Tests.Clear();
-        }
-
-        private int ChangeBlockCounter(string flowId, int changeValue)
-        {
-            int currentBlockCounter;
-            if (!_blockCounters.TryGetValue(flowId, out currentBlockCounter))
-            {
-                currentBlockCounter = 0;
-            }
-
-            currentBlockCounter += changeValue;
-            _blockCounters[flowId] = currentBlockCounter;
-            return currentBlockCounter;
         }
     }
 }

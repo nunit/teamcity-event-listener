@@ -8,7 +8,7 @@
         public EventId(string flowId, string fullName)
         {
             FlowId = flowId;
-            FullName = fullName;
+            FullName = fullName.Replace(":", " ");
         }
     }
 }

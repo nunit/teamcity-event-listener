@@ -8,16 +8,17 @@
         private readonly Dictionary<string, string> _links = new Dictionary<string, string>();
 
         public bool AddLink(string childId, string parentId)
-        {
-            if (_links.ContainsKey(childId))
+        {           
+            string curParentId;
+            if (!_links.TryGetValue(childId, out curParentId) || curParentId != parentId)
             {
-                return false;
+                _links[childId] = parentId;
+                return true;
             }
 
-            _links[childId] = parentId;
-            return true;
+            return false;
         }
-
+        
         public void Clear()
         {
             _links.Clear();
@@ -46,7 +47,13 @@
                 throw new ArgumentNullException("childId");
             }
 
-            return _links.TryGetValue(childId, out parentId) && !string.IsNullOrEmpty(parentId);
+            var result = _links.TryGetValue(childId, out parentId) && !string.IsNullOrEmpty(parentId);
+            if (result && childId == parentId)
+            {
+                return false;
+            }
+
+            return result;
         }
     }
 }

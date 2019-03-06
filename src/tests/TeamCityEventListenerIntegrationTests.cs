@@ -8,10 +8,10 @@
 // distribute, sublicense, and/or sell copies of the Software, and to
 // permit persons to whom the Software is furnished to do so, subject to
 // the following conditions:
-//
+// 
 // The above copyright notice and this permission notice shall be
 // included in all copies or substantial portions of the Software.
-//
+// 
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 // EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 // MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -23,41 +23,51 @@
 
 namespace NUnit.Engine.Listeners
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
+    using System.IO;
+    using System.Text;
+    using Framework;
 
-    [SuppressMessage("ReSharper", "UseNameofExpression")]
-    public struct ServiceMessageAttr
+    [TestFixture]
+    public class TeamCityEventListenerIntegrationTests
     {
-        public ServiceMessageAttr(string name, string value)
-            : this()
-        {
-            if (name == null) throw new ArgumentNullException("name");
-            if (value == null) throw new ArgumentNullException("value");
+        private StringBuilder _output;
+        private StringWriter _outputWriter;
 
-            Name = name;
-            Value = value;
+        [SetUp]
+        public void SetUp()
+        {
+            _output = new StringBuilder();
+            _outputWriter = new StringWriter(_output);
         }
 
-        public string Value { get; private set; }
-
-        public string Name { get; private set; }
-
-        public static class Names
+        [TearDown]
+        public void TearDown()
         {
-            public const string Name = "name";
-            public const string FlowId = "flowId";
-            public const string Message = "message";
-            public const string Text = "text";
-            public const string Out = "out";
-            public const string TcTags = "tc:tags";
-            public const string Parent = "parent";
-            public const string CaptureStandardOutput = "captureStandardOutput";
-            public const string Duration = "duration";
-            public const string Details = "details";
-            public const string TestName = "testName";
-            public const string Type = "type";
-            public const string Value = "value";            
+            _outputWriter.Dispose();
+        }        
+
+        [Test, Ignore("Manual")]
+        // [Test]
+        public void ShouldSendMessages()
+        {
+            // Given
+            var publisher = CreateInstance();
+            var lines = File.ReadAllLines(@"C:\Downloads\nunit\2\server7-teamcity.txt");
+
+            // When
+            foreach (var message in TestUtil.ConvertToMessages(lines))
+            {
+                publisher.RegisterMessage(message);
+            }
+                       
+
+            // Then           
+            var messages = _output.ToString();
         }
+
+        private TeamCityEventListener CreateInstance()
+        {
+            return new TeamCityEventListener(_outputWriter) { RootFlowId = string.Empty };
+        }        
     }
 }

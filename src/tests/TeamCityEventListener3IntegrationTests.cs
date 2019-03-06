@@ -81,18 +81,18 @@ namespace NUnit.Engine.Listeners
 
             // Test Assembly2.Namespace2.1.Test1
             publisher.RegisterMessage(TestUtil.CreateStartTest("1-8", "1-7", "Assembly2.Namespace2.1.Test1"));
-            publisher.RegisterMessage(TestUtil.CreateTestCaseSuccessful("1-8", "1-8", "Assembly2.Namespace2.1.Test1", "0.1", "Text output"));
+            publisher.RegisterMessage(TestUtil.CreateTestCaseSuccessful("1-8", "1-7", "Assembly2.Namespace2.1.Test1", "0.1", "Text output"));
 
             // Test Assembly1.Namespace1.1.Test2
             publisher.RegisterMessage(TestUtil.CreateStartTest("1-5", "1-3", "Assembly1.Namespace1.1.Test2"));
             publisher.RegisterMessage(TestUtil.CreateTestCaseFailed("1-5", "1-3", "Assembly1.Namespace1.1.Test2", "0.2", "Error output", "Stack trace"));
 
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-7", "1-6", "Assembly2.Namespace2"));
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-6", "", "Assembly2"));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-7", "1-6", "Assembly2.Namespace2", ""));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-6", "", "Assembly2", ""));
 
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-3", "1-2",  "Assembly1.Namespace1.1"));
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-2", "1-1", "Assembly1.Namespace1"));
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", "", "Assembly1"));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-3", "1-2",  "Assembly1.Namespace1.1", ""));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-2", "1-1", "Assembly1.Namespace1", ""));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", "", "Assembly1", ""));
 
             publisher.RegisterMessage(TestUtil.CreateTestRun());
 
@@ -144,7 +144,7 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(TestUtil.CreateStartTest("1-2", "1-1", "Assembly1.Namespace1.1.Test1"));
             publisher.RegisterMessage(TestUtil.CreateTestCaseSuccessful("1-2", "1-1", "Assembly1.Namespace1.1.Test1", "0.1", "Text output"));
 
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", "", "Assembly1"));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", "", "Assembly1", ""));
 
             publisher.RegisterMessage(TestUtil.CreateTestRun());
 
@@ -165,6 +165,72 @@ namespace NUnit.Engine.Listeners
         }
 
         [Test]
+        // [TestCase("", ".")]
+        [TestCase("abc", "abc")]
+        // [TestCase(".", ".")]
+        public void ShouldSendMessagesWithValidFlowIdWhenNestedSuites(string rootFlowId, string expectedId)
+        {
+            // Given
+            var publisher = CreateInstance();
+            publisher.RootFlowId = rootFlowId;
+
+            // When
+            publisher.RegisterMessage(TestUtil.CreateStartRun(1));
+
+            // Suite 1
+            publisher.RegisterMessage(TestUtil.CreateStartSuite("1", "", "aaa" + Path.DirectorySeparatorChar + "Suite1"));
+
+            // Suite 2
+            publisher.RegisterMessage(TestUtil.CreateStartSuite("2", "1", "Suite1.Suite2"));
+
+            // Suite 3
+            publisher.RegisterMessage(TestUtil.CreateStartSuite("3", "2", "Suite1.Suite2.Suite3"));
+
+            // Suite 4
+            publisher.RegisterMessage(TestUtil.CreateStartSuite("4", "2", "Suite1.Suite2.Suite4"));
+
+            // Test Suite1.Suite2.Suite3.1.Test1
+            publisher.RegisterMessage(TestUtil.CreateStartTest("5", "3", "Suite1.Suite2.Suite3.1.Test1"));
+            publisher.RegisterMessage(TestUtil.CreateTestCaseSuccessful("5", "3", "Suite1.Suite2.Suite3.1.Test1", "0.1", "Text output"));
+
+            // Test Suite1.Suite2.Suite4.1.Test1
+            publisher.RegisterMessage(TestUtil.CreateStartTest("6", "4", "Suite1.Suite2.Suite4.1.Test1"));
+            publisher.RegisterMessage(TestUtil.CreateTestCaseSuccessful("6", "4", "Suite1.Suite2.Suite4.1.Test1", "0.1", "Text output"));
+
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("3", "2", "Suite1.Suite2.Suite3", ""));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("4", "2", "Suite1.Suite2.Suite4", ""));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("2", "1", "Suite1.Suite2", ""));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1", "", "Suite1", ""));
+
+            publisher.RegisterMessage(TestUtil.CreateTestRun());
+
+            // Then
+            Assert.AreEqual(
+            "##teamcity[flowStarted flowId='1' parent='" + expectedId + "']" + Environment.NewLine
+                  + "##teamcity[testSuiteStarted name='Suite1' flowId='1']" + Environment.NewLine
+
+                  + "##teamcity[flowStarted flowId='5' parent='1']" + Environment.NewLine
+
+                  + "##teamcity[testStarted name='Suite1.Suite2.Suite3.1.Test1' captureStandardOutput='false' flowId='5']" + Environment.NewLine
+                  + "##teamcity[testStdOut name='Suite1.Suite2.Suite3.1.Test1' out='Text output' flowId='5' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
+                  + "##teamcity[testFinished name='Suite1.Suite2.Suite3.1.Test1' duration='100' flowId='5']" + Environment.NewLine
+
+                  + "##teamcity[flowFinished flowId='5']" + Environment.NewLine
+
+                  + "##teamcity[flowStarted flowId='6' parent='1']" + Environment.NewLine
+
+                  + "##teamcity[testStarted name='Suite1.Suite2.Suite4.1.Test1' captureStandardOutput='false' flowId='6']" + Environment.NewLine
+                  + "##teamcity[testStdOut name='Suite1.Suite2.Suite4.1.Test1' out='Text output' flowId='6' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
+                  + "##teamcity[testFinished name='Suite1.Suite2.Suite4.1.Test1' duration='100' flowId='6']" + Environment.NewLine
+                  
+                  + "##teamcity[flowFinished flowId='6']" + Environment.NewLine
+
+                  + "##teamcity[testSuiteFinished name='Suite1' flowId='1']" + Environment.NewLine
+                  + "##teamcity[flowFinished flowId='1']" + Environment.NewLine,
+                _output.ToString());
+        }
+
+        [Test]
         public void ShouldSendMessagesWithPredefinedRootFlowId()
         {
             // Given
@@ -181,7 +247,7 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(TestUtil.CreateStartTest("1-2", "1-1", "Assembly1.Namespace1.1.Test1"));
             publisher.RegisterMessage(TestUtil.CreateTestCaseSuccessful("1-2", "1-1", "Assembly1.Namespace1.1.Test1", "0.1", "Text output"));
 
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", "", "Assembly1"));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", "", "Assembly1", ""));
 
             publisher.RegisterMessage(TestUtil.CreateTestRun());
 
@@ -266,71 +332,7 @@ namespace NUnit.Engine.Listeners
                 "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-1']" + Environment.NewLine
                 + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='10000' flowId='1-1']" + Environment.NewLine,
                 _output.ToString());
-        }
-
-        [Test]
-        public void ShouldSendMessagesWithValidFlowIdWhenTestsFromNUnit2AndSeveralAssembliesSimultaneously()
-        {
-            // Given
-            var publisher = CreateInstance();
-
-            // When
-            publisher.RegisterMessage(TestUtil.CreateStartRun(1));
-
-            // Assembly 1
-            publisher.RegisterMessage(TestUtil.CreateStartSuite("1-1", null, "aaa" + Path.DirectorySeparatorChar + "Assembly1"));
-
-            // Assembly 2
-            publisher.RegisterMessage(TestUtil.CreateStartSuite("2-6", null, "ddd" + Path.DirectorySeparatorChar + "Assembly2"));
-
-            publisher.RegisterMessage(TestUtil.CreateStartSuite("1-2", null, "Assembly1.Namespace1"));
-            publisher.RegisterMessage(TestUtil.CreateStartSuite("1-3", null, "Assembly1.Namespace1.1"));
-
-            // Test Assembly1.Namespace1.1.Test1
-            publisher.RegisterMessage(TestUtil.CreateStartTest("1-4", null, "Assembly1.Namespace1.1.Test1"));
-            publisher.RegisterMessage(TestUtil.CreateTestCaseSuccessful("1-4", null, "Assembly1.Namespace1.1.Test1", "0.1", "Text output"));
-
-            // Test Assembly1.Namespace1.1.Test2
-            publisher.RegisterMessage(TestUtil.CreateStartTest("1-5", null, "Assembly1.Namespace1.1.Test2"));
-            publisher.RegisterMessage(TestUtil.CreateTestCaseFailed("1-5", null, "Assembly1.Namespace1.1.Test2", "0.2", "Error output", "Stack trace"));
-
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-3", null, "Assembly1.Namespace1.1"));
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-2", null, "Assembly1.Namespace1"));
-
-            publisher.RegisterMessage(TestUtil.CreateStartSuite("2-7", null, "Assembly2.Namespace2"));
-
-            // Test Assembly2.Namespace2.1.Test1
-            publisher.RegisterMessage(TestUtil.CreateStartTest("2-8", null, "Assembly2.Namespace2.1.Test1"));
-            publisher.RegisterMessage(TestUtil.CreateTestCaseSuccessful("2-8", null, "Assembly2.Namespace2.1.Test1", "0.3", "Text output"));
-
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("2-7", null, "Assembly2.Namespace2"));
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("2-6", null, "Assembly2"));
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", null, "Assembly1"));
-
-            publisher.RegisterMessage(TestUtil.CreateTestRun());
-
-            // Then
-            Assert.AreEqual(
-                "##teamcity[testSuiteStarted name='Assembly1' flowId='1']" + Environment.NewLine
-                + "##teamcity[testSuiteStarted name='Assembly2' flowId='2']" + Environment.NewLine
-
-                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1']" + Environment.NewLine
-                + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='1' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
-                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1']" + Environment.NewLine
-
-                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test2' captureStandardOutput='false' flowId='1']" + Environment.NewLine
-                + "##teamcity[testFailed name='Assembly1.Namespace1.1.Test2' message='Error output' details='Stack trace' flowId='1']" + Environment.NewLine
-                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test2' duration='200' flowId='1']" + Environment.NewLine
-
-                + "##teamcity[testStarted name='Assembly2.Namespace2.1.Test1' captureStandardOutput='false' flowId='2']" + Environment.NewLine
-                + "##teamcity[testStdOut name='Assembly2.Namespace2.1.Test1' out='Text output' flowId='2' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
-                + "##teamcity[testFinished name='Assembly2.Namespace2.1.Test1' duration='300' flowId='2']" + Environment.NewLine
-
-                + "##teamcity[testSuiteFinished name='Assembly2' flowId='2']" + Environment.NewLine
-                +"##teamcity[testSuiteFinished name='Assembly1' flowId='1']" + Environment.NewLine,
-
-                _output.ToString());
-        }
+        }        
 
         [Test]
         public void ShouldSendMessagesWhenOneTimeSetUpFailed()
@@ -347,7 +349,7 @@ namespace NUnit.Engine.Listeners
             // Test Assembly1.Namespace1.1.Test1
             publisher.RegisterMessage(TestUtil.CreateTestCaseFailed("1-2", "1-1", "Assembly1.Namespace1.1.Test1", "0.1", "Error output xyz", "Stack trace xyz"));
 
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", "", "Assembly1"));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", "", "Assembly1", ""));
 
             publisher.RegisterMessage(TestUtil.CreateTestRun());
 
@@ -364,10 +366,10 @@ namespace NUnit.Engine.Listeners
                 + "##teamcity[flowFinished flowId='1-1']" + Environment.NewLine,
                 _output.ToString());
         }
-
+       
         private TeamCityEventListener CreateInstance()
         {
             return new TeamCityEventListener(_outputWriter) { RootFlowId = string.Empty };
-        }
+        }        
     }
 }
