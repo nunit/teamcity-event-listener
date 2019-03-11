@@ -100,11 +100,7 @@ namespace NUnit.Engine.Listeners
             {
                 return;
             }
-
-            if (xmlEvent.OuterXml.Contains("Edlund.Common.Servertalis.DatabaseAccess.Microsoft_SqlClient"))
-            {                
-            }
-
+            
             var fullName = xmlEvent.GetAttribute("fullname");
             if (string.IsNullOrEmpty(fullName))
             {
@@ -115,13 +111,19 @@ namespace NUnit.Engine.Listeners
                 }
             }
 
+            var name = xmlEvent.GetAttribute("name");
+            if (string.IsNullOrEmpty(name))
+            {
+                name = fullName;
+            }
+
             var id = xmlEvent.GetAttribute("id") ?? string.Empty;
             var parentId = xmlEvent.GetAttribute("parentId");
 
             var isNUnit3 = parentId != null;
             var eventConverter = isNUnit3 ? _eventConverter3 : _eventConverter2;
 
-            var testEvent = new Event(_rootFlowId, messageName.ToLowerInvariant(), fullName, id, parentId, xmlEvent);
+            var testEvent = new Event(_rootFlowId, messageName.ToLowerInvariant(), fullName, name, id, parentId, xmlEvent);
             if (_diagnostics)
             {
                 _outWriter.WriteLine("@@ isNUnit3: " + isNUnit3 + ", " + testEvent);

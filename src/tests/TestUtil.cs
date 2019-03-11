@@ -22,12 +22,12 @@
 
         public static XmlNode CreateStartSuite(string id, string parentId, string name)
         {
-            return CreateMessage(string.Format("<start-suite id=\"{0}\" {1} name=\"{2}\" fullname=\"{2}\"/>", id, GetNamedAttr("parentId", parentId), name));
+            return CreateMessage(string.Format("<start-suite id=\"{0}\" {1} name=\"{2}\" fullname=\"{2}_abc\"/>", id, GetNamedAttr("parentId", parentId), name));
         }
 
         public static XmlNode CreateFinishSuite(string id, string parentId, string name, string type)
         {
-            return CreateMessage(string.Format("<test-suite id=\"{0}\" {1} type=\"{3}\" name=\"{2}\" fullname=\"{2}\" runstate=\"Runnable\" testcasecount=\"3\" result=\"Failed\" duration=\"0.251125\" total=\"3\" passed=\"0\" failed=\"0\" inconclusive=\"0\" skipped=\"0\" asserts=\"0\"><failure><message><![CDATA[One or more child tests had errors]]></message><stack-trace><![CDATA[stack abc]]></stack-trace></failure></test-suite>", id, GetNamedAttr("parentId", parentId), name, type));
+            return CreateMessage(string.Format("<test-suite id=\"{0}\" {1} type=\"{3}\" name=\"{2}\" fullname=\"{2}_abc\" runstate=\"Runnable\" testcasecount=\"3\" result=\"Failed\" duration=\"0.251125\" total=\"3\" passed=\"0\" failed=\"0\" inconclusive=\"0\" skipped=\"0\" asserts=\"0\"><failure><message><![CDATA[One or more child tests had errors]]></message><stack-trace><![CDATA[stack abc]]></stack-trace></failure></test-suite>", id, GetNamedAttr("parentId", parentId), name, type));
         }
 
         public static XmlNode CreateStartTest(string id, string parentId, string name)

@@ -87,7 +87,7 @@ namespace NUnit.Engine.Listeners
                     if (!_inAssembly)
                     {
                         _inAssembly = true;
-                        yield return _serviceMessageFactory.SuiteStarted(eventId);
+                        yield return _serviceMessageFactory.SuiteStarted(eventId, testEvent);
                     }
 
                     break;
@@ -97,10 +97,14 @@ namespace NUnit.Engine.Listeners
                     yield return ProcessNotStartedTests(flowId, testEvent.TestEvent);
                     yield return _serviceMessageFactory.TestOutputAsMessage(eventId, testEvent.TestEvent);
 
-                    if (_inAssembly && testEvent.TestEvent.GetAttribute("type") == "Assembly")
+                    if (_inAssembly)
                     {
-                        _inAssembly = false;
-                        yield return _serviceMessageFactory.SuiteFinished(eventId);
+                        var suiteType = testEvent.TestEvent.GetAttribute("type");
+                        if (suiteType == "Assembly" || suiteType == "SetUpFixture")
+                        {
+                            _inAssembly = false;
+                            yield return _serviceMessageFactory.SuiteFinished(eventId, testEvent);
+                        }
                     }
 
                     break;

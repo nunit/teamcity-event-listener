@@ -52,7 +52,7 @@ namespace NUnit.Engine.Listeners
         {
             // Given
             var publisher = CreateInstance();
-            var lines = File.ReadAllLines(@"C:\Downloads\nunit\2\server7-teamcity.txt");
+            var lines = File.ReadAllLines(@"C:\Downloads\nunit\4\server4-teamcity.txt");
 
             // When
             foreach (var message in TestUtil.ConvertToMessages(lines))
@@ -62,6 +62,7 @@ namespace NUnit.Engine.Listeners
                        
 
             // Then           
+            // ReSharper disable once UnusedVariable
             var messages = _output.ToString();
         }
 

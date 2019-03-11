@@ -37,18 +37,18 @@
             }
         }
         
-        public IEnumerable<ServiceMessage> SuiteStarted(EventId eventId)
+        public IEnumerable<ServiceMessage> SuiteStarted(EventId eventId, Event testEvent)
         {
-            var assemblyName = Path.GetFileName(eventId.FullName);
+            var assemblyName = Path.GetFileName(testEvent.Name);
 
             yield return new ServiceMessage(ServiceMessage.Names.TestSuiteStarted,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, assemblyName),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
         }
 
-        public IEnumerable<ServiceMessage> SuiteFinished(EventId eventId)
+        public IEnumerable<ServiceMessage> SuiteFinished(EventId eventId, Event testEvent)
         {
-            var assemblyName = Path.GetFileName(eventId.FullName);
+            var assemblyName = Path.GetFileName(testEvent.Name);
 
             yield return new ServiceMessage(ServiceMessage.Names.TestSuiteFinished,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, assemblyName),

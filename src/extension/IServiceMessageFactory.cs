@@ -5,9 +5,9 @@
 
     internal interface IServiceMessageFactory
     {
-        IEnumerable<ServiceMessage> SuiteStarted(EventId eventId);
+        IEnumerable<ServiceMessage> SuiteStarted(EventId eventId, Event testEvent);
 
-        IEnumerable<ServiceMessage> SuiteFinished(EventId eventId);
+        IEnumerable<ServiceMessage> SuiteFinished(EventId eventId, Event testEvent);
 
         IEnumerable<ServiceMessage> FlowStarted(string flowId, string parentFlowId);
 

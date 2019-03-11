@@ -7,6 +7,7 @@
         public readonly string RootFlowId;
         public readonly string MessageName;
         public readonly string FullName;
+        public readonly string Name;
         public readonly string Id;
         public readonly string ParentId;
         public readonly XmlNode TestEvent;
@@ -15,6 +16,7 @@
             string rootFlowId,
             string messageName,
             string fullName,
+            string name,
             string id,
             string parentId,
             XmlNode testEvent)
@@ -22,6 +24,7 @@
             RootFlowId = rootFlowId;
             MessageName = messageName;
             FullName = fullName;
+            Name = name;
             Id = id;
             ParentId = parentId;
             TestEvent = testEvent;

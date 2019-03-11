@@ -58,7 +58,9 @@ namespace NUnit.Engine.Listeners
         }
 
         [Test]
-        public void ShouldSendMessagesWithPredefinedRootFlowId()
+        [TestCase("Assembly")]
+        [TestCase("SetUpFixture")]
+        public void ShouldSendMessagesWithPredefinedRootFlowId(string finishSuiteName)
         {
             // Given
             var publisher = CreateInstance();
@@ -74,7 +76,7 @@ namespace NUnit.Engine.Listeners
             publisher.RegisterMessage(TestUtil.CreateStartTest("1-2", null, "Assembly1.Namespace1.1.Test1"));
             publisher.RegisterMessage(TestUtil.CreateTestCaseSuccessful("1-2", null, "Assembly1.Namespace1.1.Test1", "1.3", "Text output"));
 
-            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", null, "Assembly1", "Assembly"));
+            publisher.RegisterMessage(TestUtil.CreateFinishSuite("1-1", null, "Assembly1", finishSuiteName));
 
             publisher.RegisterMessage(TestUtil.CreateTestRun());
 

@@ -74,7 +74,7 @@ namespace NUnit.Engine.Listeners
                         // Start a flow from a root flow https://youtrack.jetbrains.com/issue/TW-56310
                         yield return _serviceMessageFactory.FlowStarted(flowId, rootFlowId);
 
-                        yield return _serviceMessageFactory.SuiteStarted(eventId);
+                        yield return _serviceMessageFactory.SuiteStarted(eventId, testEvent);
                     }
 
                     break;
@@ -87,7 +87,7 @@ namespace NUnit.Engine.Listeners
                     // Root
                     if (parentId == string.Empty)
                     {
-                        yield return _serviceMessageFactory.SuiteFinished(eventId);
+                        yield return _serviceMessageFactory.SuiteFinished(eventId, testEvent);
 
                         // Finish a child flow from a root flow https://youtrack.jetbrains.com/issue/TW-56310
                         yield return _serviceMessageFactory.FlowFinished(flowId);
