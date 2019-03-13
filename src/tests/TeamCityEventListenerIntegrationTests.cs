@@ -52,7 +52,7 @@ namespace NUnit.Engine.Listeners
         {
             // Given
             var publisher = CreateInstance();
-            var lines = File.ReadAllLines(@"C:\Downloads\nunit\4\server4-teamcity.txt");
+            var lines = File.ReadAllLines(@"C:\Downloads\nunit\6\server-all-teamcity2.txt");
 
             // When
             foreach (var message in TestUtil.ConvertToMessages(lines))
@@ -64,6 +64,7 @@ namespace NUnit.Engine.Listeners
             // Then           
             // ReSharper disable once UnusedVariable
             var messages = _output.ToString();
+            File.AppendAllText(@"C:\Downloads\nunit\6\server-all-teamcity.txt.tc", messages);
         }
 
         private TeamCityEventListener CreateInstance()

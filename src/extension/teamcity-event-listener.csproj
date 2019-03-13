@@ -57,6 +57,7 @@
     <Compile Include="ServiceMessageWriter.cs" />
     <Compile Include="EventConverter3.cs" />
     <Compile Include="EventConverter2.cs" />
+    <Compile Include="Statistics.cs" />
     <Compile Include="TeamCityEventListener.cs" />
     <Compile Include="SafeAttributeAccess.cs" />
     <Compile Include="TeamCityInfo.cs" />

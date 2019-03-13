@@ -31,14 +31,17 @@ namespace NUnit.Engine.Listeners
     {
         private readonly IServiceMessageFactory _serviceMessageFactory;
         private readonly IHierarchy _hierarchy;
+        private readonly Statistics _statistics;
         private readonly Dictionary<string, XmlNode> _notStartedNUnit3Tests = new Dictionary<string, XmlNode>();
 
-        public EventConverter3(IServiceMessageFactory serviceMessageFactory, IHierarchy hierarchy)
+        public EventConverter3(IServiceMessageFactory serviceMessageFactory, IHierarchy hierarchy, Statistics statistics)
         {
             if (serviceMessageFactory == null) throw new ArgumentNullException("serviceMessageFactory");
             if (hierarchy == null) throw new ArgumentNullException("hierarchy");
+            if (statistics == null) throw new ArgumentNullException("statistics");
             _serviceMessageFactory = serviceMessageFactory;
             _hierarchy = hierarchy;
+            _statistics = statistics;
         }
 
         public IEnumerable<IEnumerable<ServiceMessage>> Convert(Event testEvent)
@@ -49,6 +52,15 @@ namespace NUnit.Engine.Listeners
                 _notStartedNUnit3Tests.Clear();
                 yield break;
             }
+
+            testEvent = new Event(
+                testEvent.RootFlowId,
+                testEvent.MessageName,
+                testEvent.FullName,
+                testEvent.Name,
+                GetId(testEvent.RootFlowId, testEvent.Id),
+                GetId(testEvent.RootFlowId, testEvent.ParentId),
+                testEvent.TestEvent);
 
             var id = testEvent.Id;
             var parentId = testEvent.ParentId;
@@ -74,7 +86,8 @@ namespace NUnit.Engine.Listeners
                         // Start a flow from a root flow https://youtrack.jetbrains.com/issue/TW-56310
                         yield return _serviceMessageFactory.FlowStarted(flowId, rootFlowId);
 
-                        yield return _serviceMessageFactory.SuiteStarted(eventId, testEvent);
+                        _statistics.RegisterSuiteStart();
+                        yield return _serviceMessageFactory.SuiteStarted(eventId, testEvent);                        
                     }
 
                     break;
@@ -87,10 +100,11 @@ namespace NUnit.Engine.Listeners
                     // Root
                     if (parentId == string.Empty)
                     {
-                        yield return _serviceMessageFactory.SuiteFinished(eventId, testEvent);
+                        _statistics.RegisterSuiteFinish();
+                        yield return _serviceMessageFactory.SuiteFinished(eventId, testEvent);                        
 
                         // Finish a child flow from a root flow https://youtrack.jetbrains.com/issue/TW-56310
-                        yield return _serviceMessageFactory.FlowFinished(flowId);
+                        yield return _serviceMessageFactory.FlowFinished(flowId);                        
                     }
 
                     break;
@@ -102,7 +116,8 @@ namespace NUnit.Engine.Listeners
                         yield return _serviceMessageFactory.FlowStarted(testFlowId, eventId.FlowId);
                     }
 
-                    yield return _serviceMessageFactory.TestStarted(new EventId(testFlowId, eventId.FullName));
+                    _statistics.RegisterTestStart();
+                    yield return _serviceMessageFactory.TestStarted(new EventId(testFlowId, eventId.FullName));                    
                     break;
 
                 case "test-case":
@@ -113,12 +128,13 @@ namespace NUnit.Engine.Listeners
                         break;
                     }
 
+                    _statistics.RegisterTestFinish();
                     yield return _serviceMessageFactory.TestFinished(new EventId(testFlowId, testEvent.FullName), testEvent.TestEvent, testEvent.TestEvent);
                     if (id != flowId && parentId != null)
                     {
                         yield return _serviceMessageFactory.FlowFinished(id);
-                    }
-                    
+                    }                    
+
                     break;
 
                 case "test-run":
@@ -130,6 +146,16 @@ namespace NUnit.Engine.Listeners
                     yield return _serviceMessageFactory.TestOutput(new EventId(testFlowId, testEvent.FullName), testEvent.TestEvent);
                     break;
             }
+        }
+
+        private static string GetId(string rootFlowId, string flowId)
+        {
+            if (string.IsNullOrEmpty(flowId) || string.IsNullOrEmpty(rootFlowId))
+            {
+                return flowId;
+            }
+
+            return rootFlowId + "_" + flowId;
         }
 
         private IEnumerable<ServiceMessage> ProcessNotStartedTests(string flowId, string id, XmlNode currentEvent)
@@ -160,11 +186,13 @@ namespace NUnit.Engine.Listeners
 
                 foreach (var message in _serviceMessageFactory.TestStarted(new EventId(flowId, fullName)))
                 {
+                    _statistics.RegisterTestStart();
                     yield return message;
                 }
 
                 foreach (var message in _serviceMessageFactory.TestFinished(new EventId(flowId, fullName), testEvent, currentEvent))
                 {
+                    _statistics.RegisterTestFinish();
                     yield return message;
                 }
             }

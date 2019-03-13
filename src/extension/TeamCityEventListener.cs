@@ -26,7 +26,6 @@ namespace NUnit.Engine.Listeners
     using System.Diagnostics.CodeAnalysis;
     using System.Text;
     using System;
-    using System.Diagnostics;
     using System.IO;
     using System.Xml;
     using Extensibility;
@@ -42,6 +41,7 @@ namespace NUnit.Engine.Listeners
         private readonly IServiceMessageWriter _serviceMessageWriter;
         private readonly IEventConverter _eventConverter2;
         private readonly IEventConverter _eventConverter3;
+        private readonly Statistics _statistics = new Statistics();
 
         private readonly object _lockObject = new object();
         private readonly TextWriter _outWriter;
@@ -59,8 +59,8 @@ namespace NUnit.Engine.Listeners
             _serviceMessageWriter = new ServiceMessageWriter();
             var serviceMessageFactory = new ServiceMessageFactory();
             var hierarchy =  new Hierarchy();
-            _eventConverter2 = new EventConverter2(serviceMessageFactory, hierarchy);
-            _eventConverter3 = new EventConverter3(serviceMessageFactory, hierarchy);
+            _eventConverter2 = new EventConverter2(serviceMessageFactory, hierarchy, _statistics);
+            _eventConverter3 = new EventConverter3(serviceMessageFactory, hierarchy, _statistics);
             RootFlowId = TeamCityInfo.RootFlowId;
             _diagnostics = TeamCityInfo.Diagnostics;
         }
@@ -82,7 +82,7 @@ namespace NUnit.Engine.Listeners
             if (_diagnostics)
             {
                 _outWriter.WriteLine();
-                _outWriter.WriteLine("!! " + report);
+                _outWriter.WriteLine("!!!!{ " + report + " }!!!!");
             }
 
             var doc = new XmlDocument();
@@ -123,12 +123,7 @@ namespace NUnit.Engine.Listeners
             var isNUnit3 = parentId != null;
             var eventConverter = isNUnit3 ? _eventConverter3 : _eventConverter2;
 
-            var testEvent = new Event(_rootFlowId, messageName.ToLowerInvariant(), fullName, name, id, parentId, xmlEvent);
-            if (_diagnostics)
-            {
-                _outWriter.WriteLine("@@ isNUnit3: " + isNUnit3 + ", " + testEvent);
-            }
-
+            var testEvent = new Event(_rootFlowId, messageName.ToLowerInvariant(), fullName, name, id, parentId, xmlEvent);            
             lock (_lockObject)
             {
                 var sb = new StringBuilder();
@@ -142,6 +137,11 @@ namespace NUnit.Engine.Listeners
                 }
 
                 _outWriter.Write(sb.ToString());
+            }
+
+            if (_diagnostics)
+            {
+                _outWriter.WriteLine("@@ NUnit3: " + isNUnit3 + ", " + _statistics + ", " + testEvent);
             }
         }
     }

@@ -31,16 +31,18 @@ namespace NUnit.Engine.Listeners
     {
         private readonly IServiceMessageFactory _serviceMessageFactory;
         private readonly IHierarchy _hierarchy;
+        private readonly Statistics _statistics;
         private bool _inAssembly;        
 
         private readonly List<XmlNode> _notStartedNUnit2Tests = new List<XmlNode>();
 
-        public EventConverter2(IServiceMessageFactory serviceMessageFactory, IHierarchy hierarchy)
+        public EventConverter2(IServiceMessageFactory serviceMessageFactory, IHierarchy hierarchy, Statistics statistics)
         {
             if (serviceMessageFactory == null) throw new ArgumentNullException("serviceMessageFactory");
             if (hierarchy == null) throw new ArgumentNullException("hierarchy");
             _serviceMessageFactory = serviceMessageFactory;
             _hierarchy = hierarchy;
+            _statistics = statistics;
         }
 
         public IEnumerable<IEnumerable<ServiceMessage>> Convert(Event testEvent)
@@ -87,7 +89,8 @@ namespace NUnit.Engine.Listeners
                     if (!_inAssembly)
                     {
                         _inAssembly = true;
-                        yield return _serviceMessageFactory.SuiteStarted(eventId, testEvent);
+                        _statistics.RegisterSuiteStart();
+                        yield return _serviceMessageFactory.SuiteStarted(eventId, testEvent);                        
                     }
 
                     break;
@@ -103,14 +106,16 @@ namespace NUnit.Engine.Listeners
                         if (suiteType == "Assembly" || suiteType == "SetUpFixture")
                         {
                             _inAssembly = false;
-                            yield return _serviceMessageFactory.SuiteFinished(eventId, testEvent);
+                            _statistics.RegisterSuiteFinish();
+                            yield return _serviceMessageFactory.SuiteFinished(eventId, testEvent);                            
                         }
                     }
 
                     break;
 
                 case "start-test":
-                    _hierarchy.AddLink(id, testEvent.ParentId);
+                    _statistics.RegisterTestStart();
+                    _hierarchy.AddLink(id, testEvent.ParentId);                    
                     break;
 
                 case "test-case":
@@ -123,7 +128,8 @@ namespace NUnit.Engine.Listeners
 
                     var testEventId = new EventId(testFlowId, testEvent.FullName);
                     yield return _serviceMessageFactory.TestStarted(testEventId);
-                    yield return _serviceMessageFactory.TestFinished(testEventId, testEvent.TestEvent, testEvent.TestEvent);
+                    _statistics.RegisterTestFinish();
+                    yield return _serviceMessageFactory.TestFinished(testEventId, testEvent.TestEvent, testEvent.TestEvent);                    
 
                     break;
 
@@ -150,11 +156,13 @@ namespace NUnit.Engine.Listeners
 
                 foreach (var message in _serviceMessageFactory.TestStarted(new EventId(flowId, fullName)))
                 {
+                    _statistics.RegisterTestStart();
                     yield return message;
                 }
 
                 foreach (var message in _serviceMessageFactory.TestFinished(new EventId(flowId, fullName), notStartedTest, currentEvent))
                 {
+                    _statistics.RegisterTestFinish();
                     yield return message;
                 }
             }

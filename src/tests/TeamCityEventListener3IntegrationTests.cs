@@ -165,9 +165,8 @@ namespace NUnit.Engine.Listeners
         }
 
         [Test]
-        // [TestCase("", ".")]
         [TestCase("abc", "abc")]
-        // [TestCase(".", ".")]
+        [TestCase(".", ".")]
         public void ShouldSendMessagesWithValidFlowIdWhenNestedSuites(string rootFlowId, string expectedId)
         {
             // Given
@@ -206,27 +205,27 @@ namespace NUnit.Engine.Listeners
 
             // Then
             Assert.AreEqual(
-            "##teamcity[flowStarted flowId='1' parent='" + expectedId + "']" + Environment.NewLine
-                  + "##teamcity[testSuiteStarted name='Suite1' flowId='1']" + Environment.NewLine
+            "##teamcity[flowStarted flowId='" + rootFlowId + "_1' parent='" + expectedId + "']" + Environment.NewLine
+                  + "##teamcity[testSuiteStarted name='Suite1' flowId='" + rootFlowId + "_1']" + Environment.NewLine
 
-                  + "##teamcity[flowStarted flowId='5' parent='1']" + Environment.NewLine
+                  + "##teamcity[flowStarted flowId='" + rootFlowId + "_5' parent='" + rootFlowId + "_1']" + Environment.NewLine
 
-                  + "##teamcity[testStarted name='Suite1.Suite2.Suite3.1.Test1' captureStandardOutput='false' flowId='5']" + Environment.NewLine
-                  + "##teamcity[testStdOut name='Suite1.Suite2.Suite3.1.Test1' out='Text output' flowId='5' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
-                  + "##teamcity[testFinished name='Suite1.Suite2.Suite3.1.Test1' duration='100' flowId='5']" + Environment.NewLine
+                  + "##teamcity[testStarted name='Suite1.Suite2.Suite3.1.Test1' captureStandardOutput='false' flowId='" + rootFlowId + "_5']" + Environment.NewLine
+                  + "##teamcity[testStdOut name='Suite1.Suite2.Suite3.1.Test1' out='Text output' flowId='" + rootFlowId + "_5' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
+                  + "##teamcity[testFinished name='Suite1.Suite2.Suite3.1.Test1' duration='100' flowId='" + rootFlowId + "_5']" + Environment.NewLine
 
-                  + "##teamcity[flowFinished flowId='5']" + Environment.NewLine
+                  + "##teamcity[flowFinished flowId='" + rootFlowId + "_5']" + Environment.NewLine
 
-                  + "##teamcity[flowStarted flowId='6' parent='1']" + Environment.NewLine
+                  + "##teamcity[flowStarted flowId='" + rootFlowId + "_6' parent='" + rootFlowId + "_1']" + Environment.NewLine
 
-                  + "##teamcity[testStarted name='Suite1.Suite2.Suite4.1.Test1' captureStandardOutput='false' flowId='6']" + Environment.NewLine
-                  + "##teamcity[testStdOut name='Suite1.Suite2.Suite4.1.Test1' out='Text output' flowId='6' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
-                  + "##teamcity[testFinished name='Suite1.Suite2.Suite4.1.Test1' duration='100' flowId='6']" + Environment.NewLine
+                  + "##teamcity[testStarted name='Suite1.Suite2.Suite4.1.Test1' captureStandardOutput='false' flowId='" + rootFlowId + "_6']" + Environment.NewLine
+                  + "##teamcity[testStdOut name='Suite1.Suite2.Suite4.1.Test1' out='Text output' flowId='" + rootFlowId + "_6' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
+                  + "##teamcity[testFinished name='Suite1.Suite2.Suite4.1.Test1' duration='100' flowId='" + rootFlowId + "_6']" + Environment.NewLine
                   
-                  + "##teamcity[flowFinished flowId='6']" + Environment.NewLine
+                  + "##teamcity[flowFinished flowId='" + rootFlowId + "_6']" + Environment.NewLine
 
-                  + "##teamcity[testSuiteFinished name='Suite1' flowId='1']" + Environment.NewLine
-                  + "##teamcity[flowFinished flowId='1']" + Environment.NewLine,
+                  + "##teamcity[testSuiteFinished name='Suite1' flowId='" + rootFlowId + "_1']" + Environment.NewLine
+                  + "##teamcity[flowFinished flowId='" + rootFlowId + "_1']" + Environment.NewLine,
                 _output.ToString());
         }
 
@@ -253,17 +252,17 @@ namespace NUnit.Engine.Listeners
 
             // Then
             Assert.AreEqual(
-                "##teamcity[flowStarted flowId='1-1' parent='root']" + Environment.NewLine
-                + "##teamcity[testSuiteStarted name='Assembly1' flowId='1-1']" + Environment.NewLine
+                "##teamcity[flowStarted flowId='root_1-1' parent='root']" + Environment.NewLine
+                + "##teamcity[testSuiteStarted name='Assembly1' flowId='root_1-1']" + Environment.NewLine
 
-                + "##teamcity[flowStarted flowId='1-2' parent='1-1']" + Environment.NewLine
-                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-2']" + Environment.NewLine
-                + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='1-2' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
-                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1-2']" + Environment.NewLine
-                + "##teamcity[flowFinished flowId='1-2']" + Environment.NewLine
+                + "##teamcity[flowStarted flowId='root_1-2' parent='root_1-1']" + Environment.NewLine
+                + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='root_1-2']" + Environment.NewLine
+                + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='root_1-2' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
+                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='root_1-2']" + Environment.NewLine
+                + "##teamcity[flowFinished flowId='root_1-2']" + Environment.NewLine
 
-                + "##teamcity[testSuiteFinished name='Assembly1' flowId='1-1']" + Environment.NewLine
-                + "##teamcity[flowFinished flowId='1-1']" + Environment.NewLine,
+                + "##teamcity[testSuiteFinished name='Assembly1' flowId='root_1-1']" + Environment.NewLine
+                + "##teamcity[flowFinished flowId='root_1-1']" + Environment.NewLine,
                 _output.ToString());
         }
 

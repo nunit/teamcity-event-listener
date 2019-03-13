@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Text;
     using System.Xml;
 
@@ -48,7 +49,7 @@
         public static IEnumerable<XmlNode> ConvertToMessages(IEnumerable<string> lines)
         {
             var fullLine = new StringBuilder();
-            int blockCounter = 0;
+            var blockCounter = 0;
             foreach (var line in lines)
             {
                 var curLine = line;
@@ -90,7 +91,7 @@
                     fullLine.Length = 0;
                 }
 
-                yield return TestUtil.CreateMessage(curLine.Substring(3));
+                yield return CreateMessage(curLine.Substring(3));
             }
         }
 
