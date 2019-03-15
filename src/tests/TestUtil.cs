@@ -8,9 +8,6 @@
 
     public static class TestUtil
     {
-        private static readonly string[] BlockStarters = { "![CDATA[", "<output>" };
-        private static readonly string[] BlockFinishers = { "]]", "</output>" };
-
         public static XmlNode CreateStartRun(int count)
         {
             return CreateMessage(string.Format("<start-run count='{0}'/>", count));
@@ -49,49 +46,27 @@
         public static IEnumerable<XmlNode> ConvertToMessages(IEnumerable<string> lines)
         {
             var fullLine = new StringBuilder();
-            var blockCounter = 0;
+            var inBlock = false;
             foreach (var line in lines)
             {
-                var curLine = line;
-                if (blockCounter == 0 && !curLine.StartsWith("!! "))
+                if (!inBlock)
                 {
-                    continue;
-                }
-
-                foreach (var blockStarter in BlockStarters)
-                {
-                    var index = -1;
-                    do
+                    if (line.Contains("!!!!{ "))
                     {
-                        index = line.IndexOf(blockStarter, index + 1, StringComparison.Ordinal);
-                        blockCounter++;
-                    } while (index >= 0);
+                        inBlock = true;
+                        fullLine.Length = 0;
+                    }
                 }
 
-                foreach (var blockFinisher in BlockFinishers)
-                {
-                    var index = -1;
-                    do
-                    {
-                        index = line.IndexOf(blockFinisher, index + 1, StringComparison.Ordinal);
-                        blockCounter--;
-                    } while (index >= 0);
-                }
-
-                if (blockCounter != 0)
+                if (inBlock)
                 {
                     fullLine.AppendLine(line);
-                    continue;
-                }
-
-                if (fullLine.Length > 0)
-                {
-                    fullLine.AppendLine(line);
-                    curLine = fullLine.ToString();
-                    fullLine.Length = 0;
-                }
-
-                yield return CreateMessage(curLine.Substring(3));
+                    if (line.Contains(" }!!!!"))
+                    {
+                        inBlock = false;
+                        yield return CreateMessage(fullLine.ToString().Substring(6, fullLine.Length - 14));
+                    }
+                }                                              
             }
         }
 
