@@ -52,7 +52,7 @@ namespace NUnit.Engine.Listeners
         {
             // Given
             var publisher = CreateInstance();
-            var lines = File.ReadAllLines(@"C:\Downloads\nunit\7\server7-teamcity.txt");
+            var lines = File.ReadAllLines(@"C:\Downloads\nunit\9\tools-teamcity.txt");
 
             // When
             foreach (var message in TestUtil.ConvertToMessages(lines))

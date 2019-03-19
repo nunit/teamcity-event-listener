@@ -2,12 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Text;
     using System.Xml;
 
     public static class TestUtil
     {
+        private const string StartBlock = "!!!!{ ";
+        private const string FinishBlock = " }!!!!";
+
         public static XmlNode CreateStartRun(int count)
         {
             return CreateMessage(string.Format("<start-run count='{0}'/>", count));
@@ -51,7 +53,7 @@
             {
                 if (!inBlock)
                 {
-                    if (line.Contains("!!!!{ "))
+                    if (line.Contains(StartBlock))
                     {
                         inBlock = true;
                         fullLine.Length = 0;
@@ -61,10 +63,13 @@
                 if (inBlock)
                 {
                     fullLine.AppendLine(line);
-                    if (line.Contains(" }!!!!"))
+                    if (line.Contains(FinishBlock))
                     {
                         inBlock = false;
-                        yield return CreateMessage(fullLine.ToString().Substring(6, fullLine.Length - 14));
+                        var nextLine = fullLine.ToString();
+                        var first = nextLine.IndexOf(StartBlock, StringComparison.InvariantCulture) + StartBlock.Length;
+                        var last = nextLine.IndexOf(FinishBlock, StringComparison.InvariantCulture);
+                        yield return CreateMessage(nextLine.Substring(first, last - first));
                     }
                 }                                              
             }

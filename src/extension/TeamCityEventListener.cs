@@ -26,6 +26,7 @@ namespace NUnit.Engine.Listeners
     using System.Diagnostics.CodeAnalysis;
     using System.Text;
     using System;
+    using System.Diagnostics;
     using System.IO;
     using System.Xml;
     using Extensibility;
@@ -47,6 +48,7 @@ namespace NUnit.Engine.Listeners
         private readonly TextWriter _outWriter;
         private readonly bool _diagnostics;
         private string _rootFlowId = string.Empty;
+        private int _processId;
 
         // ReSharper disable once UnusedMember.Global
         public TeamCityEventListener() : this(Console.Out) { }
@@ -63,6 +65,7 @@ namespace NUnit.Engine.Listeners
             _eventConverter3 = new EventConverter3(serviceMessageFactory, hierarchy, _statistics);
             RootFlowId = TeamCityInfo.RootFlowId;
             _diagnostics = TeamCityInfo.Diagnostics;
+            _processId = Process.GetCurrentProcess().Id;
         }
 
         public string RootFlowId
@@ -82,7 +85,7 @@ namespace NUnit.Engine.Listeners
             if (_diagnostics)
             {
                 _outWriter.WriteLine();
-                _outWriter.WriteLine("!!!!{ " + report + " }!!!!");
+                _outWriter.WriteLine("PID_" + _processId + " !!!!{ " + report + " }!!!!");
             }
 
             var doc = new XmlDocument();

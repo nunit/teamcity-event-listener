@@ -32,7 +32,7 @@ namespace NUnit.Engine.Listeners
         private readonly IServiceMessageFactory _serviceMessageFactory;
         private readonly IHierarchy _hierarchy;
         private readonly Statistics _statistics;
-        private bool _inAssembly;        
+        private readonly Dictionary<string, string> _inAssembly = new Dictionary<string, string>();
 
         private readonly List<XmlNode> _notStartedNUnit2Tests = new List<XmlNode>();
 
@@ -51,7 +51,7 @@ namespace NUnit.Engine.Listeners
             {
                 _hierarchy.Clear();
                 _notStartedNUnit2Tests.Clear();
-                _inAssembly = false;
+                _inAssembly.Clear();
                 yield break;
             }
             
@@ -86,9 +86,9 @@ namespace NUnit.Engine.Listeners
                 case "start-suite":
                     _hierarchy.AddLink(id, testEvent.ParentId);
 
-                    if (!_inAssembly)
+                    if (!_inAssembly.ContainsKey(flowId))
                     {
-                        _inAssembly = true;
+                        _inAssembly[flowId] = null;
                         _statistics.RegisterSuiteStart();
                         yield return _serviceMessageFactory.SuiteStarted(eventId, testEvent);                        
                     }
@@ -100,12 +100,12 @@ namespace NUnit.Engine.Listeners
                     yield return ProcessNotStartedTests(flowId, testEvent.TestEvent);
                     yield return _serviceMessageFactory.TestOutputAsMessage(eventId, testEvent.TestEvent);
 
-                    if (_inAssembly)
+                    if (_inAssembly.ContainsKey(flowId))
                     {
                         var suiteType = testEvent.TestEvent.GetAttribute("type");
                         if (suiteType == "Assembly" || suiteType == "SetUpFixture")
                         {
-                            _inAssembly = false;
+                            _inAssembly.Remove(flowId);
                             _statistics.RegisterSuiteFinish();
                             yield return _serviceMessageFactory.SuiteFinished(eventId, testEvent);                            
                         }
