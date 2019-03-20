@@ -46,8 +46,8 @@ namespace NUnit.Engine.Listeners
             _outputWriter.Dispose();
         }        
 
-        //[Test, Ignore("Manual")]
-        [Test]
+        [Test, Ignore("Manual")]
+        // [Test]
         public void ShouldSendMessages()
         {
             // Given

@@ -992,3 +992,57 @@ Examples:
     | frameworkVersion |
     | Version45        |
     | Version40        |
+
+@3.4.1
+@teamcity
+Scenario: Generate suite name according to variable TEAMCITY_NUNIT_SUITE_PATTERN when assembly file name replacement
+    Given Framework version is Version45
+    And I added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I want to use CmdArguments type of TeamCity integration
+    And I added the environment variable TEAMCITY_NUNIT_SUITE_PATTERN as x64_{n}
+    When I run NUnit console
+    Then the exit code should be 0
+    And the output should contain correct set of TeamCity service messages
+    And the output should contain TeamCity service messages:
+    |                   | name                                | captureStandardOutput | duration | flowId | parent | message | details | out    | tc:tags                       |
+    | flowStarted       |                                     |                       |          | .+     | .+     |         |         |        |                               |
+    | testSuiteStarted  | x64_foo.tests.dll                   |                       |          | .+     |        |         |         |        |                               |
+    | flowStarted       |                                     |                       |          | .+     | .+     |         |         |        |                               |
+    | testStarted       | Foo.Tests.UnitTests1.SuccessfulTest | false                 |          | .+     |        |         |         |        |                               |
+    | testStdOut        | Foo.Tests.UnitTests1.SuccessfulTest |                       |          | .+     |        |         |         | output | tc:parseServiceMessagesInside |
+    | testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |         |         |        |                               |
+    | flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
+    | testSuiteFinished | x64_foo.tests.dll                   |                       |          | .+     |        |         |         |        |                               |
+    | flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
+
+@3.4.1
+@teamcity
+Scenario: Generate suite name according to variable TEAMCITY_NUNIT_SUITE_PATTERN when assembly name replacement
+    Given Framework version is Version45
+    And I added successful method as SuccessfulTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I want to use CmdArguments type of TeamCity integration
+    And I added the environment variable TEAMCITY_NUNIT_SUITE_PATTERN as x64_{a}_abc
+    When I run NUnit console
+    Then the exit code should be 0
+    And the output should contain correct set of TeamCity service messages
+    And the output should contain TeamCity service messages:
+    |                   | name                                | captureStandardOutput | duration | flowId | parent | message | details | out    | tc:tags                       |
+    | flowStarted       |                                     |                       |          | .+     | .+     |         |         |        |                               |
+    | testSuiteStarted  | x64_foo.tests_abc                   |                       |          | .+     |        |         |         |        |                               |
+    | flowStarted       |                                     |                       |          | .+     | .+     |         |         |        |                               |
+    | testStarted       | Foo.Tests.UnitTests1.SuccessfulTest | false                 |          | .+     |        |         |         |        |                               |
+    | testStdOut        | Foo.Tests.UnitTests1.SuccessfulTest |                       |          | .+     |        |         |         | output | tc:parseServiceMessagesInside |
+    | testFinished      | Foo.Tests.UnitTests1.SuccessfulTest |                       | \d+      | .+     |        |         |         |        |                               |
+    | flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
+    | testSuiteFinished | x64_foo.tests_abc                   |                       |          | .+     |        |         |         |        |                               |
+    | flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
