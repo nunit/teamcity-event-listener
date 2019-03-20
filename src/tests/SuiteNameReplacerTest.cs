@@ -41,6 +41,23 @@
             Assert.AreEqual(expectedSuiteName, actualSuiteName);
         }
 
+        [Test]
+        [TestCase("abc.dll", "x64_{a}", "x64_abc")]
+        [TestCase("c:\\dir\\abc.dll", "x64_{a}", "x64_abc")]
+        [TestCase("c:\\dir\\abc.dll", "x64_{a}_xyz", "x64_abc_xyz")]
+        [TestCase("c:\\dir\\abc.dll", "{a}_xyz", "abc_xyz")]
+        public void ShouldReplaceAssemblyName(string name, string suitePattern, string expectedSuiteName)
+        {
+            // Given
+            var suiteNameReplacer = new SuiteNameReplacer(new MyTeamCityInfo { SuitePattern = suitePattern });
+
+            // When
+            var actualSuiteName = suiteNameReplacer.Replace(name);
+
+            // Then        
+            Assert.AreEqual(expectedSuiteName, actualSuiteName);
+        }
+
         private class MyTeamCityInfo : ITeamCityInfo
         {
             public bool MetadataEnabled { get; set; }

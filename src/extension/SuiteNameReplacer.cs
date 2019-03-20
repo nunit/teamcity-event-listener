@@ -14,13 +14,15 @@
 
         public string Replace(string suiteName)
         {
-            var assemblyName = Path.GetFileName(suiteName);
+            var assemblyFileName = Path.GetFileName(suiteName);
             if (string.IsNullOrEmpty(_teamCityInfo.SuitePattern))
             {
-                return assemblyName;
+                return assemblyFileName;
             }
 
-            return _teamCityInfo.SuitePattern.Replace("{n}", assemblyName);
+            return _teamCityInfo.SuitePattern
+                .Replace("{n}", assemblyFileName)
+                .Replace("{a}", Path.GetFileNameWithoutExtension(assemblyFileName));
         }
     }
 }
