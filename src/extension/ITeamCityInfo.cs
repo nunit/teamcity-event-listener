@@ -1,6 +1,6 @@
 ﻿namespace NUnit.Engine.Listeners
 {
-    internal interface ITeamCityInfo
+    public interface ITeamCityInfo
     {
         bool MetadataEnabled { get; }
 
@@ -9,5 +9,7 @@
         bool AllowDiagnostics { get; }
 
         int ProcessId { get; }
+
+        string SuitePattern { get; }
     }
 }

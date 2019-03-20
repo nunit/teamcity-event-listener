@@ -14,7 +14,8 @@
             && GetBool(Environment.GetEnvironmentVariable("TEAMCITY_DOTNET_TEST_METADATA_ENABLE"), true)
             && Version.CompareTo(TestMetadataSupportVersion) >= 0;
         private static readonly string RootFlowIdValue = Environment.GetEnvironmentVariable("TEAMCITY_PROCESS_FLOW_ID") ?? "PID_" + ProcessIdValue;
-        private static readonly bool AllowDiagnosticsValue = GetBool(Environment.GetEnvironmentVariable("TEAMCITY_NUNIT_DIAG"), false);        
+        private static readonly bool AllowDiagnosticsValue = GetBool(Environment.GetEnvironmentVariable("TEAMCITY_NUNIT_DIAG"), false);
+        private static readonly string SuitePatternValue = Environment.GetEnvironmentVariable("TEAMCITY_NUNIT_SUITE_PATTERN") ?? "";
 
         public bool MetadataEnabled
         {
@@ -34,6 +35,11 @@
         public int ProcessId
         {
             get { return ProcessIdValue; }
+        }
+
+        public string SuitePattern
+        {
+            get { return SuitePatternValue; }
         }
 
         private static bool GetBool(string value, bool defaultValue)

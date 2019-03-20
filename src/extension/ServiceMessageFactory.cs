@@ -12,6 +12,7 @@
     internal class ServiceMessageFactory : IServiceMessageFactory
     {
         private readonly ITeamCityInfo _teamCityInfo;
+        private readonly ISuiteNameReplacer _suiteNameReplacer;
         private const string TcParseServiceMessagesInside = "tc:parseServiceMessagesInside";
         private static readonly IEnumerable<ServiceMessage> EmptyServiceMessages = new ServiceMessage[0];
         private static readonly Regex AttachmentDescriptionRegex = new Regex("(.*)=>(.+)", RegexOptions.Compiled);
@@ -38,26 +39,23 @@
             }
         }
 
-        public ServiceMessageFactory(ITeamCityInfo teamCityInfo)
+        public ServiceMessageFactory(ITeamCityInfo teamCityInfo, ISuiteNameReplacer suiteNameReplacer)
         {
             _teamCityInfo = teamCityInfo;
+            _suiteNameReplacer = suiteNameReplacer;
         }
 
         public IEnumerable<ServiceMessage> SuiteStarted(EventId eventId, Event testEvent)
         {
-            var assemblyName = Path.GetFileName(testEvent.Name);
-
             yield return new ServiceMessage(ServiceMessage.Names.TestSuiteStarted,
-                new ServiceMessageAttr(ServiceMessageAttr.Names.Name, assemblyName),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Name, _suiteNameReplacer.Replace(testEvent.Name)),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
         }
 
         public IEnumerable<ServiceMessage> SuiteFinished(EventId eventId, Event testEvent)
         {
-            var assemblyName = Path.GetFileName(testEvent.Name);
-
             yield return new ServiceMessage(ServiceMessage.Names.TestSuiteFinished,
-                new ServiceMessageAttr(ServiceMessageAttr.Names.Name, assemblyName),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Name, _suiteNameReplacer.Replace(testEvent.Name)),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
         }
 

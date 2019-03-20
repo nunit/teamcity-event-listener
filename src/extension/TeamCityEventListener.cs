@@ -56,7 +56,7 @@ namespace NUnit.Engine.Listeners
             _outWriter = outWriter;
 
             _serviceMessageWriter = new ServiceMessageWriter();
-            var serviceMessageFactory = new ServiceMessageFactory(_teamCityInfo);
+            var serviceMessageFactory = new ServiceMessageFactory(_teamCityInfo, new SuiteNameReplacer(_teamCityInfo));
             var hierarchy =  new Hierarchy();
             _eventConverter2 = new EventConverter2(serviceMessageFactory, hierarchy, _statistics);
             _eventConverter3 = new EventConverter3(serviceMessageFactory, hierarchy, _statistics);

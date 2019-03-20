@@ -50,6 +50,7 @@
     <Compile Include="IHierarchy.cs" />
     <Compile Include="IServiceMessageFactory.cs" />
     <Compile Include="IServiceMessageWriter.cs" />
+    <Compile Include="ISuiteNameReplacer.cs" />
     <Compile Include="ITeamCityInfo.cs" />
     <Compile Include="ServiceMessageFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="EventConverter3.cs" />
     <Compile Include="EventConverter2.cs" />
     <Compile Include="Statistics.cs" />
+    <Compile Include="SuiteNameReplacer.cs" />
     <Compile Include="TeamCityEventListener.cs" />
     <Compile Include="SafeAttributeAccess.cs" />
     <Compile Include="TeamCityInfo.cs" />
