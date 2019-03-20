@@ -10,6 +10,10 @@ Issues Resolved
  * 0065 The suite name is different for the test in two different builds for NUnit tests
  * 0066 Use process ID as a root flow id if the root flow id environment variable (TEAMCITY_PROCESS_FLOW_ID) was not specified
 
+It is important to note
+
+The number of tests and the number of suits may differ for test runs from the previous version of this extension.
+
 teamcity-event-listener 1.0.5 - Nov 19, 2018
 
 Issues Resolved
