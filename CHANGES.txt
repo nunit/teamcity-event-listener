@@ -1,8 +1,14 @@
-﻿teamcity-event-listener 1.0.6 - Dec 13, 2018
+﻿teamcity-event-listener 1.0.6 - Mar 20, 2019
 
 New Features
 
- * Support [test metadata](https://confluence.jetbrains.com/display/TCD18/Reporting+Test+Metadata), TeamCity 2018.2+.
+ * 0063 Support [test metadata](https://confluence.jetbrains.com/display/TCD18/Reporting+Test+Metadata), TeamCity 2018.2+.
+ * 0067 Support suite patterns
+
+Issues Resolved
+
+ * 0065 The suite name is different for the test in two different builds for NUnit tests
+ * 0066 Use process ID as a root flow id if the root flow id environment variable (TEAMCITY_PROCESS_FLOW_ID) was not specified
 
 teamcity-event-listener 1.0.5 - Nov 19, 2018
 
