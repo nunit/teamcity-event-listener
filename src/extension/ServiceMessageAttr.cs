@@ -43,6 +43,7 @@ namespace NUnit.Engine.Listeners
 
         public string Name { get; private set; }
 
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
         public static class Names
         {
             public const string Name = "name";

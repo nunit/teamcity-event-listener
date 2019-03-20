@@ -1,8 +1,10 @@
 ﻿namespace NUnit.Engine.Listeners
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Xml;
 
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal interface IServiceMessageFactory
     {
         IEnumerable<ServiceMessage> SuiteStarted(EventId eventId, Event testEvent);

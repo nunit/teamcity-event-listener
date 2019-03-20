@@ -26,7 +26,6 @@ namespace NUnit.Engine.Listeners
     using System.Diagnostics.CodeAnalysis;
     using System.Text;
     using System;
-    using System.Diagnostics;
     using System.IO;
     using System.Xml;
     using Extensibility;
@@ -43,12 +42,10 @@ namespace NUnit.Engine.Listeners
         private readonly IEventConverter _eventConverter2;
         private readonly IEventConverter _eventConverter3;
         private readonly Statistics _statistics = new Statistics();
-
+        private readonly ITeamCityInfo _teamCityInfo = new TeamCityInfo();
         private readonly object _lockObject = new object();
         private readonly TextWriter _outWriter;
-        private readonly bool _diagnostics;
-        private string _rootFlowId = string.Empty;
-        private int _processId;
+        private string _rootFlowId = string.Empty;        
 
         // ReSharper disable once UnusedMember.Global
         public TeamCityEventListener() : this(Console.Out) { }
@@ -59,33 +56,27 @@ namespace NUnit.Engine.Listeners
             _outWriter = outWriter;
 
             _serviceMessageWriter = new ServiceMessageWriter();
-            var serviceMessageFactory = new ServiceMessageFactory();
+            var serviceMessageFactory = new ServiceMessageFactory(_teamCityInfo);
             var hierarchy =  new Hierarchy();
             _eventConverter2 = new EventConverter2(serviceMessageFactory, hierarchy, _statistics);
             _eventConverter3 = new EventConverter3(serviceMessageFactory, hierarchy, _statistics);
-            RootFlowId = TeamCityInfo.RootFlowId;
-            _diagnostics = TeamCityInfo.Diagnostics;
-            _processId = Process.GetCurrentProcess().Id;
+            RootFlowId = _teamCityInfo.RootFlowId;            
         }
 
         public string RootFlowId
         {
             set
             {
-                _rootFlowId = value;
-                if (_rootFlowId == null)
-                {
-                    _rootFlowId = string.Empty;
-                }
+                _rootFlowId = value ?? string.Empty;
             }
         }
 
         public void OnTestEvent(string report)
         {
-            if (_diagnostics)
+            if (_teamCityInfo.AllowDiagnostics)
             {
                 _outWriter.WriteLine();
-                _outWriter.WriteLine("PID_" + _processId + " !!!!{ " + report + " }!!!!");
+                _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + " !!!!{ " + report + " }!!!!");
             }
 
             var doc = new XmlDocument();
@@ -142,7 +133,7 @@ namespace NUnit.Engine.Listeners
                 _outWriter.Write(sb.ToString());
             }
 
-            if (_diagnostics)
+            if (_teamCityInfo.AllowDiagnostics)
             {
                 _outWriter.WriteLine("@@ NUnit3: " + isNUnit3 + ", " + _statistics + ", " + testEvent);
             }

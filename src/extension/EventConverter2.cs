@@ -78,7 +78,7 @@ namespace NUnit.Engine.Listeners
                 flowId = ".";
             }
 
-            var testFlowId = flowId ?? id;
+            var testFlowId = flowId;
 
             var eventId = new EventId(flowId, testEvent.FullName);
             switch (testEvent.MessageName)

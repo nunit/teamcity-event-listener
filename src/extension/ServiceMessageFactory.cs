@@ -11,6 +11,7 @@
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal class ServiceMessageFactory : IServiceMessageFactory
     {
+        private readonly ITeamCityInfo _teamCityInfo;
         private const string TcParseServiceMessagesInside = "tc:parseServiceMessagesInside";
         private static readonly IEnumerable<ServiceMessage> EmptyServiceMessages = new ServiceMessage[0];
         private static readonly Regex AttachmentDescriptionRegex = new Regex("(.*)=>(.+)", RegexOptions.Compiled);
@@ -36,7 +37,12 @@
                 _invalidChars.Add(c);
             }
         }
-        
+
+        public ServiceMessageFactory(ITeamCityInfo teamCityInfo)
+        {
+            _teamCityInfo = teamCityInfo;
+        }
+
         public IEnumerable<ServiceMessage> SuiteStarted(EventId eventId, Event testEvent)
         {
             var assemblyName = Path.GetFileName(testEvent.Name);
@@ -84,7 +90,7 @@
                 yield break;
             }
 
-            if (TeamCityInfo.MetadataEnabled)
+            if (_teamCityInfo.MetadataEnabled)
             {
                 foreach (var message in Attachments(eventId, testEvent))
                 {

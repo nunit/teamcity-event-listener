@@ -5,6 +5,7 @@
     using System.Text;
     using System.Xml;
 
+    // ReSharper disable once InconsistentNaming
     public static class TestUtil
     {
         private const string StartBlock = "!!!!{ ";

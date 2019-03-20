@@ -26,6 +26,7 @@ namespace NUnit.Engine.Listeners
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Diagnostics.CodeAnalysis;
 
     public struct ServiceMessage
     {
@@ -68,6 +69,7 @@ namespace NUnit.Engine.Listeners
 
         public IEnumerable<ServiceMessageAttr> Attributes { get; private set; }
 
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
         public static class Names
         {
             public const string TestStdOut = "testStdOut";

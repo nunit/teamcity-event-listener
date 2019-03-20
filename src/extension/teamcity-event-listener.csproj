@@ -50,6 +50,7 @@
     <Compile Include="IHierarchy.cs" />
     <Compile Include="IServiceMessageFactory.cs" />
     <Compile Include="IServiceMessageWriter.cs" />
+    <Compile Include="ITeamCityInfo.cs" />
     <Compile Include="ServiceMessageFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceMessage.cs" />
