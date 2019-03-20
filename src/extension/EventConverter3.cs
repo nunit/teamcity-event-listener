@@ -53,15 +53,6 @@ namespace NUnit.Engine.Listeners
                 yield break;
             }
 
-            testEvent = new Event(
-                testEvent.RootFlowId,
-                testEvent.MessageName,
-                testEvent.FullName,
-                testEvent.Name,
-                GetId(testEvent.RootFlowId, testEvent.Id),
-                GetId(testEvent.RootFlowId, testEvent.ParentId),
-                testEvent.TestEvent);
-
             var id = testEvent.Id;
             var parentId = testEvent.ParentId;
             
@@ -142,21 +133,11 @@ namespace NUnit.Engine.Listeners
                     break;
 
                 case "test-output":
-                    testFlowId = testEvent.TestEvent.GetAttribute("testid") ?? rootFlowId;
+                    testFlowId = testEvent.TestId ?? rootFlowId;
                     yield return _serviceMessageFactory.TestOutput(new EventId(testFlowId, testEvent.FullName), testEvent.TestEvent);
                     break;
             }
-        }
-
-        private static string GetId(string rootFlowId, string flowId)
-        {
-            if (string.IsNullOrEmpty(flowId) || string.IsNullOrEmpty(rootFlowId))
-            {
-                return flowId;
-            }
-
-            return rootFlowId + "_" + flowId;
-        }
+        }        
 
         private IEnumerable<ServiceMessage> ProcessNotStartedTests(string flowId, string id, XmlNode currentEvent)
         {

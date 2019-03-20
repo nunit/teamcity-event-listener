@@ -46,13 +46,13 @@ namespace NUnit.Engine.Listeners
             _outputWriter.Dispose();
         }        
 
-        [Test, Ignore("Manual")]
-        // [Test]
+        //[Test, Ignore("Manual")]
+        [Test]
         public void ShouldSendMessages()
         {
             // Given
             var publisher = CreateInstance();
-            var lines = File.ReadAllLines(@"C:\Downloads\nunit\9\tools-teamcity.txt");
+            var lines = File.ReadAllLines(@"C:\Projects\NUnit\teamcity-event-listener\bin\Debug\2133082640\aa");
 
             // When
             foreach (var message in TestUtil.ConvertToMessages(lines))

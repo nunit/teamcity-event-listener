@@ -64,12 +64,7 @@ namespace NUnit.Engine.Listeners
                 var idParts = id.Split('-');
                 if (idParts.Length == 2)
                 {
-                    if (!string.IsNullOrEmpty(flowId))
-                    {
-                        flowId += ".";
-                    }
-
-                    flowId += idParts[0];
+                    flowId = idParts[0];
                 }
             }
 
@@ -138,7 +133,7 @@ namespace NUnit.Engine.Listeners
                     break;
 
                 case "test-output":
-                    testFlowId = testEvent.TestEvent.GetAttribute("testid") ?? rootFlowId;
+                    testFlowId = testEvent.TestId ?? rootFlowId;
                     yield return _serviceMessageFactory.TestOutput(new EventId(testFlowId, testEvent.FullName), testEvent.TestEvent);
                     break;
             }

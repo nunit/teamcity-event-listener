@@ -82,13 +82,13 @@ namespace NUnit.Engine.Listeners
 
             // Then
             Assert.AreEqual(
-               "##teamcity[testSuiteStarted name='Assembly1' flowId='root.1']" + Environment.NewLine
+               "##teamcity[testSuiteStarted name='Assembly1' flowId='root_1']" + Environment.NewLine
 
-               + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='root.1']" + Environment.NewLine
-               + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='root.1' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
-               + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='1300' flowId='root.1']" + Environment.NewLine
+               + "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='root_1']" + Environment.NewLine
+               + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='root_1' tc:tags='tc:parseServiceMessagesInside']" + Environment.NewLine
+               + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='1300' flowId='root_1']" + Environment.NewLine
 
-               + "##teamcity[testSuiteFinished name='Assembly1' flowId='root.1']" + Environment.NewLine,
+               + "##teamcity[testSuiteFinished name='Assembly1' flowId='root_1']" + Environment.NewLine,
                 _output.ToString());
         }
 

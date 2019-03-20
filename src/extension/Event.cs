@@ -10,6 +10,7 @@
         public readonly string Name;
         public readonly string Id;
         public readonly string ParentId;
+        public readonly string TestId;
         // ReSharper disable once InconsistentNaming
         public readonly XmlNode TestEvent;
 
@@ -20,6 +21,7 @@
             string name,
             string id,
             string parentId,
+            string testId,
             XmlNode testEvent)
         {
             RootFlowId = rootFlowId;
@@ -28,6 +30,7 @@
             Name = name;
             Id = id;
             ParentId = parentId;
+            TestId = testId;
             TestEvent = testEvent;
         }
 

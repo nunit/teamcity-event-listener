@@ -77,10 +77,10 @@ Scenario Outline: Use root flow id from environment variable TEAMCITY_PROCESS_FL
     And the output should contain correct set of TeamCity service messages
     And the output should contain TeamCity service messages:
     |                   | name                          | captureStandardOutput | duration | flowId  | parent | message | details | out | tc:tags |
-    | testSuiteStarted  | foo.tests.dll                 |                       |          | abc\..+ |        |         |         |     |         |
-    | testStarted       | Foo.Tests.UnitTests1.PassTest | false                 |          | abc\..+ |        |         |         |     |         |
-    | testFinished      | Foo.Tests.UnitTests1.PassTest |                       | \d+      | abc\..+ |        |         |         |     |         |
-    | testSuiteFinished | foo.tests.dll                 |                       |          | abc\..+ |        |         |         |     |         |
+    | testSuiteStarted  | foo.tests.dll                 |                       |          | abc_.+ |        |         |         |     |         |
+    | testStarted       | Foo.Tests.UnitTests1.PassTest | false                 |          | abc_.+ |        |         |         |     |         |
+    | testFinished      | Foo.Tests.UnitTests1.PassTest |                       | \d+      | abc_.+ |        |         |         |     |         |
+    | testSuiteFinished | foo.tests.dll                 |                       |          | abc_.+ |        |         |         |     |         |
 Examples:
     | frameworkVersion |
     | Version45        |

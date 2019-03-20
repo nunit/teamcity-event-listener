@@ -113,11 +113,11 @@ namespace NUnit.Engine.Listeners
 
             var id = xmlEvent.GetAttribute("id") ?? string.Empty;
             var parentId = xmlEvent.GetAttribute("parentId");
+            var testId = xmlEvent.GetAttribute("testid");
 
             var isNUnit3 = parentId != null;
             var eventConverter = isNUnit3 ? _eventConverter3 : _eventConverter2;
-
-            var testEvent = new Event(_rootFlowId, messageName.ToLowerInvariant(), fullName, name, id, parentId, xmlEvent);            
+            var testEvent = new Event(_rootFlowId, messageName.ToLowerInvariant(), fullName, name, GetId(_rootFlowId, id), GetId(_rootFlowId, parentId), GetId(_rootFlowId, testId), xmlEvent);
             lock (_lockObject)
             {
                 var sb = new StringBuilder();
@@ -127,7 +127,6 @@ namespace NUnit.Engine.Listeners
                     {
                         _serviceMessageWriter.Write(writer, messages);
                     }
-
                 }
 
                 _outWriter.Write(sb.ToString());
@@ -137,6 +136,16 @@ namespace NUnit.Engine.Listeners
             {
                 _outWriter.WriteLine("@@ NUnit3: " + isNUnit3 + ", " + _statistics + ", " + testEvent);
             }
+        }
+
+        private static string GetId(string rootFlowId, string flowId)
+        {
+            if (string.IsNullOrEmpty(flowId) || string.IsNullOrEmpty(rootFlowId))
+            {
+                return flowId;
+            }
+
+            return rootFlowId + "_" + flowId;
         }
     }
 }
