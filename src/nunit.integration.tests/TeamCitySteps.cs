@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace nunit.integration.tests
+﻿namespace nunit.integration.tests
 {
     using System;
     using System.Collections.Generic;
@@ -9,13 +7,10 @@ namespace nunit.integration.tests
     using System.Text.RegularExpressions;
     using System.Xml.Linq;
     using System.Xml.XPath;
-
+    using System.Text;
     using JetBrains.TeamCity.ServiceMessages;
-
     using Dsl;
-
     using NUnit.Framework;
-
     using TechTalk.SpecFlow;
 
     [Binding]
@@ -64,6 +59,32 @@ namespace nunit.integration.tests
             if (invalidMessages.Any())
             {
                 var details = string.Join("\n", invalidMessages.Select(i => CreateErrorMessage(i.row, i.message)));
+                Assert.Fail($"See {ctx}\n{details}");
+            }
+        }
+
+        [Then(@"the output should contain at least TeamCity service messages:")]
+        public void ResultShouldContainAtLeastServiceMessage(Table data)
+        {
+            var ctx = ScenarioContext.Current.GetTestContext();
+            var messages = new TeamCityServiceMessageParser().Parse(ctx.TestSession.Output).ToList();
+
+            var map = new Dictionary<TableRow, IServiceMessage>();
+            foreach (var row in data.Rows)
+            {
+                foreach (var message in messages)
+                {
+                    if (VerifyServiceMessage(row, message))
+                    {
+                        map.Add(row, message);
+                    }
+                }
+            }
+
+            var missingRows = data.Rows.Except(map.Keys).ToList();
+            if (missingRows.Any())
+            {
+                var details = string.Join("\n", missingRows.Select(i => CreateErrorMessage(i)));
                 Assert.Fail($"See {ctx}\n{details}");
             }
         }
@@ -419,6 +440,12 @@ namespace nunit.integration.tests
             var serviceMessageInfo = string.Join(", ", from key in serviceMessage.Keys select $"{key} = {serviceMessage.GetValue(key)}");            
 
             return $"Expected service message should has:\n{rowInfo}\nbut it has:\n{serviceMessageInfo}";
+        }
+
+        private static string CreateErrorMessage(TableRow row)
+        {
+            var rowInfo = string.Join(", ", from key in row.Keys select $"{key} = {row[key]}");
+            return $"Missing service message:\n{rowInfo}";
         }
     }
 }

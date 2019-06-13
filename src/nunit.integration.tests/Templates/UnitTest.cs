@@ -136,6 +136,7 @@
         [TestCase('+')]
         [TestCase('-')]
         [TestCase('=')]
+        [TestCase(':')]
         public void TestCasesWithSymbols(char caseChar)
         {
             System.Console.WriteLine("test case " + caseChar);

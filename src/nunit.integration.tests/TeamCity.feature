@@ -613,7 +613,90 @@ Scenario Outline: NUnit sends TeamCity service messages when I run test scenario
     When I run NUnit console
     Then the exit code should be 0
     And the output should contain correct set of TeamCity service messages
-    And the output should contain 139 TeamCity service messages
+    And the output should contain at least TeamCity service messages:
+    |              | name                                                     |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\"'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\"'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'.*'.*'.+)   |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'.*'.*'.+)   |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\`'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\`'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\~'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\~'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\!'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\!'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\@'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\@'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\#'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\#'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\$'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\$'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\%'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\%'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\^'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\^'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\&'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\&'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\*'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\*'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\('.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\('.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\)'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\)'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\\'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\\'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\.'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\.'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\,'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\,'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\/'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\/'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\\'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\\'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\?'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\?'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\{'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\{'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\}'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\}'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\['.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\['.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\]'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\]'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\+'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\+'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\-'.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\-'.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\='.+)      |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\='.+)      |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'<colon>'.+) |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'<colon>'.+) |
+
+Examples:
+    | frameworkVersion |
+    | Version45        |
+    | Version40        |
+
+@3.4.1
+@teamcity
+Scenario Outline: NUnit sends TeamCity service messages when I run test scenarios with colon replacement for NUnit3
+    Given Framework version is <frameworkVersion>	
+    And I added TestCasesWithSymbols method as TestCasesWithSymbols to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll	
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I want to use CmdArguments type of TeamCity integration
+	And I added the environment variable TEAMCITY_COLON_REPLACEMENT as Abc
+    When I run NUnit console
+    Then the exit code should be 0
+    And the output should contain correct set of TeamCity service messages
+    And the output should contain at least TeamCity service messages:
+    |              | name                                                     |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'Abc'.+) |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'Abc'.+) |
+
 Examples:
     | frameworkVersion |
     | Version45        |

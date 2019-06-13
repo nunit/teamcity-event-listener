@@ -365,10 +365,51 @@ namespace NUnit.Engine.Listeners
                 + "##teamcity[flowFinished flowId='1-1']" + Environment.NewLine,
                 _output.ToString());
         }
-       
-        private TeamCityEventListener CreateInstance()
+
+
+        [Test]
+        [TestCase("", ":", "")]
+        [TestCase("abc", ":", "abc")]
+        public void ShouldReplaceWhenColon(string colonReplacement, string replacingStr, string replacedStr)
         {
-            return new TeamCityEventListener(_outputWriter) { RootFlowId = string.Empty };
-        }        
+            // Given
+            var publisher = CreateInstance(new MyTeamCityInfo { ColonReplacement  = colonReplacement });
+
+            // When
+            publisher.RegisterMessage(TestUtil.CreateStartRun(1));
+
+            // Test Assembly1.Namespace1.1.Test1
+            publisher.RegisterMessage(TestUtil.CreateStartTest("1-1", "", "Assembly1.Namespace1.1.Test1(&quot;" + replacingStr + "&quot;)"));
+            publisher.RegisterMessage(TestUtil.CreateTestCaseSuccessful("1-1", "", "Assembly1.Namespace1.1.Test1(&quot;" + replacingStr + "&quot;)", "10", null));
+
+            publisher.RegisterMessage(TestUtil.CreateTestRun());
+
+            // Then
+            Assert.AreEqual(
+                "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1(\"" + replacedStr + "\")' captureStandardOutput='false' flowId='1-1']"
+                + Environment.NewLine
+                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1(\"" + replacedStr + "\")' duration='10000' flowId='1-1']" + Environment.NewLine,
+                _output.ToString());
+        }
+
+        private TeamCityEventListener CreateInstance(ITeamCityInfo teamCityInfo = null)
+        {
+            return new TeamCityEventListener(_outputWriter, teamCityInfo != null ? teamCityInfo : new TeamCityInfo()) { RootFlowId = string.Empty };
+        }
+
+        private class MyTeamCityInfo : ITeamCityInfo
+        {
+            public bool MetadataEnabled { get; set; }
+
+            public string RootFlowId { get; set; }
+
+            public bool AllowDiagnostics { get; set; }
+
+            public int ProcessId { get; set; }
+
+            public string SuitePattern { get; set; }
+
+            public string ColonReplacement { get; set; }
+        }
     }
 }

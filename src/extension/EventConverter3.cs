@@ -32,16 +32,20 @@ namespace NUnit.Engine.Listeners
         private readonly IServiceMessageFactory _serviceMessageFactory;
         private readonly IHierarchy _hierarchy;
         private readonly Statistics _statistics;
+        private readonly ITeamCityInfo _teamCityInfo;
         private readonly Dictionary<string, XmlNode> _notStartedNUnit3Tests = new Dictionary<string, XmlNode>();
 
-        public EventConverter3(IServiceMessageFactory serviceMessageFactory, IHierarchy hierarchy, Statistics statistics)
+        public EventConverter3(IServiceMessageFactory serviceMessageFactory, IHierarchy hierarchy, Statistics statistics, ITeamCityInfo teamCityInfo)
         {
             if (serviceMessageFactory == null) throw new ArgumentNullException("serviceMessageFactory");
             if (hierarchy == null) throw new ArgumentNullException("hierarchy");
             if (statistics == null) throw new ArgumentNullException("statistics");
+            if (teamCityInfo == null) throw new ArgumentNullException("teamCityInfo");
+
             _serviceMessageFactory = serviceMessageFactory;
             _hierarchy = hierarchy;
             _statistics = statistics;
+            _teamCityInfo = teamCityInfo;
         }
 
         public IEnumerable<IEnumerable<ServiceMessage>> Convert(Event testEvent)
@@ -65,7 +69,7 @@ namespace NUnit.Engine.Listeners
                 rootFlowId = ".";
             }
 
-            var eventId = new EventId(flowId, testEvent.FullName);
+            var eventId = new EventId(_teamCityInfo, flowId, testEvent.FullName);
             switch (testEvent.MessageName)
             {
                 case "start-suite":
@@ -108,7 +112,7 @@ namespace NUnit.Engine.Listeners
                     }
 
                     _statistics.RegisterTestStart();
-                    yield return _serviceMessageFactory.TestStarted(new EventId(testFlowId, eventId.FullName));                    
+                    yield return _serviceMessageFactory.TestStarted(new EventId(_teamCityInfo, testFlowId, eventId.FullName));                    
                     break;
 
                 case "test-case":
@@ -120,7 +124,7 @@ namespace NUnit.Engine.Listeners
                     }
 
                     _statistics.RegisterTestFinish();
-                    yield return _serviceMessageFactory.TestFinished(new EventId(testFlowId, testEvent.FullName), testEvent.TestEvent, testEvent.TestEvent);
+                    yield return _serviceMessageFactory.TestFinished(new EventId(_teamCityInfo, testFlowId, testEvent.FullName), testEvent.TestEvent, testEvent.TestEvent);
                     if (id != flowId && parentId != null)
                     {
                         yield return _serviceMessageFactory.FlowFinished(id);
@@ -134,7 +138,7 @@ namespace NUnit.Engine.Listeners
 
                 case "test-output":
                     testFlowId = testEvent.TestId ?? rootFlowId;
-                    yield return _serviceMessageFactory.TestOutput(new EventId(testFlowId, testEvent.FullName), testEvent.TestEvent);
+                    yield return _serviceMessageFactory.TestOutput(new EventId(_teamCityInfo, testFlowId, testEvent.FullName), testEvent.TestEvent);
                     break;
             }
         }        
@@ -165,13 +169,13 @@ namespace NUnit.Engine.Listeners
                     continue;
                 }
 
-                foreach (var message in _serviceMessageFactory.TestStarted(new EventId(flowId, fullName)))
+                foreach (var message in _serviceMessageFactory.TestStarted(new EventId(_teamCityInfo, flowId, fullName)))
                 {
                     _statistics.RegisterTestStart();
                     yield return message;
                 }
 
-                foreach (var message in _serviceMessageFactory.TestFinished(new EventId(flowId, fullName), testEvent, currentEvent))
+                foreach (var message in _serviceMessageFactory.TestFinished(new EventId(_teamCityInfo, flowId, fullName), testEvent, currentEvent))
                 {
                     _statistics.RegisterTestFinish();
                     yield return message;

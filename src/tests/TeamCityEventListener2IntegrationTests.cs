@@ -324,7 +324,7 @@ namespace NUnit.Engine.Listeners
 
         private TeamCityEventListener CreateInstance()
         {
-            return new TeamCityEventListener(_outputWriter) { RootFlowId = string.Empty };
+            return new TeamCityEventListener(_outputWriter, new TeamCityInfo()) { RootFlowId = string.Empty };
         }
     }
 }

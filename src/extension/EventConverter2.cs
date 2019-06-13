@@ -32,17 +32,22 @@ namespace NUnit.Engine.Listeners
         private readonly IServiceMessageFactory _serviceMessageFactory;
         private readonly IHierarchy _hierarchy;
         private readonly Statistics _statistics;
+        private readonly ITeamCityInfo _teamCityInfo;
         private readonly Dictionary<string, string> _inAssembly = new Dictionary<string, string>();
 
         private readonly List<XmlNode> _notStartedNUnit2Tests = new List<XmlNode>();
 
-        public EventConverter2(IServiceMessageFactory serviceMessageFactory, IHierarchy hierarchy, Statistics statistics)
+        public EventConverter2(IServiceMessageFactory serviceMessageFactory, IHierarchy hierarchy, Statistics statistics, ITeamCityInfo teamCityInfo)
         {
             if (serviceMessageFactory == null) throw new ArgumentNullException("serviceMessageFactory");
             if (hierarchy == null) throw new ArgumentNullException("hierarchy");
+            if (statistics == null)throw new ArgumentNullException("statistics");
+            if (teamCityInfo == null)throw new ArgumentNullException("teamCityInfo");
+
             _serviceMessageFactory = serviceMessageFactory;
             _hierarchy = hierarchy;
             _statistics = statistics;
+            _teamCityInfo = teamCityInfo;
         }
 
         public IEnumerable<IEnumerable<ServiceMessage>> Convert(Event testEvent)
@@ -75,7 +80,7 @@ namespace NUnit.Engine.Listeners
 
             var testFlowId = flowId;
 
-            var eventId = new EventId(flowId, testEvent.FullName);
+            var eventId = new EventId(_teamCityInfo, flowId, testEvent.FullName);
             switch (testEvent.MessageName)
             {
                 case "start-suite":
@@ -121,7 +126,7 @@ namespace NUnit.Engine.Listeners
                         break;
                     }
 
-                    var testEventId = new EventId(testFlowId, testEvent.FullName);
+                    var testEventId = new EventId(_teamCityInfo, testFlowId, testEvent.FullName);
                     yield return _serviceMessageFactory.TestStarted(testEventId);
                     _statistics.RegisterTestFinish();
                     yield return _serviceMessageFactory.TestFinished(testEventId, testEvent.TestEvent, testEvent.TestEvent);                    
@@ -134,7 +139,7 @@ namespace NUnit.Engine.Listeners
 
                 case "test-output":
                     testFlowId = testEvent.TestId ?? rootFlowId;
-                    yield return _serviceMessageFactory.TestOutput(new EventId(testFlowId, testEvent.FullName), testEvent.TestEvent);
+                    yield return _serviceMessageFactory.TestOutput(new EventId(_teamCityInfo, testFlowId, testEvent.FullName), testEvent.TestEvent);
                     break;
             }
         }
@@ -149,13 +154,13 @@ namespace NUnit.Engine.Listeners
                     continue;
                 }
 
-                foreach (var message in _serviceMessageFactory.TestStarted(new EventId(flowId, fullName)))
+                foreach (var message in _serviceMessageFactory.TestStarted(new EventId(_teamCityInfo, flowId, fullName)))
                 {
                     _statistics.RegisterTestStart();
                     yield return message;
                 }
 
-                foreach (var message in _serviceMessageFactory.TestFinished(new EventId(flowId, fullName), notStartedTest, currentEvent))
+                foreach (var message in _serviceMessageFactory.TestFinished(new EventId(_teamCityInfo, flowId, fullName), notStartedTest, currentEvent))
                 {
                     _statistics.RegisterTestFinish();
                     yield return message;

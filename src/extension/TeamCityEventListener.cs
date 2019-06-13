@@ -42,24 +42,27 @@ namespace NUnit.Engine.Listeners
         private readonly IEventConverter _eventConverter2;
         private readonly IEventConverter _eventConverter3;
         private readonly Statistics _statistics = new Statistics();
-        private readonly ITeamCityInfo _teamCityInfo = new TeamCityInfo();
+        private readonly ITeamCityInfo _teamCityInfo;
         private readonly object _lockObject = new object();
         private readonly TextWriter _outWriter;
         private string _rootFlowId = string.Empty;        
 
         // ReSharper disable once UnusedMember.Global
-        public TeamCityEventListener() : this(Console.Out) { }
+        public TeamCityEventListener() : this(Console.Out, new TeamCityInfo()) { }
 
-        public TeamCityEventListener(TextWriter outWriter)
+        public TeamCityEventListener(TextWriter outWriter, ITeamCityInfo teamCityInfo)
         {
             if (outWriter == null) throw new ArgumentNullException("outWriter");
+            if (teamCityInfo == null) throw new ArgumentNullException("teamCityInfo");
+
             _outWriter = outWriter;
+            _teamCityInfo = teamCityInfo;
 
             _serviceMessageWriter = new ServiceMessageWriter();
             var serviceMessageFactory = new ServiceMessageFactory(_teamCityInfo, new SuiteNameReplacer(_teamCityInfo));
             var hierarchy =  new Hierarchy();
-            _eventConverter2 = new EventConverter2(serviceMessageFactory, hierarchy, _statistics);
-            _eventConverter3 = new EventConverter3(serviceMessageFactory, hierarchy, _statistics);
+            _eventConverter2 = new EventConverter2(serviceMessageFactory, hierarchy, _statistics, _teamCityInfo);
+            _eventConverter3 = new EventConverter3(serviceMessageFactory, hierarchy, _statistics, _teamCityInfo);
             RootFlowId = _teamCityInfo.RootFlowId;            
         }
 

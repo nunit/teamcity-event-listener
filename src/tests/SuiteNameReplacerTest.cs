@@ -69,6 +69,8 @@
             public int ProcessId { get; set; }
 
             public string SuitePattern { get; set; }
+
+            public string ColonReplacement { get; set; }
         }
     }
 }

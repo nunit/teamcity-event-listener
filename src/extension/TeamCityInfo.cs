@@ -16,6 +16,7 @@
         private static readonly string RootFlowIdValue = Environment.GetEnvironmentVariable("TEAMCITY_PROCESS_FLOW_ID") ?? "PID_" + ProcessIdValue;
         private static readonly bool AllowDiagnosticsValue = GetBool(Environment.GetEnvironmentVariable("TEAMCITY_NUNIT_DIAG"), false);
         private static readonly string SuitePatternValue = Environment.GetEnvironmentVariable("TEAMCITY_NUNIT_SUITE_PATTERN") ?? "";
+        private static readonly string ColonReplacementValue = Environment.GetEnvironmentVariable("TEAMCITY_COLON_REPLACEMENT") ?? "<colon>";
 
         public bool MetadataEnabled
         {
@@ -40,6 +41,11 @@
         public string SuitePattern
         {
             get { return SuitePatternValue; }
+        }
+
+        public string ColonReplacement
+        {
+            get { return ColonReplacementValue; }
         }
 
         private static bool GetBool(string value, bool defaultValue)

@@ -46,13 +46,14 @@ namespace NUnit.Engine.Listeners
             _outputWriter.Dispose();
         }        
 
-        [Test, Ignore("Manual")]
-        // [Test]
+        [Test]
+        [Ignore("")]
         public void ShouldSendMessages()
         {
             // Given
             var publisher = CreateInstance();
-            var lines = File.ReadAllLines(@"C:\Projects\NUnit\teamcity-event-listener\bin\Debug\2133082640\aa");
+            var lines = File.ReadAllLines(@"C:\Projects\NUnit\aa\aa");
+            //var lines = File.ReadAllLines(@"C:\Projects\NUnit\aa\aa");
 
             // When
             foreach (var message in TestUtil.ConvertToMessages(lines))
@@ -68,7 +69,7 @@ namespace NUnit.Engine.Listeners
 
         private TeamCityEventListener CreateInstance()
         {
-            return new TeamCityEventListener(_outputWriter) { RootFlowId = string.Empty };
+            return new TeamCityEventListener(_outputWriter, new TeamCityInfo()) { RootFlowId = string.Empty };
         }        
     }
 }

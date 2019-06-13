@@ -11,5 +11,7 @@
         int ProcessId { get; }
 
         string SuitePattern { get; }
+
+        string ColonReplacement { get; }
     }
 }
