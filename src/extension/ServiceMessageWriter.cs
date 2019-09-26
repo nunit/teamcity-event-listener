@@ -2,12 +2,12 @@
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
     using System.IO;
     using System.Collections.Generic;
+    using System.Text;
 
     [SuppressMessage("ReSharper", "UseNameofExpression")]
-    internal class ServiceMessageWriter : IServiceMessageWriter
+    public class ServiceMessageWriter : IServiceMessageWriter
     {
         private const string Header = "##teamcity[";
         private const string Footer = "]";
@@ -53,20 +53,55 @@
             writer.Write('\'');
         }
 
-        private static string EscapeString(string value)
+        public static string EscapeString(string value)
         {
-            return value != null
-                ? value.Replace("|", "||")
-                       .Replace("'", "|'")
-                       .Replace("’", "|’")
-                       .Replace("\n", "|n")
-                       .Replace("\r", "|r")
-                       .Replace(char.ConvertFromUtf32(int.Parse("0086", NumberStyles.HexNumber)), "|x")
-                       .Replace(char.ConvertFromUtf32(int.Parse("2028", NumberStyles.HexNumber)), "|l")
-                       .Replace(char.ConvertFromUtf32(int.Parse("2029", NumberStyles.HexNumber)), "|p")
-                       .Replace("[", "|[")
-                       .Replace("]", "|]")
-                : null;
+            var sb = new StringBuilder(value.Length * 2);
+            foreach (var ch in value)
+            {
+                switch (ch)
+                {
+                    case '|':
+                        sb.Append("||");
+                        break; //
+                    case '\'':
+                        sb.Append("|'");
+                        break; //
+                    case '\n':
+                        sb.Append("|n");
+                        break; //
+                    case '\r':
+                        sb.Append("|r");
+                        break; //
+                    case '[':
+                        sb.Append("|[");
+                        break; //
+                    case ']':
+                        sb.Append("|]");
+                        break; //
+                    case '\u0085':
+                        sb.Append("|x");
+                        break; //\u0085 (next line)=>|x
+                    case '\u2028':
+                        sb.Append("|l");
+                        break; //\u2028 (line separator)=>|l
+                    case '\u2029':
+                        sb.Append("|p");
+                        break; //
+                    default:
+                        if (ch > 127)
+                        {
+                            sb.Append(string.Format("|0x{0:x4}", (ulong) ch));
+                        }
+                        else
+                        {
+                            sb.Append(ch);
+                        }
+
+                        break;
+                }
+            }
+
+            return sb.ToString();
         }
     }
 }

@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ServiceMessageWriterTest.cs" />
     <Compile Include="SuiteNameReplacerTest.cs" />
     <Compile Include="TeamCityEventListener2IntegrationTests.cs" />
     <Compile Include="TeamCityEventListenerIntegrationTests.cs" />

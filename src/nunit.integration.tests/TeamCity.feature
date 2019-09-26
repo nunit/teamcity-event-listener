@@ -671,6 +671,10 @@ Scenario Outline: NUnit sends TeamCity service messages when I run test scenario
     | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'\='.+)      |
     | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'<colon>'.+) |
     | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'<colon>'.+) |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'★'.+) |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'★'.+) |
+    | testStarted  | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'☀'.+) |
+    | testFinished | Foo.Tests.UnitTests1.TestCasesWithSymbols(.+'☀'.+) |
 
 Examples:
     | frameworkVersion |
