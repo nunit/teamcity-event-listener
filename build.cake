@@ -21,7 +21,7 @@ var binaries = Argument("binaries", (string)null);
 // SET PACKAGE VERSION
 //////////////////////////////////////////////////////////////////////
 
-var version = "1.0.6";
+var version = "1.0.7";
 var modifier = "";
 
 // Tuple(NUnit.Console version, NUnit version)

@@ -1,4 +1,11 @@
-﻿teamcity-event-listener 1.0.6 - Mar 20, 2019
+﻿teamcity-event-listener 1.0.7 - Sep 27, 2019
+
+Issues Resolved
+
+ * 0071 Unicode symbols were not escaped within TeamCity service messages
+ * 0068 Colon's in testcase data are replaced with <space> in the Teamcity service messages
+
+teamcity-event-listener 1.0.6 - Mar 20, 2019
 
 New Features
 
