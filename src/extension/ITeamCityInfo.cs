@@ -13,5 +13,7 @@
         string SuitePattern { get; }
 
         string ColonReplacement { get; }
+
+        bool SuppressParsingMessagesInside(string eventId);
     }
 }

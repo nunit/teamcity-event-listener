@@ -392,6 +392,29 @@ namespace NUnit.Engine.Listeners
                 _output.ToString());
         }
 
+        [Test]
+        public void ShouldSuppressParsingMessagesInside()
+        {
+            // Given
+            var publisher = CreateInstance(new MyTeamCityInfo { SuppressParsingMessagesInsideValue = true });
+
+            // When
+            publisher.RegisterMessage(TestUtil.CreateStartRun(1));
+
+            // Test Assembly1.Namespace1.1.Test1
+            publisher.RegisterMessage(TestUtil.CreateStartTest("1-1", "", "Assembly1.Namespace1.1.Test1"));
+            publisher.RegisterMessage(TestUtil.CreateTestCaseSuccessful("1-1", "", "Assembly1.Namespace1.1.Test1", "0.1", "Text output"));
+
+            publisher.RegisterMessage(TestUtil.CreateTestRun());
+
+            // Then
+            Assert.AreEqual(
+                "##teamcity[testStarted name='Assembly1.Namespace1.1.Test1' captureStandardOutput='false' flowId='1-1']" + Environment.NewLine
+                + "##teamcity[testStdOut name='Assembly1.Namespace1.1.Test1' out='Text output' flowId='1-1']" + Environment.NewLine
+                + "##teamcity[testFinished name='Assembly1.Namespace1.1.Test1' duration='100' flowId='1-1']" + Environment.NewLine,
+                _output.ToString());
+        }
+
         private TeamCityEventListener CreateInstance(ITeamCityInfo teamCityInfo = null)
         {
             return new TeamCityEventListener(_outputWriter, teamCityInfo != null ? teamCityInfo : new TeamCityInfo()) { RootFlowId = string.Empty };
@@ -410,6 +433,13 @@ namespace NUnit.Engine.Listeners
             public string SuitePattern { get; set; }
 
             public string ColonReplacement { get; set; }
+
+            public bool SuppressParsingMessagesInsideValue { get; set; }
+
+            public bool SuppressParsingMessagesInside(string eventId)
+            {
+                return SuppressParsingMessagesInsideValue;
+            }
         }
     }
 }

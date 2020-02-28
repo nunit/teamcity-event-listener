@@ -71,6 +71,11 @@
             public string SuitePattern { get; set; }
 
             public string ColonReplacement { get; set; }
+
+            public bool SuppressParsingMessagesInside(string eventId)
+            {
+                return false;
+            }
         }
     }
 }

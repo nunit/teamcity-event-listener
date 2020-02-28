@@ -123,7 +123,7 @@ this.FeatureBackground();
 #line 18
  testRunner.Then("the exit code should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-            TechTalk.SpecFlow.Table table58 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table60 = new TechTalk.SpecFlow.Table(new string[] {
                         "",
                         "name",
                         "captureStandardOutput",
@@ -134,7 +134,7 @@ this.FeatureBackground();
                         "details",
                         "out",
                         "tc:tags"});
-            table58.AddRow(new string[] {
+            table60.AddRow(new string[] {
                         "testSuiteStarted",
                         "foo.tests.dll",
                         "",
@@ -145,7 +145,7 @@ this.FeatureBackground();
                         "",
                         "",
                         ""});
-            table58.AddRow(new string[] {
+            table60.AddRow(new string[] {
                         "flowStarted",
                         "",
                         "",
@@ -156,7 +156,7 @@ this.FeatureBackground();
                         "",
                         "",
                         ""});
-            table58.AddRow(new string[] {
+            table60.AddRow(new string[] {
                         "testStarted",
                         "Foo.Tests.UnitTests1.SuccessfulTest",
                         "false",
@@ -167,7 +167,7 @@ this.FeatureBackground();
                         "",
                         "",
                         ""});
-            table58.AddRow(new string[] {
+            table60.AddRow(new string[] {
                         "testStdOut",
                         "Foo.Tests.UnitTests1.SuccessfulTest",
                         "",
@@ -178,7 +178,7 @@ this.FeatureBackground();
                         "",
                         "output",
                         "tc:parseServiceMessagesInside"});
-            table58.AddRow(new string[] {
+            table60.AddRow(new string[] {
                         "testFinished",
                         "Foo.Tests.UnitTests1.SuccessfulTest",
                         "",
@@ -189,7 +189,7 @@ this.FeatureBackground();
                         "",
                         "",
                         ""});
-            table58.AddRow(new string[] {
+            table60.AddRow(new string[] {
                         "flowFinished",
                         "",
                         "",
@@ -200,7 +200,7 @@ this.FeatureBackground();
                         "",
                         "",
                         ""});
-            table58.AddRow(new string[] {
+            table60.AddRow(new string[] {
                         "testSuiteFinished",
                         "foo.tests.dll",
                         "",
@@ -212,7 +212,7 @@ this.FeatureBackground();
                         "",
                         ""});
 #line 19
- testRunner.And("the output should contain TeamCity service messages:", ((string)(null)), table58, "And ");
+ testRunner.And("the output should contain TeamCity service messages:", ((string)(null)), table60, "And ");
 #line hidden
             this.ScenarioCleanup();
         }

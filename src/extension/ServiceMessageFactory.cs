@@ -164,9 +164,9 @@
             {
                 yield return message;
             }
-        }       
+        }
 
-        private static IEnumerable<ServiceMessage> TestFinished(EventId eventId, XmlNode testFinishedEvent)
+        private IEnumerable<ServiceMessage> TestFinished(EventId eventId, XmlNode testFinishedEvent)
         {
             if (testFinishedEvent == null)
             {
@@ -197,7 +197,7 @@
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
         }
 
-        private static IEnumerable<ServiceMessage> TestFailed(EventId eventId, XmlNode testFailedEvent, XmlNode infoSource)
+        private IEnumerable<ServiceMessage> TestFailed(EventId eventId, XmlNode testFailedEvent, XmlNode infoSource)
         {
             if (testFailedEvent == null)
             {
@@ -224,7 +224,7 @@
             }
         }
 
-        private static IEnumerable<ServiceMessage> TestSkipped(EventId eventId, XmlNode testSkippedEvent)
+        private IEnumerable<ServiceMessage> TestSkipped(EventId eventId, XmlNode testSkippedEvent)
         {
             if (testSkippedEvent == null)
             {
@@ -244,7 +244,7 @@
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
         }
 
-        private static IEnumerable<ServiceMessage> TestInconclusive(EventId eventId, XmlNode testInconclusiveEvent)
+        private IEnumerable<ServiceMessage> TestInconclusive(EventId eventId, XmlNode testInconclusiveEvent)
         {
             if (testInconclusiveEvent == null)
             {
@@ -262,34 +262,49 @@
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
         }
 
-        private static IEnumerable<ServiceMessage> Output(EventId eventId, string messageName, string outputStr)
+        private IEnumerable<ServiceMessage> Output(EventId eventId, string messageName, string outputStr)
         {
             if (string.IsNullOrEmpty(outputStr))
             {
                 yield break;
             }
 
-            yield return new ServiceMessage(messageName,
+            var attributes = new List<ServiceMessageAttr>
+            {
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, eventId.FullName),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.Out, outputStr),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, TcParseServiceMessagesInside));
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Out, outputStr)
+            };
+
+            attributes.AddRange(GetAttributes(eventId, messageName));
+            yield return new ServiceMessage(messageName, attributes);
         }
 
-        private static IEnumerable<ServiceMessage> OutputAsMessage(EventId eventId, string outputStr)
+        private IEnumerable<ServiceMessage> OutputAsMessage(EventId eventId, string outputStr)
         {
             if (string.IsNullOrEmpty(outputStr))
             {
                 yield break;
             }
 
-            yield return new ServiceMessage(ServiceMessage.Names.Message,
-                new ServiceMessageAttr(ServiceMessageAttr.Names.Text, outputStr),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, TcParseServiceMessagesInside));
+            var attributes = new List<ServiceMessageAttr>
+            {
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Text, outputStr)
+            };
+
+            attributes.AddRange(GetAttributes(eventId, ServiceMessage.Names.Message));
+            yield return new ServiceMessage(ServiceMessage.Names.Message, attributes);
         }
 
-        private static IEnumerable<ServiceMessage> Output(EventId eventId, XmlNode sendOutputEvent)
+        private IEnumerable<ServiceMessageAttr> GetAttributes(EventId eventId, string messageName)
+        {
+            yield return new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId);
+            if (!_teamCityInfo.SuppressParsingMessagesInside(messageName))
+            {
+                yield return new ServiceMessageAttr(ServiceMessageAttr.Names.TcTags, TcParseServiceMessagesInside);
+            }
+        }
+
+        private IEnumerable<ServiceMessage> Output(EventId eventId, XmlNode sendOutputEvent)
         {
             if (sendOutputEvent == null) throw new ArgumentNullException("sendOutputEvent");
 
@@ -305,7 +320,7 @@
             }
         }
 
-        private static IEnumerable<ServiceMessage> ReasonMessage(EventId eventId, XmlNode ev)
+        private IEnumerable<ServiceMessage> ReasonMessage(EventId eventId, XmlNode ev)
         {
             if (ev == null) throw new ArgumentNullException("ev");
 

@@ -1133,3 +1133,67 @@ Scenario: Generate suite name according to variable TEAMCITY_NUNIT_SUITE_PATTERN
     | flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
     | testSuiteFinished | x64_foo.tests_abc                   |                       |          | .+     |        |         |         |        |                               |
     | flowFinished      |                                     |                       |          | .+     |        |         |         |        |                               |
+
+@3.9
+@teamcity
+Scenario Outline: NUnit sends TeamCity service without parseServiceMessagesInside tag
+    Given Framework version is <frameworkVersion>
+    And I added SuccessfulStdError method as SuccessfulStdErrorTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I want to use CmdArguments type of TeamCity integration
+    And I added the environment variable TEAMCITY_SUPPRESS_PARSING_INSIDE as testStdERR
+    When I run NUnit console
+    Then the exit code should be 0
+    And the output should contain correct set of TeamCity service messages
+    And the output should contain TeamCity service messages:
+    |                   | name                                        | captureStandardOutput | duration | flowId | parent | message | details | out      | tc:tags                                 |
+    | flowStarted       |                                             |                       |          | .+     | .+     |         |         |          |                                         |
+    | testSuiteStarted  | foo.tests.dll                               |                       |          | .+     |        |         |         |          |                                         |
+    | flowStarted       |                                             |                       |          | .+     | .+     |         |         |          |                                         |
+    | testStarted       | Foo.Tests.UnitTests1.SuccessfulStdErrorTest | false                 |          | .+     |        |         |         |          |                                         |
+    | testStdErr        | Foo.Tests.UnitTests1.SuccessfulStdErrorTest |                       |          | .+     |        |         |         | errorout | ^((?!tc:parseServiceMessagesInside).)*$ |
+    | testStdOut        | Foo.Tests.UnitTests1.SuccessfulStdErrorTest |                       |          | .+     |        |         |         | stdout   | tc:parseServiceMessagesInside           |
+    | testFinished      | Foo.Tests.UnitTests1.SuccessfulStdErrorTest |                       | \d+      | .+     |        |         |         |          |                                         |
+    | flowFinished      |                                             |                       |          | .+     |        |         |         |          |                                         |
+    | testSuiteFinished | foo.tests.dll                               |                       |          | .+     |        |         |         |          |                                         |
+    | flowFinished      |                                             |                       |          | .+     |        |         |         |          |                                         |
+Examples:
+    | frameworkVersion |
+    | Version45        |
+    | Version40        |
+
+    @3.9
+@teamcity
+Scenario Outline: NUnit sends TeamCity service without parseServiceMessagesInside tag for several mesage types
+    Given Framework version is <frameworkVersion>
+    And I added SuccessfulStdError method as SuccessfulStdErrorTest to the class Foo.Tests.UnitTests1 for foo.tests
+    And I created the folder mocks
+    And I added NUnit framework references to foo.tests
+    And I copied NUnit framework references to folder mocks
+    And I compiled the assembly foo.tests to file mocks\foo.tests.dll
+    And I added the assembly mocks\foo.tests.dll to the list of testing assemblies
+    And I want to use CmdArguments type of TeamCity integration
+    And I added the environment variable TEAMCITY_SUPPRESS_PARSING_INSIDE as testStdERR;teststdout
+    When I run NUnit console
+    Then the exit code should be 0
+    And the output should contain correct set of TeamCity service messages
+    And the output should contain TeamCity service messages:
+    |                   | name                                        | captureStandardOutput | duration | flowId | parent | message | details | out      | tc:tags                                 |
+    | flowStarted       |                                             |                       |          | .+     | .+     |         |         |          |                                         |
+    | testSuiteStarted  | foo.tests.dll                               |                       |          | .+     |        |         |         |          |                                         |
+    | flowStarted       |                                             |                       |          | .+     | .+     |         |         |          |                                         |
+    | testStarted       | Foo.Tests.UnitTests1.SuccessfulStdErrorTest | false                 |          | .+     |        |         |         |          |                                         |
+    | testStdErr        | Foo.Tests.UnitTests1.SuccessfulStdErrorTest |                       |          | .+     |        |         |         | errorout | ^((?!tc:parseServiceMessagesInside).)*$ |
+    | testStdOut        | Foo.Tests.UnitTests1.SuccessfulStdErrorTest |                       |          | .+     |        |         |         | stdout   | ^((?!tc:parseServiceMessagesInside).)*$ |
+    | testFinished      | Foo.Tests.UnitTests1.SuccessfulStdErrorTest |                       | \d+      | .+     |        |         |         |          |                                         |
+    | flowFinished      |                                             |                       |          | .+     |        |         |         |          |                                         |
+    | testSuiteFinished | foo.tests.dll                               |                       |          | .+     |        |         |         |          |                                         |
+    | flowFinished      |                                             |                       |          | .+     |        |         |         |          |                                         |
+Examples:
+    | frameworkVersion |
+    | Version45        |
+    | Version40        |
