@@ -1,9 +1,8 @@
-﻿teamcity-event-listener 1.0.7 - Sep 27, 2019
+﻿teamcity-event-listener 1.0.8 - March 23, 2020
 
-Issues Resolved
+New Features
 
- * 0071 Unicode symbols were not escaped within TeamCity service messages
- * 0068 Colon's in testcase data are replaced with <space> in the Teamcity service messages
+ * 0073 Added the environment variable to suppress parsing TeamCity service message from NUnit events. For instance adding the environment variable 'TEAMCITY_SUPPRESS_PARSING_INSIDE=testStdErr;testStdOut' avoids paring service messages within stdErr and stdOut.
 
 teamcity-event-listener 1.0.6 - Mar 20, 2019
 
