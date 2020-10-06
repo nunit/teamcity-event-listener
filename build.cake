@@ -59,10 +59,11 @@ if (BuildSystem.IsRunningOnAppVeyor)
 //////////////////////////////////////////////////////////////////////
 
 // Directories
+var TARGET_FRAMEWORK = "net20";
 var PROJECT_DIR = Context.Environment.WorkingDirectory.FullPath + "/";
 var PACKAGE_DIR = PROJECT_DIR + "package/";
 var TOOLS_DIR = PROJECT_DIR + "tools/";
-var BIN_DIR = PROJECT_DIR + "bin/" + configuration + "/";
+var BIN_DIR = PROJECT_DIR + "bin/" + configuration + "/" + TARGET_FRAMEWORK + "/";
 var BIN_SRC = BIN_DIR; // Source of binaries used in packaging
 var TEST_NUNIT_DIR = PROJECT_DIR + "bin/nunit/";
 var TEST_PACKAGES_DIR = PROJECT_DIR + "bin/packages/";
