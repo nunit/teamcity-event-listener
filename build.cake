@@ -86,7 +86,7 @@ var SOLUTION_FILE = PROJECT_DIR + "teamcity-event-listener.sln";
 var TEST_SOLUTION_FILE = PROJECT_DIR + "teamcity-event-listener-tests.sln";
 var NUNIT3_CONSOLE = TOOLS_DIR + "NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe";
 var TEST_ASSEMBLY = BIN_DIR + "teamcity-event-listener.tests.dll";
-var INTEGRATION_TEST_ASSEMBLY = BIN_DIR + "nunit.integration.tests.dll";
+var INTEGRATION_TEST_ASSEMBLY = PROJECT_DIR + "bin/" + configuration + "/" + "nunit.integration.tests.dll";
 
 // MetaData used in the nuget and chocolatey packages
 var GITHUB_SITE = "https://github.com/nunit/teamcity-event-listener";
