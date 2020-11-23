@@ -59,10 +59,12 @@ if (BuildSystem.IsRunningOnAppVeyor)
 //////////////////////////////////////////////////////////////////////
 
 // Directories
+var TARGET_FRAMEWORK = "net20";
 var PROJECT_DIR = Context.Environment.WorkingDirectory.FullPath + "/";
 var PACKAGE_DIR = PROJECT_DIR + "package/";
 var TOOLS_DIR = PROJECT_DIR + "tools/";
-var BIN_DIR = PROJECT_DIR + "bin/" + configuration + "/";
+var BIN_CONFIG_DIR = PROJECT_DIR + "bin/" + configuration + "/";
+var BIN_DIR = BIN_CONFIG_DIR + TARGET_FRAMEWORK + "/";
 var BIN_SRC = BIN_DIR; // Source of binaries used in packaging
 var TEST_NUNIT_DIR = PROJECT_DIR + "bin/nunit/";
 var TEST_PACKAGES_DIR = PROJECT_DIR + "bin/packages/";
@@ -85,7 +87,7 @@ var SOLUTION_FILE = PROJECT_DIR + "teamcity-event-listener.sln";
 var TEST_SOLUTION_FILE = PROJECT_DIR + "teamcity-event-listener-tests.sln";
 var NUNIT3_CONSOLE = TOOLS_DIR + "NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe";
 var TEST_ASSEMBLY = BIN_DIR + "teamcity-event-listener.tests.dll";
-var INTEGRATION_TEST_ASSEMBLY = BIN_DIR + "nunit.integration.tests.dll";
+var INTEGRATION_TEST_ASSEMBLY = BIN_CONFIG_DIR + "nunit.integration.tests.dll";
 
 // MetaData used in the nuget and chocolatey packages
 var GITHUB_SITE = "https://github.com/nunit/teamcity-event-listener";
