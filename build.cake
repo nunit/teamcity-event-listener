@@ -65,7 +65,7 @@ var PACKAGE_DIR = PROJECT_DIR + "package/";
 var TOOLS_DIR = PROJECT_DIR + "tools/";
 var BIN_CONFIG_DIR = PROJECT_DIR + "bin/" + configuration + "/";
 var BIN_DIR = BIN_CONFIG_DIR + TARGET_FRAMEWORK + "/";
-var BIN_SRC = BIN_DIR; // Source of binaries used in packaging
+var BIN_SRC = BIN_CONFIG_DIR; // Source of binaries used in packaging
 var TEST_NUNIT_DIR = PROJECT_DIR + "bin/nunit/";
 var TEST_PACKAGES_DIR = PROJECT_DIR + "bin/packages/";
 var TEST_TEAMCITY_EXT_DIR = TEST_NUNIT_DIR + "NUnit.Extension.TeamCityEventListener/tools/";
@@ -364,6 +364,7 @@ Task("IntegrationTest")
 //////////////////////////////////////////////////////////////////////
 
 Task("RePackageNuGet")
+    .IsDependentOn("Build")
     .Does(() => 
     {
         CreateDirectory(PACKAGE_DIR);
@@ -390,12 +391,17 @@ Task("RePackageNuGet")
                 Files = new [] {
                     new NuSpecContent { Source = PROJECT_DIR + "LICENSE.txt" },
                     new NuSpecContent { Source = PROJECT_DIR + "CHANGES.txt" },
-                    new NuSpecContent { Source = BIN_SRC + "teamcity-event-listener.dll", Target = "tools" }
+                    new NuSpecContent { Source = PROJECT_DIR + ".addins", Target = "tools" },
+                    new NuSpecContent { Source = BIN_SRC + "net20/teamcity-event-listener.dll", Target = "tools/net20" },
+                    new NuSpecContent { Source = BIN_SRC + "net20/nunit.engine.api.dll", Target = "tools/net20" },
+                    new NuSpecContent { Source = BIN_SRC + "netstandard2.0/teamcity-event-listener.dll", Target = "tools/netstandard2.0" },
+                    new NuSpecContent { Source = BIN_SRC + "netstandard2.0/nunit.engine.api.dll", Target = "tools/netstandard2.0" }
                 }
             });
     });
 
 Task("RePackageChocolatey")
+    .IsDependentOn("Build")
     .Does(() =>
     {
         CreateDirectory(PACKAGE_DIR);
@@ -428,7 +434,11 @@ Task("RePackageChocolatey")
                     new ChocolateyNuSpecContent { Source = PROJECT_DIR + "LICENSE.txt", Target = "tools" },
                     new ChocolateyNuSpecContent { Source = PROJECT_DIR + "CHANGES.txt", Target = "tools" },
                     new ChocolateyNuSpecContent { Source = PROJECT_DIR + "VERIFICATION.txt", Target = "tools" },
-                    new ChocolateyNuSpecContent { Source = BIN_SRC + "teamcity-event-listener.dll", Target = "tools" }
+                    new ChocolateyNuSpecContent { Source = PROJECT_DIR + ".addins", Target = "tools" },
+                    new ChocolateyNuSpecContent { Source = BIN_SRC + "net20/teamcity-event-listener.dll", Target = "tools/net20" },
+                    new ChocolateyNuSpecContent { Source = BIN_SRC + "net20/nunit.engine.api.dll", Target = "tools/net20" },
+                    new ChocolateyNuSpecContent { Source = BIN_SRC + "netstandard2.0/teamcity-event-listener.dll", Target = "tools/netstandard2.0" },
+                    new ChocolateyNuSpecContent { Source = BIN_SRC + "netstandard2.0/nunit.engine.api.dll", Target = "tools/netstandard2.0" }
                 }
             });
     });
