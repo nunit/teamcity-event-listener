@@ -1,8 +1,9 @@
-﻿teamcity-event-listener 1.0.8 - March 23, 2020
+﻿teamcity-event-listener 1.0.8 - Dec 09, 2020
 
 New Features
 
  * 0073 Added the environment variable to suppress parsing TeamCity service message from NUnit events. For instance adding the environment variable 'TEAMCITY_SUPPRESS_PARSING_INSIDE=testStdErr;testStdOut' avoids paring service messages within stdErr and stdOut.
+ * Support netstandard2.0
 
 teamcity-event-listener 1.0.6 - Mar 20, 2019
 
