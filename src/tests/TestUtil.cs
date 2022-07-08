@@ -83,39 +83,37 @@
                     }
                 }
 
-                if (inBlock)
+                if (!inBlock)
                 {
-                    fullLine.AppendLine(line);
-                    if (line.Contains(FinishBlock))
-                    {
-                        inBlock = false;
-                        var nextLine = fullLine.ToString();
-                        var first = nextLine.IndexOf(StartBlock, StringComparison.InvariantCulture) + StartBlock.Length;
-                        var last = nextLine.IndexOf(FinishBlock, StringComparison.InvariantCulture);
-                        yield return CreateMessage(nextLine.Substring(first, last - first));
-                    }
-                }                                              
+                    continue;
+                }
+
+                fullLine.AppendLine(line);
+                if (!line.Contains(FinishBlock))
+                {
+                    continue;
+                }
+
+                inBlock = false;
+                var nextLine = fullLine.ToString();
+                var first = nextLine.IndexOf(StartBlock, StringComparison.InvariantCulture) + StartBlock.Length;
+                var last = nextLine.IndexOf(FinishBlock, StringComparison.InvariantCulture);
+                yield return CreateMessage(nextLine.Substring(first, last - first));
             }
         }
 
         private static string GetNamedAttr(string attrName, string attrValue)
         {
-            if (attrValue == null)
-            {
-                return string.Empty;
-            }
-
-            return string.Format("{0}=\"{1}\"", attrName, attrValue);
+            return attrValue == null 
+                ? string.Empty
+                : string.Format("{0}=\"{1}\"", attrName, attrValue);
         }
 
         private static string GetNamedElement(string elementName, string elementValue)
         {
-            if (elementValue == null)
-            {
-                return string.Empty;
-            }
-
-            return string.Format("<{0}>{1}</{0}>", elementName, elementValue);
+            return elementValue == null
+                ? string.Empty
+                : string.Format("<{0}>{1}</{0}>", elementName, elementValue);
         }
 
         private static XmlNode CreateMessage(string text)

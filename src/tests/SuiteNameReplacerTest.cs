@@ -1,5 +1,6 @@
 ﻿namespace NUnit.Engine.Listeners
 {
+    using System.Diagnostics.CodeAnalysis;
     using Framework;
 
     [TestFixture]
@@ -58,6 +59,7 @@
             Assert.AreEqual(expectedSuiteName, actualSuiteName);
         }
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
         private class MyTeamCityInfo : ITeamCityInfo
         {
             public bool MetadataEnabled { get; set; }

@@ -21,14 +21,13 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Diagnostics.CodeAnalysis;
 using System.Xml;
 
 namespace System.Runtime.CompilerServices
 {
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Method)]
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    sealed class ExtensionAttribute : Attribute { }
+    // ReSharper disable once UnusedType.Global
+    public sealed class ExtensionAttribute : Attribute { }
 }
 
 namespace NUnit.Engine.Listeners

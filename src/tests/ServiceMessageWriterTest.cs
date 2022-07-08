@@ -1,4 +1,5 @@
-﻿namespace NUnit.Engine.Listeners
+﻿// ReSharper disable StringLiteralTypo
+namespace NUnit.Engine.Listeners
 {
     using Framework;
 

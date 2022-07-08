@@ -33,13 +33,14 @@ namespace NUnit.Engine.Listeners
         public bool AddLink(string childId, string parentId)
         {           
             string curParentId;
-            if (!_links.TryGetValue(childId, out curParentId) || curParentId != parentId)
+            if (_links.TryGetValue(childId, out curParentId) && curParentId == parentId)
             {
-                _links[childId] = parentId;
-                return true;
+                return false;
             }
 
-            return false;
+            _links[childId] = parentId;
+            return true;
+
         }
         
         public void Clear()

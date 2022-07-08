@@ -21,6 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
+// ReSharper disable UnusedMember.Local
 namespace NUnit.Engine.Listeners
 {
     using System;

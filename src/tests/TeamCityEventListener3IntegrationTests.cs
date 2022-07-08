@@ -24,6 +24,7 @@
 namespace NUnit.Engine.Listeners
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Text;
     using Extensibility;
@@ -420,6 +421,7 @@ namespace NUnit.Engine.Listeners
             return TestUtil.CreateListener(_outputWriter, info);
         }
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
         private class MyTeamCityInfo : ITeamCityInfo
         {
             public bool MetadataEnabled { get; set; }

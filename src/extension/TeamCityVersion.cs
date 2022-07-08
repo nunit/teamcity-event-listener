@@ -34,22 +34,26 @@ namespace NUnit.Engine.Listeners
         {
             try
             {
-                if (!string.IsNullOrEmpty(version))
+                if (string.IsNullOrEmpty(version))
                 {
-                    var match = VersionRegex.Match(version);
-                    if (match.Success)
-                    {
-                        int val;
-                        if (int.TryParse(match.Groups[1].Value, out val))
-                        {
-                            Major = val;
-                        }
+                    return;
+                }
 
-                        if (int.TryParse(match.Groups[3].Value, out val))
-                        {
-                            Minor = val;
-                        }
-                    }
+                var match = VersionRegex.Match(version);
+                if (!match.Success)
+                {
+                    return;
+                }
+
+                int val;
+                if (int.TryParse(match.Groups[1].Value, out val))
+                {
+                    Major = val;
+                }
+
+                if (int.TryParse(match.Groups[3].Value, out val))
+                {
+                    Minor = val;
                 }
             }
             catch
@@ -58,19 +62,14 @@ namespace NUnit.Engine.Listeners
             }
         }
 
-        public int Major { get; private set; }
+        private int Major { get; set; }
 
-        public int Minor { get; private set; }
+        private int Minor { get; set; }
 
         public int CompareTo(TeamCityVersion other)
         {
             var result = Major.CompareTo(other.Major);
-            if (result != 0)
-            {
-                return result;
-            }
-
-            return Minor.CompareTo(other.Minor);
+            return result != 0 ? result : Minor.CompareTo(other.Minor);
         }
 
         public override string ToString()

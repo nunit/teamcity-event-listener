@@ -368,102 +368,106 @@ namespace NUnit.Engine.Listeners
         private static IEnumerable<ServiceMessage> Attachments(EventId eventId, XmlNode testEvent)
         {
             var attachments = testEvent.SelectNodes("attachments/attachment");
-            if (attachments != null)
+            if (attachments == null)
             {
-                foreach (var attachment in attachments)
+                yield break;
+            }
+
+            foreach (var attachment in attachments)
+            {
+                var attachmentElement = attachment as XmlNode;
+                if (attachmentElement == null)
                 {
-                    var attachmentElement = attachment as XmlNode;
-                    if (attachmentElement == null)
+                    continue;
+                }
+
+                var filePathNode = attachmentElement.SelectSingleNode("filePath");
+                if (filePathNode == null)
+                {
+                    continue;
+                }
+
+                var filePath = filePathNode.InnerText;
+                var descriptionNode = attachmentElement.SelectSingleNode("description");
+                string description = null;
+                if (descriptionNode != null)
+                {
+                    description = descriptionNode.InnerText;
+                }
+
+                var fileName = Path.GetFileName(filePath);
+                var fileExtension = Path.GetExtension(fileName).ToLowerInvariant();
+
+                string artifactDir = null;
+                if (!string.IsNullOrEmpty(description))
+                {
+                    var match = AttachmentDescriptionRegex.Match(description);
+                    if (match.Success)
                     {
-                        continue;
-                    }
-
-                    var filePathNode = attachmentElement.SelectSingleNode("filePath");
-                    if (filePathNode != null)
-                    {
-                        var filePath = filePathNode.InnerText;
-                        var descriptionNode = attachmentElement.SelectSingleNode("description");
-                        string description = null;
-                        if (descriptionNode != null)
-                        {
-                            description = descriptionNode.InnerText;
-                        }
-
-                        var fileName = Path.GetFileName(filePath);
-                        var fileExtension = Path.GetExtension(fileName).ToLowerInvariant();
-
-                        string artifactDir = null;
-                        if (!string.IsNullOrEmpty(description))
-                        {
-                            var match = AttachmentDescriptionRegex.Match(description);
-                            if (match.Success)
-                            {
-                                description = match.Groups[1].Value.Trim();
-                                artifactDir = match.Groups[2].Value.Trim();
-                            }
-                        }
-
-                        if (artifactDir == null)
-                        {
-                            var testDirNameChars = new char[eventId.FullName.Length];
-                            eventId.FullName.CopyTo(0, testDirNameChars, 0, eventId.FullName.Length);
-                            for (var i = 0; i < testDirNameChars.Length; i++)
-                            {
-                                if (_invalidChars.Contains(testDirNameChars[i]))
-                                {
-                                    testDirNameChars[i] = '_';
-                                }
-                            }
-
-                            var testDirName = new string(testDirNameChars);
-                            artifactDir = ".teamcity/NUnit/" + testDirName + "/" + Guid.NewGuid();
-                        }
-
-                        string artifactType;
-                        switch (fileExtension)
-                        {
-                            case ".bmp":
-                            case ".gif":
-                            case ".ico":
-                            case ".jng":
-                            case ".jpeg":
-                            case ".jpg":
-                            case ".jfif":
-                            case ".jp2":
-                            case ".jps":
-                            case ".tga":
-                            case ".tiff":
-                            case ".tif":
-                            case ".svg":
-                            case ".wmf":
-                            case ".emf":
-                            case ".png":
-                                artifactType = "image";
-                                break;
-
-                            default:
-                                artifactType = "artifact";
-                                break;
-                        }
-
-                        yield return new ServiceMessage(ServiceMessage.Names.PublishArtifacts, filePath + " => " + artifactDir);
-
-                        var attrs = new List<ServiceMessageAttr>
-                        {
-                            new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId),
-                            new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, eventId.FullName),
-                            new ServiceMessageAttr(ServiceMessageAttr.Names.Type, artifactType),
-                            new ServiceMessageAttr(ServiceMessageAttr.Names.Value, artifactDir + "/" + fileName)
-                        };
-
-                        if (!string.IsNullOrEmpty(description))
-                        {
-                            attrs.Add(new ServiceMessageAttr(ServiceMessageAttr.Names.Name, description));
-                        }
-
-                        yield return new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
+                        description = match.Groups[1].Value.Trim();
+                        artifactDir = match.Groups[2].Value.Trim();
                     }
                 }
+
+                if (artifactDir == null)
+                {
+                    var testDirNameChars = new char[eventId.FullName.Length];
+                    eventId.FullName.CopyTo(0, testDirNameChars, 0, eventId.FullName.Length);
+                    for (var i = 0; i < testDirNameChars.Length; i++)
+                    {
+                        if (_invalidChars.Contains(testDirNameChars[i]))
+                        {
+                            testDirNameChars[i] = '_';
+                        }
+                    }
+
+                    var testDirName = new string(testDirNameChars);
+                    artifactDir = ".teamcity/NUnit/" + testDirName + "/" + Guid.NewGuid();
+                }
+
+                string artifactType;
+                switch (fileExtension)
+                {
+                    case ".bmp":
+                    case ".gif":
+                    case ".ico":
+                    case ".jng":
+                    case ".jpeg":
+                    case ".jpg":
+                    case ".jfif":
+                    case ".jp2":
+                    case ".jps":
+                    case ".tga":
+                    case ".tiff":
+                    case ".tif":
+                    case ".svg":
+                    case ".wmf":
+                    case ".emf":
+                    case ".png":
+                        artifactType = "image";
+                        break;
+
+                    default:
+                        artifactType = "artifact";
+                        break;
+                }
+
+                yield return new ServiceMessage(ServiceMessage.Names.PublishArtifacts, filePath + " => " + artifactDir);
+
+                var attrs = new List<ServiceMessageAttr>
+                {
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId),
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, eventId.FullName),
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.Type, artifactType),
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.Value, artifactDir + "/" + fileName)
+                };
+
+                if (!string.IsNullOrEmpty(description))
+                {
+                    attrs.Add(new ServiceMessageAttr(ServiceMessageAttr.Names.Name, description));
+                }
+
+                yield return new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
             }
         }
     }

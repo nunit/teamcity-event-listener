@@ -33,6 +33,7 @@ namespace NUnit.Engine.Listeners
         public readonly string Name;
         public readonly string Id;
         public readonly string ParentId;
+        // ReSharper disable once InconsistentNaming
         public readonly string TestId;
         // ReSharper disable once InconsistentNaming
         public readonly XmlNode TestEvent;

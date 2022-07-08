@@ -151,11 +151,13 @@ namespace NUnit.Engine.Listeners
                 var parentId = notStartedTest.Key;
                 while (_hierarchy.TryFindParentId(parentId, out parentId))
                 {
-                    if (id == parentId)
+                    if (id != parentId)
                     {
-                        testToProcess.Add(notStartedTest.Key);
-                        break;
+                        continue;
                     }
+
+                    testToProcess.Add(notStartedTest.Key);
+                    break;
                 }
             }
 
