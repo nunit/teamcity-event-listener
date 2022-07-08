@@ -179,3 +179,4 @@ MockAssemblyResult.xml
 PortabilityAnalysis*.html
 tools/nuget.exe
 tools/
+.idea/

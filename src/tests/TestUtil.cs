@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Text;
     using System.Xml;
 
@@ -10,6 +11,27 @@
     {
         private const string StartBlock = "!!!!{ ";
         private const string FinishBlock = " }!!!!";
+
+        public static EventListener CreateListener(TextWriter outWriter, ITeamCityInfo info = null)
+        {
+            var statistics = new Statistics();
+            if (info == null)
+            {
+                info = new TeamCityInfo();
+            }
+
+            var serviceMessageFactory = new ServiceMessageFactory(info, new SuiteNameReplacer(info));
+            return new EventListener(
+                outWriter,
+                new TeamCityInfo(),
+                new Statistics(),
+                new ServiceMessageWriter(),
+                new EventConverter2(serviceMessageFactory, new Hierarchy(), statistics, info),
+                new EventConverter3(serviceMessageFactory, new Hierarchy(), statistics, info))
+            {
+                RootFlowId = string.Empty
+            };
+        }
 
         public static XmlNode CreateStartRun(int count)
         {

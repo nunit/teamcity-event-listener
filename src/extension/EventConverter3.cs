@@ -27,7 +27,7 @@ namespace NUnit.Engine.Listeners
     using System.Xml;
     using System.Collections.Generic;
 
-    internal class EventConverter3: IEventConverter
+    public class EventConverter3: IEventConverter
     {
         private readonly IServiceMessageFactory _serviceMessageFactory;
         private readonly IHierarchy _hierarchy;

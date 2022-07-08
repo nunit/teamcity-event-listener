@@ -23,36 +23,25 @@
 
 namespace NUnit.Engine.Listeners
 {
-    public class Statistics
+    using System;
+    using System.IO;
+    using Pure.DI;
+
+    public static partial class Composer
     {
-        private long _suiteStart;
-        private long _suiteFinish;
-        private long _testStart;
-        private long _testFinish;
-
-        public void RegisterSuiteStart()
+        private static void Setup()
         {
-            _suiteStart++;
-        }
-
-        public void RegisterSuiteFinish()
-        {
-            _suiteFinish++;
-        }
-
-        public void RegisterTestStart()
-        {
-            _testStart++;
-        }
-
-        public void RegisterTestFinish()
-        {
-            _testFinish++;
-        }
-
-        public override string ToString()
-        {
-            return string.Format("SuiteStart: {0}, SuiteFinish: {1}, TestStart: {2}, TestFinish: {3}", _suiteStart, _suiteFinish, _testStart, _testFinish);
+            DI.Setup()
+                .Bind<TextWriter>().To(ctx => Console.Out)
+                .Bind<Statistics>().To<Statistics>()
+                .Bind<IServiceMessageWriter>().To<ServiceMessageWriter>()
+                .Bind<ITeamCityInfo>().To<TeamCityInfo>()
+                .Bind<ISuiteNameReplacer>().To<SuiteNameReplacer>()
+                .Bind<IServiceMessageFactory>().To<ServiceMessageFactory>()
+                .Bind<IHierarchy>().To<Hierarchy>()
+                .Bind<IEventConverter>(2).To<EventConverter2>()
+                .Bind<IEventConverter>(3).To<EventConverter3>()
+                .Bind<ITestEventListener>().To<EventListener>();
         }
     }
 }
