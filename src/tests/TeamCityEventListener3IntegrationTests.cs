@@ -24,6 +24,7 @@
 namespace NUnit.Engine.Listeners
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Text;
     using Extensibility;
@@ -415,11 +416,12 @@ namespace NUnit.Engine.Listeners
                 _output.ToString());
         }
 
-        private TeamCityEventListener CreateInstance(ITeamCityInfo teamCityInfo = null)
+        private EventListener CreateInstance(ITeamCityInfo info = null)
         {
-            return new TeamCityEventListener(_outputWriter, teamCityInfo != null ? teamCityInfo : new TeamCityInfo()) { RootFlowId = string.Empty };
+            return TestUtil.CreateListener(_outputWriter, info);
         }
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
         private class MyTeamCityInfo : ITeamCityInfo
         {
             public bool MetadataEnabled { get; set; }

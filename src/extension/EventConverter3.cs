@@ -27,7 +27,7 @@ namespace NUnit.Engine.Listeners
     using System.Xml;
     using System.Collections.Generic;
 
-    internal class EventConverter3: IEventConverter
+    public class EventConverter3: IEventConverter
     {
         private readonly IServiceMessageFactory _serviceMessageFactory;
         private readonly IHierarchy _hierarchy;
@@ -151,11 +151,13 @@ namespace NUnit.Engine.Listeners
                 var parentId = notStartedTest.Key;
                 while (_hierarchy.TryFindParentId(parentId, out parentId))
                 {
-                    if (id == parentId)
+                    if (id != parentId)
                     {
-                        testToProcess.Add(notStartedTest.Key);
-                        break;
+                        continue;
                     }
+
+                    testToProcess.Add(notStartedTest.Key);
+                    break;
                 }
             }
 

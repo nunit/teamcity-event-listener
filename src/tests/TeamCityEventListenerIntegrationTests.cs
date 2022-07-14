@@ -47,7 +47,7 @@ namespace NUnit.Engine.Listeners
         }        
 
         [Test]
-        [Ignore("")]
+        [Ignore("Manual run only")]
         public void ShouldSendMessages()
         {
             // Given
@@ -67,9 +67,9 @@ namespace NUnit.Engine.Listeners
             var messages = _output.ToString();           
         }
 
-        private TeamCityEventListener CreateInstance()
+        private EventListener CreateInstance()
         {
-            return new TeamCityEventListener(_outputWriter, new TeamCityInfo()) { RootFlowId = string.Empty };
+            return TestUtil.CreateListener(_outputWriter);
         }        
     }
 }

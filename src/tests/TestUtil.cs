@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Text;
     using System.Xml;
 
@@ -10,6 +11,27 @@
     {
         private const string StartBlock = "!!!!{ ";
         private const string FinishBlock = " }!!!!";
+
+        public static EventListener CreateListener(TextWriter outWriter, ITeamCityInfo info = null)
+        {
+            var statistics = new Statistics();
+            if (info == null)
+            {
+                info = new TeamCityInfo();
+            }
+
+            var serviceMessageFactory = new ServiceMessageFactory(info, new SuiteNameReplacer(info));
+            return new EventListener(
+                outWriter,
+                new TeamCityInfo(),
+                new Statistics(),
+                new ServiceMessageWriter(),
+                new EventConverter2(serviceMessageFactory, new Hierarchy(), statistics, info),
+                new EventConverter3(serviceMessageFactory, new Hierarchy(), statistics, info))
+            {
+                RootFlowId = string.Empty
+            };
+        }
 
         public static XmlNode CreateStartRun(int count)
         {
@@ -61,39 +83,37 @@
                     }
                 }
 
-                if (inBlock)
+                if (!inBlock)
                 {
-                    fullLine.AppendLine(line);
-                    if (line.Contains(FinishBlock))
-                    {
-                        inBlock = false;
-                        var nextLine = fullLine.ToString();
-                        var first = nextLine.IndexOf(StartBlock, StringComparison.InvariantCulture) + StartBlock.Length;
-                        var last = nextLine.IndexOf(FinishBlock, StringComparison.InvariantCulture);
-                        yield return CreateMessage(nextLine.Substring(first, last - first));
-                    }
-                }                                              
+                    continue;
+                }
+
+                fullLine.AppendLine(line);
+                if (!line.Contains(FinishBlock))
+                {
+                    continue;
+                }
+
+                inBlock = false;
+                var nextLine = fullLine.ToString();
+                var first = nextLine.IndexOf(StartBlock, StringComparison.InvariantCulture) + StartBlock.Length;
+                var last = nextLine.IndexOf(FinishBlock, StringComparison.InvariantCulture);
+                yield return CreateMessage(nextLine.Substring(first, last - first));
             }
         }
 
         private static string GetNamedAttr(string attrName, string attrValue)
         {
-            if (attrValue == null)
-            {
-                return string.Empty;
-            }
-
-            return string.Format("{0}=\"{1}\"", attrName, attrValue);
+            return attrValue == null 
+                ? string.Empty
+                : string.Format("{0}=\"{1}\"", attrName, attrValue);
         }
 
         private static string GetNamedElement(string elementName, string elementValue)
         {
-            if (elementValue == null)
-            {
-                return string.Empty;
-            }
-
-            return string.Format("<{0}>{1}</{0}>", elementName, elementValue);
+            return elementValue == null
+                ? string.Empty
+                : string.Format("<{0}>{1}</{0}>", elementName, elementValue);
         }
 
         private static XmlNode CreateMessage(string text)

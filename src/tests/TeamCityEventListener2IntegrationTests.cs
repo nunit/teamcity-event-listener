@@ -322,9 +322,9 @@ namespace NUnit.Engine.Listeners
                 _output.ToString());
         }        
 
-        private TeamCityEventListener CreateInstance()
+        private EventListener CreateInstance()
         {
-            return new TeamCityEventListener(_outputWriter, new TeamCityInfo()) { RootFlowId = string.Empty };
+            return TestUtil.CreateListener(_outputWriter);
         }
     }
 }
