@@ -22,7 +22,7 @@
         {
             var invalidPathChars = Path.GetInvalidPathChars();
             var invalidFileNameChars = Path.GetInvalidFileNameChars();
-            _invalidChars = new List<char>(invalidPathChars.Length + invalidFileNameChars.Length);
+            _invalidChars = new List<char>(invalidPathChars.Length + invalidFileNameChars.Length + 1);
             foreach (var c in invalidPathChars)
             {
                 _invalidChars.Add(c);
@@ -37,6 +37,10 @@
 
                 _invalidChars.Add(c);
             }
+            // TeamCity doesn't support artifacts with paths containing comma character: https://youtrack.jetbrains.com/issue/TW-19333
+            // In order to make sure the artifacts are published correctly, we are getting rid of invalid characters,
+            // and the comma character is considered to be invalid:
+            _invalidChars.Add(',');
         }
 
         public ServiceMessageFactory(ITeamCityInfo teamCityInfo, ISuiteNameReplacer suiteNameReplacer)
@@ -386,11 +390,7 @@
                             eventId.FullName.CopyTo(0, testDirNameChars, 0, eventId.FullName.Length);
                             for (var i = 0; i < testDirNameChars.Length; i++)
                             {
-                                var testDirNameChar = testDirNameChars[i];
-                                // TeamCity doesn't support artifacts with paths containing comma character: https://youtrack.jetbrains.com/issue/TW-19333
-                                // In order to make sure the artifacts are published correctly, we are getting rid of invalid characters,
-                                // and replacing the comma character with '_':
-                                if (_invalidChars.Contains(testDirNameChar) || testDirNameChar == ',')
+                                if (_invalidChars.Contains(testDirNameChars[i]))
                                 {
                                     testDirNameChars[i] = '_';
                                 }
