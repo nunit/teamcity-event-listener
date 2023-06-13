@@ -16,33 +16,7 @@
         private const string TcParseServiceMessagesInside = "tc:parseServiceMessagesInside";
         private static readonly IEnumerable<ServiceMessage> EmptyServiceMessages = new ServiceMessage[0];
         private static readonly Regex AttachmentDescriptionRegex = new Regex("(.*)=>(.+)", RegexOptions.Compiled);
-        private static readonly List<char> _invalidChars;
-
-        static ServiceMessageFactory()
-        {
-            var invalidPathChars = Path.GetInvalidPathChars();
-            var invalidFileNameChars = Path.GetInvalidFileNameChars();
-            _invalidChars = new List<char>(invalidPathChars.Length + invalidFileNameChars.Length + 1);
-            foreach (var c in invalidPathChars)
-            {
-                _invalidChars.Add(c);
-            }
-
-            foreach (var c in invalidFileNameChars)
-            {
-                if (_invalidChars.Contains(c))
-                {
-                    continue;
-                }
-
-                _invalidChars.Add(c);
-            }
-            // TeamCity doesn't support artifacts with paths containing comma character: https://youtrack.jetbrains.com/issue/TW-19333
-            // In order to make sure the artifacts are published correctly, we are getting rid of invalid characters,
-            // and the comma character is considered to be invalid:
-            _invalidChars.Add(',');
-        }
-
+        
         public ServiceMessageFactory(ITeamCityInfo teamCityInfo, ISuiteNameReplacer suiteNameReplacer)
         {
             _teamCityInfo = teamCityInfo;
@@ -386,18 +360,7 @@
 
                         if (artifactDir == null)
                         {
-                            var testDirNameChars = new char[eventId.FullName.Length];
-                            eventId.FullName.CopyTo(0, testDirNameChars, 0, eventId.FullName.Length);
-                            for (var i = 0; i < testDirNameChars.Length; i++)
-                            {
-                                if (_invalidChars.Contains(testDirNameChars[i]))
-                                {
-                                    testDirNameChars[i] = '_';
-                                }
-                            }
-
-                            var testDirName = new string(testDirNameChars);
-                            artifactDir = ".teamcity/NUnit/" + testDirName + "/" + Guid.NewGuid();
+                            artifactDir = ".teamcity/NUnit/" + Guid.NewGuid();
                         }
 
                         string artifactType;
