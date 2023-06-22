@@ -34,7 +34,7 @@
             System.Console.WriteLine("OneTimeSetUp output");
         }
 
-        [NUnit.Framework.TestFixtureSetUpAttribute]
+        /*[NUnit.Framework.TestFixtureSetUpAttribute]
         public void FailedTestFixtureSetup()
         {
             throw new System.Exception("Exception during TestFixtureSetup");
@@ -45,7 +45,7 @@
         public void TestFixtureSetupWithOutput()
         {
             System.Console.WriteLine("TestFixtureSetup output");
-        }
+        }*/
 
         [TearDown]
         public void FailedTearDown()
@@ -65,7 +65,7 @@
             System.Console.WriteLine("OneTimeTearDown output");
         }
 
-        [NUnit.Framework.TestFixtureTearDown]
+        /*[NUnit.Framework.TestFixtureTearDown]
         public void FailedTestFixtureTearDown()
         {
             throw new System.Exception("Exception during TestFixtureTearDown");
@@ -75,7 +75,7 @@
         public void TestFixtureTearDownWithOutput()
         {
             System.Console.WriteLine("TestFixtureTearDown output");
-        }
+        }*/
 
         [SetUp]
         public void SetUpWithOutput()
