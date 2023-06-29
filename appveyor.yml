@@ -1,20 +1,9 @@
-# base image
-image: Visual Studio 2019
+image: Visual Studio 2022
+test: false
+build: false
 
-build_script: 
-  - ps: .\build.ps1 -Target "Appveyor"
-
-# disable built-in tests.
-test: off
+build_script:
+  - cmd: .\build.cmd pack
 
 artifacts:
-- path: package\*.nupkg
-
-deploy:
-  - provider: NuGet
-    server: https://www.myget.org/F/nunit/api/v2
-    api_key:
-      secure: wtAvJDVl2tfwiVcyLExFHLvZVfUWiQRHsfdHBFCNEATeCHo1Nd8JP642PfY8xhji
-    skip_symbols: true
-    on:
-      branch: master
+  - path: .bin\*.nupkg

@@ -170,7 +170,6 @@ Task("Build")
                 .SetVerbosity(Verbosity.Minimal)
                 .SetNodeReuse(false)
                 .SetPlatformTarget(PlatformTarget.MSIL)
-                .WithRestore()
             );
         }
         else

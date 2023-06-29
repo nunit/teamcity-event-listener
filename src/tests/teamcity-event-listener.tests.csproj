@@ -1,42 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
+    <IsPackable>false</IsPackable>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
     <RootNamespace>NUnit.Engine.Listeners</RootNamespace>
     <AssemblyName>teamcity-event-listener.tests</AssemblyName>
-    <TargetFramework>net20</TargetFramework>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>5</LangVersion>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>5</LangVersion>
+    <TargetFrameworks>net20;netstandard2.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\extension\teamcity-event-listener.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <PackageReference Include="NUnit" Version="3.11.0" />
     <PackageReference Include="NUnit.Engine.Api" Version="3.11.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.4.2"/>
+    <PackageReference Include="NUnit.Analyzers" Version="3.6.1"/>
   </ItemGroup>
 
 </Project>
