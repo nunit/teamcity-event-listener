@@ -7,6 +7,7 @@
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Debug");
+var msbuildPath = @"C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe";
 
 // Special (optional) arguments for the script. You pass these
 // through the Cake bootscrap script via the -ScriptArgs argument
@@ -164,13 +165,13 @@ Task("Build")
 
         if(IsRunningOnWindows())
         {
-            MSBuild(SOLUTION_FILE, new MSBuildSettings()
+            MSBuild(SOLUTION_FILE, new MSBuildSettings{ ToolPath = msbuildPath }
                 .SetConfiguration(configuration)
                 .SetMSBuildPlatform(MSBuildPlatform.Automatic)
                 .SetVerbosity(Verbosity.Minimal)
                 .SetNodeReuse(false)
                 .SetPlatformTarget(PlatformTarget.MSIL)
-                .WithRestore()
+                .WithRestore()                
             );
         }
         else
@@ -230,11 +231,11 @@ Task("BuildForIntegrationTests")
     .IsDependentOn("NuGetRestoreForIntegrationTests")
     .Does(() =>
     {
-        DotNetBuild(TEST_SOLUTION_FILE, settings => settings
-            .WithTarget("Build")
-            .SetConfiguration(configuration)
-            .SetVerbosity(Verbosity.Minimal)
-        );
+        MSBuild(TEST_SOLUTION_FILE, new MSBuildSettings{ ToolPath = msbuildPath }
+                        .SetConfiguration(configuration)
+                        .SetVerbosity(Verbosity.Minimal)
+                        .WithRestore()                
+                    );               
     });
 
 //////////////////////////////////////////////////////////////////////
