@@ -1,4 +1,10 @@
-﻿teamcity-event-listener 1.0.8 - Dec 09, 2020
+﻿teamcity-event-listener 1.0.9 - Oct 07, 2023
+
+Issues Resolved
+
+ * 0084 Artifacts directory name can be too long 
+
+teamcity-event-listener 1.0.8 - Dec 09, 2020
 
 New Features
 
