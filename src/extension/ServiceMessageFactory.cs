@@ -72,6 +72,10 @@
                 {
                     yield return message;
                 }
+                foreach (var message in TestProperties(eventId, testEvent))
+                {
+                    yield return message;
+                }
             }
 
             IEnumerable<ServiceMessage> messages;
@@ -317,6 +321,35 @@
             foreach (var message in Output(eventId, ServiceMessage.Names.TestStdOut, "Assert.Pass message: " + reasonMessage))
             {
                 yield return message;
+            }
+        }
+
+        private static IEnumerable<ServiceMessage> TestProperties(EventId eventId, XmlNode testEvent)
+        {
+            var properties = testEvent.SelectNodes("properties/property");
+            if (properties != null)
+            {
+                foreach (var property in properties)
+                {
+                    var propertyElement = property as XmlNode;
+                    if (propertyElement == null)
+                    {
+                        continue;
+                    }
+
+                    var propertyName = propertyElement.GetAttribute("name") ?? string.Empty;
+                    var propertyValue = propertyElement.GetAttribute("value") ?? string.Empty;
+
+                    var attrs = new List<ServiceMessageAttr>
+                    {
+                      new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId),
+                      new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, eventId.FullName),
+                      new ServiceMessageAttr(ServiceMessageAttr.Names.Name, propertyName),
+                      new ServiceMessageAttr(ServiceMessageAttr.Names.Value, propertyValue)
+                    };
+
+                    yield return new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
+                }
             }
         }
 
