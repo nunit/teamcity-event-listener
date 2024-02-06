@@ -32,10 +32,21 @@
 
         public IEnumerable<ServiceMessage> SuiteFinished(EventId eventId, Event testEvent)
         {
+            if (_teamCityInfo.MetadataEnabled)
+            {
+                foreach (var message in Attachments(eventId, testEvent.TestEvent))
+                {
+                    yield return message;
+                }
+                foreach (var message in TestProperties(eventId, testEvent.TestEvent))
+                {
+                    yield return message;
+                }
+            }
             yield return new ServiceMessage(ServiceMessage.Names.TestSuiteFinished,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, _suiteNameReplacer.Replace(testEvent.Name)),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
-        }
+    }
 
         public IEnumerable<ServiceMessage> FlowStarted(string flowId, string parentFlowId)
         {
