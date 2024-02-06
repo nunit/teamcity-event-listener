@@ -90,6 +90,7 @@ namespace NUnit.Engine.Listeners
                 case "test-suite":
                     _hierarchy.AddLink(id, parentId);
                     yield return ProcessNotStartedTests(flowId, id, testEvent.TestEvent);
+                    yield return _serviceMessageFactory.SuiteProperties(eventId, testEvent.TestEvent);
                     yield return _serviceMessageFactory.TestOutputAsMessage(eventId, testEvent.TestEvent);
 
                     // Root
@@ -101,7 +102,6 @@ namespace NUnit.Engine.Listeners
                         // Finish a child flow from a root flow https://youtrack.jetbrains.com/issue/TW-56310
                         yield return _serviceMessageFactory.FlowFinished(flowId);                        
                     }
-
                     break;
 
                 case "start-test":
@@ -141,7 +141,7 @@ namespace NUnit.Engine.Listeners
                     yield return _serviceMessageFactory.TestOutput(new EventId(_teamCityInfo, testFlowId, testEvent.FullName), testEvent.TestEvent);
                     break;
             }
-        }        
+        }
 
         private IEnumerable<ServiceMessage> ProcessNotStartedTests(string flowId, string id, XmlNode currentEvent)
         {

@@ -2,8 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Specialized;
     using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
+  using System.Globalization;
     using System.IO;
     using System.Text.RegularExpressions;
     using System.Xml;
@@ -46,7 +47,49 @@
             yield return new ServiceMessage(ServiceMessage.Names.TestSuiteFinished,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, _suiteNameReplacer.Replace(testEvent.Name)),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
-    }
+        }
+
+        public IEnumerable<ServiceMessage> SuiteProperties(EventId eventId, XmlNode testSuiteNode)
+        {
+          var properties = testSuiteNode.SelectNodes("properties/property");
+          var testCases = testSuiteNode.SelectNodes("test-case");
+
+          if (properties != null && testCases != null)
+          {
+            var props = new NameValueCollection();
+            foreach (var property in properties)
+            {
+              var propertyElement = property as XmlNode;
+              if (propertyElement == null)
+              {
+                continue;
+              }
+
+              var propertyName = propertyElement.GetAttribute("name") ?? string.Empty;
+              var propertyValue = propertyElement.GetAttribute("value") ?? string.Empty;
+              props.Add(propertyName, propertyValue);
+            }
+
+            foreach (var testCase in testCases)
+            {
+              var testCaseElement = testCase as XmlNode;
+              var fullName = testCaseElement.GetAttribute("fullname");
+              var flowId = testCaseElement.GetAttribute("id") ?? eventId.FlowId;
+              foreach (var name in props.AllKeys)
+              {
+                var attrs = new List<ServiceMessageAttr>
+                {
+                  new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId),
+                  new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, fullName),
+                  new ServiceMessageAttr(ServiceMessageAttr.Names.Name, name),
+                  new ServiceMessageAttr(ServiceMessageAttr.Names.Value, props[name])
+                };
+
+                yield return new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
+              }
+            }
+          }
+        }
 
         public IEnumerable<ServiceMessage> FlowStarted(string flowId, string parentFlowId)
         {

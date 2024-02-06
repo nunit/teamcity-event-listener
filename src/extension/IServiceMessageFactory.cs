@@ -11,6 +11,8 @@
 
         IEnumerable<ServiceMessage> SuiteFinished(EventId eventId, Event testEvent);
 
+        IEnumerable<ServiceMessage> SuiteProperties(EventId eventId, XmlNode testSuiteNode);
+
         IEnumerable<ServiceMessage> FlowStarted(string flowId, string parentFlowId);
 
         IEnumerable<ServiceMessage> FlowFinished(string flowId);
