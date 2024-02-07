@@ -26,6 +26,7 @@ namespace NUnit.Engine.Listeners
     using System;
     using System.Xml;
     using System.Collections.Generic;
+    using System.Collections.Specialized;
 
     internal class EventConverter3: IEventConverter
     {
@@ -33,6 +34,7 @@ namespace NUnit.Engine.Listeners
         private readonly IHierarchy _hierarchy;
         private readonly Statistics _statistics;
         private readonly ITeamCityInfo _teamCityInfo;
+        private readonly Dictionary<string, List<EventId>> _testSuiteTestEvents = new Dictionary<string, List<EventId>>();
         private readonly Dictionary<string, XmlNode> _notStartedNUnit3Tests = new Dictionary<string, XmlNode>();
 
         public EventConverter3(IServiceMessageFactory serviceMessageFactory, IHierarchy hierarchy, Statistics statistics, ITeamCityInfo teamCityInfo)
@@ -54,6 +56,7 @@ namespace NUnit.Engine.Listeners
             {
                 _hierarchy.Clear();
                 _notStartedNUnit3Tests.Clear();
+                _testSuiteTestEvents.Clear();
                 yield break;
             }
 
@@ -68,6 +71,7 @@ namespace NUnit.Engine.Listeners
             {
                 rootFlowId = ".";
             }
+            var testEventId = new EventId(_teamCityInfo, testFlowId, testEvent.FullName);
 
             var eventId = new EventId(_teamCityInfo, flowId, testEvent.FullName);
             switch (testEvent.MessageName)
@@ -90,7 +94,7 @@ namespace NUnit.Engine.Listeners
                 case "test-suite":
                     _hierarchy.AddLink(id, parentId);
                     yield return ProcessNotStartedTests(flowId, id, testEvent.TestEvent);
-                    yield return _serviceMessageFactory.SuiteProperties(eventId, testEvent.TestEvent);
+                    yield return ProcessTestSuiteProperties(parentId, testEvent.TestEvent);
                     yield return _serviceMessageFactory.TestOutputAsMessage(eventId, testEvent.TestEvent);
 
                     // Root
@@ -105,6 +109,15 @@ namespace NUnit.Engine.Listeners
                     break;
 
                 case "start-test":
+                    List<EventId> existingEventList;
+                    if (_testSuiteTestEvents.TryGetValue(parentId, out existingEventList))
+                    {
+                      existingEventList.Add(testEventId);
+                    }
+                    else
+                    {
+                      _testSuiteTestEvents[parentId] = new List<EventId>(){ testEventId };
+                    }
                     _hierarchy.AddLink(id, parentId);
                     if (testFlowId != eventId.FlowId)
                     {
@@ -124,7 +137,7 @@ namespace NUnit.Engine.Listeners
                     }
 
                     _statistics.RegisterTestFinish();
-                    yield return _serviceMessageFactory.TestFinished(new EventId(_teamCityInfo, testFlowId, testEvent.FullName), testEvent.TestEvent, testEvent.TestEvent);
+                    yield return _serviceMessageFactory.TestFinished(testEventId, testEvent.TestEvent, testEvent.TestEvent);
                     if (id != flowId && parentId != null)
                     {
                         yield return _serviceMessageFactory.FlowFinished(id);
@@ -137,10 +150,49 @@ namespace NUnit.Engine.Listeners
                     break;
 
                 case "test-output":
-                    testFlowId = testEvent.TestId ?? rootFlowId;
-                    yield return _serviceMessageFactory.TestOutput(new EventId(_teamCityInfo, testFlowId, testEvent.FullName), testEvent.TestEvent);
+                    yield return _serviceMessageFactory.TestOutput(testEventId, testEvent.TestEvent);
                     break;
             }
+        }
+
+        private IEnumerable<ServiceMessage> ProcessTestSuiteProperties(string parentId, XmlNode testSuiteNode)
+        {
+          var properties = testSuiteNode.SelectNodes("properties/property");
+          List<EventId> tests;
+          if (_testSuiteTestEvents.TryGetValue(parentId, out tests) && properties != null)
+          {
+            var props = new NameValueCollection();
+            foreach (var property in properties)
+            {
+              var propertyElement = property as XmlNode;
+              if (propertyElement == null)
+              {
+                continue;
+              }
+
+              var propertyName = propertyElement.GetAttribute("name") ?? string.Empty;
+              var propertyValue = propertyElement.GetAttribute("value") ?? string.Empty;
+              props.Add(propertyName, propertyValue);
+            }
+            if (tests.Count > 0)
+            {
+              foreach (var e in tests)
+              {
+                foreach (var name in props.AllKeys)
+                {
+                  var attrs = new List<ServiceMessageAttr>
+                  {
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId),
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, e.FullName),
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.Name, name),
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.Value, props[name])
+                  };
+
+                  yield return new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
+                }
+              }
+            }
+          }
         }
 
         private IEnumerable<ServiceMessage> ProcessNotStartedTests(string flowId, string id, XmlNode currentEvent)
