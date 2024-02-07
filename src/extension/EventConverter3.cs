@@ -27,17 +27,19 @@ namespace NUnit.Engine.Listeners
     using System.Xml;
     using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.IO;
 
     internal class EventConverter3: IEventConverter
     {
         private readonly IServiceMessageFactory _serviceMessageFactory;
         private readonly IHierarchy _hierarchy;
         private readonly Statistics _statistics;
+        private readonly TextWriter _outWriter;
         private readonly ITeamCityInfo _teamCityInfo;
         private readonly Dictionary<string, List<EventId>> _testSuiteTestEvents = new Dictionary<string, List<EventId>>();
         private readonly Dictionary<string, XmlNode> _notStartedNUnit3Tests = new Dictionary<string, XmlNode>();
 
-        public EventConverter3(IServiceMessageFactory serviceMessageFactory, IHierarchy hierarchy, Statistics statistics, ITeamCityInfo teamCityInfo)
+        public EventConverter3(IServiceMessageFactory serviceMessageFactory, IHierarchy hierarchy, Statistics statistics, ITeamCityInfo teamCityInfo, TextWriter outWriter)
         {
             if (serviceMessageFactory == null) throw new ArgumentNullException("serviceMessageFactory");
             if (hierarchy == null) throw new ArgumentNullException("hierarchy");
@@ -48,6 +50,7 @@ namespace NUnit.Engine.Listeners
             _hierarchy = hierarchy;
             _statistics = statistics;
             _teamCityInfo = teamCityInfo;
+            _outWriter = outWriter;
         }
 
         public IEnumerable<IEnumerable<ServiceMessage>> Convert(Event testEvent)
@@ -94,7 +97,7 @@ namespace NUnit.Engine.Listeners
                 case "test-suite":
                     _hierarchy.AddLink(id, parentId);
                     yield return ProcessNotStartedTests(flowId, id, testEvent.TestEvent);
-                    yield return ProcessTestSuiteProperties(parentId, testEvent.TestEvent);
+                    yield return ProcessTestSuiteProperties(flowId, parentId, testEvent.TestEvent);
                     yield return _serviceMessageFactory.TestOutputAsMessage(eventId, testEvent.TestEvent);
 
                     // Root
@@ -118,6 +121,20 @@ namespace NUnit.Engine.Listeners
                     {
                       _testSuiteTestEvents[parentId] = new List<EventId>(){ testEventId };
                     }
+                    
+                    if (_teamCityInfo.AllowDiagnostics)
+                    {
+                        _outWriter.WriteLine();
+                        _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + "start-test parentId [" + parentId + "]");
+                        _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + "start-test id [" + id + "]");
+                        _outWriter.WriteLine(
+                          "PID_" + _teamCityInfo.ProcessId
+                                 + "start-test testEventId [" + testEventId.FlowId + ", " + testEventId.FullName + "]");
+                        _outWriter.WriteLine(
+                          "PID_" + _teamCityInfo.ProcessId 
+                                 + "start-test eventId [" + eventId.FlowId + ", " + eventId.FullName + "]");
+                    }
+
                     _hierarchy.AddLink(id, parentId);
                     if (testFlowId != eventId.FlowId)
                     {
@@ -155,7 +172,7 @@ namespace NUnit.Engine.Listeners
             }
         }
 
-        private IEnumerable<ServiceMessage> ProcessTestSuiteProperties(string parentId, XmlNode testSuiteNode)
+        private IEnumerable<ServiceMessage> ProcessTestSuiteProperties(string flowId, string parentId, XmlNode testSuiteNode)
         {
           var properties = testSuiteNode.SelectNodes("properties/property");
           List<EventId> tests;
@@ -172,17 +189,33 @@ namespace NUnit.Engine.Listeners
 
               var propertyName = propertyElement.GetAttribute("name") ?? string.Empty;
               var propertyValue = propertyElement.GetAttribute("value") ?? string.Empty;
+                    
+              if (_teamCityInfo.AllowDiagnostics)
+              {
+                  _outWriter.WriteLine();
+                  _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + "ProcessTestSuiteProperties parentId [" + parentId + "]");
+                  _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + "ProcessTestSuiteProperties flowId [" + flowId + "]");
+                  _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + "ProcessTestSuiteProperties propertyName [" + propertyName + "]");
+                  _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + "ProcessTestSuiteProperties propertyValue [" + propertyValue + "]");
+              }
+
               props.Add(propertyName, propertyValue);
             }
             if (tests.Count > 0)
-            {
+            {  
+              if (_teamCityInfo.AllowDiagnostics)
+              {
+                  _outWriter.WriteLine();
+                  _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + "ProcessTestSuiteProperties tests.Count [" + tests.Count + "]");
+              }
+
               foreach (var e in tests)
               {
                 foreach (var name in props.AllKeys)
                 {
                   var attrs = new List<ServiceMessageAttr>
                   {
-                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId),
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId),
                     new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, e.FullName),
                     new ServiceMessageAttr(ServiceMessageAttr.Names.Name, name),
                     new ServiceMessageAttr(ServiceMessageAttr.Names.Value, props[name])
