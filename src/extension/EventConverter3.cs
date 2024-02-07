@@ -125,14 +125,12 @@ namespace NUnit.Engine.Listeners
                     if (_teamCityInfo.AllowDiagnostics)
                     {
                         _outWriter.WriteLine();
-                        _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + "start-test parentId [" + parentId + "]");
-                        _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + "start-test id [" + id + "]");
-                        _outWriter.WriteLine(
-                          "PID_" + _teamCityInfo.ProcessId
-                                 + "start-test testEventId [" + testEventId.FlowId + ", " + testEventId.FullName + "]");
-                        _outWriter.WriteLine(
-                          "PID_" + _teamCityInfo.ProcessId 
-                                 + "start-test eventId [" + eventId.FlowId + ", " + eventId.FullName + "]");
+                        _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + " start-test parentId [" + parentId + "]");
+                        _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + " start-test id [" + id + "]");
+                        _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + 
+                                             " start-test testEventId [" + testEventId.FlowId + ", " + testEventId.FullName + "]");
+                        _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + 
+                                             " start-test eventId [" + eventId.FlowId + ", " + eventId.FullName + "]");
                     }
 
                     _hierarchy.AddLink(id, parentId);
@@ -152,9 +150,21 @@ namespace NUnit.Engine.Listeners
                         _notStartedNUnit3Tests[testFlowId] = testEvent.TestEvent;
                         break;
                     }
+                    
+                    if (_teamCityInfo.AllowDiagnostics)
+                    {
+                        _outWriter.WriteLine();
+                        _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + " test-case parentId [" + parentId + "]");
+                        _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + " test-case id [" + id + "]");
+                        _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId +
+                                             " test-case testEventId [" + testEventId.FlowId + ", " + testEventId.FullName + "]");
+                        _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId +
+                                             " test-case eventId [" + eventId.FlowId + ", " + eventId.FullName + "]");
+                    }
 
                     _statistics.RegisterTestFinish();
                     yield return _serviceMessageFactory.TestFinished(testEventId, testEvent.TestEvent, testEvent.TestEvent);
+
                     if (id != flowId && parentId != null)
                     {
                         yield return _serviceMessageFactory.FlowFinished(id);
@@ -202,7 +212,7 @@ namespace NUnit.Engine.Listeners
               props.Add(propertyName, propertyValue);
             }
             if (tests.Count > 0)
-            {  
+            {
               if (_teamCityInfo.AllowDiagnostics)
               {
                   _outWriter.WriteLine();
@@ -220,6 +230,13 @@ namespace NUnit.Engine.Listeners
                     new ServiceMessageAttr(ServiceMessageAttr.Names.Name, name),
                     new ServiceMessageAttr(ServiceMessageAttr.Names.Value, props[name])
                   };
+
+                  if (_teamCityInfo.AllowDiagnostics)
+                  {
+                    _outWriter.WriteLine();
+                    _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + "ProcessTestSuiteProperties test flowId [" + flowId + "]");
+                    _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + "ProcessTestSuiteProperties test e.FullName [" + e.FullName + "]");
+                  }
 
                   yield return new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
                 }
