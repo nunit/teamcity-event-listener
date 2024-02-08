@@ -69,6 +69,16 @@ namespace NUnit.Engine.Listeners
 
         public IEnumerable<ServiceMessageAttr> Attributes { get; private set; }
 
+        public string Dump(string prefix)
+        {
+          var attributes = "";
+          foreach (var serviceMessageAttr in Attributes)
+          {
+            attributes += "{ name: " + serviceMessageAttr.Name + ", value: " + serviceMessageAttr.Value + " }";
+          }
+          return "ServiceMessage " + prefix + " Dump: Name = " + Name + ", Value = " + Value + ", Attributes = " + attributes;
+        }
+
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         public static class Names
         {

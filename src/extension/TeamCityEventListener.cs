@@ -76,12 +76,6 @@ namespace NUnit.Engine.Listeners
 
         public void OnTestEvent(string report)
         {
-            if (_teamCityInfo.AllowDiagnostics)
-            {
-                _outWriter.WriteLine();
-                _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + " !!!!{ " + report + " }!!!!");
-            }
-
             var doc = new XmlDocument();
             doc.LoadXml(report);
 
@@ -134,10 +128,11 @@ namespace NUnit.Engine.Listeners
 
                 _outWriter.Write(sb.ToString());
             }
-
+            
             if (_teamCityInfo.AllowDiagnostics)
             {
-                _outWriter.WriteLine("@@ NUnit3: " + isNUnit3 + ", " + _statistics + ", " + testEvent);
+                _outWriter.WriteLine("TeamCityEventListener.RegisterMessage");
+                _outWriter.WriteLine(testEvent);
             }
         }
 

@@ -176,10 +176,18 @@
                 yield return message;
             }
 
-            yield return new ServiceMessage(ServiceMessage.Names.TestFinished,
-                new ServiceMessageAttr(ServiceMessageAttr.Names.Name, eventId.FullName),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.Duration, durationMilliseconds.ToString()),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
+            var res = new ServiceMessage(ServiceMessage.Names.TestFinished,
+              new ServiceMessageAttr(ServiceMessageAttr.Names.Name, eventId.FullName),
+              new ServiceMessageAttr(ServiceMessageAttr.Names.Duration, durationMilliseconds.ToString()),
+              new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
+
+            if (_teamCityInfo.AllowDiagnostics)
+            {
+              _outWriter.WriteLine();
+              _outWriter.WriteLine(res.Dump("TestFinished"));
+            }
+
+            yield return res;
         }
 
         private IEnumerable<ServiceMessage> TestFailed(EventId eventId, XmlNode testFailedEvent, XmlNode infoSource)
@@ -342,7 +350,6 @@
 
                     var propertyName = propertyElement.GetAttribute("name") ?? string.Empty;
                     var propertyValue = propertyElement.GetAttribute("value") ?? string.Empty;
-
                     var attrs = new List<ServiceMessageAttr>
                     {
                       new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId),
@@ -350,16 +357,15 @@
                       new ServiceMessageAttr(ServiceMessageAttr.Names.Name, propertyName),
                       new ServiceMessageAttr(ServiceMessageAttr.Names.Value, propertyValue)
                     };
-          
+                    var res = new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
+
                     if (_teamCityInfo.AllowDiagnostics)
                     {
                       _outWriter.WriteLine();
-                      _outWriter.WriteLine("ServiceMessageFactory.TestProperties: eventId.FlowId = " + 
-                                           eventId.FlowId + ", eventId.FullName = " + eventId.FullName + 
-                                           ", propertyName = " + propertyName + ", propertyValue = " + propertyValue);
+                      _outWriter.WriteLine(res.Dump("TestProperties"));
                     }
 
-                    yield return new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
+                    yield return res;
                 }
             }
         }

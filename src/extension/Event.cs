@@ -36,7 +36,7 @@
 
         public override string ToString()
         {
-            return string.Format("RootFlowId: {0}, MessageName: {1}, FullName: {2}, Id: {3}, ParentId: {4}, Event: {5}", RootFlowId, MessageName, FullName, Id, ParentId, TestEvent.OuterXml);
+            return string.Format("RootFlowId: {0}, MessageName: {1}, FullName: {2}, Id: {3}, ParentId: {4}, TestEvent.OuterXml: {5}", RootFlowId, MessageName, FullName, Id, ParentId, TestEvent.OuterXml);
         }
     }
 }
