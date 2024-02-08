@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Diagnostics.CodeAnalysis;
-  using System.Globalization;
+    using System.Globalization;
     using System.IO;
     using System.Text.RegularExpressions;
     using System.Xml;
@@ -12,16 +12,18 @@
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal class ServiceMessageFactory : IServiceMessageFactory
     {
+        private readonly TextWriter _outWriter;
         private readonly ITeamCityInfo _teamCityInfo;
         private readonly ISuiteNameReplacer _suiteNameReplacer;
         private const string TcParseServiceMessagesInside = "tc:parseServiceMessagesInside";
         private static readonly IEnumerable<ServiceMessage> EmptyServiceMessages = new ServiceMessage[0];
         private static readonly Regex AttachmentDescriptionRegex = new Regex("(.*)=>(.+)", RegexOptions.Compiled);
         
-        public ServiceMessageFactory(ITeamCityInfo teamCityInfo, ISuiteNameReplacer suiteNameReplacer)
+        public ServiceMessageFactory(ITeamCityInfo teamCityInfo, ISuiteNameReplacer suiteNameReplacer, TextWriter outWriter)
         {
             _teamCityInfo = teamCityInfo;
             _suiteNameReplacer = suiteNameReplacer;
+            _outWriter = outWriter;
         }
 
         public IEnumerable<ServiceMessage> SuiteStarted(EventId eventId, Event testEvent)
@@ -325,7 +327,7 @@
             }
         }
 
-        private static IEnumerable<ServiceMessage> TestProperties(EventId eventId, XmlNode testEvent)
+        private IEnumerable<ServiceMessage> TestProperties(EventId eventId, XmlNode testEvent)
         {
             var properties = testEvent.SelectNodes("properties/property");
             if (properties != null)
@@ -348,6 +350,14 @@
                       new ServiceMessageAttr(ServiceMessageAttr.Names.Name, propertyName),
                       new ServiceMessageAttr(ServiceMessageAttr.Names.Value, propertyValue)
                     };
+          
+                    if (_teamCityInfo.AllowDiagnostics)
+                    {
+                      _outWriter.WriteLine();
+                      _outWriter.WriteLine("ServiceMessageFactory.TestProperties: eventId.FlowId = " + 
+                                           eventId.FlowId + ", eventId.FullName = " + eventId.FullName + 
+                                           ", propertyName = " + propertyName + ", propertyValue = " + propertyValue);
+                    }
 
                     yield return new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
                 }

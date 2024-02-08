@@ -234,8 +234,9 @@ namespace NUnit.Engine.Listeners
                   if (_teamCityInfo.AllowDiagnostics)
                   {
                     _outWriter.WriteLine();
-                    _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + "ProcessTestSuiteProperties test flowId [" + flowId + "]");
-                    _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + "ProcessTestSuiteProperties test e.FullName [" + e.FullName + "]");
+                    _outWriter.WriteLine("ProcessTestSuiteProperties : eventId.FlowId = " +
+                                         flowId + ", eventId.FullName = " + e.FullName + 
+                                         ", propertyName = " + name + ", propertyValue = " + props[name]);
                   }
 
                   yield return new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
