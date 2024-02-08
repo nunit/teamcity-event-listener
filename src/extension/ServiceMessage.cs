@@ -37,12 +37,9 @@ namespace NUnit.Engine.Listeners
         {
         }
 
-        public ServiceMessage(string name, IList<ServiceMessageAttr> attributes)
-            : this()
+        public ServiceMessage(string name, IList<ServiceMessageAttr> attributes) : this()
         {
-            // ReSharper disable once UseNameofExpression
             if (name == null) throw new ArgumentNullException("name");
-            // ReSharper disable once UseNameofExpression
             if (attributes == null) throw new ArgumentNullException("attributes");
 
             Name = name;
@@ -50,12 +47,9 @@ namespace NUnit.Engine.Listeners
             Attributes = new ReadOnlyCollection<ServiceMessageAttr>(attributes);
         }
 
-        public ServiceMessage(string name, string value)
-            : this()
+        public ServiceMessage(string name, string value) : this()
         {
-            // ReSharper disable once UseNameofExpression
             if (name == null) throw new ArgumentNullException("name");
-            // ReSharper disable once UseNameofExpression
             if (value == null) throw new ArgumentNullException("value");
 
             Name = name;
@@ -74,9 +68,9 @@ namespace NUnit.Engine.Listeners
           var attributes = "";
           foreach (var serviceMessageAttr in Attributes)
           {
-            attributes += "{ name: " + serviceMessageAttr.Name + ", value: " + serviceMessageAttr.Value + " }";
+            attributes += "   { " + serviceMessageAttr.Name + ": " + serviceMessageAttr.Value + " }" + Environment.NewLine;
           }
-          return "ServiceMessage " + prefix + " Dump: Name = " + Name + ", Value = " + Value + ", Attributes = " + attributes;
+          return "ServiceMessage " + prefix + " Dump: Name = " + Name + ", Value = " + Value + ", Attributes = " + attributes + Environment.NewLine;
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
