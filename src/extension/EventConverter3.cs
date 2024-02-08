@@ -97,7 +97,7 @@ namespace NUnit.Engine.Listeners
                 case "test-suite":
                     _hierarchy.AddLink(id, parentId);
                     yield return ProcessNotStartedTests(flowId, id, testEvent.TestEvent);
-                    yield return ProcessTestSuiteProperties(flowId, parentId, testEvent.TestEvent);
+                    yield return ProcessTestSuiteProperties(flowId, id, testEvent.TestEvent);
                     yield return _serviceMessageFactory.TestOutputAsMessage(eventId, testEvent.TestEvent);
 
                     // Root
@@ -165,31 +165,30 @@ namespace NUnit.Engine.Listeners
         {
           if (_teamCityInfo.AllowDiagnostics)
           {
-            _outWriter.WriteLine("PrintCollection " + prefix + ":");
+            _outWriter.WriteLine("PrintCollection " + prefix + ":" + Environment.NewLine);
             foreach (var testSuiteTestEvent in _testSuiteTestEvents)
             {
-              var events = Environment.NewLine;
+              var events = "";
               foreach (var id in testSuiteTestEvent.Value)
               {
                 events += "    { flowId: " + id.FlowId + ", fullName: " + id.FullName + "}," + Environment.NewLine;
               }
-              _outWriter.WriteLine();
               _outWriter.WriteLine("  " + testSuiteTestEvent.Key + ": " + Environment.NewLine + events);
             }
           }
         }
 
-        private IEnumerable<ServiceMessage> ProcessTestSuiteProperties(string flowId, string parentId, XmlNode testSuiteNode)
+        private IEnumerable<ServiceMessage> ProcessTestSuiteProperties(string flowId, string suiteId, XmlNode testSuiteNode)
         {
-          _outWriter.WriteLine("ProcessTestSuiteProperties started. flowId = " + flowId + ", parentId = " + 
-                               parentId + ", testSuiteNode: " + Environment.NewLine + testSuiteNode.OuterXml);
+          _outWriter.WriteLine("ProcessTestSuiteProperties started. flowId = " + flowId + ", suiteId = " + 
+                               suiteId + ", testSuiteNode: " + Environment.NewLine + testSuiteNode.OuterXml);
           PrintCollection("ProcessTestSuiteProperties");
           var properties = testSuiteNode.SelectNodes("properties/property");
           _outWriter.WriteLine("ProcessTestSuiteProperties properties/property is not null? " + (properties != null));
           List<EventId> tests;
-          _outWriter.WriteLine("_testSuiteTestEvents has parentId '" + parentId + "'? " + (_testSuiteTestEvents.TryGetValue(parentId, out tests)));
+          _outWriter.WriteLine("_testSuiteTestEvents has suiteId '" + suiteId + "'? " + (_testSuiteTestEvents.TryGetValue(suiteId, out tests)));
           
-          if (_testSuiteTestEvents.TryGetValue(parentId, out tests) && properties != null)
+          if (_testSuiteTestEvents.TryGetValue(suiteId, out tests) && properties != null)
           {
             var props = new NameValueCollection();
             foreach (var property in properties)
