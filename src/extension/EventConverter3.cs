@@ -217,7 +217,7 @@ namespace NUnit.Engine.Listeners
                 {
                   var attrs = new List<ServiceMessageAttr>
                   {
-                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, flowId),
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId),
                     new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, e.FullName),
                     new ServiceMessageAttr(ServiceMessageAttr.Names.Name, name),
                     new ServiceMessageAttr(ServiceMessageAttr.Names.Value, props[name])
