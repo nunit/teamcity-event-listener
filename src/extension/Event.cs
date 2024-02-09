@@ -9,8 +9,10 @@
         public readonly string MessageName;
         public readonly string FullName;
         public readonly string Name;
+        public readonly string Type;
         public readonly string Id;
         public readonly string ParentId;
+        // ReSharper disable once InconsistentNaming
         public readonly string TestId;
         // ReSharper disable once InconsistentNaming
         public readonly XmlNode TestEvent;
@@ -23,6 +25,7 @@
             string id,
             string parentId,
             string testId,
+            string type,
             XmlNode testEvent)
         {
             RootFlowId = rootFlowId;
@@ -32,13 +35,14 @@
             Id = id;
             ParentId = parentId;
             TestId = testId;
+            Type = type;
             TestEvent = testEvent;
         }
 
         public override string ToString()
         {
-            return string.Format("RootFlowId: {0}, MessageName: {1}, FullName: {2}, Id: {3}, ParentId: {4}, TestEvent.OuterXml: {5}{6}", 
-              RootFlowId, MessageName, FullName, Id, ParentId, Environment.NewLine, TestEvent.OuterXml);
+            return string.Format("RootFlowId: {0}, MessageName: {1}, FullName: {2}, Id: {3}, ParentId: {4}, Type: {5}, TestEvent.OuterXml: {6}{7}", 
+              RootFlowId, MessageName, FullName, Id, ParentId, Type, Environment.NewLine, TestEvent.OuterXml);
         }
     }
 }

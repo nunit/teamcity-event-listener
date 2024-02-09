@@ -38,6 +38,7 @@ namespace NUnit.Engine.Listeners
         private readonly ITeamCityInfo _teamCityInfo;
         private readonly Dictionary<string, List<EventId>> _testSuiteTestEvents = new Dictionary<string, List<EventId>>();
         private readonly Dictionary<string, XmlNode> _notStartedNUnit3Tests = new Dictionary<string, XmlNode>();
+        private readonly Dictionary<string, string> _suiteAssembly = new Dictionary<string, string>();
 
         public EventConverter3(IServiceMessageFactory serviceMessageFactory, IHierarchy hierarchy, Statistics statistics, ITeamCityInfo teamCityInfo, TextWriter outWriter)
         {
@@ -58,6 +59,7 @@ namespace NUnit.Engine.Listeners
             if (testEvent.MessageName == "start-run")
             {
                 _hierarchy.Clear();
+                _suiteAssembly.Clear();
                 _notStartedNUnit3Tests.Clear();
                 _testSuiteTestEvents.Clear();
                 yield break;
@@ -85,6 +87,9 @@ namespace NUnit.Engine.Listeners
                     // Root
                     if (parentId == string.Empty)
                     {
+                        //Save assembly name
+                        _suiteAssembly[flowId] = testEvent.Name;
+
                         // Start a flow from a root flow https://youtrack.jetbrains.com/issue/TW-56310
                         yield return _serviceMessageFactory.FlowStarted(flowId, rootFlowId);
 
@@ -96,6 +101,10 @@ namespace NUnit.Engine.Listeners
 
                 case "test-suite":
                     _hierarchy.AddLink(id, parentId);
+                    if (_suiteAssembly.ContainsKey(rootFlowId))
+                    {
+                      _suiteAssembly[flowId] = _suiteAssembly[rootFlowId];
+                    }
                     yield return ProcessNotStartedTests(flowId, id, testEvent.TestEvent);
                     yield return ProcessTestSuiteProperties(flowId, id, testEvent.TestEvent);
                     yield return _serviceMessageFactory.TestOutputAsMessage(eventId, testEvent.TestEvent);
@@ -207,11 +216,15 @@ namespace NUnit.Engine.Listeners
                   //}
                   //
                   //yield return res;
-              
+
+                  string assemblyName;
+                  var dllName = _suiteAssembly.TryGetValue(flowId, out assemblyName) ? assemblyName : "";
+                  var n = (dllName == "" ? e.FullName : dllName + ": " + e.FullName)
+                    .Replace(":", _teamCityInfo.ColonReplacement);
                   var attrs = new List<ServiceMessageAttr>
                   {
                     //new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId),
-                    new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, e.FullName),
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, n),
                     new ServiceMessageAttr(ServiceMessageAttr.Names.Name, name),
                     new ServiceMessageAttr(ServiceMessageAttr.Names.Value, props[name])
                   };
