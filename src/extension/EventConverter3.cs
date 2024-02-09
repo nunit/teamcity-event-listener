@@ -222,15 +222,40 @@ namespace NUnit.Engine.Listeners
                     new ServiceMessageAttr(ServiceMessageAttr.Names.Name, name),
                     new ServiceMessageAttr(ServiceMessageAttr.Names.Value, props[name])
                   };
-                  var res = new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
+                  //var res = new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
+                  var res = new ServiceMessage(ServiceMessage.Names.FlowStarted, new List<ServiceMessageAttr>
+                  {
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId)
+                  });
               
                   if (_teamCityInfo.AllowDiagnostics)
                   {
                     _outWriter.WriteLine();
-                    _outWriter.WriteLine(res.Dump("Message from ProcessTestSuiteProperties"));
+                    _outWriter.WriteLine(res.Dump("Message from ProcessTestSuiteProperties start"));
                   }
 
                   yield return res;
+
+
+                  var res2 = new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
+                  if (_teamCityInfo.AllowDiagnostics)
+                  {
+                    _outWriter.WriteLine();
+                    _outWriter.WriteLine(res2.Dump("Message from ProcessTestSuiteProperties attr"));
+                  }
+
+                  yield return res2;
+
+                  var res3 = new ServiceMessage(ServiceMessage.Names.FlowFinished, new List<ServiceMessageAttr>
+                  {
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId)
+                  });
+                  if (_teamCityInfo.AllowDiagnostics)
+                  {
+                    _outWriter.WriteLine();
+                    _outWriter.WriteLine(res3.Dump("Message from ProcessTestSuiteProperties finish"));
+                  }
+                  yield return res3;
                 }
               }
             }

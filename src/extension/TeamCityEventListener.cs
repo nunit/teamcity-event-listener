@@ -114,7 +114,8 @@ namespace NUnit.Engine.Listeners
 
             var isNUnit3 = parentId != null;
             var eventConverter = isNUnit3 ? _eventConverter3 : _eventConverter2;
-            var testEvent = new Event(_rootFlowId, messageName.ToLowerInvariant(), fullName, name, GetId(_rootFlowId, id), GetId(_rootFlowId, parentId), GetId(_rootFlowId, testId), xmlEvent);
+            var testEvent = new Event(_rootFlowId, messageName.ToLowerInvariant(), fullName, name, 
+              GetId(_rootFlowId, id), GetId(_rootFlowId, parentId), GetId(_rootFlowId, testId), xmlEvent);
             lock (_lockObject)
             {
                 var sb = new StringBuilder();
