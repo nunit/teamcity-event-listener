@@ -1,6 +1,7 @@
 ﻿namespace NUnit.Engine.Listeners
 {
-    using System.Xml;
+  using System;
+  using System.Xml;
 
     public struct Event
     {
@@ -36,7 +37,8 @@
 
         public override string ToString()
         {
-            return string.Format("RootFlowId: {0}, MessageName: {1}, FullName: {2}, Id: {3}, ParentId: {4}, TestEvent.OuterXml: {5}", RootFlowId, MessageName, FullName, Id, ParentId, TestEvent.OuterXml);
+            return string.Format("RootFlowId: {0}, MessageName: {1}, FullName: {2}, Id: {3}, ParentId: {4}, TestEvent.OuterXml: {5}{6}", 
+              RootFlowId, MessageName, FullName, Id, ParentId, Environment.NewLine, TestEvent.OuterXml);
         }
     }
 }

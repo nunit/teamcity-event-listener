@@ -6,5 +6,6 @@
     public interface IServiceMessageWriter
     {
         void Write(TextWriter writer, IEnumerable<ServiceMessage> serviceMessages);
+        void Write(TextWriter writer, ServiceMessage serviceMessages);
     }
 }

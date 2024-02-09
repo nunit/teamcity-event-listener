@@ -121,7 +121,6 @@ namespace NUnit.Engine.Listeners
                     {
                       _testSuiteTestEvents[parentId] = new List<EventId>(){ testEventId };
                     }
-                    PrintCollection("start-test");
                     
                     _hierarchy.AddLink(id, parentId);
                     if (testFlowId != eventId.FlowId)
@@ -160,29 +159,11 @@ namespace NUnit.Engine.Listeners
                     break;
             }
         }
-
-        private void PrintCollection(string prefix)
-        {
-          if (_teamCityInfo.AllowDiagnostics)
-          {
-            _outWriter.WriteLine("PrintCollection " + prefix + ":" + Environment.NewLine);
-            foreach (var testSuiteTestEvent in _testSuiteTestEvents)
-            {
-              var events = "";
-              foreach (var id in testSuiteTestEvent.Value)
-              {
-                events += "    { flowId: " + id.FlowId + ", fullName: " + id.FullName + "}," + Environment.NewLine;
-              }
-              _outWriter.WriteLine("  " + testSuiteTestEvent.Key + ": " + Environment.NewLine + events);
-            }
-          }
-        }
-
+    
         private IEnumerable<ServiceMessage> ProcessTestSuiteProperties(string flowId, string suiteId, XmlNode testSuiteNode)
         {
           _outWriter.WriteLine("ProcessTestSuiteProperties started. flowId = " + flowId + ", suiteId = " + 
                                suiteId + ", testSuiteNode: " + Environment.NewLine + testSuiteNode.OuterXml);
-          PrintCollection("ProcessTestSuiteProperties");
           var properties = testSuiteNode.SelectNodes("properties/property");
           _outWriter.WriteLine("ProcessTestSuiteProperties properties/property is not null? " + (properties != null));
           List<EventId> tests;

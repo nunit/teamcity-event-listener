@@ -12,6 +12,29 @@
         private const string Header = "##teamcity[";
         private const string Footer = "]";
 
+        public void Write(TextWriter writer, ServiceMessage serviceMessage)
+        {
+            if (writer == null) throw new ArgumentNullException("writer");
+            writer.Write(Header);
+            writer.Write(serviceMessage.Name);
+
+            if (!string.IsNullOrEmpty(serviceMessage.Value))
+            {
+                writer.Write(' ');
+                Write(writer, serviceMessage.Value);
+            }
+            else
+            {
+                foreach (var attribute in serviceMessage.Attributes)
+                {
+                    writer.Write(' ');
+                    Write(writer, attribute);
+                }
+            }
+
+            writer.WriteLine(Footer);
+        }
+
         public void Write(TextWriter writer, IEnumerable<ServiceMessage> serviceMessages)
         {
             if (writer == null) throw new ArgumentNullException("writer");

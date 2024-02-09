@@ -70,7 +70,7 @@ namespace NUnit.Engine.Listeners
           {
             attributes += "   { " + serviceMessageAttr.Name + ": " + serviceMessageAttr.Value + " }" + Environment.NewLine;
           }
-          return "ServiceMessage " + prefix + " Dump: Name = " + Name + ", Value = " + Value + ", Attributes = " + attributes + Environment.NewLine;
+          return "MSG " + prefix + ":" + Environment.NewLine + "  Name: '" + Name + "', Value: '" + Value + "', Attributes: " + Environment.NewLine + attributes;
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]

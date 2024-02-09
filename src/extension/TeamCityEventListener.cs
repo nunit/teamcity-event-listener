@@ -123,18 +123,18 @@ namespace NUnit.Engine.Listeners
                 {
                     foreach (var messages in eventConverter.Convert(testEvent))
                     {
-                        _serviceMessageWriter.Write(writer, messages);
+                      foreach (var message in messages)
+                      {
+                        if (_teamCityInfo.AllowDiagnostics)
+                        {
+                            _outWriter.WriteLine("Sending service message:");
+                            _outWriter.WriteLine(message.Dump("OnTestEvent"));
+                        }
+                        _serviceMessageWriter.Write(writer, message);
+                      }
                     }
                 }
-                var msg = sb.ToString();
-                _outWriter.Write(msg);
-            
-                if (_teamCityInfo.AllowDiagnostics)
-                {
-                    _outWriter.WriteLine("MSG START");
-                    _outWriter.WriteLine(msg);
-                    _outWriter.WriteLine("MSG END");
-                }
+                _outWriter.Write(sb.ToString());
             }
             
             if (_teamCityInfo.AllowDiagnostics)
