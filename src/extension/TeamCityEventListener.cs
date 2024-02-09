@@ -126,8 +126,15 @@ namespace NUnit.Engine.Listeners
                         _serviceMessageWriter.Write(writer, messages);
                     }
                 }
-
-                _outWriter.Write(sb.ToString());
+                var msg = sb.ToString();
+                _outWriter.Write(msg);
+            
+                if (_teamCityInfo.AllowDiagnostics)
+                {
+                    _outWriter.WriteLine("MSG START");
+                    _outWriter.WriteLine(msg);
+                    _outWriter.WriteLine("MSG END");
+                }
             }
             
             if (_teamCityInfo.AllowDiagnostics)

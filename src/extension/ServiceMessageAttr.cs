@@ -48,8 +48,6 @@ namespace NUnit.Engine.Listeners
         {
             public const string Name = "name";
             public const string FlowId = "flowId";
-            public const string FlowStarted = "flowStarted";
-            public const string FlowFinished = "flowFinished";
             public const string Message = "message";
             public const string Text = "text";
             public const string Out = "out";

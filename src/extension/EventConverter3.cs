@@ -215,18 +215,9 @@ namespace NUnit.Engine.Listeners
               {
                 foreach (var name in props.AllKeys)
                 {
-                  var attrs = new List<ServiceMessageAttr>
-                  {
+                  var res = new ServiceMessage(ServiceMessage.Names.FlowStarted,
                     new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId),
-                    new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, e.FullName),
-                    new ServiceMessageAttr(ServiceMessageAttr.Names.Name, name),
-                    new ServiceMessageAttr(ServiceMessageAttr.Names.Value, props[name])
-                  };
-                  //var res = new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
-                  var res = new ServiceMessage(ServiceMessage.Names.FlowStarted, new List<ServiceMessageAttr>
-                  {
-                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId)
-                  });
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.Parent, suiteId));
               
                   if (_teamCityInfo.AllowDiagnostics)
                   {
@@ -235,8 +226,15 @@ namespace NUnit.Engine.Listeners
                   }
 
                   yield return res;
-
-
+              
+                  var attrs = new List<ServiceMessageAttr>
+                  {
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId),
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.Parent, suiteId),
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, e.FullName),
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.Name, name),
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.Value, props[name])
+                  };
                   var res2 = new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
                   if (_teamCityInfo.AllowDiagnostics)
                   {
@@ -246,10 +244,9 @@ namespace NUnit.Engine.Listeners
 
                   yield return res2;
 
-                  var res3 = new ServiceMessage(ServiceMessage.Names.FlowFinished, new List<ServiceMessageAttr>
-                  {
-                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId)
-                  });
+                  var res3 = new ServiceMessage(ServiceMessage.Names.FlowFinished,
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId),
+                    new ServiceMessageAttr(ServiceMessageAttr.Names.Parent, suiteId));
                   if (_teamCityInfo.AllowDiagnostics)
                   {
                     _outWriter.WriteLine();
