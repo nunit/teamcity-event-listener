@@ -219,8 +219,7 @@ namespace NUnit.Engine.Listeners
 
                   string assemblyName;
                   var dllName = _suiteAssembly.TryGetValue(flowId, out assemblyName) ? assemblyName : "";
-                  var n = (dllName == "" ? e.FullName : dllName + ": " + e.FullName)
-                    .Replace(":", _teamCityInfo.ColonReplacement);
+                  var n = dllName == "" ? e.FullName : dllName + ": " + e.FullName;
                   var attrs = new List<ServiceMessageAttr>
                   {
                     //new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId),
