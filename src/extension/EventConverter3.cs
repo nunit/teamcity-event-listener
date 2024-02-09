@@ -196,22 +196,21 @@ namespace NUnit.Engine.Listeners
               {
                 foreach (var name in props.AllKeys)
                 {
-                  var res = new ServiceMessage(ServiceMessage.Names.FlowStarted,
-                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId),
-                    new ServiceMessageAttr(ServiceMessageAttr.Names.Parent, suiteId));
-              
-                  if (_teamCityInfo.AllowDiagnostics)
-                  {
-                    _outWriter.WriteLine();
-                    _outWriter.WriteLine(res.Dump("Message from ProcessTestSuiteProperties start"));
-                  }
-
-                  yield return res;
+                  //var res = new ServiceMessage(ServiceMessage.Names.FlowStarted,
+                  //  new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId),
+                  //  new ServiceMessageAttr(ServiceMessageAttr.Names.Parent, suiteId));
+                  //
+                  //if (_teamCityInfo.AllowDiagnostics)
+                  //{
+                  //  _outWriter.WriteLine();
+                  //  _outWriter.WriteLine(res.Dump("Message from ProcessTestSuiteProperties start"));
+                  //}
+                  //
+                  //yield return res;
               
                   var attrs = new List<ServiceMessageAttr>
                   {
-                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId),
-                    new ServiceMessageAttr(ServiceMessageAttr.Names.Parent, suiteId),
+                    //new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId),
                     new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, e.FullName),
                     new ServiceMessageAttr(ServiceMessageAttr.Names.Name, name),
                     new ServiceMessageAttr(ServiceMessageAttr.Names.Value, props[name])
@@ -220,20 +219,20 @@ namespace NUnit.Engine.Listeners
                   if (_teamCityInfo.AllowDiagnostics)
                   {
                     _outWriter.WriteLine();
-                    _outWriter.WriteLine(res2.Dump("Message from ProcessTestSuiteProperties attr"));
+                    _outWriter.WriteLine(res2.Dump("AFTER TEST FINISHED"));
                   }
 
                   yield return res2;
 
-                  var res3 = new ServiceMessage(ServiceMessage.Names.FlowFinished,
-                    new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId),
-                    new ServiceMessageAttr(ServiceMessageAttr.Names.Parent, suiteId));
-                  if (_teamCityInfo.AllowDiagnostics)
-                  {
-                    _outWriter.WriteLine();
-                    _outWriter.WriteLine(res3.Dump("Message from ProcessTestSuiteProperties finish"));
-                  }
-                  yield return res3;
+                  //var res3 = new ServiceMessage(ServiceMessage.Names.FlowFinished,
+                  //  new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, e.FlowId),
+                  //  new ServiceMessageAttr(ServiceMessageAttr.Names.Parent, suiteId));
+                  //if (_teamCityInfo.AllowDiagnostics)
+                  //{
+                  //  _outWriter.WriteLine();
+                  //  _outWriter.WriteLine(res3.Dump("Message from ProcessTestSuiteProperties finish"));
+                  //}
+                  //yield return res3;
                 }
               }
             }
