@@ -11,19 +11,16 @@
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal class ServiceMessageFactory : IServiceMessageFactory
     {
-        private readonly TextWriter _outWriter;
         private readonly ITeamCityInfo _teamCityInfo;
         private readonly ISuiteNameReplacer _suiteNameReplacer;
         private const string TcParseServiceMessagesInside = "tc:parseServiceMessagesInside";
         private static readonly IEnumerable<ServiceMessage> EmptyServiceMessages = new ServiceMessage[0];
         private static readonly Regex AttachmentDescriptionRegex = new Regex("(.*)=>(.+)", RegexOptions.Compiled);
 
-        public ServiceMessageFactory(ITeamCityInfo teamCityInfo, ISuiteNameReplacer suiteNameReplacer,
-            TextWriter outWriter)
+        public ServiceMessageFactory(ITeamCityInfo teamCityInfo, ISuiteNameReplacer suiteNameReplacer)
         {
             _teamCityInfo = teamCityInfo;
             _suiteNameReplacer = suiteNameReplacer;
-            _outWriter = outWriter;
         }
 
         public IEnumerable<ServiceMessage> SuiteStarted(EventId eventId, Event testEvent)
@@ -178,18 +175,10 @@
                 yield return message;
             }
 
-            var res = new ServiceMessage(ServiceMessage.Names.TestFinished,
+            yield return new ServiceMessage(ServiceMessage.Names.TestFinished,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, eventId.FullName),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Duration, durationMilliseconds.ToString()),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
-
-            if (_teamCityInfo.AllowDiagnostics)
-            {
-                _outWriter.WriteLine();
-                _outWriter.WriteLine(res.Dump("TestFinished"));
-            }
-
-            yield return res;
         }
 
         private IEnumerable<ServiceMessage> TestFailed(EventId eventId, XmlNode testFailedEvent, XmlNode infoSource)
@@ -363,15 +352,7 @@
                         new ServiceMessageAttr(ServiceMessageAttr.Names.Name, propertyName),
                         new ServiceMessageAttr(ServiceMessageAttr.Names.Value, propertyValue)
                     };
-                    var res = new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
-
-                    if (_teamCityInfo.AllowDiagnostics)
-                    {
-                        _outWriter.WriteLine();
-                        _outWriter.WriteLine(res.Dump("TestProperties"));
-                    }
-
-                    yield return res;
+                    yield return new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
                 }
             }
         }
