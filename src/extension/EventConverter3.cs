@@ -34,7 +34,6 @@ namespace NUnit.Engine.Listeners
         private readonly IServiceMessageFactory _serviceMessageFactory;
         private readonly IHierarchy _hierarchy;
         private readonly Statistics _statistics;
-        private readonly TextWriter _outWriter;
         private readonly ITeamCityInfo _teamCityInfo;
 
         private readonly Dictionary<string, List<EventId>> _testSuiteTestEvents =
@@ -44,7 +43,7 @@ namespace NUnit.Engine.Listeners
         private readonly Dictionary<string, string> _suiteAssembly = new Dictionary<string, string>();
 
         public EventConverter3(IServiceMessageFactory serviceMessageFactory, IHierarchy hierarchy,
-            Statistics statistics, ITeamCityInfo teamCityInfo, TextWriter outWriter)
+            Statistics statistics, ITeamCityInfo teamCityInfo)
         {
             if (serviceMessageFactory == null) throw new ArgumentNullException("serviceMessageFactory");
             if (hierarchy == null) throw new ArgumentNullException("hierarchy");
@@ -55,7 +54,6 @@ namespace NUnit.Engine.Listeners
             _hierarchy = hierarchy;
             _statistics = statistics;
             _teamCityInfo = teamCityInfo;
-            _outWriter = outWriter;
         }
 
         public IEnumerable<IEnumerable<ServiceMessage>> Convert(Event testEvent)

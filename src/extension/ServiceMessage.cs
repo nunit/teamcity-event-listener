@@ -65,12 +65,15 @@ namespace NUnit.Engine.Listeners
 
         public string Dump(string prefix)
         {
-          var attributes = "";
-          foreach (var serviceMessageAttr in Attributes)
-          {
-            attributes += "   { " + serviceMessageAttr.Name + ": " + serviceMessageAttr.Value + " }" + Environment.NewLine;
-          }
-          return "MSG " + prefix + ":" + Environment.NewLine + "  Name: '" + Name + "', Value: '" + Value + "', Attributes: " + Environment.NewLine + attributes;
+            var attributes = "";
+            foreach (var serviceMessageAttr in Attributes)
+            {
+                attributes += "   { " + serviceMessageAttr.Name + ": " + serviceMessageAttr.Value + " }" +
+                              Environment.NewLine;
+            }
+
+            return "MSG " + prefix + ":" + Environment.NewLine + "  Name: '" + Name + "', Value: '" + Value +
+                   "', Attributes: " + Environment.NewLine + attributes;
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -87,8 +90,8 @@ namespace NUnit.Engine.Listeners
             public const string TestFailed = "testFailed";
             public const string TestIgnored = "testIgnored";
             public const string Message = "message";
-            public const string PublishArtifacts  = "publishArtifacts";
+            public const string PublishArtifacts = "publishArtifacts";
             public const string TestMetadata = "testMetadata";
         }
-    }    
+    }
 }

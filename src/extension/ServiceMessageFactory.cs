@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.Specialized;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
@@ -18,8 +17,9 @@
         private const string TcParseServiceMessagesInside = "tc:parseServiceMessagesInside";
         private static readonly IEnumerable<ServiceMessage> EmptyServiceMessages = new ServiceMessage[0];
         private static readonly Regex AttachmentDescriptionRegex = new Regex("(.*)=>(.+)", RegexOptions.Compiled);
-        
-        public ServiceMessageFactory(ITeamCityInfo teamCityInfo, ISuiteNameReplacer suiteNameReplacer, TextWriter outWriter)
+
+        public ServiceMessageFactory(ITeamCityInfo teamCityInfo, ISuiteNameReplacer suiteNameReplacer,
+            TextWriter outWriter)
         {
             _teamCityInfo = teamCityInfo;
             _suiteNameReplacer = suiteNameReplacer;
@@ -75,6 +75,7 @@
                 {
                     yield return message;
                 }
+
                 foreach (var message in TestProperties(eventId, testEvent))
                 {
                     yield return message;
@@ -161,7 +162,8 @@
             var durationStr = testFinishedEvent.GetAttribute(ServiceMessageAttr.Names.Duration);
             double durationDecimal;
             var durationMilliseconds = 0;
-            if (durationStr != null && double.TryParse(durationStr, NumberStyles.Any, CultureInfo.InvariantCulture, out durationDecimal))
+            if (durationStr != null && double.TryParse(durationStr, NumberStyles.Any, CultureInfo.InvariantCulture,
+                    out durationDecimal))
             {
                 durationMilliseconds = (int)(durationDecimal * 1000d);
             }
@@ -177,14 +179,14 @@
             }
 
             var res = new ServiceMessage(ServiceMessage.Names.TestFinished,
-              new ServiceMessageAttr(ServiceMessageAttr.Names.Name, eventId.FullName),
-              new ServiceMessageAttr(ServiceMessageAttr.Names.Duration, durationMilliseconds.ToString()),
-              new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Name, eventId.FullName),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Duration, durationMilliseconds.ToString()),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
 
             if (_teamCityInfo.AllowDiagnostics)
             {
-              _outWriter.WriteLine();
-              _outWriter.WriteLine(res.Dump("TestFinished"));
+                _outWriter.WriteLine();
+                _outWriter.WriteLine(res.Dump("TestFinished"));
             }
 
             yield return res;
@@ -207,8 +209,10 @@
 
             yield return new ServiceMessage(ServiceMessage.Names.TestFailed,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, eventId.FullName),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.Message, errorMessage == null ? string.Empty : errorMessage.InnerText),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.Details, stackTrace == null ? string.Empty : stackTrace.InnerText),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Message,
+                    errorMessage == null ? string.Empty : errorMessage.InnerText),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Details,
+                    stackTrace == null ? string.Empty : stackTrace.InnerText),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
 
             foreach (var message in TestFinished(eventId, testFailedEvent))
@@ -233,7 +237,8 @@
 
             yield return new ServiceMessage(ServiceMessage.Names.TestIgnored,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, eventId.FullName),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.Message, reason == null ? string.Empty : reason.InnerText),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Message,
+                    reason == null ? string.Empty : reason.InnerText),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
         }
 
@@ -329,7 +334,8 @@
                 yield break;
             }
 
-            foreach (var message in Output(eventId, ServiceMessage.Names.TestStdOut, "Assert.Pass message: " + reasonMessage))
+            foreach (var message in Output(eventId, ServiceMessage.Names.TestStdOut,
+                         "Assert.Pass message: " + reasonMessage))
             {
                 yield return message;
             }
@@ -352,17 +358,17 @@
                     var propertyValue = propertyElement.GetAttribute("value") ?? string.Empty;
                     var attrs = new List<ServiceMessageAttr>
                     {
-                      new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId),
-                      new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, eventId.FullName),
-                      new ServiceMessageAttr(ServiceMessageAttr.Names.Name, propertyName),
-                      new ServiceMessageAttr(ServiceMessageAttr.Names.Value, propertyValue)
+                        new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId),
+                        new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, eventId.FullName),
+                        new ServiceMessageAttr(ServiceMessageAttr.Names.Name, propertyName),
+                        new ServiceMessageAttr(ServiceMessageAttr.Names.Value, propertyValue)
                     };
                     var res = new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
 
                     if (_teamCityInfo.AllowDiagnostics)
                     {
-                      _outWriter.WriteLine();
-                      _outWriter.WriteLine(res.Dump("TestProperties"));
+                        _outWriter.WriteLine();
+                        _outWriter.WriteLine(res.Dump("TestProperties"));
                     }
 
                     yield return res;
@@ -440,7 +446,8 @@
                                 break;
                         }
 
-                        yield return new ServiceMessage(ServiceMessage.Names.PublishArtifacts, filePath + " => " + artifactDir);
+                        yield return new ServiceMessage(ServiceMessage.Names.PublishArtifacts,
+                            filePath + " => " + artifactDir);
 
                         var attrs = new List<ServiceMessageAttr>
                         {
