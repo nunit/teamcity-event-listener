@@ -1,7 +1,7 @@
 ﻿namespace NUnit.Engine.Listeners
 {
-  using System;
-  using System.Xml;
+    using System;
+    using System.Xml;
 
     public struct Event
     {
@@ -12,8 +12,10 @@
         public readonly string Type;
         public readonly string Id;
         public readonly string ParentId;
+
         // ReSharper disable once InconsistentNaming
         public readonly string TestId;
+
         // ReSharper disable once InconsistentNaming
         public readonly XmlNode TestEvent;
 
@@ -41,8 +43,9 @@
 
         public override string ToString()
         {
-            return string.Format("RootFlowId: {0}, MessageName: {1}, FullName: {2}, Id: {3}, ParentId: {4}, Type: {5}, TestEvent.OuterXml: {6}{7}", 
-              RootFlowId, MessageName, FullName, Id, ParentId, Type, Environment.NewLine, TestEvent.OuterXml);
+            return string.Format(
+                "RootFlowId: {0}, MessageName: {1}, FullName: {2}, Id: {3}, ParentId: {4}, Type: {5}, TestEvent.OuterXml: {6}{7}",
+                RootFlowId, MessageName, FullName, Id, ParentId, Type, Environment.NewLine, TestEvent.OuterXml);
         }
     }
 }
