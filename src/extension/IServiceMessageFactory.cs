@@ -10,7 +10,7 @@
         IEnumerable<ServiceMessage> SuiteStarted(EventId eventId, Event testEvent);
 
         IEnumerable<ServiceMessage> SuiteFinished(EventId eventId, Event testEvent);
-
+    
         IEnumerable<ServiceMessage> FlowStarted(string flowId, string parentFlowId);
 
         IEnumerable<ServiceMessage> FlowFinished(string flowId);

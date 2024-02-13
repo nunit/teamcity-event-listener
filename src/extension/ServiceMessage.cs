@@ -37,12 +37,9 @@ namespace NUnit.Engine.Listeners
         {
         }
 
-        public ServiceMessage(string name, IList<ServiceMessageAttr> attributes)
-            : this()
+        public ServiceMessage(string name, IList<ServiceMessageAttr> attributes) : this()
         {
-            // ReSharper disable once UseNameofExpression
             if (name == null) throw new ArgumentNullException("name");
-            // ReSharper disable once UseNameofExpression
             if (attributes == null) throw new ArgumentNullException("attributes");
 
             Name = name;
@@ -50,12 +47,9 @@ namespace NUnit.Engine.Listeners
             Attributes = new ReadOnlyCollection<ServiceMessageAttr>(attributes);
         }
 
-        public ServiceMessage(string name, string value)
-            : this()
+        public ServiceMessage(string name, string value) : this()
         {
-            // ReSharper disable once UseNameofExpression
             if (name == null) throw new ArgumentNullException("name");
-            // ReSharper disable once UseNameofExpression
             if (value == null) throw new ArgumentNullException("value");
 
             Name = name;
@@ -68,6 +62,19 @@ namespace NUnit.Engine.Listeners
         public string Value { get; private set; }
 
         public IEnumerable<ServiceMessageAttr> Attributes { get; private set; }
+
+        public string Dump(string prefix)
+        {
+            var attributes = "";
+            foreach (var serviceMessageAttr in Attributes)
+            {
+                attributes += "   { " + serviceMessageAttr.Name + ": " + serviceMessageAttr.Value + " }" +
+                              Environment.NewLine;
+            }
+
+            return "MSG " + prefix + ":" + Environment.NewLine + "  Name: '" + Name + "', Value: '" + Value +
+                   "', Attributes: " + Environment.NewLine + attributes;
+        }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         public static class Names
@@ -83,8 +90,8 @@ namespace NUnit.Engine.Listeners
             public const string TestFailed = "testFailed";
             public const string TestIgnored = "testIgnored";
             public const string Message = "message";
-            public const string PublishArtifacts  = "publishArtifacts";
+            public const string PublishArtifacts = "publishArtifacts";
             public const string TestMetadata = "testMetadata";
         }
-    }    
+    }
 }

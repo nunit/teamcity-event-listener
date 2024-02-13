@@ -1,41 +1,35 @@
 ﻿namespace NUnit.Engine.Listeners
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.IO;
-    using System.Collections.Generic;
     using System.Text;
 
-    [SuppressMessage("ReSharper", "UseNameofExpression")]
     public class ServiceMessageWriter : IServiceMessageWriter
     {
         private const string Header = "##teamcity[";
         private const string Footer = "]";
 
-        public void Write(TextWriter writer, IEnumerable<ServiceMessage> serviceMessages)
+        public void Write(TextWriter writer, ServiceMessage serviceMessage)
         {
             if (writer == null) throw new ArgumentNullException("writer");
-            foreach (var serviceMessage in serviceMessages)
-            {
-                writer.Write(Header);
-                writer.Write(serviceMessage.Name);
+            writer.Write(Header);
+            writer.Write(serviceMessage.Name);
 
-                if (!string.IsNullOrEmpty(serviceMessage.Value))
+            if (!string.IsNullOrEmpty(serviceMessage.Value))
+            {
+                writer.Write(' ');
+                Write(writer, serviceMessage.Value);
+            }
+            else
+            {
+                foreach (var attribute in serviceMessage.Attributes)
                 {
                     writer.Write(' ');
-                    Write(writer, serviceMessage.Value);
+                    Write(writer, attribute);
                 }
-                else
-                {
-                    foreach (var attribute in serviceMessage.Attributes)
-                    {
-                        writer.Write(' ');
-                        Write(writer, attribute);
-                    }
-                }
-
-                writer.WriteLine(Footer);
             }
+
+            writer.WriteLine(Footer);
         }
 
         private static void Write(TextWriter writer, ServiceMessageAttr attribute)

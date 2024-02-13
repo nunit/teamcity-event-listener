@@ -45,10 +45,12 @@ namespace NUnit.Engine.Listeners
         private readonly ITeamCityInfo _teamCityInfo;
         private readonly object _lockObject = new object();
         private readonly TextWriter _outWriter;
-        private string _rootFlowId = string.Empty;        
+        private string _rootFlowId = string.Empty;
 
         // ReSharper disable once UnusedMember.Global
-        public TeamCityEventListener() : this(Console.Out, new TeamCityInfo()) { }
+        public TeamCityEventListener() : this(Console.Out, new TeamCityInfo())
+        {
+        }
 
         public TeamCityEventListener(TextWriter outWriter, ITeamCityInfo teamCityInfo)
         {
@@ -60,28 +62,20 @@ namespace NUnit.Engine.Listeners
 
             _serviceMessageWriter = new ServiceMessageWriter();
             var serviceMessageFactory = new ServiceMessageFactory(_teamCityInfo, new SuiteNameReplacer(_teamCityInfo));
-            var hierarchy =  new Hierarchy();
+            var hierarchy = new Hierarchy();
             _eventConverter2 = new EventConverter2(serviceMessageFactory, hierarchy, _statistics, _teamCityInfo);
-            _eventConverter3 = new EventConverter3(serviceMessageFactory, hierarchy, _statistics, _teamCityInfo);
-            RootFlowId = _teamCityInfo.RootFlowId;            
+            _eventConverter3 =
+                new EventConverter3(serviceMessageFactory, hierarchy, _statistics, _teamCityInfo);
+            RootFlowId = _teamCityInfo.RootFlowId;
         }
 
         public string RootFlowId
         {
-            set
-            {
-                _rootFlowId = value ?? string.Empty;
-            }
+            set { _rootFlowId = value ?? string.Empty; }
         }
 
         public void OnTestEvent(string report)
         {
-            if (_teamCityInfo.AllowDiagnostics)
-            {
-                _outWriter.WriteLine();
-                _outWriter.WriteLine("PID_" + _teamCityInfo.ProcessId + " !!!!{ " + report + " }!!!!");
-            }
-
             var doc = new XmlDocument();
             doc.LoadXml(report);
 
@@ -97,7 +91,7 @@ namespace NUnit.Engine.Listeners
             {
                 return;
             }
-            
+
             var fullName = xmlEvent.GetAttribute("fullname");
             if (string.IsNullOrEmpty(fullName))
             {
@@ -114,13 +108,16 @@ namespace NUnit.Engine.Listeners
                 name = fullName;
             }
 
+            var type = xmlEvent.GetAttribute("type");
+
             var id = xmlEvent.GetAttribute("id") ?? string.Empty;
             var parentId = xmlEvent.GetAttribute("parentId");
             var testId = xmlEvent.GetAttribute("testid");
 
             var isNUnit3 = parentId != null;
             var eventConverter = isNUnit3 ? _eventConverter3 : _eventConverter2;
-            var testEvent = new Event(_rootFlowId, messageName.ToLowerInvariant(), fullName, name, GetId(_rootFlowId, id), GetId(_rootFlowId, parentId), GetId(_rootFlowId, testId), xmlEvent);
+            var testEvent = new Event(_rootFlowId, messageName.ToLowerInvariant(), fullName, name,
+                GetId(_rootFlowId, id), GetId(_rootFlowId, parentId), GetId(_rootFlowId, testId), type, xmlEvent);
             lock (_lockObject)
             {
                 var sb = new StringBuilder();
@@ -128,7 +125,16 @@ namespace NUnit.Engine.Listeners
                 {
                     foreach (var messages in eventConverter.Convert(testEvent))
                     {
-                        _serviceMessageWriter.Write(writer, messages);
+                        foreach (var message in messages)
+                        {
+                            if (_teamCityInfo.AllowDiagnostics)
+                            {
+                                _outWriter.WriteLine("Sending service message:");
+                                _outWriter.WriteLine(message.Dump("OnTestEvent"));
+                            }
+
+                            _serviceMessageWriter.Write(writer, message);
+                        }
                     }
                 }
 
@@ -137,7 +143,8 @@ namespace NUnit.Engine.Listeners
 
             if (_teamCityInfo.AllowDiagnostics)
             {
-                _outWriter.WriteLine("@@ NUnit3: " + isNUnit3 + ", " + _statistics + ", " + testEvent);
+                _outWriter.WriteLine("TeamCityEventListener.RegisterMessage");
+                _outWriter.WriteLine(testEvent);
             }
         }
 

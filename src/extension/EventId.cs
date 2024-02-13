@@ -5,7 +5,7 @@
         public readonly string FlowId;
         public readonly string FullName;
 
-        public EventId(ITeamCityInfo tamCityInfo, string flowId, string fullName)
+        public EventId(ITeamCityInfo teamCityInfo, string flowId, string fullName)
         {
             FlowId = flowId;
             // TeamCity extracts the name of assembly from the test name
@@ -21,7 +21,7 @@
             // assembly name = "abc.dll"
             // test name = "text1"
 
-            FullName = fullName.Replace(":", tamCityInfo.ColonReplacement);
+            FullName = fullName.Replace(":", teamCityInfo.ColonReplacement);
         }
     }
 }

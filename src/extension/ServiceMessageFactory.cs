@@ -16,7 +16,7 @@
         private const string TcParseServiceMessagesInside = "tc:parseServiceMessagesInside";
         private static readonly IEnumerable<ServiceMessage> EmptyServiceMessages = new ServiceMessage[0];
         private static readonly Regex AttachmentDescriptionRegex = new Regex("(.*)=>(.+)", RegexOptions.Compiled);
-        
+
         public ServiceMessageFactory(ITeamCityInfo teamCityInfo, ISuiteNameReplacer suiteNameReplacer)
         {
             _teamCityInfo = teamCityInfo;
@@ -69,6 +69,11 @@
             if (_teamCityInfo.MetadataEnabled)
             {
                 foreach (var message in Attachments(eventId, testEvent))
+                {
+                    yield return message;
+                }
+
+                foreach (var message in TestProperties(eventId, testEvent))
                 {
                     yield return message;
                 }
@@ -154,7 +159,8 @@
             var durationStr = testFinishedEvent.GetAttribute(ServiceMessageAttr.Names.Duration);
             double durationDecimal;
             var durationMilliseconds = 0;
-            if (durationStr != null && double.TryParse(durationStr, NumberStyles.Any, CultureInfo.InvariantCulture, out durationDecimal))
+            if (durationStr != null && double.TryParse(durationStr, NumberStyles.Any, CultureInfo.InvariantCulture,
+                    out durationDecimal))
             {
                 durationMilliseconds = (int)(durationDecimal * 1000d);
             }
@@ -192,8 +198,10 @@
 
             yield return new ServiceMessage(ServiceMessage.Names.TestFailed,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, eventId.FullName),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.Message, errorMessage == null ? string.Empty : errorMessage.InnerText),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.Details, stackTrace == null ? string.Empty : stackTrace.InnerText),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Message,
+                    errorMessage == null ? string.Empty : errorMessage.InnerText),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Details,
+                    stackTrace == null ? string.Empty : stackTrace.InnerText),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
 
             foreach (var message in TestFinished(eventId, testFailedEvent))
@@ -218,7 +226,8 @@
 
             yield return new ServiceMessage(ServiceMessage.Names.TestIgnored,
                 new ServiceMessageAttr(ServiceMessageAttr.Names.Name, eventId.FullName),
-                new ServiceMessageAttr(ServiceMessageAttr.Names.Message, reason == null ? string.Empty : reason.InnerText),
+                new ServiceMessageAttr(ServiceMessageAttr.Names.Message,
+                    reason == null ? string.Empty : reason.InnerText),
                 new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId));
         }
 
@@ -314,9 +323,37 @@
                 yield break;
             }
 
-            foreach (var message in Output(eventId, ServiceMessage.Names.TestStdOut, "Assert.Pass message: " + reasonMessage))
+            foreach (var message in Output(eventId, ServiceMessage.Names.TestStdOut,
+                         "Assert.Pass message: " + reasonMessage))
             {
                 yield return message;
+            }
+        }
+
+        private IEnumerable<ServiceMessage> TestProperties(EventId eventId, XmlNode testEvent)
+        {
+            var properties = testEvent.SelectNodes("properties/property");
+            if (properties != null)
+            {
+                foreach (var property in properties)
+                {
+                    var propertyElement = property as XmlNode;
+                    if (propertyElement == null)
+                    {
+                        continue;
+                    }
+
+                    var propertyName = propertyElement.GetAttribute("name") ?? string.Empty;
+                    var propertyValue = propertyElement.GetAttribute("value") ?? string.Empty;
+                    var attrs = new List<ServiceMessageAttr>
+                    {
+                        new ServiceMessageAttr(ServiceMessageAttr.Names.FlowId, eventId.FlowId),
+                        new ServiceMessageAttr(ServiceMessageAttr.Names.TestName, eventId.FullName),
+                        new ServiceMessageAttr(ServiceMessageAttr.Names.Name, propertyName),
+                        new ServiceMessageAttr(ServiceMessageAttr.Names.Value, propertyValue)
+                    };
+                    yield return new ServiceMessage(ServiceMessage.Names.TestMetadata, attrs);
+                }
             }
         }
 
@@ -390,7 +427,8 @@
                                 break;
                         }
 
-                        yield return new ServiceMessage(ServiceMessage.Names.PublishArtifacts, filePath + " => " + artifactDir);
+                        yield return new ServiceMessage(ServiceMessage.Names.PublishArtifacts,
+                            filePath + " => " + artifactDir);
 
                         var attrs = new List<ServiceMessageAttr>
                         {
