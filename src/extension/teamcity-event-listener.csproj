@@ -9,7 +9,7 @@
     <Version>1.0.8.0</Version>
     <Copyright>Copyright © 2016</Copyright>
     <Description>NUnit Engine extension that helps integration with TeamCity.</Description>
-    <TargetFrameworks>net20;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net4.6.2;netstandard2.0</TargetFrameworks>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NUnit.Engine.Api" Version="3.11.1" PrivateAssets="all" />
+    <PackageReference Include="NUnit.Engine.Api" Version="3.18.3" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>

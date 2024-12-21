@@ -1,8 +1,8 @@
 # base image
-image: Visual Studio 2019
+image: Visual Studio 2022
 
-build_script: 
-  - ps: .\build.ps1 -Target "Appveyor"
+build_script:
+  - ps: .\build.ps1 --target=Appveyor --configuration=Release
 
 # disable built-in tests.
 test: off

@@ -171,7 +171,7 @@ Task("Build")
                 .SetVerbosity(Verbosity.Minimal)
                 .SetNodeReuse(false)
                 .SetPlatformTarget(PlatformTarget.MSIL)
-                .WithRestore()                
+                .WithRestore()
             );
         }
         else
@@ -262,7 +262,7 @@ Task("IntegrationTest")
             EnsureDirectoryExists(TEST_NUNIT_DIR);
             EnsureDirectoryExists(TEST_PACKAGES_DIR);
             CleanDirectories(TEST_NUNIT_DIR + "**/*.*");
-            CleanDirectories(TEST_PACKAGES_DIR + "**/*.*");		
+            CleanDirectories(TEST_PACKAGES_DIR + "**/*.*");
 
             Information("Restoring basic packages to test");
             NuGetInstall(new [] {"NUnit" }, new NuGetInstallSettings()
@@ -461,7 +461,7 @@ Task("Appveyor")
 
 Task("CheckIntegration")
     .IsDependentOn("Build")
-    .IsDependentOn("Test")	
+    .IsDependentOn("Test")
     .IsDependentOn("IntegrationTest")
     .IsDependentOn("Package");
 

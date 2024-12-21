@@ -1,73 +1,12 @@
-#!/bin/bash
-###############################################################
-# This is the Cake bootstrapper script that is responsible for
-# downloading Cake and all specified tools from NuGet.
-###############################################################
+#!/usr/bin/env bash
+set -euox pipefail
 
-# Define directories.
-SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-TOOLS_DIR=$SCRIPT_DIR/tools
-NUGET_EXE=$TOOLS_DIR/nuget.exe
-CAKE_EXE=$TOOLS_DIR/Cake/Cake.exe
-NUNIT_CONSOLE_EXE=$TOOLS_DIR/NUnit.ConsoleRunner/tools/nunit3-console.exe
-NUNIT_AGENT_EXE=$TOOLS_DIR/NUnit.ConsoleRunner/tools/nunit-agent.exe
-NUNIT_AGENT_X86_EXE=$TOOLS_DIR/NUnit.ConsoleRunner/tools/nunit-agent-x86.exe
+cd "$(dirname "${BASH_SOURCE[0]}")"
 
-# Define default arguments.
-SCRIPT="build.cake"
-TARGET="Default"
-CONFIGURATION="Release"
-VERBOSITY="verbose"
-DRYRUN=false
-SHOW_VERSION=false
+export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export DOTNET_NOLOGO=1
 
-# Parse arguments.
-for i in "$@"; do
-    case $1 in
-        -s|--script) SCRIPT="$2"; shift ;;
-        -t|--target) TARGET="$2"; shift ;;
-        -c|--configuration) CONFIGURATION="$2"; shift ;;
-        -v|--verbosity) VERBOSITY="$2"; shift ;;
-        -d|--dryrun) DRYRUN=true ;;
-        --version) SHOW_VERSION=true ;;
-    esac
-    shift
-done
+dotnet tool restore
 
-chmod +x $NUNIT_CONSOLE_EXE
-chmod +x $NUNIT_AGENT_EXE
-chmod +x $NUNIT_AGENT_X86_EXE
-
-# Download NuGet if it does not exist.
-if [ ! -f $NUGET_EXE ]; then
-    echo "Downloading NuGet..."
-    curl -Lsfo $NUGET_EXE https://dist.nuget.org/win-x86-commandline/v4.1.0/nuget.exe
-	chmod +x $NUGET_EXE
-    if [ $? -ne 0 ]; then
-        echo "An error occured while downloading nuget.exe."
-        exit 1
-    fi
-fi
-
-# Restore tools from NuGet.
-pushd $TOOLS_DIR >/dev/null
-mono $NUGET_EXE install -ExcludeVersion
-popd >/dev/null
-
-# Make sure that Cake has been installed.
-if [ ! -f $CAKE_EXE ]; then
-    echo "Could not find Cake.exe."
-    exit 1
-fi
-
-# Start Cake
-if $SHOW_VERSION; then
-    mono $CAKE_EXE -version
-elif $DRYRUN; then
-    mono $CAKE_EXE $SCRIPT -verbosity=$VERBOSITY -configuration=$CONFIGURATION -target=$TARGET -dryrun
-else
-    mono $CAKE_EXE $SCRIPT -verbosity=$VERBOSITY -configuration=$CONFIGURATION -target=$TARGET
-fi
-
-exit $?
-
+dotnet cake "$@"

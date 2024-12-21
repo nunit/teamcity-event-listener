@@ -6,7 +6,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>NUnit.Engine.Listeners</RootNamespace>
     <AssemblyName>teamcity-event-listener.tests</AssemblyName>
-    <TargetFramework>net20</TargetFramework>
+    <TargetFramework>net4.6.2</TargetFramework>
   </PropertyGroup>
   
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -35,8 +35,8 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.11.0" />
-    <PackageReference Include="NUnit.Engine.Api" Version="3.11.1" />
+    <PackageReference Include="NUnit" Version="3.14.0" />
+    <PackageReference Include="NUnit.Engine.Api" Version="3.18.3" />
   </ItemGroup>
 
 </Project>
